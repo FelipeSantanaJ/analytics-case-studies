@@ -1,0 +1,165 @@
+table dim_member
+	lineageTag: eb8de6da-2d10-5ca9-b1bc-d647773706d4
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column enrollment_date_key
+		dataType: int64
+		isHidden
+		lineageTag: e5107b47-6c80-575a-bba6-3a123b63339b
+		summarizeBy: none
+		sourceColumn: enrollment_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column enrollment_cohort_month
+		dataType: string
+		lineageTag: e6d6fc36-2ed1-5850-9990-cdbab56132c6
+		summarizeBy: none
+		sourceColumn: enrollment_cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column enrollment_channel
+		dataType: string
+		lineageTag: 82e7d11d-981f-5e12-9843-99928f262627
+		summarizeBy: none
+		sourceColumn: enrollment_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_city
+		dataType: string
+		lineageTag: 2e444326-4f54-58ad-ad79-1e8d249fad06
+		summarizeBy: none
+		sourceColumn: home_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_region
+		dataType: string
+		lineageTag: 72cffaf6-f1c8-5be5-9070-fd22bfda3173
+		summarizeBy: none
+		sourceColumn: home_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_cobrand_card
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 20403ee5-5654-5561-bb34-2f759b340fd9
+		summarizeBy: none
+		sourceColumn: has_cobrand_card
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_tier_key
+		dataType: int64
+		isHidden
+		lineageTag: 655fff5f-4436-574c-9672-be8cc1373197
+		summarizeBy: none
+		sourceColumn: current_tier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_tier_name
+		dataType: string
+		lineageTag: a9a9752f-29ea-5daa-8236-2e8847114fd9
+		summarizeBy: none
+		sourceColumn: current_tier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column crm_present
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 463849b7-51da-5ee2-bdcc-b3a6db936a54
+		summarizeBy: none
+		sourceColumn: crm_present
+
+		annotation SummarizationSetBy = Automatic
+
+	column crm_lifecycle_stage
+		dataType: string
+		lineageTag: 4a4abc49-2f7f-51bf-8ea2-43ab9dd68b7b
+		summarizeBy: none
+		sourceColumn: crm_lifecycle_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_band
+		dataType: string
+		lineageTag: 942cdc67-290c-58f8-980c-f97fe9209296
+		summarizeBy: none
+		sourceColumn: age_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_steady_state_cohort
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 663433bd-9761-546f-b6ef-795bd4f6e3ff
+		summarizeBy: none
+		sourceColumn: is_steady_state_cohort
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_test_account
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d13838f9-3c16-5d28-bdb2-06713832db04
+		summarizeBy: none
+		sourceColumn: is_test_account
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_arm
+		dataType: string
+		lineageTag: dcae1a2c-1be0-5596-a859-a7b9137945bc
+		summarizeBy: none
+		sourceColumn: experiment_arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_stratum
+		dataType: string
+		lineageTag: 5c44e959-b42f-58b3-ad71-b1240bd4aa1e
+		summarizeBy: none
+		sourceColumn: experiment_stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_experiment_subject
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 82cef803-1447-55c8-90ed-979659a4d0c1
+		summarizeBy: none
+		sourceColumn: is_experiment_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_member = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_member.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

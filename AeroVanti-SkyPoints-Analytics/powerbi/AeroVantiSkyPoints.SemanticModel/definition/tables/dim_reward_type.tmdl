@@ -1,0 +1,82 @@
+table dim_reward_type
+	lineageTag: 5e067c0c-9758-5bce-b2df-c4aa87b6e7c1
+
+	column reward_type_key
+		dataType: int64
+		isHidden
+		lineageTag: 77be8dd0-5561-575e-885e-94b3b632fa53
+		summarizeBy: none
+		sourceColumn: reward_type_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column reward_name
+		dataType: string
+		lineageTag: dc5a243a-5589-5474-b53f-b5701518fc7d
+		summarizeBy: none
+		sourceColumn: reward_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column reward_category
+		dataType: string
+		lineageTag: aa2cdb14-d89b-5b81-81e9-b9b6fb21351e
+		summarizeBy: none
+		sourceColumn: reward_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_price
+		dataType: int64
+		formatString: 0
+		lineageTag: ecef0b4e-2e0e-54de-875a-95f16a39cf89
+		summarizeBy: none
+		sourceColumn: points_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_per_point_brl
+		dataType: double
+		lineageTag: 0e261228-628b-56d7-815a-a3ef282b985f
+		summarizeBy: sum
+		sourceColumn: value_per_point_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_cost_catalog
+		dataType: boolean
+		lineageTag: 010ba38b-8308-5fbc-9848-2568e16746f4
+		summarizeBy: none
+		sourceColumn: is_low_cost_catalog
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_from_date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5d976875-f172-5fa4-896d-cece3e1327a0
+		summarizeBy: none
+		sourceColumn: available_from_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_from
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: aa9b301a-1d0e-5665-b6e8-d6a4b65f8805
+		summarizeBy: none
+		sourceColumn: available_from
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_reward_type = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_reward_type.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

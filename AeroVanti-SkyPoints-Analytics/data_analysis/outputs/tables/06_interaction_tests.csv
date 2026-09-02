@@ -1,0 +1,2 @@
+lr_chi2,lr_df,lr_p,lin_coef,lin_p,interpretation
+16.983709008056394,3.0,0.0007122156351571581,-0.17166669374806112,7.791757057874685e-05,"Effect is concentrated in the lower tiers: Blue is clearly positive, Silver marginal, Gold/Platinum not distinguishable from zero. Formal interaction is significant, but the directional linear-in-rank term supports a decreasing gradient."

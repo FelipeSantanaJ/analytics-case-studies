@@ -1,0 +1,7 @@
+expression pDataFolder = "C:/PATH/TO/REPO/AeroVanti-SkyPoints-Analytics/data/curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 16af2b9f-fd81-5c4e-9320-a40491e63399
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

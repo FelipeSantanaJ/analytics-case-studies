@@ -1,0 +1,210 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "04funnel-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-ever-redeemed-share-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Ever-Redeemed Share",
+    "fields": {
+      "Values": [
+        "_Measures.Ever-Redeemed Share %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-quarterly-redemption-rate-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Quarterly Redemption Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Quarterly Redemption Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-quarterly-redemption-rate-d",
+    "x": 231,
+    "y": 208,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Quarterly Redemption Rate vs Target"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-redeeming-members-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Redeeming Members",
+    "fields": {
+      "Values": [
+        "_Measures.Redeeming Members"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-account-lapse-rate-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Account Lapse Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Account Lapse Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-engagement-lapse-rate-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Engagement Lapse Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Engagement Lapse Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04funnel-reactivations-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Reactivations",
+    "fields": {
+      "Values": [
+        "_Measures.Reactivations"
+      ]
+    }
+  },
+  {
+    "visual_type": "funnel",
+    "name": "redeem_funnel",
+    "x": 24,
+    "y": 236,
+    "width": 506,
+    "height": 232,
+    "title": "Redemption funnel (members)",
+    "fields": {
+      "Category": "Funnel Stage.stage",
+      "Y": [
+        "_Measures.Funnel Value"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "redeemed_by_category",
+    "x": 542,
+    "y": 236,
+    "width": 714,
+    "height": 232,
+    "title": "SkyPoints redeemed by reward category",
+    "fields": {
+      "Category": "dim_reward_type.reward_category",
+      "Y": [
+        "_Measures.SkyPoints Redeemed"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "redemption_vs_target",
+    "x": 24,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Quarterly redemption rate vs plan",
+    "fields": {
+      "Category": "dim_month.month_name",
+      "Y": [
+        "_Measures.Quarterly Redemption Rate %",
+        "_Measures.Redemption Rate Target"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "eng_lapse_by_tier",
+    "x": 646,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Engagement lapse rate by tier",
+    "fields": {
+      "Category": "dim_tier.tier_name",
+      "Y": [
+        "_Measures.Engagement Lapse Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04funnel-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 300,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_month.month_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04funnel-sl-arm",
+    "x": 874,
+    "y": 126,
+    "width": 200,
+    "height": 34,
+    "title": "Experiment arm",
+    "fields": {
+      "Values": [
+        "dim_experiment_arm.arm_key"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04funnel-sl-stratum",
+    "x": 1086,
+    "y": 126,
+    "width": 170,
+    "height": 34,
+    "title": "Tier stratum",
+    "fields": {
+      "Values": [
+        "dim_experiment_stratum.stratum"
+      ]
+    }
+  }
+]

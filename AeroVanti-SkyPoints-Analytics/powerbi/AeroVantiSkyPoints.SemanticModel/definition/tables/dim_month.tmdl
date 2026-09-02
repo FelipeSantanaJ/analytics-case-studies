@@ -1,0 +1,55 @@
+table dim_month
+	lineageTag: 611c6b4a-5da7-5d1c-b3bc-f7d15905db6f
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 3b703e41-3e50-59ef-af37-99b04e560782
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_sort
+		dataType: int64
+		lineageTag: 3668d116-58c1-5f8b-a455-7ba8e04cfc36
+		summarizeBy: none
+		sourceColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 380339d3-aba8-5e39-a3e4-64f193d9589c
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: a275d8b4-9cef-5914-81d3-0e264b77036d
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_month = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [month_key=Int64.Type, month_name=text, month_sort=Int64.Type, year=Int64.Type, quarter=Int64.Type], {{202409, "Sep 2024", 24297, 2024, 3}, {202410, "Oct 2024", 24298, 2024, 4}, {202411, "Nov 2024", 24299, 2024, 4}, {202412, "Dec 2024", 24300, 2024, 4}, {202501, "Jan 2025", 24301, 2025, 1}, {202502, "Feb 2025", 24302, 2025, 1}, {202503, "Mar 2025", 24303, 2025, 1}, {202504, "Apr 2025", 24304, 2025, 2}, {202505, "May 2025", 24305, 2025, 2}, {202506, "Jun 2025", 24306, 2025, 2}, {202507, "Jul 2025", 24307, 2025, 3}, {202508, "Aug 2025", 24308, 2025, 3}, {202509, "Sep 2025", 24309, 2025, 3}, {202510, "Oct 2025", 24310, 2025, 4}, {202511, "Nov 2025", 24311, 2025, 4}, {202512, "Dec 2025", 24312, 2025, 4}, {202601, "Jan 2026", 24313, 2026, 1}, {202602, "Feb 2026", 24314, 2026, 1}, {202603, "Mar 2026", 24315, 2026, 1}, {202604, "Apr 2026", 24316, 2026, 2}, {202605, "May 2026", 24317, 2026, 2}, {202606, "Jun 2026", 24318, 2026, 2}, {202607, "Jul 2026", 24319, 2026, 3}, {202608, "Aug 2026", 24320, 2026, 3}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,49 @@
+{
+  "name": "AeroVanti SkyPoints",
+  "dataColors": [
+    "#0B5FA5",
+    "#5C8CB8",
+    "#E08A1E",
+    "#3E9C93",
+    "#4C6EA6",
+    "#6B7280",
+    "#C77CA6",
+    "#4C6EA6"
+  ],
+  "foreground": "#33404B",
+  "foregroundNeutralSecondary": "#6C7A87",
+  "foregroundNeutralTertiary": "#9FB0BD",
+  "background": "#FFFFFF",
+  "backgroundLight": "#EEF3F8",
+  "backgroundNeutral": "#E2E8EF",
+  "tableAccent": "#0B5FA5",
+  "good": "#2E7D5B",
+  "neutral": "#8A8A99",
+  "bad": "#C0453B",
+  "maximum": "#2E7D5B",
+  "center": "#EAD6A8",
+  "minimum": "#C0453B",
+  "hyperlink": "#0B5FA5",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 15,
+      "color": "#12212E"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#12212E"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 9,
+      "color": "#33404B"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 30,
+      "color": "#12212E"
+    }
+  }
+}

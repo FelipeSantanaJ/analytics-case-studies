@@ -1,0 +1,54 @@
+table dim_route
+	lineageTag: 1083c1da-f4e5-510b-92c3-e74148d09222
+
+	column route_key
+		dataType: int64
+		isHidden
+		lineageTag: 909caaac-3f9d-5736-8861-91bf8f40e029
+		summarizeBy: none
+		sourceColumn: route_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column origin
+		dataType: string
+		lineageTag: 15b71a24-d00f-521d-9652-342dc0e71012
+		summarizeBy: none
+		sourceColumn: origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column dest
+		dataType: string
+		lineageTag: a5f62fb9-8d4d-573b-aa4b-38791da65025
+		summarizeBy: none
+		sourceColumn: dest
+
+		annotation SummarizationSetBy = Automatic
+
+	column haul_band
+		dataType: string
+		lineageTag: 5b93ff59-b871-5f53-81fb-9a6750d453c9
+		summarizeBy: none
+		sourceColumn: haul_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_pair
+		dataType: string
+		lineageTag: cb688560-c56f-538a-8f7c-01c2b6f4f950
+		summarizeBy: none
+		sourceColumn: region_pair
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_route = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_route.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

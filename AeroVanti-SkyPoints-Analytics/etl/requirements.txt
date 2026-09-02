@@ -1,0 +1,15 @@
+# AeroVanti SkyPoints — ETL pipeline dependencies
+# Python 3.11+
+
+pandas>=2.1
+numpy>=1.26
+pyarrow>=14.0
+python-dateutil>=2.8
+openpyxl>=3.1
+Faker>=24.0
+ftfy>=6.1
+duckdb>=0.10
+
+# Phase 10 analysis only (not imported by the ETL) — kept here for a single install:
+scipy>=1.11
+statsmodels>=0.14

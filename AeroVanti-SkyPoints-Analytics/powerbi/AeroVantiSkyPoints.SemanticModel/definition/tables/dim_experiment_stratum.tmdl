@@ -1,0 +1,21 @@
+table dim_experiment_stratum
+	lineageTag: 698aa7c7-ef61-5cee-ab34-27ea68904f26
+
+	column stratum
+		dataType: string
+		lineageTag: 02f32668-e41c-53eb-91fc-a16e4c019f16
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_experiment_stratum = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_experiment_stratum.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

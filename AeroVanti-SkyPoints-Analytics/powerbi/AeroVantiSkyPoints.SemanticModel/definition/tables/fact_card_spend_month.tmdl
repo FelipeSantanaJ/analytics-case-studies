@@ -1,0 +1,55 @@
+table fact_card_spend_month
+	lineageTag: b6eccbcd-2033-58f9-a2e3-1e9b742bfd97
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_spend_brl
+		dataType: double
+		lineageTag: 79db1d04-9870-508e-8abe-b1d53ba10407
+		summarizeBy: sum
+		sourceColumn: card_spend_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column skypoints_earned
+		dataType: int64
+		lineageTag: 361e2715-7da9-5969-bc67-784d3634a3f7
+		summarizeBy: sum
+		sourceColumn: skypoints_earned
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_card_active
+		dataType: boolean
+		lineageTag: 938b83a3-d358-55b9-b7e2-21ae32e68273
+		summarizeBy: none
+		sourceColumn: is_card_active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_card_spend_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_card_spend_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

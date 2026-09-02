@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "AeroVanti_SkyPoints5182934101008911.json",
+      "reportVersionAtImport": {
+        "visual": "2.10.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "AeroVanti_SkyPoints5182934101008911.json",
+          "path": "AeroVanti_SkyPoints5182934101008911.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "bg_01_executive_17883747585116992.png",
+          "path": "bg_01_executive_17883747585116992.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_02_tiers_17883747616193704.png",
+          "path": "bg_02_tiers_17883747616193704.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_03_experiment_17883747644161754.png",
+          "path": "bg_03_experiment_17883747644161754.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_04_funnel_17883747676812134.png",
+          "path": "bg_04_funnel_17883747676812134.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "useEnhancedTooltips": false
+  }
+}

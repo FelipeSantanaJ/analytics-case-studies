@@ -1,0 +1,654 @@
+{
+  "report_name": "AeroVantiSkyPoints",
+  "canvas_width": 1280,
+  "kpi_frame": {
+    "x": 16,
+    "y": 120,
+    "w": 1248,
+    "h": 116,
+    "radius": 18
+  },
+  "slicers": [
+    {
+      "name": "sl-period",
+      "field": "dim_month.month_name",
+      "x": 24,
+      "y": 126,
+      "w": 300,
+      "h": 34,
+      "title": "Analysis period"
+    },
+    {
+      "name": "sl-arm",
+      "field": "dim_experiment_arm.arm_key",
+      "x": 874,
+      "y": 126,
+      "w": 200,
+      "h": 34,
+      "title": "Experiment arm"
+    },
+    {
+      "name": "sl-stratum",
+      "field": "dim_experiment_stratum.stratum",
+      "x": 1086,
+      "y": 126,
+      "w": 170,
+      "h": 34,
+      "title": "Tier stratum"
+    }
+  ],
+  "pages": [
+    {
+      "key": "01_executive",
+      "name": "01_executive",
+      "display": "Executive Summary",
+      "height": 860,
+      "kpis": [
+        {
+          "title": "Active Members",
+          "value": "_Measures.Active Members",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Quarterly Redemption Rate",
+          "value": "_Measures.Quarterly Redemption Rate %",
+          "delta": "_Measures.Quarterly Redemption Rate vs Target",
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Burn / Earn Ratio",
+          "value": "_Measures.Burn Earn Ratio",
+          "delta": null,
+          "good": "high",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Point Liability (adj)",
+          "value": "_Measures.Point Liability BRL (breakage-adj)",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Flash Redemption Lift",
+          "value": "_Measures.Exp Lift pp",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Engagement Lapse Rate",
+          "value": "_Measures.Engagement Lapse Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "earn_burn_trend",
+          "type": "lineChart",
+          "x": 24,
+          "y": 232,
+          "w": 714,
+          "h": 244,
+          "roles": {
+            "Category": "dim_month.month_name",
+            "Y": [
+              "_Measures.SkyPoints Issued",
+              "_Measures.SkyPoints Redeemed"
+            ]
+          },
+          "title": "SkyPoints issued vs redeemed by month",
+          "sort": {
+            "by": "dim_month.month_name",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "exec_insight",
+          "type": "card",
+          "x": 750,
+          "y": 232,
+          "w": 506,
+          "h": 244,
+          "roles": {
+            "Values": [
+              "_Measures.Exec Insight"
+            ]
+          },
+          "title": "Read this"
+        },
+        {
+          "name": "effect_by_tier_exec",
+          "type": "clusteredBarChart",
+          "x": 24,
+          "y": 496,
+          "w": 506,
+          "h": 236,
+          "roles": {
+            "Category": "dim_experiment_stratum.stratum",
+            "Y": [
+              "_Measures.Exp Effect by Tier pp"
+            ]
+          },
+          "title": "Flash Redemption effect by member tier (pp)"
+        },
+        {
+          "name": "liability_trend",
+          "type": "lineChart",
+          "x": 542,
+          "y": 496,
+          "w": 714,
+          "h": 236,
+          "roles": {
+            "Category": "dim_month.month_name",
+            "Y": [
+              "_Measures.Point Liability BRL",
+              "_Measures.Point Liability BRL (breakage-adj)"
+            ]
+          },
+          "title": "Point-liability trajectory (BRL)",
+          "sort": {
+            "by": "dim_month.month_name",
+            "dir": "asc"
+          }
+        }
+      ]
+    },
+    {
+      "key": "02_tiers",
+      "name": "02_tiers",
+      "display": "Member Tiers & Value",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Members",
+          "value": "_Measures.Members",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Active Rate",
+          "value": "_Measures.Active Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Elite Share",
+          "value": "_Measures.Elite Share %",
+          "delta": null,
+          "good": "high",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Revenue / Active Member",
+          "value": "_Measures.Revenue per Active Member",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Card Penetration",
+          "value": "_Measures.Co-brand Card Penetration %",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Avg Points Balance",
+          "value": "_Measures.Avg Points Balance",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "members_by_tier",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 236,
+          "w": 403,
+          "h": 230,
+          "roles": {
+            "Category": "dim_tier.tier_name",
+            "Y": [
+              "_Measures.Members in Tier"
+            ]
+          },
+          "title": "Active members by tier",
+          "sort": {
+            "by": "dim_tier.tier_name",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "rev_by_tier",
+          "type": "clusteredBarChart",
+          "x": 439,
+          "y": 236,
+          "w": 403,
+          "h": 230,
+          "roles": {
+            "Category": "dim_tier.tier_name",
+            "Y": [
+              "_Measures.Revenue per Active Member"
+            ]
+          },
+          "title": "Flight revenue per member by tier",
+          "sort": {
+            "by": "dim_tier.tier_name",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "issued_by_source",
+          "type": "clusteredColumnChart",
+          "x": 853,
+          "y": 236,
+          "w": 403,
+          "h": 230,
+          "roles": {
+            "Category": "dim_earn_source.source_name",
+            "Y": [
+              "_Measures.SkyPoints Issued"
+            ]
+          },
+          "title": "SkyPoints issued by source"
+        },
+        {
+          "name": "tier_movement",
+          "type": "lineChart",
+          "x": 24,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "roles": {
+            "Category": "dim_month.month_name",
+            "Y": [
+              "_Measures.Tier Upgrades",
+              "_Measures.Tier Downgrades"
+            ]
+          },
+          "title": "Tier upgrades vs downgrades by month",
+          "sort": {
+            "by": "dim_month.month_name",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "liability_tiers",
+          "type": "lineChart",
+          "x": 646,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "roles": {
+            "Category": "dim_month.month_name",
+            "Y": [
+              "_Measures.Point Liability BRL",
+              "_Measures.Point Liability BRL (breakage-adj)"
+            ]
+          },
+          "title": "Point liability, gross vs breakage-adjusted",
+          "sort": {
+            "by": "dim_month.month_name",
+            "dir": "asc"
+          }
+        }
+      ]
+    },
+    {
+      "key": "03_experiment",
+      "name": "03_experiment",
+      "display": "A/B Test Results",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Subjects",
+          "value": "_Measures.Exp Subjects",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Control Rate",
+          "value": "_Measures.Exp Control Rate",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Treatment Rate",
+          "value": "_Measures.Exp Treatment Rate",
+          "delta": null,
+          "good": "high",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Lift (pp)",
+          "value": "_Measures.Exp Lift pp",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Significance",
+          "value": "_Measures.Exp Significant 95%",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "SRM (treat. share)",
+          "value": "_Measures.Exp SRM Ratio",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "rate_by_arm_tier",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 236,
+          "w": 610,
+          "h": 232,
+          "roles": {
+            "Category": "dim_experiment_stratum.stratum",
+            "Y": [
+              "_Measures.Exp Control Rate",
+              "_Measures.Exp Treatment Rate"
+            ]
+          },
+          "title": "Redemption rate by arm and tier",
+          "sort": {
+            "by": "dim_experiment_stratum.stratum",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "effect_by_tier",
+          "type": "clusteredBarChart",
+          "x": 646,
+          "y": 236,
+          "w": 610,
+          "h": 232,
+          "roles": {
+            "Category": "dim_experiment_stratum.stratum",
+            "Y": [
+              "_Measures.Exp Effect by Tier pp"
+            ]
+          },
+          "title": "Treatment effect by tier (pp) - heterogeneity cut",
+          "sort": {
+            "by": "dim_experiment_stratum.stratum",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "novelty_curve",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 482,
+          "w": 714,
+          "h": 224,
+          "roles": {
+            "Category": "fact_experiment_member_week.week",
+            "Y": [
+              "_Measures.Exp Weekly Redeemers %"
+            ],
+            "Series": "dim_experiment_arm.arm_key"
+          },
+          "title": "Weekly redeemers by arm - novelty-effect check",
+          "sort": {
+            "by": "fact_experiment_member_week.week",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "guardrails",
+          "type": "tableEx",
+          "x": 750,
+          "y": 482,
+          "w": 506,
+          "h": 224,
+          "roles": {
+            "Values": [
+              "dim_experiment_arm.arm_key",
+              "_Measures.Exp Revenue per Member",
+              "_Measures.Exp Net Liability Cost per Member",
+              "_Measures.Exp Disengaged 90d %",
+              "_Measures.Exp Redemption Value per Redeemer"
+            ]
+          },
+          "title": "Guardrail metrics by arm"
+        }
+      ]
+    },
+    {
+      "key": "04_funnel",
+      "name": "04_funnel",
+      "display": "Redemption & Engagement Funnel",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Ever-Redeemed Share",
+          "value": "_Measures.Ever-Redeemed Share %",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Quarterly Redemption Rate",
+          "value": "_Measures.Quarterly Redemption Rate %",
+          "delta": "_Measures.Quarterly Redemption Rate vs Target",
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Redeeming Members",
+          "value": "_Measures.Redeeming Members",
+          "delta": null,
+          "good": "high",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Account Lapse Rate",
+          "value": "_Measures.Account Lapse Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Engagement Lapse Rate",
+          "value": "_Measures.Engagement Lapse Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Reactivations",
+          "value": "_Measures.Reactivations",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "redeem_funnel",
+          "type": "funnel",
+          "x": 24,
+          "y": 236,
+          "w": 506,
+          "h": 232,
+          "roles": {
+            "Category": "Funnel Stage.stage",
+            "Y": [
+              "_Measures.Funnel Value"
+            ]
+          },
+          "title": "Redemption funnel (members)"
+        },
+        {
+          "name": "redeemed_by_category",
+          "type": "clusteredColumnChart",
+          "x": 542,
+          "y": 236,
+          "w": 714,
+          "h": 232,
+          "roles": {
+            "Category": "dim_reward_type.reward_category",
+            "Y": [
+              "_Measures.SkyPoints Redeemed"
+            ]
+          },
+          "title": "SkyPoints redeemed by reward category"
+        },
+        {
+          "name": "redemption_vs_target",
+          "type": "lineChart",
+          "x": 24,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "roles": {
+            "Category": "dim_month.month_name",
+            "Y": [
+              "_Measures.Quarterly Redemption Rate %",
+              "_Measures.Redemption Rate Target"
+            ]
+          },
+          "title": "Quarterly redemption rate vs plan",
+          "sort": {
+            "by": "dim_month.month_name",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "eng_lapse_by_tier",
+          "type": "clusteredBarChart",
+          "x": 646,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "roles": {
+            "Category": "dim_tier.tier_name",
+            "Y": [
+              "_Measures.Engagement Lapse Rate %"
+            ]
+          },
+          "title": "Engagement lapse rate by tier",
+          "sort": {
+            "by": "dim_tier.tier_name",
+            "dir": "asc"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+table fact_point_transaction
+	lineageTag: 5483751e-fc4e-5e5d-8050-d1dab44f5944
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_date_key
+		dataType: int64
+		isHidden
+		lineageTag: a14c2c4f-7b17-5938-af78-6a905f6e327c
+		summarizeBy: none
+		sourceColumn: txn_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_type
+		dataType: string
+		lineageTag: 279b26fa-e69b-573a-81c2-a15daa4c3c22
+		summarizeBy: none
+		sourceColumn: txn_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column earn_source_key
+		dataType: double
+		isHidden
+		lineageTag: 3a3b3d03-b073-5c5e-bdf8-240fa092fed2
+		summarizeBy: none
+		sourceColumn: earn_source_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column reward_type_key
+		dataType: double
+		isHidden
+		lineageTag: 77be8dd0-5561-575e-885e-94b3b632fa53
+		summarizeBy: none
+		sourceColumn: reward_type_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column points
+		dataType: int64
+		lineageTag: 7b63be01-d97d-52a7-b8c9-30033804e248
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_value_brl
+		dataType: double
+		lineageTag: 10a8cd4a-6421-5c3c-a801-b4298ed718af
+		summarizeBy: sum
+		sourceColumn: points_value_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column earn_month_key
+		dataType: int64
+		isHidden
+		lineageTag: f778b6d8-3786-5897-95d9-6f0dc9f92275
+		summarizeBy: none
+		sourceColumn: earn_month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_id
+		dataType: string
+		lineageTag: 02c9d00b-ccca-521e-8094-7dae56453789
+		summarizeBy: none
+		sourceColumn: txn_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_point_transaction = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_point_transaction.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

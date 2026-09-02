@@ -1,0 +1,22 @@
+table dim_experiment_arm
+	lineageTag: 6924186d-7bb7-5699-ba76-8eeaf370076c
+
+	column arm_key
+		dataType: string
+		isHidden
+		lineageTag: bb312495-da64-5966-a411-251a61b41dcc
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_experiment_arm = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_experiment_arm.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

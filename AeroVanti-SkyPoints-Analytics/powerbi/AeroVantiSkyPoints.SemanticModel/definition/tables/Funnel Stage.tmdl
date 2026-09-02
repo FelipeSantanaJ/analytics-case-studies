@@ -1,0 +1,30 @@
+table 'Funnel Stage'
+	lineageTag: 82e10e4a-4cf2-5884-830e-bfa3d63f4c39
+
+	column stage
+		dataType: string
+		lineageTag: f614c0f1-abfe-5f62-96a6-798e279b7525
+		summarizeBy: none
+		sourceColumn: stage
+		sortByColumn: sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column sort
+		dataType: int64
+		lineageTag: 2d505861-3c7d-5685-812e-f33b7d8f4734
+		summarizeBy: none
+		sourceColumn: sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Funnel Stage' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [stage=text, sort=Int64.Type], {{"Active members", 1}, {"Have points >= Flash threshold", 2}, {"Ever redeemed", 3}, {"Redeemed in last 12m", 4}, {"Redeemed in last quarter", 5}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

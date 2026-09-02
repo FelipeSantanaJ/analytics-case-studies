@@ -1,0 +1,104 @@
+table fact_experiment_assignment
+	lineageTag: 7c76394b-fca1-5662-9731-e521b02e1276
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm_key
+		dataType: string
+		isHidden
+		lineageTag: bb312495-da64-5966-a411-251a61b41dcc
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column stratum
+		dataType: string
+		lineageTag: 02f32668-e41c-53eb-91fc-a16e4c019f16
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 28ae584c-bc5e-523f-8c26-5a55decd36ed
+		summarizeBy: none
+		sourceColumn: assigned_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_earn_12m_pts
+		dataType: int64
+		lineageTag: 5410fb23-c5ee-55c3-bde9-7e3a9753dde5
+		summarizeBy: sum
+		sourceColumn: pre_earn_12m_pts
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_flights_12m
+		dataType: int64
+		lineageTag: 886e8135-374f-5ee5-b1eb-f7bc978a3168
+		summarizeBy: sum
+		sourceColumn: pre_flights_12m
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_redemptions_12m
+		dataType: int64
+		lineageTag: cddd4b8d-98bf-5c4a-8360-645ec2424b01
+		summarizeBy: sum
+		sourceColumn: pre_redemptions_12m
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_balance_pts
+		dataType: int64
+		lineageTag: 47c49475-2a9e-5dc3-bb5f-53469e3a0670
+		summarizeBy: sum
+		sourceColumn: pre_balance_pts
+
+		annotation SummarizationSetBy = Automatic
+
+	column prior_redeemer_flag
+		dataType: boolean
+		lineageTag: a217d247-5eec-5168-b55d-c74a34ff834b
+		summarizeBy: none
+		sourceColumn: prior_redeemer_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_tenure_months
+		dataType: int64
+		lineageTag: 424f716d-df69-50f7-8ff7-4c61147d2e99
+		summarizeBy: none
+		sourceColumn: pre_tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_experiment_assignment = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_experiment_assignment.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

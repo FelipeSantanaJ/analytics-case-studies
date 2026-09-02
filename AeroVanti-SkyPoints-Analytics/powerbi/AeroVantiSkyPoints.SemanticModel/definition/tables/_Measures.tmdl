@@ -1,0 +1,513 @@
+table _Measures
+	lineageTag: 8c8fc2bf-a11f-51d2-8349-4e67364a3a7d
+
+	/// Enrolled members, excluding the two sentinel rows.
+	measure Members = CALCULATE ( DISTINCTCOUNT ( dim_member[member_key] ), dim_member[member_key] > 0 )
+		formatString: #,0
+		displayFolder: 01 Program
+		lineageTag: 56745850-61c2-58fe-9347-c41503d1709a
+
+	/// Members with an earn or flight in the trailing 12 months, at the latest month in context.
+	measure 'Active Members' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN
+			CALCULATE (
+			    DISTINCTCOUNT ( fact_member_month[member_key] ),
+			    fact_member_month[is_active_eom] = TRUE (),
+			    fact_member_month[month_key] = mk
+			)
+		formatString: #,0
+		displayFolder: 01 Program
+		lineageTag: 438afb14-3065-5547-bf55-b9d6199866cd
+
+	measure 'Active Rate %' = DIVIDE ( [Active Members], [Members] )
+		formatString: 0.0%
+		displayFolder: 01 Program
+		lineageTag: f259c7f9-4ffc-5bf4-ad97-bb15098ab7a7
+
+	/// First enrolment month for a member.
+	measure 'New Enrolments' = CALCULATE ( COUNTROWS ( fact_member_month ), fact_member_month[is_new_enrollment] = TRUE () )
+		formatString: #,0
+		displayFolder: 01 Program
+		lineageTag: 5542cbf7-95ec-5bac-a775-32aab3381bb9
+
+	measure 'Co-brand Card Penetration %' =
+			DIVIDE (
+			    CALCULATE ( DISTINCTCOUNT ( dim_member[member_key] ),
+			                dim_member[has_cobrand_card] = TRUE (), dim_member[member_key] > 0 ),
+			    [Members]
+			)
+		formatString: 0.0%
+		displayFolder: 01 Program
+		lineageTag: c74774bf-632d-53da-8a9f-91281fc2c5d3
+
+	measure 'SkyPoints Issued' = CALCULATE ( SUM ( fact_point_transaction[points] ), fact_point_transaction[txn_type] = "earn" )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: df0de59a-f3aa-5c2f-9f89-f8dd78573afc
+
+	measure 'SkyPoints Redeemed' = - CALCULATE ( SUM ( fact_point_transaction[points] ), fact_point_transaction[txn_type] = "redeem" )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: a1936881-2c30-57db-95ae-9c2de88843d5
+
+	measure 'SkyPoints Expired' = - CALCULATE ( SUM ( fact_point_transaction[points] ), fact_point_transaction[txn_type] = "expire" )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: 6e89a4e6-7364-539d-831b-35e1204269f5
+
+	/// Points redeemed as a share of points issued over the period in context.
+	measure 'Burn Earn Ratio' = DIVIDE ( [SkyPoints Redeemed], [SkyPoints Issued] )
+		formatString: 0.0%
+		displayFolder: 02 Earn & Burn
+		lineageTag: c0bc4334-02c9-5d86-9ee2-d8259d22fbca
+
+	measure Redemptions = CALCULATE ( COUNTROWS ( fact_point_transaction ), fact_point_transaction[txn_type] = "redeem" )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: d2aba603-5025-5ec1-b0ba-bef4b10612a2
+
+	measure 'Redeeming Members' = CALCULATE ( DISTINCTCOUNT ( fact_point_transaction[member_key] ), fact_point_transaction[txn_type] = "redeem" )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: 4b8651aa-0085-5c3e-a3ae-9ef7e737ffb4
+
+	/// Share of active members with >= 1 redemption in the trailing quarter.
+	measure 'Quarterly Redemption Rate %' =
+			VAR mk = MAX ( dim_month[month_key] )
+			VAR q  = FILTER ( ALL ( dim_month ),
+			                  dim_month[month_sort] > MAXX ( FILTER ( ALL ( dim_month ), dim_month[month_key] = mk ), dim_month[month_sort] ) - 3
+			               && dim_month[month_key] <= mk )
+			VAR redeemers =
+			    CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                fact_member_month[redemptions_m] > 0, q )
+			VAR active =
+			    CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                fact_member_month[is_active_eom] = TRUE (), fact_member_month[month_key] = mk )
+			RETURN DIVIDE ( redeemers, active )
+		formatString: 0.0%
+		displayFolder: 02 Earn & Burn
+		lineageTag: 884f9c6f-48a4-5f1e-a07b-0ff6f4690024
+
+	measure 'Ever-Redeemed Share %' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN
+			DIVIDE (
+			    CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                fact_member_month[has_redeemed_ever_eom] = TRUE (),
+			                fact_member_month[month_key] = mk ),
+			    [Active Members]
+			)
+		formatString: 0.0%
+		displayFolder: 02 Earn & Burn
+		lineageTag: 2bbf468e-cc04-5f8f-ac90-8515e7e1fb60
+
+	measure 'Avg Points Balance' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN
+			CALCULATE ( AVERAGE ( fact_member_month[balance_pts_eom] ),
+			            fact_member_month[month_key] = mk, fact_member_month[is_active_eom] = TRUE () )
+		formatString: #,0
+		displayFolder: 02 Earn & Burn
+		lineageTag: cc17c389-3b4d-56ae-88bd-5ffa3a899597
+
+	measure 'Point Liability BRL' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( SUM ( fact_liability_month[liability_brl_gross] ),
+			                   fact_liability_month[month_key] = mk )
+		formatString: "R$"#,0
+		displayFolder: 03 Breakage & Liability
+		lineageTag: a6b3a2df-9013-5318-b8a9-96cf5d3eb750
+
+	measure 'Point Liability BRL (breakage-adj)' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( SUM ( fact_liability_month[liability_brl_breakage_adj] ),
+			                   fact_liability_month[month_key] = mk )
+		formatString: "R$"#,0
+		displayFolder: 03 Breakage & Liability
+		lineageTag: aaceb7bf-eeab-5ce1-807b-57c10751844f
+
+	/// Points expired as a share of points issued over the period in context (realised).
+	measure 'Breakage Rate %' = DIVIDE ( [SkyPoints Expired], [SkyPoints Issued] )
+		formatString: 0.0%
+		displayFolder: 03 Breakage & Liability
+		lineageTag: ee1cea5a-52f2-5764-ac9b-c374ae26c2aa
+
+	measure 'Points Expiring BRL' = SUM ( fact_liability_month[points_expired_m] ) * 0.021
+		formatString: "R$"#,0
+		displayFolder: 03 Breakage & Liability
+		lineageTag: eb640e7b-e1d5-5985-b3d7-884284325e5d
+
+	measure 'Liability per Active Member' = DIVIDE ( [Point Liability BRL], [Active Members] )
+		formatString: "R$"#,0.0
+		displayFolder: 03 Breakage & Liability
+		lineageTag: 05d6aa31-45a2-50f6-b654-3c728341c90e
+
+	measure 'Members in Tier' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                   fact_member_month[month_key] = mk, fact_member_month[is_active_eom] = TRUE () )
+		formatString: #,0
+		displayFolder: 04 Tiers
+		lineageTag: d1774fdc-36a2-5fd2-a7ba-a947e56b3c9e
+
+	measure 'Elite Share %' =
+			DIVIDE (
+			    CALCULATE ( [Members in Tier], dim_tier[is_elite] = TRUE () ),
+			    CALCULATE ( [Members in Tier], REMOVEFILTERS ( dim_tier ) )
+			)
+		formatString: 0.0%
+		displayFolder: 04 Tiers
+		lineageTag: 2c6789a5-eb1d-58b1-ab6e-3eccae74e0ea
+
+	measure 'Tier Upgrades' = CALCULATE ( COUNTROWS ( fact_tier_change ), fact_tier_change[direction] = "upgrade" )
+		formatString: #,0
+		displayFolder: 04 Tiers
+		lineageTag: 3bfc4ef9-8d6f-5bfd-b543-e48c3d450592
+
+	measure 'Tier Downgrades' = CALCULATE ( COUNTROWS ( fact_tier_change ), fact_tier_change[direction] IN { "downgrade", "retain_drop" } )
+		formatString: #,0
+		displayFolder: 04 Tiers
+		lineageTag: d4a4f54a-20cf-587c-83db-3170c1b4e3d6
+
+	measure 'Flight Revenue BRL' = CALCULATE ( SUM ( fact_flight_segment[base_fare_brl] ), fact_flight_segment[is_award_redemption] = FALSE () )
+		formatString: "R$"#,0
+		displayFolder: 05 Commercial
+		lineageTag: d4af6723-8a66-5ef4-9f74-417dd5398a0f
+
+	measure 'Revenue per Active Member' = DIVIDE ( [Flight Revenue BRL], [Active Members] )
+		formatString: "R$"#,0
+		displayFolder: 05 Commercial
+		lineageTag: c09069e9-c409-5c0d-8300-9881e3da884d
+
+	measure 'Award Seat Share %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_flight_segment ), fact_flight_segment[is_award_redemption] = TRUE () ),
+			    COUNTROWS ( fact_flight_segment )
+			)
+		formatString: 0.0%
+		displayFolder: 05 Commercial
+		lineageTag: 45728b57-a1d9-5cc4-924b-b887f6c988ed
+
+	measure 'Card Spend BRL' = SUM ( fact_card_spend_month[card_spend_brl] )
+		formatString: "R$"#,0
+		displayFolder: 05 Commercial
+		lineageTag: 871fe5f2-d414-5285-affb-ced45bda5750
+
+	/// Members in account-lapse (no earn and no redemption for 12 months) at the latest month.
+	measure 'Account-Lapsed Members' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                   fact_member_month[is_lapsed_eom] = 1, fact_member_month[month_key] = mk )
+		formatString: #,0
+		displayFolder: 06 Retention & Lapse
+		lineageTag: 0e8eb922-ba2f-57b8-aa4d-0f224bf0f1cf
+
+	measure 'Account Lapse Rate %' = DIVIDE ( [Account-Lapsed Members], [Active Members] + [Account-Lapsed Members] )
+		formatString: 0.0%
+		displayFolder: 06 Retention & Lapse
+		lineageTag: 91616d9c-dbd7-5fda-a419-3b80abda54fe
+
+	/// Members with no flight and no redemption for 12 months (card-only earn does not count).
+	measure 'Engagement-Lapsed Members' =
+			VAR mk = MAX ( dim_month[month_key] )
+			VAR startsort = MAXX ( FILTER ( ALL ( dim_month ), dim_month[month_key] = mk ), dim_month[month_sort] ) - 11
+			RETURN
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( fact_member_month[member_key] ),
+			        CALCULATE (
+			            SUM ( fact_member_month[flights_m] ) + SUM ( fact_member_month[redemptions_m] ),
+			            FILTER ( ALL ( dim_month ),
+			                     dim_month[month_sort] >= startsort
+			                  && dim_month[month_key] <= mk )
+			        ) = 0
+			    )
+			)
+		formatString: #,0
+		displayFolder: 06 Retention & Lapse
+		lineageTag: 7121d9e8-29ca-5f1b-9881-1c178ac735d6
+
+	measure 'Engagement Lapse Rate %' = DIVIDE ( [Engagement-Lapsed Members], [Active Members] )
+		formatString: 0.0%
+		displayFolder: 06 Retention & Lapse
+		lineageTag: b91a8b62-19df-50c9-9b79-9c049b6fd00f
+
+	measure Reactivations = CALCULATE ( COUNTROWS ( fact_member_month ), fact_member_month[is_reactivation] = TRUE () )
+		formatString: #,0
+		displayFolder: 06 Retention & Lapse
+		lineageTag: 675191c9-b227-5717-ae2d-8aa0bd1c3427
+
+	measure 'Exp Subjects' = DISTINCTCOUNT ( fact_experiment_outcome[member_key] )
+		formatString: #,0
+		displayFolder: 07 A/B Test
+		lineageTag: cfec4472-3ad2-5767-aaaf-e99521a0a0bd
+
+	/// Share of subjects (in the current arm/stratum filter) with >= 1 redemption in the 12-week window.
+	measure 'Exp Redemption Rate' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_experiment_outcome ),
+			                fact_experiment_outcome[redeemed_in_window] = TRUE () ),
+			    COUNTROWS ( fact_experiment_outcome )
+			)
+		formatString: 0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: acbdc951-a82c-581c-bb40-40b2bb0004da
+
+	measure 'Exp Control Rate' = CALCULATE ( [Exp Redemption Rate], fact_experiment_outcome[arm_key] = "control" )
+		formatString: 0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: cf5fbb17-8f5e-5e1d-b98f-459a72a470f7
+
+	measure 'Exp Treatment Rate' = CALCULATE ( [Exp Redemption Rate], fact_experiment_outcome[arm_key] = "treatment" )
+		formatString: 0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: a2bb1914-9580-55f1-9398-7acbfe03bc80
+
+	/// Absolute treatment - control difference in the redemption rate, in percentage points.
+	measure 'Exp Lift pp' = ( [Exp Treatment Rate] - [Exp Control Rate] ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 A/B Test
+		lineageTag: 6bd2335a-3846-5ddd-806b-274692f42fb1
+
+	measure 'Exp Lift Rel %' = DIVIDE ( [Exp Treatment Rate] - [Exp Control Rate], [Exp Control Rate] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: 36de6acb-b05f-55d3-9cec-8302c3e198c9
+
+	measure 'Exp Lift CI Low pp' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "treatment" )
+			VAR se = SQRT ( DIVIDE ( p1 * ( 1 - p1 ), n1 ) + DIVIDE ( p2 * ( 1 - p2 ), n2 ) )
+			RETURN ( ( p2 - p1 ) - 1.959964 * se ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 A/B Test
+		lineageTag: 1d13de41-3811-5a64-af52-b9701a02bd00
+
+	measure 'Exp Lift CI High pp' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "treatment" )
+			VAR se = SQRT ( DIVIDE ( p1 * ( 1 - p1 ), n1 ) + DIVIDE ( p2 * ( 1 - p2 ), n2 ) )
+			RETURN ( ( p2 - p1 ) + 1.959964 * se ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 A/B Test
+		lineageTag: 8c7193e8-af35-5ab2-95b7-edd7ff2f05ee
+
+	/// Two-proportion pooled z-statistic.
+	measure 'Exp Z Stat' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "treatment" )
+			VAR pp = DIVIDE ( p1 * n1 + p2 * n2, n1 + n2 )
+			VAR se = SQRT ( pp * ( 1 - pp ) * ( DIVIDE ( 1, n1 ) + DIVIDE ( 1, n2 ) ) )
+			RETURN DIVIDE ( p2 - p1, se )
+		formatString: 0.00
+		displayFolder: 07 A/B Test
+		lineageTag: f427095b-98e3-584f-b2c4-3e2ff28dc039
+
+	measure 'Exp Significant 95%' = IF ( ABS ( [Exp Z Stat] ) > 1.959964, "Significant", "Not significant" )
+		displayFolder: 07 A/B Test
+		lineageTag: 5db445f8-5562-59e5-b972-072907a7f4b0
+
+	/// Treatment share of subjects; expect 50% (sample-ratio-mismatch check).
+	measure 'Exp SRM Ratio' =
+			DIVIDE (
+			    CALCULATE ( [Exp Subjects], fact_experiment_outcome[arm_key] = "treatment" ),
+			    [Exp Subjects]
+			)
+		formatString: 0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: 80fac072-84af-5796-a297-de03484ba9dc
+
+	measure 'Exp Revenue per Member' = AVERAGE ( fact_experiment_outcome[revenue_brl_window_plus8w] )
+		formatString: "R$"#,0
+		displayFolder: 07 A/B Test
+		lineageTag: f03e09c2-6ec4-55a8-af60-e172b067a149
+
+	/// Guardrail: non-inferiority margin is -3%.
+	measure 'Exp Revenue per Member Delta %' =
+			DIVIDE (
+			    CALCULATE ( [Exp Revenue per Member], fact_experiment_outcome[arm_key] = "treatment" )
+			  - CALCULATE ( [Exp Revenue per Member], fact_experiment_outcome[arm_key] = "control" ),
+			    CALCULATE ( [Exp Revenue per Member], fact_experiment_outcome[arm_key] = "control" )
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: 003905c3-956c-5ca7-9d71-beec883bb1fb
+
+	measure 'Exp Net Liability Cost per Member' = AVERAGE ( fact_experiment_outcome[net_liability_cost_brl] )
+		formatString: "R$"#,0.00
+		displayFolder: 07 A/B Test
+		lineageTag: 1f2073e5-5052-569d-93ad-40f84687281e
+
+	/// Guardrail: share with no earn and no redemption in the 90 days after the window.
+	measure 'Exp Disengaged 90d %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_experiment_outcome ),
+			                fact_experiment_outcome[disengaged_90d_post] = TRUE () ),
+			    COUNTROWS ( fact_experiment_outcome )
+			)
+		formatString: 0.0%
+		displayFolder: 07 A/B Test
+		lineageTag: 1bcb873b-21a3-5a8f-a2a3-84c5ed441c88
+
+	/// Guardrail: depth of redemptions (Flash makes them shallower).
+	measure 'Exp Redemption Value per Redeemer' =
+			DIVIDE (
+			    SUM ( fact_experiment_outcome[redemption_value_brl] ),
+			    CALCULATE ( COUNTROWS ( fact_experiment_outcome ),
+			                fact_experiment_outcome[redeemed_in_window] = TRUE () )
+			)
+		formatString: "R$"#,0
+		displayFolder: 07 A/B Test
+		lineageTag: 3b1e8788-c492-5824-865e-cf2fe8870fba
+
+	/// Redeemers in the week / subjects — plot by week and arm for the novelty check.
+	measure 'Exp Weekly Redeemers %' = DIVIDE ( CALCULATE ( COUNTROWS ( fact_experiment_member_week ), fact_experiment_member_week[redeemed_w] = TRUE () ), [Exp Subjects] )
+		formatString: 0.00%
+		displayFolder: 07 A/B Test
+		lineageTag: db804a51-1be6-50b4-92c8-e10cb6d8033d
+
+	/// Same as Exp Lift pp; place on a bar by Experiment Stratum for the heterogeneity cut.
+	measure 'Exp Effect by Tier pp' = [Exp Lift pp]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 A/B Test
+		lineageTag: f2d6f370-4d56-5125-a5fc-0497fef9c3a2
+
+	measure 'SkyPoints Redeemed PY' =
+			CALCULATE (
+			    [SkyPoints Redeemed],
+			    FILTER ( ALL ( dim_month ),
+			             dim_month[month_sort] = MAX ( dim_month[month_sort] ) - 12 )
+			)
+		formatString: #,0
+		displayFolder: 08 Time & Targets
+		lineageTag: 044bea2a-c391-58aa-9cf0-c8b3beda075f
+
+	measure 'SkyPoints Redeemed YoY %' = DIVIDE ( [SkyPoints Redeemed] - [SkyPoints Redeemed PY], [SkyPoints Redeemed PY] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: 37e72a2a-3630-58f8-bd08-e1d5504520be
+
+	measure 'Breakage Rate Target' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( AVERAGE ( fact_targets_month[target_value] ),
+			                   fact_targets_month[kpi] = "breakage_rate", fact_targets_month[month_key] = mk )
+		formatString: 0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: d40a2cde-5aa0-54d8-adc6-6adfe5d1ca08
+
+	measure 'Redemption Rate Target' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( AVERAGE ( fact_targets_month[target_value] ),
+			                   fact_targets_month[kpi] = "redemption_rate_quarterly", fact_targets_month[month_key] = mk )
+		formatString: 0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: 24e6bab2-91f7-5f14-8dda-85a3cba6626f
+
+	measure 'Quarterly Redemption Rate vs Target' = [Quarterly Redemption Rate %] - [Redemption Rate Target]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: 89a11cd8-4c7d-5e7f-b1a0-25fd9961da32
+
+	/// Lower is better — negative is good.
+	measure 'Breakage Rate vs Target' = [Breakage Rate %] - [Breakage Rate Target]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: 39c88ed3-b368-5a61-a807-881a86bafc93
+
+	/// Dynamic summary sentence for the Executive Summary page; updates with the slicers.
+	measure 'Exec Insight' =
+			VAR lift = [Exp Lift pp]
+			VAR sig = [Exp Significant 95%]
+			VAR br = [Breakage Rate %]
+			VAR rr = [Quarterly Redemption Rate %]
+			RETURN
+			"Flash Redemption lifted the 12-week redemption rate by "
+			  & FORMAT ( lift, "+0.0;-0.0" ) & " pp (" & sig & " at 95%; control "
+			  & FORMAT ( [Exp Control Rate], "0.0%" ) & " vs treatment "
+			  & FORMAT ( [Exp Treatment Rate], "0.0%" ) & "). "
+			  & "Program-wide, the quarterly redemption rate is " & FORMAT ( rr, "0.0%" )
+			  & " and realised breakage is " & FORMAT ( br, "0.0%" )
+			  & " of points issued, against a ~40% lifetime expectation. "
+			  & "Guardrails: revenue per member " & FORMAT ( [Exp Revenue per Member Delta %], "+0.0%;-0.0%" )
+			  & ", 90-day disengagement "
+			  & FORMAT ( CALCULATE ( [Exp Disengaged 90d %], fact_experiment_outcome[arm_key] = "treatment" )
+			           - CALCULATE ( [Exp Disengaged 90d %], fact_experiment_outcome[arm_key] = "control" ), "+0.0%;-0.0%" )
+			  & "."
+		displayFolder: 09 Narrative
+		lineageTag: 49436520-a8c7-518d-879f-b5c53999a9df
+
+	/// Active members whose balance clears the Flash minimum redemption threshold.
+	measure 'Members with Redeemable Balance' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                   fact_member_month[month_key] = mk,
+			                   fact_member_month[is_active_eom] = TRUE (),
+			                   fact_member_month[balance_pts_eom] >= 3500 )
+		formatString: #,0
+		displayFolder: 10 Funnel
+		lineageTag: e21cfcfa-b54f-5c21-b4f2-bf68225c8a68
+
+	measure 'Redeemers in Last 12m' =
+			VAR mk = MAX ( dim_month[month_key] )
+			VAR startsort = MAXX ( FILTER ( ALL ( dim_month ), dim_month[month_key] = mk ), dim_month[month_sort] ) - 11
+			RETURN
+			CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			            fact_member_month[redemptions_m] > 0,
+			            FILTER ( ALL ( dim_month ), dim_month[month_sort] >= startsort && dim_month[month_key] <= mk ) )
+		formatString: #,0
+		displayFolder: 10 Funnel
+		lineageTag: c43a1060-5302-5063-94e5-a97e42a7c531
+
+	measure 'Redeemers in Last Quarter' =
+			VAR mk = MAX ( dim_month[month_key] )
+			VAR startsort = MAXX ( FILTER ( ALL ( dim_month ), dim_month[month_key] = mk ), dim_month[month_sort] ) - 2
+			RETURN
+			CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			            fact_member_month[redemptions_m] > 0,
+			            FILTER ( ALL ( dim_month ), dim_month[month_sort] >= startsort && dim_month[month_key] <= mk ) )
+		formatString: #,0
+		displayFolder: 10 Funnel
+		lineageTag: 6aa310c5-9883-5ace-b4a4-94742bfb792f
+
+	measure 'Ever-Redeemed Members' =
+			VAR mk = MAX ( dim_month[month_key] )
+			RETURN CALCULATE ( DISTINCTCOUNT ( fact_member_month[member_key] ),
+			                   fact_member_month[has_redeemed_ever_eom] = TRUE (), fact_member_month[month_key] = mk )
+		formatString: #,0
+		displayFolder: 10 Funnel
+		lineageTag: 906fbbc6-b9ba-582b-9d21-044be0199f4a
+
+	/// Member count at the selected redemption-funnel stage (place 'Funnel Stage'[stage] on Category).
+	measure 'Funnel Value' =
+			VAR s = SELECTEDVALUE ( 'Funnel Stage'[stage] )
+			RETURN
+			SWITCH ( s,
+			    "Active members", [Active Members],
+			    "Have points >= Flash threshold", [Members with Redeemable Balance],
+			    "Ever redeemed", [Ever-Redeemed Members],
+			    "Redeemed in last 12m", [Redeemers in Last 12m],
+			    "Redeemed in last quarter", [Redeemers in Last Quarter],
+			    BLANK () )
+		formatString: #,0
+		displayFolder: 10 Funnel
+		lineageTag: 6ced08e9-e1e5-57e8-8fd1-2fd189c1e602
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 673188be-ff91-5721-8cb2-49332d6ec7af
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_ResultType = Table
+

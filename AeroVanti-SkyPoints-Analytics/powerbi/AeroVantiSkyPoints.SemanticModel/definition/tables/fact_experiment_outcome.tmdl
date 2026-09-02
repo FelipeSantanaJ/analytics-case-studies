@@ -1,0 +1,151 @@
+table fact_experiment_outcome
+	lineageTag: 1f1738cf-c614-5120-bdf1-48ca3b19628d
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm_key
+		dataType: string
+		isHidden
+		lineageTag: bb312495-da64-5966-a411-251a61b41dcc
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column stratum
+		dataType: string
+		lineageTag: 02f32668-e41c-53eb-91fc-a16e4c019f16
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column redeemed_in_window
+		dataType: boolean
+		lineageTag: d948106a-523a-54b8-bc83-8efc4c11bf26
+		summarizeBy: none
+		sourceColumn: redeemed_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column redemptions_in_window
+		dataType: int64
+		lineageTag: ceda436f-96dc-561a-b314-29403a3ebd78
+		summarizeBy: sum
+		sourceColumn: redemptions_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column redemption_value_brl
+		dataType: double
+		lineageTag: 3b290906-0a19-5861-9516-17ed06af77c1
+		summarizeBy: sum
+		sourceColumn: redemption_value_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed_in_window
+		dataType: int64
+		lineageTag: 2cd4a9b9-77b2-5424-8d97-5efcbf81f4b3
+		summarizeBy: sum
+		sourceColumn: points_redeemed_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column low_cost_only
+		dataType: boolean
+		lineageTag: 33aae543-7e40-5989-b776-1b0f2d3bb6f0
+		summarizeBy: none
+		sourceColumn: low_cost_only
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_brl_window_plus8w
+		dataType: double
+		lineageTag: 980f3f75-9906-5b2f-b07c-e826d3a52d2c
+		summarizeBy: sum
+		sourceColumn: revenue_brl_window_plus8w
+
+		annotation SummarizationSetBy = Automatic
+
+	column liability_drawdown_brl
+		dataType: double
+		lineageTag: 93b3a4e6-c4b9-5e4f-b049-d41c3a69f1ef
+		summarizeBy: sum
+		sourceColumn: liability_drawdown_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column reward_cash_cost_brl
+		dataType: double
+		lineageTag: 063c2a49-2bb9-5507-97ca-0bbb9cf3c650
+		summarizeBy: sum
+		sourceColumn: reward_cash_cost_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_liability_cost_brl
+		dataType: double
+		lineageTag: 8d99aa14-0848-5177-b0ba-0881bfad386e
+		summarizeBy: sum
+		sourceColumn: net_liability_cost_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column disengaged_90d_post
+		dataType: boolean
+		lineageTag: 7d77e6fa-3a10-5d39-9593-4bd5b7b7c256
+		summarizeBy: none
+		sourceColumn: disengaged_90d_post
+
+		annotation SummarizationSetBy = Automatic
+
+	column earn_in_window
+		dataType: boolean
+		lineageTag: 7ca76502-d5f4-5522-84af-461c6e095c7e
+		summarizeBy: none
+		sourceColumn: earn_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column flights_in_window
+		dataType: int64
+		lineageTag: 9d06fa6a-6ec9-56d2-9194-5de14f2e8884
+		summarizeBy: sum
+		sourceColumn: flights_in_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_post_quarter
+		dataType: boolean
+		lineageTag: 5ceee655-bd42-5775-9380-e2c30f5355af
+		summarizeBy: none
+		sourceColumn: active_post_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_experiment_outcome = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_experiment_outcome.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,6 @@
+segment,active,balance_ge_flash,ever_redeemed,redeemed_12m,redeemed_quarter,balance_ge_flash_pct,ever_redeemed_pct,redeemed_12m_pct,redeemed_quarter_pct
+ALL,109458,74760,34830,27690,9570,68.3,31.8,25.3,8.7
+Blue,71147,46127,17901,13409,4153,64.8,25.2,18.8,5.8
+Silver,24496,17680,9131,7318,2454,72.2,37.3,29.9,10.0
+Gold,10739,8402,5661,4931,1924,78.2,52.7,45.9,17.9
+Platinum,3076,2551,2137,2032,1039,82.9,69.5,66.1,33.8

@@ -1,0 +1,98 @@
+table fact_tier_change
+	lineageTag: 0e9a76cf-67d1-59f2-8aa0-d6a8ec5d1c87
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column change_date_key
+		dataType: int64
+		isHidden
+		lineageTag: d5036ae8-d950-50ab-8dd8-ef592dd51729
+		summarizeBy: none
+		sourceColumn: change_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column change_month_key
+		dataType: int64
+		isHidden
+		lineageTag: 152e1fcd-5bff-584c-9c59-d638d65d2866
+		summarizeBy: none
+		sourceColumn: change_month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column from_tier
+		dataType: string
+		lineageTag: f2311530-f9c0-5fc5-9382-8ad1bcbfe3a3
+		summarizeBy: none
+		sourceColumn: from_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column to_tier
+		dataType: string
+		lineageTag: d78d65e9-069c-517a-99c8-053ba37c93a1
+		summarizeBy: none
+		sourceColumn: to_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column from_tier_key
+		dataType: int64
+		isHidden
+		lineageTag: ad8ebb3d-2f02-5385-8b2e-510559ae5e2f
+		summarizeBy: none
+		sourceColumn: from_tier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column to_tier_key
+		dataType: int64
+		isHidden
+		lineageTag: d6b0f556-bb25-5baf-a73d-9b596c20e0f5
+		summarizeBy: none
+		sourceColumn: to_tier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column direction
+		dataType: string
+		lineageTag: 889fd9f3-5998-5836-8690-6b4d8144db1d
+		summarizeBy: none
+		sourceColumn: direction
+
+		annotation SummarizationSetBy = Automatic
+
+	column trigger
+		dataType: string
+		lineageTag: fbc38978-eeab-5dba-a6c5-2c8e885a4102
+		summarizeBy: none
+		sourceColumn: trigger
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_tier_change = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_tier_change.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

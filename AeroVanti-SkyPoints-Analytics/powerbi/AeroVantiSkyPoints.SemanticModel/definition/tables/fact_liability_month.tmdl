@@ -1,0 +1,118 @@
+table fact_liability_month
+	lineageTag: 43e95c32-6b02-5f2c-a690-d4e3ebab3d01
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_issued_m
+		dataType: int64
+		lineageTag: 993c24ab-c1db-5ca7-bf11-403994a0aca5
+		summarizeBy: sum
+		sourceColumn: points_issued_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_expired_m
+		dataType: int64
+		lineageTag: 01a973ad-f805-5d45-850e-067a5f34fbe1
+		summarizeBy: sum
+		sourceColumn: points_expired_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed_m
+		dataType: int64
+		lineageTag: 962ec091-6a59-5858-8327-b4f382986f59
+		summarizeBy: sum
+		sourceColumn: points_redeemed_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column adjust
+		dataType: int64
+		lineageTag: f209e78d-5edb-56a3-8f50-c790336f565b
+		summarizeBy: sum
+		sourceColumn: adjust
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_outstanding_eop
+		dataType: int64
+		lineageTag: 24328969-cefa-5022-92d5-0d0d762de781
+		summarizeBy: sum
+		sourceColumn: points_outstanding_eop
+
+		annotation SummarizationSetBy = Automatic
+
+	column liability_brl_gross
+		dataType: double
+		lineageTag: 4421bc3e-c932-5133-8e39-dbee7ec6ca4e
+		summarizeBy: sum
+		sourceColumn: liability_brl_gross
+
+		annotation SummarizationSetBy = Automatic
+
+	column liability_brl_breakage_adj
+		dataType: double
+		lineageTag: 86472bc0-cf0e-53fb-8310-fa51ca141b8e
+		summarizeBy: sum
+		sourceColumn: liability_brl_breakage_adj
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_issued_m_ledger
+		dataType: int64
+		lineageTag: ad34b098-4132-5eca-8333-d1c49bf6f538
+		summarizeBy: sum
+		sourceColumn: points_issued_m_ledger
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed_m_ledger
+		dataType: int64
+		lineageTag: e27919e9-0dfb-5b02-ac06-1ab165f1eaf9
+		summarizeBy: sum
+		sourceColumn: points_redeemed_m_ledger
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_expired_m_ledger
+		dataType: int64
+		lineageTag: 212df1d7-05e8-5999-9b13-004002a914fe
+		summarizeBy: sum
+		sourceColumn: points_expired_m_ledger
+
+		annotation SummarizationSetBy = Automatic
+
+	column breakage_provision_brl
+		dataType: double
+		lineageTag: 4ea75971-7b1e-5763-ad03-f4bfe561b4f3
+		summarizeBy: sum
+		sourceColumn: breakage_provision_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column reward_cash_cost_brl
+		dataType: double
+		lineageTag: 063c2a49-2bb9-5507-97ca-0bbb9cf3c650
+		summarizeBy: sum
+		sourceColumn: reward_cash_cost_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_liability_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_liability_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

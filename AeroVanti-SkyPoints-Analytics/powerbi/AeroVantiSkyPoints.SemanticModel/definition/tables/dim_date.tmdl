@@ -1,0 +1,145 @@
+table dim_date
+	lineageTag: d9342b44-7c02-5b6f-b0aa-8cddc0be9c69
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: b56440b6-281d-5c0d-a786-bab43b64eb47
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: b800315f-90bf-57bd-8523-51abbac931bd
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 380339d3-aba8-5e39-a3e4-64f193d9589c
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: a275d8b4-9cef-5914-81d3-0e264b77036d
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		lineageTag: 8bc11cbb-e86e-5442-9369-4429b93f64f5
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 3b703e41-3e50-59ef-af37-99b04e560782
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_sort
+		dataType: int64
+		lineageTag: 3668d116-58c1-5f8b-a455-7ba8e04cfc36
+		summarizeBy: none
+		sourceColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week
+		dataType: int64
+		lineageTag: 48c35ac6-aaae-5e4e-8f3a-d03ec0e847fa
+		summarizeBy: none
+		sourceColumn: iso_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		lineageTag: d1e3cd36-1669-5975-9a40-b984edb494ca
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_month_end
+		dataType: boolean
+		lineageTag: 8c52b7f2-af40-5f9c-bf8d-3c82ea7a4e69
+		summarizeBy: none
+		sourceColumn: is_month_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_school_break
+		dataType: boolean
+		lineageTag: 5dc03bae-bcdc-5b64-9958-ef864b7fade8
+		summarizeBy: none
+		sourceColumn: is_school_break
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday_br
+		dataType: boolean
+		lineageTag: b1a9fc87-5d42-5b6a-b266-f8631eb9aeab
+		summarizeBy: none
+		sourceColumn: is_holiday_br
+
+		annotation SummarizationSetBy = Automatic
+
+	column season_tag
+		dataType: string
+		lineageTag: 2b87fd13-7989-560e-87ca-f2c5ea676a45
+		summarizeBy: none
+		sourceColumn: season_tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_phase
+		dataType: string
+		lineageTag: 02df3421-168e-5f53-800b-a6a2effec231
+		summarizeBy: none
+		sourceColumn: experiment_phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_week
+		dataType: int64
+		lineageTag: e64ab871-b0f6-5a2d-8da6-b610519d6496
+		summarizeBy: none
+		sourceColumn: experiment_week
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_date.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

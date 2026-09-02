@@ -1,0 +1,210 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "01executive-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-active-members-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Active Members",
+    "fields": {
+      "Values": [
+        "_Measures.Active Members"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-quarterly-redemption-rate-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Quarterly Redemption Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Quarterly Redemption Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-quarterly-redemption-rate-d",
+    "x": 231,
+    "y": 208,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Quarterly Redemption Rate vs Target"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-burn--earn-ratio-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Burn / Earn Ratio",
+    "fields": {
+      "Values": [
+        "_Measures.Burn Earn Ratio"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-point-liability-adj-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Point Liability (adj)",
+    "fields": {
+      "Values": [
+        "_Measures.Point Liability BRL (breakage-adj)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-flash-redemption-lift-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Flash Redemption Lift",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Lift pp"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-engagement-lapse-rate-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Engagement Lapse Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Engagement Lapse Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "earn_burn_trend",
+    "x": 24,
+    "y": 232,
+    "width": 714,
+    "height": 244,
+    "title": "SkyPoints issued vs redeemed by month",
+    "fields": {
+      "Category": "dim_month.month_name",
+      "Y": [
+        "_Measures.SkyPoints Issued",
+        "_Measures.SkyPoints Redeemed"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "exec_insight",
+    "x": 750,
+    "y": 232,
+    "width": 506,
+    "height": 244,
+    "title": "Read this",
+    "fields": {
+      "Values": [
+        "_Measures.Exec Insight"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "effect_by_tier_exec",
+    "x": 24,
+    "y": 496,
+    "width": 506,
+    "height": 236,
+    "title": "Flash Redemption effect by member tier (pp)",
+    "fields": {
+      "Category": "dim_experiment_stratum.stratum",
+      "Y": [
+        "_Measures.Exp Effect by Tier pp"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "liability_trend",
+    "x": 542,
+    "y": 496,
+    "width": 714,
+    "height": 236,
+    "title": "Point-liability trajectory (BRL)",
+    "fields": {
+      "Category": "dim_month.month_name",
+      "Y": [
+        "_Measures.Point Liability BRL",
+        "_Measures.Point Liability BRL (breakage-adj)"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 300,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_month.month_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-arm",
+    "x": 874,
+    "y": 126,
+    "width": 200,
+    "height": 34,
+    "title": "Experiment arm",
+    "fields": {
+      "Values": [
+        "dim_experiment_arm.arm_key"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-stratum",
+    "x": 1086,
+    "y": 126,
+    "width": 170,
+    "height": 34,
+    "title": "Tier stratum",
+    "fields": {
+      "Values": [
+        "dim_experiment_stratum.stratum"
+      ]
+    }
+  }
+]

@@ -1,0 +1,192 @@
+table fact_member_month
+	lineageTag: d60e04d1-e6c0-54c4-80ac-1d2bccc99053
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column ym
+		dataType: string
+		lineageTag: 098ab404-07e2-5076-b136-7efa6579dff9
+		summarizeBy: none
+		sourceColumn: ym
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier_key
+		dataType: int64
+		isHidden
+		lineageTag: 6a2ca0a6-f839-55d5-8634-61c6b7ba07d2
+		summarizeBy: none
+		sourceColumn: tier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_arm
+		dataType: string
+		lineageTag: dcae1a2c-1be0-5596-a859-a7b9137945bc
+		summarizeBy: none
+		sourceColumn: experiment_arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_earned_m
+		dataType: int64
+		lineageTag: f788e779-304b-529f-b054-bca7de83728b
+		summarizeBy: sum
+		sourceColumn: points_earned_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed_m
+		dataType: int64
+		lineageTag: 962ec091-6a59-5858-8327-b4f382986f59
+		summarizeBy: sum
+		sourceColumn: points_redeemed_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_expired_m
+		dataType: int64
+		lineageTag: 01a973ad-f805-5d45-850e-067a5f34fbe1
+		summarizeBy: sum
+		sourceColumn: points_expired_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column redemptions_m
+		dataType: double
+		lineageTag: efd53c97-d97f-5dd6-8980-f55540a13266
+		summarizeBy: sum
+		sourceColumn: redemptions_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column balance_pts_eom
+		dataType: int64
+		lineageTag: 060e5908-bf84-5abe-b5d5-1b7e2fb36142
+		summarizeBy: sum
+		sourceColumn: balance_pts_eom
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_redeemed_ever_eom
+		dataType: boolean
+		lineageTag: 91df18d6-f3d7-5468-becf-e2849f619a0d
+		summarizeBy: none
+		sourceColumn: has_redeemed_ever_eom
+
+		annotation SummarizationSetBy = Automatic
+
+	column flights_m
+		dataType: int64
+		lineageTag: bca62f94-d7e9-5ce6-b06d-4af3808e57e8
+		summarizeBy: sum
+		sourceColumn: flights_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column flight_revenue_brl_m
+		dataType: double
+		lineageTag: cea38a18-efcf-5fd2-8b90-4a380094ba46
+		summarizeBy: sum
+		sourceColumn: flight_revenue_brl_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_spend_brl_m
+		dataType: double
+		lineageTag: ed8c283b-8cef-539c-a83c-cb3759213b91
+		summarizeBy: sum
+		sourceColumn: card_spend_brl_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_months
+		dataType: int64
+		lineageTag: 7450d062-82ad-58ef-8fe3-ad1597101545
+		summarizeBy: none
+		sourceColumn: tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_new_enrollment
+		dataType: boolean
+		lineageTag: 602ac59a-6981-5b87-81eb-a298f42aa472
+		summarizeBy: none
+		sourceColumn: is_new_enrollment
+
+		annotation SummarizationSetBy = Automatic
+
+	column months_since_last_activity
+		dataType: int64
+		lineageTag: 0583e91a-06f4-537b-b834-07f95cbcdf78
+		summarizeBy: none
+		sourceColumn: months_since_last_activity
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active_eom
+		dataType: boolean
+		lineageTag: 0904d79f-f433-5191-a26b-2d5101d83e3d
+		summarizeBy: none
+		sourceColumn: is_active_eom
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_lapsed_eom
+		dataType: double
+		lineageTag: 3762af67-e1cc-531a-8ab5-50440c6b064d
+		summarizeBy: sum
+		sourceColumn: is_lapsed_eom
+
+		annotation SummarizationSetBy = Automatic
+
+	column became_lapsed_this_month
+		dataType: boolean
+		lineageTag: 9e04f617-929c-5629-8d41-fdec26c0f6ec
+		summarizeBy: none
+		sourceColumn: became_lapsed_this_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reactivation
+		dataType: boolean
+		lineageTag: f555e058-8ffe-5cb8-94a5-aa983596dad8
+		summarizeBy: none
+		sourceColumn: is_reactivation
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_member_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_member_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

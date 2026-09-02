@@ -1,0 +1,213 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "02tiers-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-members-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Members",
+    "fields": {
+      "Values": [
+        "_Measures.Members"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-active-rate-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Active Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Active Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-elite-share-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Elite Share",
+    "fields": {
+      "Values": [
+        "_Measures.Elite Share %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-revenue--active-member-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Revenue / Active Member",
+    "fields": {
+      "Values": [
+        "_Measures.Revenue per Active Member"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-card-penetration-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Card Penetration",
+    "fields": {
+      "Values": [
+        "_Measures.Co-brand Card Penetration %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02tiers-avg-points-balance-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Avg Points Balance",
+    "fields": {
+      "Values": [
+        "_Measures.Avg Points Balance"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "members_by_tier",
+    "x": 24,
+    "y": 236,
+    "width": 403,
+    "height": 230,
+    "title": "Active members by tier",
+    "fields": {
+      "Category": "dim_tier.tier_name",
+      "Y": [
+        "_Measures.Members in Tier"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "rev_by_tier",
+    "x": 439,
+    "y": 236,
+    "width": 403,
+    "height": 230,
+    "title": "Flight revenue per member by tier",
+    "fields": {
+      "Category": "dim_tier.tier_name",
+      "Y": [
+        "_Measures.Revenue per Active Member"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "issued_by_source",
+    "x": 853,
+    "y": 236,
+    "width": 403,
+    "height": 230,
+    "title": "SkyPoints issued by source",
+    "fields": {
+      "Category": "dim_earn_source.source_name",
+      "Y": [
+        "_Measures.SkyPoints Issued"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "tier_movement",
+    "x": 24,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Tier upgrades vs downgrades by month",
+    "fields": {
+      "Category": "dim_month.month_name",
+      "Y": [
+        "_Measures.Tier Upgrades",
+        "_Measures.Tier Downgrades"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "liability_tiers",
+    "x": 646,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Point liability, gross vs breakage-adjusted",
+    "fields": {
+      "Category": "dim_month.month_name",
+      "Y": [
+        "_Measures.Point Liability BRL",
+        "_Measures.Point Liability BRL (breakage-adj)"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02tiers-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 300,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_month.month_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02tiers-sl-arm",
+    "x": 874,
+    "y": 126,
+    "width": 200,
+    "height": 34,
+    "title": "Experiment arm",
+    "fields": {
+      "Values": [
+        "dim_experiment_arm.arm_key"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02tiers-sl-stratum",
+    "x": 1086,
+    "y": 126,
+    "width": 170,
+    "height": 34,
+    "title": "Tier stratum",
+    "fields": {
+      "Values": [
+        "dim_experiment_stratum.stratum"
+      ]
+    }
+  }
+]

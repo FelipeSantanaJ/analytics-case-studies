@@ -1,0 +1,100 @@
+relationship 5772027e-70a2-5d2c-b61d-70b0fd905ba7
+	fromColumn: fact_point_transaction.txn_date_key
+	toColumn: dim_date.date_key
+
+relationship b24d62e2-fc85-5630-8250-21976c5b5077
+	fromColumn: fact_flight_segment.flight_date_key
+	toColumn: dim_date.date_key
+
+relationship 932d2a1d-47b0-5554-ad6f-bf6904322142
+	fromColumn: fact_tier_change.change_date_key
+	toColumn: dim_date.date_key
+
+relationship 4541c9ac-d125-543f-946d-080501be469e
+	fromColumn: fact_member_month.month_key
+	toColumn: dim_month.month_key
+
+relationship 58757b8e-c68a-5f51-9fc5-6f01ea3c23e9
+	fromColumn: fact_card_spend_month.month_key
+	toColumn: dim_month.month_key
+
+relationship 1d32cee0-6e57-5511-9854-79cc4a25602f
+	fromColumn: fact_liability_month.month_key
+	toColumn: dim_month.month_key
+
+relationship 6044f6cb-a369-585c-aa7d-dcb218229caa
+	fromColumn: fact_targets_month.month_key
+	toColumn: dim_month.month_key
+
+relationship 1a18ff0d-6618-5843-89c2-6ae0745e3b87
+	fromColumn: fact_point_transaction.member_key
+	toColumn: dim_member.member_key
+
+relationship a682d7ed-1c60-5229-a0bb-5a8f37c2265d
+	fromColumn: fact_flight_segment.member_key
+	toColumn: dim_member.member_key
+
+relationship cb0ba4a0-b8c1-5d8c-b0c9-5ec81d5f2ccb
+	fromColumn: fact_tier_change.member_key
+	toColumn: dim_member.member_key
+
+relationship f15eb072-94f9-5c5a-88a7-ef9dfc56fdbb
+	fromColumn: fact_member_month.member_key
+	toColumn: dim_member.member_key
+
+relationship ed153efa-e83e-5ebb-900d-7121745f9878
+	fromColumn: fact_card_spend_month.member_key
+	toColumn: dim_member.member_key
+
+relationship 521eb6c4-9d3d-56b6-9c48-bcadedea9584
+	fromColumn: fact_experiment_assignment.member_key
+	toColumn: dim_member.member_key
+
+relationship c2e264e4-edbf-5c95-bb90-32b031c738ba
+	fromColumn: fact_experiment_member_week.member_key
+	toColumn: dim_member.member_key
+
+relationship fc1495e8-e5ba-5169-9545-e2b4beb88834
+	fromColumn: fact_experiment_outcome.member_key
+	toColumn: dim_member.member_key
+
+relationship 87f35356-372f-5cb8-aafc-2e1de88187c3
+	fromColumn: fact_point_transaction.earn_source_key
+	toColumn: dim_earn_source.earn_source_key
+
+relationship 8b556d63-48b7-5f4b-8c32-a413fd3f2ffb
+	fromColumn: fact_point_transaction.reward_type_key
+	toColumn: dim_reward_type.reward_type_key
+
+relationship 08a8fb86-6776-57ad-be12-78232f21c365
+	fromColumn: fact_flight_segment.route_key
+	toColumn: dim_route.route_key
+
+relationship c322c33c-ba12-566f-891e-1e38e19e6127
+	fromColumn: fact_member_month.tier_key
+	toColumn: dim_tier.tier_key
+
+relationship f365fe8a-6965-56d3-9546-f66302616b75
+	fromColumn: fact_experiment_assignment.arm_key
+	toColumn: dim_experiment_arm.arm_key
+
+relationship 6267f67f-c13f-5c4e-a4ea-bab0835a8821
+	fromColumn: fact_experiment_assignment.stratum
+	toColumn: dim_experiment_stratum.stratum
+
+relationship b21e2c2a-03fa-56fa-940c-22635e16b03e
+	fromColumn: fact_experiment_member_week.arm_key
+	toColumn: dim_experiment_arm.arm_key
+
+relationship 4eceee10-4b90-5643-8de8-1da5758aafce
+	fromColumn: fact_experiment_member_week.stratum
+	toColumn: dim_experiment_stratum.stratum
+
+relationship 49e9deb5-258e-59d7-abf3-7939aabb8bd2
+	fromColumn: fact_experiment_outcome.arm_key
+	toColumn: dim_experiment_arm.arm_key
+
+relationship af178027-b4ca-5a76-b769-b6b7ebed089c
+	fromColumn: fact_experiment_outcome.stratum
+	toColumn: dim_experiment_stratum.stratum
+

@@ -1,0 +1,38 @@
+table fact_targets_month
+	lineageTag: 9f00b117-1def-53fb-9673-a3a45be22c94
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		dataType: string
+		lineageTag: c3800a03-66e4-54e1-a510-4d6c24a88cf3
+		summarizeBy: none
+		sourceColumn: kpi
+
+		annotation SummarizationSetBy = Automatic
+
+	column target_value
+		dataType: double
+		lineageTag: a9d173aa-0f89-5e33-9420-e8891aa65544
+		summarizeBy: sum
+		sourceColumn: target_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_targets_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_targets_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

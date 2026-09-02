@@ -1,0 +1,201 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "03experiment-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-subjects-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Subjects",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Subjects"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-control-rate-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Control Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Control Rate"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-treatment-rate-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Treatment Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Treatment Rate"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-lift-pp-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Lift (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Lift pp"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-significance-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Significance",
+    "fields": {
+      "Values": [
+        "_Measures.Exp Significant 95%"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-srm-treat-share-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "SRM (treat. share)",
+    "fields": {
+      "Values": [
+        "_Measures.Exp SRM Ratio"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "rate_by_arm_tier",
+    "x": 24,
+    "y": 236,
+    "width": 610,
+    "height": 232,
+    "title": "Redemption rate by arm and tier",
+    "fields": {
+      "Category": "dim_experiment_stratum.stratum",
+      "Y": [
+        "_Measures.Exp Control Rate",
+        "_Measures.Exp Treatment Rate"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "effect_by_tier",
+    "x": 646,
+    "y": 236,
+    "width": 610,
+    "height": 232,
+    "title": "Treatment effect by tier (pp) - heterogeneity cut",
+    "fields": {
+      "Category": "dim_experiment_stratum.stratum",
+      "Y": [
+        "_Measures.Exp Effect by Tier pp"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "novelty_curve",
+    "x": 24,
+    "y": 482,
+    "width": 714,
+    "height": 224,
+    "title": "Weekly redeemers by arm - novelty-effect check",
+    "fields": {
+      "Category": "fact_experiment_member_week.week",
+      "Y": [
+        "_Measures.Exp Weekly Redeemers %"
+      ],
+      "Series": "dim_experiment_arm.arm_key"
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "guardrails",
+    "x": 750,
+    "y": 482,
+    "width": 506,
+    "height": 224,
+    "title": "Guardrail metrics by arm",
+    "fields": {
+      "Values": [
+        "dim_experiment_arm.arm_key",
+        "_Measures.Exp Revenue per Member",
+        "_Measures.Exp Net Liability Cost per Member",
+        "_Measures.Exp Disengaged 90d %",
+        "_Measures.Exp Redemption Value per Redeemer"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 300,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_month.month_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-arm",
+    "x": 874,
+    "y": 126,
+    "width": 200,
+    "height": 34,
+    "title": "Experiment arm",
+    "fields": {
+      "Values": [
+        "dim_experiment_arm.arm_key"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-stratum",
+    "x": 1086,
+    "y": 126,
+    "width": 170,
+    "height": 34,
+    "title": "Tier stratum",
+    "fields": {
+      "Values": [
+        "dim_experiment_stratum.stratum"
+      ]
+    }
+  }
+]

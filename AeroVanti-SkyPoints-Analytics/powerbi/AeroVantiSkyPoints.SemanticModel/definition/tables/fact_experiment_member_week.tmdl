@@ -1,0 +1,95 @@
+table fact_experiment_member_week
+	lineageTag: a2a37ab1-deb4-5388-942d-d3df2d86bd79
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_id
+		dataType: string
+		lineageTag: 113cebe1-93e0-53c0-a25a-87ab065327e6
+		summarizeBy: none
+		sourceColumn: member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm_key
+		dataType: string
+		isHidden
+		lineageTag: bb312495-da64-5966-a411-251a61b41dcc
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column stratum
+		dataType: string
+		lineageTag: 02f32668-e41c-53eb-91fc-a16e4c019f16
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: int64
+		lineageTag: 0b29a4ce-37f4-5fab-b3a0-c5695eb051c4
+		summarizeBy: none
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column redeemed_w
+		dataType: boolean
+		lineageTag: a797c533-dc6f-58b7-8964-d87c3652f8a0
+		summarizeBy: none
+		sourceColumn: redeemed_w
+
+		annotation SummarizationSetBy = Automatic
+
+	column redemptions_w
+		dataType: int64
+		lineageTag: 208639cf-800f-53aa-9cfd-dea14d223817
+		summarizeBy: sum
+		sourceColumn: redemptions_w
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed_w
+		dataType: int64
+		lineageTag: 0d704c4e-7f7d-5889-8418-cf9f46cc9d42
+		summarizeBy: sum
+		sourceColumn: points_redeemed_w
+
+		annotation SummarizationSetBy = Automatic
+
+	column redemption_value_brl_w
+		dataType: double
+		lineageTag: b9ae2662-dfb8-5b08-b795-8abf60843471
+		summarizeBy: sum
+		sourceColumn: redemption_value_brl_w
+
+		annotation SummarizationSetBy = Automatic
+
+	column low_cost_only_w
+		dataType: boolean
+		lineageTag: 88f481cd-9ff4-5470-8039-ad8c6ea23aa1
+		summarizeBy: none
+		sourceColumn: low_cost_only_w
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_experiment_member_week = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_experiment_member_week.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

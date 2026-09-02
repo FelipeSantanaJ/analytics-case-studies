@@ -1,0 +1,121 @@
+table fact_flight_segment
+	lineageTag: bbdd3e09-e577-59ba-b041-791145603c38
+
+	column member_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a4145b5-5a00-54c8-920f-83887f90ad4e
+		summarizeBy: none
+		sourceColumn: member_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column loyalty_member_id
+		dataType: string
+		lineageTag: b0645a70-492c-5cbd-9137-cd4e9c608350
+		summarizeBy: none
+		sourceColumn: loyalty_member_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column flight_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 2f68345b-6275-5a36-9390-dec97630ab7e
+		summarizeBy: none
+		sourceColumn: flight_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		isHidden
+		lineageTag: 43e3d3ac-cc03-5da3-ad90-e9834c6a8bbf
+		summarizeBy: none
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column route_key
+		dataType: int64
+		isHidden
+		lineageTag: 909caaac-3f9d-5736-8861-91bf8f40e029
+		summarizeBy: none
+		sourceColumn: route_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column fare_family
+		dataType: string
+		lineageTag: cd88dfbc-cc11-56b5-8cb1-7c151a99a000
+		summarizeBy: none
+		sourceColumn: fare_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column base_fare_brl
+		dataType: double
+		lineageTag: 94b1861f-35ae-5466-ac07-b70a5d3cac9f
+		summarizeBy: sum
+		sourceColumn: base_fare_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column taxes_brl
+		dataType: double
+		lineageTag: e56b6ee9-4e6b-5b84-8f10-7d977d0d16b6
+		summarizeBy: sum
+		sourceColumn: taxes_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column booking_channel
+		dataType: string
+		lineageTag: d9dc4ad3-efc2-5680-9974-aea0ec53fdbc
+		summarizeBy: none
+		sourceColumn: booking_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_award_redemption
+		dataType: boolean
+		lineageTag: d7d0c34f-f09e-5937-b343-edbf1c1ee0c1
+		summarizeBy: none
+		sourceColumn: is_award_redemption
+
+		annotation SummarizationSetBy = Automatic
+
+	column points_redeemed
+		dataType: int64
+		lineageTag: bcf70b1d-fb4d-50a6-ada7-27f827df3c16
+		summarizeBy: sum
+		sourceColumn: points_redeemed
+
+		annotation SummarizationSetBy = Automatic
+
+	column skypoints_earned
+		dataType: int64
+		lineageTag: 361e2715-7da9-5969-bc67-784d3634a3f7
+		summarizeBy: sum
+		sourceColumn: skypoints_earned
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier_points_earned
+		dataType: int64
+		lineageTag: e3b74217-2269-5d5a-b661-408c10d5f5bb
+		summarizeBy: sum
+		sourceColumn: tier_points_earned
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_flight_segment = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_flight_segment.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

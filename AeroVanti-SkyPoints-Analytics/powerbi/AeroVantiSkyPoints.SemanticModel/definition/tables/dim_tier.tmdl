@@ -1,0 +1,71 @@
+table dim_tier
+	lineageTag: 7ed44665-8ddf-5cd6-9c62-053eba742d1e
+
+	column tier_key
+		dataType: int64
+		isHidden
+		lineageTag: 6a2ca0a6-f839-55d5-8634-61c6b7ba07d2
+		summarizeBy: none
+		sourceColumn: tier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier_name
+		dataType: string
+		lineageTag: 75882a90-2a7b-59c6-bded-602eb736f0f4
+		summarizeBy: none
+		sourceColumn: tier_name
+		sortByColumn: tier_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier_rank
+		dataType: int64
+		lineageTag: 43f44375-facd-5154-a345-91db440e195b
+		summarizeBy: none
+		sourceColumn: tier_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column earn_multiplier
+		dataType: double
+		lineageTag: 6f0e36ee-08cd-52c9-827a-e4a14870a631
+		summarizeBy: sum
+		sourceColumn: earn_multiplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column tp_threshold
+		dataType: int64
+		lineageTag: e911d001-c786-58c3-90f1-83cdf7006113
+		summarizeBy: sum
+		sourceColumn: tp_threshold
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment_threshold
+		dataType: int64
+		lineageTag: d47cf93c-c002-5d6c-8eba-74ecb6cacf08
+		summarizeBy: sum
+		sourceColumn: segment_threshold
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_elite
+		dataType: boolean
+		lineageTag: 96a6e32c-a611-5d03-9fb1-e64078ad53d3
+		summarizeBy: none
+		sourceColumn: is_elite
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_tier = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_tier.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

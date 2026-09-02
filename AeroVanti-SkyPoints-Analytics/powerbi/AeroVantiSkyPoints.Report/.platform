@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AeroVantiSkyPoints"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8ec9f288-37db-4b01-a151-585efd8cac97"
+  }
+}
