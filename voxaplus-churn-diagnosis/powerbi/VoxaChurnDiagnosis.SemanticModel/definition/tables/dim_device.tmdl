@@ -1,0 +1,46 @@
+table dim_device
+	lineageTag: 06ee8c9a-f25a-5820-91ba-167a89312ace
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: b46ba6e0-8572-5dfa-a768-291609e48872
+		summarizeBy: none
+		sourceColumn: device_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_family
+		dataType: string
+		lineageTag: e0bd8337-43fa-52bb-b297-420dcda745ac
+		summarizeBy: none
+		sourceColumn: device_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_class
+		dataType: string
+		lineageTag: cb3a0c6d-0bf4-59b0-a4be-42d829ac4e77
+		summarizeBy: none
+		sourceColumn: device_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_ctv
+		dataType: boolean
+		lineageTag: fc398f0b-e233-5dbb-9810-ecf530cc8620
+		summarizeBy: none
+		sourceColumn: is_ctv
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_device = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_device.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

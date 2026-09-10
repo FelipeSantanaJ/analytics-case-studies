@@ -1,0 +1,3 @@
+period,churners,avg_hours_m_minus_2,avg_hours_m_minus_1,avg_hours_m0,share_below_healthy_prior_month
+peak,12243,37.25,35.69,,0.127
+pre_shift,17146,43.18,43.62,,0.115

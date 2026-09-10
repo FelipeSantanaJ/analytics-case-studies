@@ -1,0 +1,197 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "03engagement-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement-monthly-active-rate-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Monthly Active Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Monthly Active Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement-hours--active-sub-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Hours / Active Sub",
+    "fields": {
+      "Values": [
+        "_Measures.Viewing Hours per Active Sub"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement--below-healthy-eng-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "% Below Healthy Eng.",
+    "fields": {
+      "Values": [
+        "_Measures.% Subs Below Healthy Engagement"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement-titles--active-sub-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Titles / Active Sub",
+    "fields": {
+      "Values": [
+        "_Measures.Titles Started per Active Sub"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement--days-on-ctv-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "% Days on CTV",
+    "fields": {
+      "Values": [
+        "_Measures.Avg % Days on Connected TV"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03engagement-streamed-hours-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Streamed Hours",
+    "fields": {
+      "Values": [
+        "_Measures.Streamed Hours"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "hours_trend",
+    "x": 24,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Viewing hours per active subscriber",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Viewing Hours per Active Sub"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "vsf_by_device",
+    "x": 646,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Video-start-failure rate by device class",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Video Start Failure Rate"
+      ],
+      "Series": "dim_device.device_class"
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "below_healthy_trend",
+    "x": 24,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Share of subscribers below healthy engagement",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.% Subs Below Healthy Engagement"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "hours_by_device",
+    "x": 646,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Streamed hours by device family",
+    "fields": {
+      "Category": "dim_device.device_family",
+      "Y": [
+        "_Measures.Streamed Hours (by Device)"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03engagement-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03engagement-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03engagement-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

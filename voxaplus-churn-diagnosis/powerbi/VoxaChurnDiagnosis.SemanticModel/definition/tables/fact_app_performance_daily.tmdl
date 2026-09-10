@@ -1,0 +1,105 @@
+table fact_app_performance_daily
+	lineageTag: 9ff9eed2-0b6a-5850-9745-820169e358a0
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column local_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 4bc0c0ea-eb7f-57f0-ade0-1be621a34c0a
+		summarizeBy: none
+		sourceColumn: local_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_family
+		dataType: string
+		lineageTag: e0bd8337-43fa-52bb-b297-420dcda745ac
+		summarizeBy: none
+		sourceColumn: device_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: b46ba6e0-8572-5dfa-a768-291609e48872
+		summarizeBy: none
+		sourceColumn: device_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column app_version
+		dataType: string
+		lineageTag: c0a2e7cf-06e3-5da6-84ed-b84c6460b233
+		summarizeBy: none
+		sourceColumn: app_version
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column sessions
+		dataType: int64
+		lineageTag: ba6ac442-cac8-5db6-a284-cedc70c1dec3
+		summarizeBy: sum
+		sourceColumn: sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column crashes
+		dataType: int64
+		lineageTag: ee0530c7-14d7-5649-acc9-e927a1f1dafb
+		summarizeBy: sum
+		sourceColumn: crashes
+
+		annotation SummarizationSetBy = Automatic
+
+	column screen_views
+		dataType: int64
+		lineageTag: f92341b4-0bf7-5bff-af0d-380e53eeadb9
+		summarizeBy: sum
+		sourceColumn: screen_views
+
+		annotation SummarizationSetBy = Automatic
+
+	column crash_free_rate
+		dataType: double
+		lineageTag: 1b0436d3-25e1-50d5-8f1b-58a65d1536e3
+		summarizeBy: sum
+		sourceColumn: crash_free_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_app_performance_daily = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_app_performance_daily.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

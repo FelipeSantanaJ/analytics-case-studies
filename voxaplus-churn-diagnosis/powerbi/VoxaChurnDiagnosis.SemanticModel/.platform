@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "VoxaChurnDiagnosis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "678eb785-649a-528f-9c83-5982e63cd4cb"
+  }
+}

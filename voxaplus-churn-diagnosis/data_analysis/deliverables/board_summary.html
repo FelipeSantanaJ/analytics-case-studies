@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why churn nearly doubled — and what to do</title><style>
+:root{
+  --violet:#4B2E83; --violet-deep:#241348; --violet-tint:#EDE9F5;
+  --amber:#E6A23C; --steel:#5B7FB0;
+  --ink:#1E1A33; --body:#3A3646; --muted:#77738A;
+  --good:#2E7D5B; --bad:#C0453B;
+  --page:#F2F1F7; --card:#FFFFFF; --line:#E1DEEB; --lightfill:#F7F6FB;
+}
+*{box-sizing:border-box}
+html{font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;color:var(--body);font-size:15px;line-height:1.55}
+body{margin:0;background:var(--page);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{max-width:960px;margin:0 auto;padding:0 0 56px;background:var(--card)}
+.band{background:var(--violet-deep);color:#F4F2FA;padding:20px 56px;border-bottom:3px solid var(--amber)}
+.band .wm{font-weight:700;font-size:19px;letter-spacing:.02em}
+.band .wm b{color:var(--amber);font-weight:700}
+.band .lab{float:right;color:#C6BEDD;font-size:13px;margin-top:5px}
+.body{padding:34px 56px}
+h1{font-size:27px;font-weight:600;margin:0 0 2px;letter-spacing:-.01em;color:var(--ink)}
+.sub{color:var(--muted);font-size:14px;margin:0 0 8px}
+.lead{font-size:16px;color:var(--ink);margin:18px 0 8px}
+h2{font-size:20px;font-weight:600;margin:34px 0 6px;color:var(--violet);border-bottom:2px solid var(--line);padding-bottom:6px}
+h3{font-size:15px;font-weight:600;margin:20px 0 4px;color:var(--ink)}
+p{margin:8px 0}
+strong{font-weight:600;color:var(--ink)}
+em{color:var(--muted)}
+ul,ol{margin:8px 0 8px 22px;padding:0}
+li{margin:5px 0}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left}
+th{background:var(--lightfill);font-weight:600;color:var(--ink)}
+tr:nth-child(even) td{background:#FBFAFD}
+code{background:var(--violet-tint);border-radius:4px;padding:1px 5px;font-size:12.5px}
+.good{color:var(--good)} .bad{color:var(--bad)} .amber{color:var(--amber)} .muted{color:var(--muted)}
+.rec{border-left:4px solid var(--amber);background:var(--lightfill);padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0}
+.verdict{border-left:4px solid var(--violet);background:#fff;border:1px solid var(--line);
+  border-radius:8px;padding:14px 18px;margin:14px 0}
+.factor{display:flex;gap:12px;margin:10px 0;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:8px}
+.factor .tag{flex:none;width:26px;height:26px;border-radius:50%;background:var(--violet);color:#fff;
+  font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.factor .tag.amber{background:var(--amber)} .factor .tag.steel{background:var(--steel)}
+img{max-width:100%;border:1px solid var(--line);border-radius:8px;margin:10px 0}
+hr{border:0;border-top:1px solid var(--line);margin:26px 0}
+.foot{color:var(--muted);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:10px}
+@media print{
+  body{background:#fff}
+  .page{max-width:none}
+  .body,.band{padding-left:14mm;padding-right:14mm}
+  h2{break-before:page;break-after:avoid}
+  h2:first-of-type{break-before:avoid}
+  table,.factor,.verdict,.rec{break-inside:avoid}
+}
+</style></head><body><div class="page">
+<div class="band"><span class="wm">Voxa<b>+</b></span><span class="lab">Subscriber churn diagnosis — board summary</span></div>
+<div class="body"><h1>Why churn nearly doubled — and what to do</h1><p class="sub">Board readout · analysis window Sep 2023 – Aug 2026 · figures dual-computed (SQL + Python), 15/15 parity checks pass</p>
+
+<p class="lead">Gross monthly churn stepped from a stable <strong>4.1%</strong> to
+<strong>6.8%</strong> at window-month 34 and has stayed there (6.9% &rarr; 6.6% &rarr; 7.0%).
+<strong>90% of it is voluntary.</strong> It is not one event.</p>
+
+<div class="verdict"><strong>Root cause: three factors that overlapped in time.
+None explains the spike alone.</strong></div>
+
+<div class="factor"><div class="tag">1</div><div>
+  <strong>Connected-TV app regression</strong> — the app "v3" rollout reached smart-TV /
+  streaming-stick last (window-month 32). Video-start failures <strong>tripled</strong>
+  (1.1% &rarr; 3.0%). CTV-heavy subscribers churned the <strong>same</strong> as everyone
+  else before; after, their churn <strong>doubled to 8.4%</strong> vs 5.6% for the rest.
+  Acute trigger, biggest contributor, every market — weakest in the US.
+</div></div>
+<div class="factor"><div class="tag amber">2</div><div>
+  <strong>Brazil price increase</strong> (Standard/Premium, window-month 32) —
+  <strong>Brazil only</strong>. Zero measurable effect on engaged subscribers;
+  <strong>+18 pp</strong> on subscribers who were already disengaged (many pushed there by
+  Factor 1). Price &times; prior disengagement is what makes Brazil <em>step</em>
+  (3.4% &rarr; 7.0%).
+</div></div>
+<div class="factor"><div class="tag steel">3</div><div>
+  <strong>Mexico cohort-quality drag</strong> — <strong>Mexico only</strong>, and
+  <strong>months old</strong>. Mexican subscribers acquired since ~mid-2025 retain
+  <strong>~8 pp worse at month 3</strong> (vs ~3 pp elsewhere). This was already lifting
+  Mexican churn before the spike and is still underneath it (Mexico 5.4% &rarr; 8.1%,
+  drifting then stepping).
+</div></div>
+
+<p class="muted">Payments were tested and <strong>ruled out</strong>: payment-failure rate,
+dunning recovery and involuntary churn are unchanged in every market.</p>
+
+<h2>By market</h2>
+<table>
+  <tr><th>Market</th><th>Pre-shift</th><th>Now</th><th>Shape</th></tr>
+  <tr><td>Brazil</td><td>3.4%</td><td class="bad">7.0%</td><td>flat, then a clean +3.0 pp step — acute</td></tr>
+  <tr><td>Mexico</td><td>5.4%</td><td class="bad">8.1%</td><td>drifting up since ~mid-2025, then a further step</td></tr>
+  <tr><td>United States</td><td>4.1%</td><td class="muted">4.4%</td><td>essentially unchanged — the control</td></tr>
+</table>
+
+<h2>What it is costing</h2>
+<table>
+  <tr><th>Measure</th><th>Pre-shift</th><th>Now</th></tr>
+  <tr><td>Implied average subscriber lifetime</td><td>24.3 mo</td><td class="bad">14.7 mo</td></tr>
+  <tr><td>Lifetime value per subscriber</td><td>—</td><td class="bad">−40%</td></tr>
+  <tr><td>Excess subscribers lost (3 elevated months, vs the old rate)</td><td>—</td><td class="bad">≈ 5,400</td></tr>
+</table>
+<p class="muted">≈ $0.5–0.6 M of lifetime recurring revenue already forgone, compounding
+monthly. A 40% lower LTV also cuts the allowable CAC by ~40% — the growth plan no longer
+pencils at current acquisition cost.</p>
+
+<h2>Recommendations — in priority order</h2>
+<ol>
+  <li><strong>Fix the connected-TV player (Sev-1).</strong> Roll back / hotfix v3 on
+      smart-TV and streaming-stick; confirm video-start-failure returns to ~1%.
+      Save-campaign the CTV-heavy subscribers whose viewing dropped after window-month 32.</li>
+  <li><strong>Pause the Brazil price migration for low-engagement Standard/Premium
+      subscribers.</strong> Give them a retention path (hold price, downgrade, or pause);
+      re-test elasticity after the CTV fix.</li>
+  <li><strong>Audit Mexico acquisition and onboarding since mid-2025.</strong> Cap spend on
+      the weakest sources until month-3 retention recovers toward ~82%.</li>
+  <li><strong>Instrument for next time:</strong> connected-TV quality on the exec dashboard,
+      a leading "engagement health" trend, and price-change elasticity by engagement band.</li>
+</ol>
+
+<p class="foot">Synthetic, seed-generated data (a portfolio project). Every figure is
+computed on two tracks — DuckDB SQL and pandas — with a parity assertion on each result
+(<code>python data_analysis/run_analysis.py</code>, 15/15 pass). The mechanism that
+produced the spike is not stated in any document; it lives only in <code>etl/config.py</code>
+and was recovered from the data. Per-finding method and evidence:
+<code>data_analysis/findings/F01</code>–<code>F10</code>.</p>
+</div></div></body></html>

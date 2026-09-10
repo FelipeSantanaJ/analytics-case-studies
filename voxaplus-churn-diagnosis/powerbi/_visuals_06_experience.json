@@ -1,0 +1,199 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "06experience-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-payment-failure-rate-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Payment Failure Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Payment Failure Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-dunning-recovery-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Dunning Recovery",
+    "fields": {
+      "Values": [
+        "_Measures.Dunning Recovery Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-involuntary-churn-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Involuntary Churn",
+    "fields": {
+      "Values": [
+        "_Measures.Involuntary Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-crash-free-rate-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Crash-Free Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Crash-Free Session Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-tickets--1k-subs-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Tickets / 1k Subs",
+    "fields": {
+      "Values": [
+        "_Measures.Tickets per 1,000 Subs"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "06experience-csat-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "CSAT",
+    "fields": {
+      "Values": [
+        "_Measures.CSAT"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "crashfree_by_device",
+    "x": 24,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Crash-free session rate by device class",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Crash-Free Session Rate %"
+      ],
+      "Series": "dim_device.device_class"
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "pay_fail_recovery",
+    "x": 646,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Payment failure rate and dunning recovery",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Payment Failure Rate %",
+        "_Measures.Dunning Recovery Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "auth_by_method",
+    "x": 24,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Authorization rate by payment method",
+    "fields": {
+      "Category": "dim_payment_method.method",
+      "Y": [
+        "_Measures.Authorization Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "tickets_by_reason",
+    "x": 646,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Support contacts per 1,000 subscribers by reason",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Tickets per 1,000 Subs"
+      ],
+      "Series": "dim_support_reason.reason_group"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "06experience-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "06experience-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "06experience-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

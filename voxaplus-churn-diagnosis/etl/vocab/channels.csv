@@ -1,0 +1,30 @@
+variant,canonical
+Direct,direct
+direct,direct
+DIRECT,direct
+web-direct,direct
+Organic,organic
+organic,organic
+ORG,organic
+unpaid,organic
+Paid Search,paid_search
+paid_search,paid_search
+SEM,paid_search
+Google Ads,paid_search
+search,paid_search
+Paid Social,paid_social
+paid_social,paid_social
+FB/IG,paid_social
+Meta,paid_social
+social-paid,paid_social
+Affiliate,affiliate
+affiliate,affiliate
+AFF,affiliate
+affiliates,affiliate
+Partner Bundle,partner_bundle
+partner_bundle,partner_bundle
+Telco Bundle,partner_bundle
+bundle,partner_bundle
+PARTNER,partner_bundle
+unknown,unknown
+,unknown

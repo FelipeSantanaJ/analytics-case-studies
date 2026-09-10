@@ -1,0 +1,25 @@
+:root{
+  --violet:#4B2E83;--deep:#241348;--amber:#E6A23C;--steel:#5B7FB0;
+  --teal:#3E9C93;--plum:#8E5EA8;--slate:#6B7280;
+  --ground:#F2F1F7;--card:#fff;--ink:#1E1A33;--body:#3A3646;--muted:#77738A;--hair:#E1DEEB;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1600px;height:820px;overflow:hidden}
+body{background:var(--ground);color:var(--body);display:flex;flex-direction:column;
+  font:15px/1.5 "Segoe UI",-apple-system,Roboto,Helvetica,Arial,sans-serif}
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center}
+.band{height:74px;background:var(--deep);color:#F4F2FA;display:flex;align-items:center;
+  justify-content:space-between;padding:0 40px;border-bottom:3px solid var(--amber)}
+.band .wm{font-weight:700;font-size:22px}.band .wm b{color:var(--amber)}
+.band .t{font-size:15px;color:#C6BEDD}
+.stage{padding:34px 40px}
+h1{font-size:26px;color:var(--ink);margin-bottom:4px}
+.sub{color:var(--muted);font-size:15px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:12px}
+.chip{display:inline-block;background:#EDE9F5;color:var(--violet);border-radius:999px;
+  padding:3px 12px;font-size:12.5px;font-weight:600;margin:3px}
+.mono{font-family:"Cascadia Code",Consolas,"Courier New",monospace;font-size:12.5px}
+.arrow{color:var(--amber);font-size:26px;align-self:center}
+.k{color:var(--ink);font-weight:700}
+.small{font-size:12.5px;color:var(--muted)}
+.foot{margin-top:auto;padding:14px 40px 16px;color:var(--muted);font-size:12px}

@@ -1,0 +1,38 @@
+table dim_support_reason
+	lineageTag: 6339046d-a9f6-563e-858c-13a38e8479b7
+
+	column support_reason_key
+		dataType: int64
+		isHidden
+		lineageTag: a14a8647-903c-5686-9d17-8012fb390460
+		summarizeBy: none
+		sourceColumn: support_reason_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_category
+		dataType: string
+		lineageTag: d835073d-d4b0-5840-9bd2-aa8207858b97
+		summarizeBy: none
+		sourceColumn: reason_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_group
+		dataType: string
+		lineageTag: a7886ac6-b901-584d-bd00-24e3ff35b03f
+		summarizeBy: none
+		sourceColumn: reason_group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_support_reason = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_support_reason.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

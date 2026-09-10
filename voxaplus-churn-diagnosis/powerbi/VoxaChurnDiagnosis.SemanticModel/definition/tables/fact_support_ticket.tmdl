@@ -1,0 +1,113 @@
+table fact_support_ticket
+	lineageTag: 45a932af-bc6e-58c8-8b23-ed685b1a275b
+
+	column ticket_id
+		dataType: string
+		lineageTag: e92b1858-5dd8-58b7-94bc-c726c8088b80
+		summarizeBy: none
+		sourceColumn: ticket_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_date_key
+		dataType: int64
+		isHidden
+		lineageTag: a2d11f9d-6727-52a7-8b35-0fca3e319a6a
+		summarizeBy: none
+		sourceColumn: created_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact_channel
+		dataType: string
+		lineageTag: 470fa0ac-a8de-5c44-b285-3ee494b3d246
+		summarizeBy: none
+		sourceColumn: contact_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_category
+		dataType: string
+		lineageTag: d835073d-d4b0-5840-9bd2-aa8207858b97
+		summarizeBy: none
+		sourceColumn: reason_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_group
+		dataType: string
+		lineageTag: a7886ac6-b901-584d-bd00-24e3ff35b03f
+		summarizeBy: none
+		sourceColumn: reason_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column support_reason_key
+		dataType: int64
+		isHidden
+		lineageTag: a14a8647-903c-5686-9d17-8012fb390460
+		summarizeBy: none
+		sourceColumn: support_reason_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column csat_score
+		dataType: double
+		lineageTag: 2a746b0b-24ce-56c5-9478-842ad3ceaae6
+		summarizeBy: sum
+		sourceColumn: csat_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolution_hours
+		dataType: double
+		lineageTag: 9d31010d-7ad8-59d4-a984-2e53bb77ed76
+		summarizeBy: sum
+		sourceColumn: resolution_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_version
+		dataType: string
+		lineageTag: 88506fe4-b64b-55bd-ac61-c3ca8ca0a026
+		summarizeBy: none
+		sourceColumn: source_version
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_support_ticket = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_support_ticket.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

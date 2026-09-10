@@ -1,0 +1,101 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "price_history",
+  "position": {
+    "x": 750,
+    "y": 276,
+    "z": 0,
+    "height": 204,
+    "width": 506,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "tier"
+                }
+              },
+              "queryRef": "dim_price_history.tier",
+              "nativeQueryRef": "tier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "market_id"
+                }
+              },
+              "queryRef": "dim_price_history.market_id",
+              "nativeQueryRef": "market_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "list_price_local"
+                }
+              },
+              "queryRef": "dim_price_history.list_price_local",
+              "nativeQueryRef": "list_price_local"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Plan list-price history'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

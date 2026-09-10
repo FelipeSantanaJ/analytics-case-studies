@@ -1,0 +1,30 @@
+table 'Subscriber Bridge'
+	lineageTag: 9cff8148-7a67-5718-9a8e-e60861a109a7
+
+	column Step
+		dataType: string
+		lineageTag: 9d273f2d-a3c0-53ca-ae3c-773e7b50088b
+		summarizeBy: none
+		sourceColumn: Step
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		lineageTag: a730bda7-1d45-59f0-87c7-cfcf0e3f912f
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Subscriber Bridge' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Step=text, Sort=Int64.Type], {{"Start of period", 1}, {"New", 2}, {"Reactivation", 3}, {"Voluntary churn", 4}, {"Involuntary churn", 5}, {"End of period", 6}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

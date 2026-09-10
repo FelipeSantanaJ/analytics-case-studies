@@ -1,0 +1,137 @@
+relationship 4d752d0a-2332-5166-a2ec-3e4b27de93c7
+	fromColumn: fact_subscription_month.date_key
+	toColumn: dim_date.date_key
+
+relationship eef5b686-1e21-5581-ab90-e28c02ba4b32
+	fromColumn: fact_subscription_event.event_date_key
+	toColumn: dim_date.date_key
+
+relationship 46382424-f370-5e3a-8261-9af58d8a190e
+	fromColumn: fact_billing_attempt.date_key
+	toColumn: dim_date.date_key
+
+relationship 5140015b-001e-53e6-af23-a739c5338351
+	fromColumn: fact_engagement_month.date_key
+	toColumn: dim_date.date_key
+
+relationship 0167ef36-e376-5395-b1de-c114fb4dd215
+	fromColumn: fact_engagement_device_month.date_key
+	toColumn: dim_date.date_key
+
+relationship 13f65e51-ee51-5669-beb7-7606db81542a
+	fromColumn: fact_app_performance_daily.date_key
+	toColumn: dim_date.date_key
+
+relationship ec5ed9d7-31d6-5f92-8335-08753dab04df
+	fromColumn: fact_support_ticket.created_date_key
+	toColumn: dim_date.date_key
+
+relationship 77b4c86f-f46f-5f2b-a17d-1292c3167cdc
+	fromColumn: fact_marketing_spend.week_date_key
+	toColumn: dim_date.date_key
+
+relationship 5ba3d226-5d4a-5818-aabc-aada8a91a197
+	fromColumn: fact_ad_revenue.date_key
+	toColumn: dim_date.date_key
+
+relationship 13904d85-4dfe-590a-831a-a79d630d0111
+	fromColumn: fact_content_cost.date_key
+	toColumn: dim_date.date_key
+
+relationship 8330aa58-a092-53c9-9e51-a32084d628ed
+	fromColumn: fact_finance_month.date_key
+	toColumn: dim_date.date_key
+
+relationship 2313ae89-001f-52b3-8700-a13e61eff61b
+	fromColumn: fact_targets_month.date_key
+	toColumn: dim_date.date_key
+
+relationship 80eae614-eefc-5eac-ab2e-45594d62cd75
+	fromColumn: fact_fx_rate.date_key
+	toColumn: dim_date.date_key
+
+relationship 5d189c3b-8c8b-5353-b387-00b32bf96b8e
+	fromColumn: fact_subscription_month.subscriber_key
+	toColumn: dim_subscriber.subscriber_key
+
+relationship 69e591e5-8121-5bca-86c2-d2a2968faaec
+	fromColumn: fact_subscription_event.subscriber_key
+	toColumn: dim_subscriber.subscriber_key
+
+relationship 6bfb3fd0-2212-5084-a018-0fe9227e542c
+	fromColumn: fact_billing_attempt.subscriber_key
+	toColumn: dim_subscriber.subscriber_key
+
+relationship 64de71b6-0012-5916-861c-aa625f9f8fa2
+	fromColumn: fact_engagement_month.subscriber_key
+	toColumn: dim_subscriber.subscriber_key
+
+relationship 80a54dd3-cf7b-55cf-8fa5-253ac3577505
+	fromColumn: fact_support_ticket.subscriber_key
+	toColumn: dim_subscriber.subscriber_key
+
+relationship 08b9f378-2d20-566c-9494-d78906ffba13
+	fromColumn: dim_subscriber.market_key
+	toColumn: dim_market.market_key
+
+relationship 83186be7-9ff5-5b60-867d-8256805a01e3
+	fromColumn: fact_app_performance_daily.market
+	toColumn: dim_market.market_id
+
+relationship 2e9fb84b-9fd6-5898-b339-eb71da0b85a2
+	fromColumn: fact_engagement_device_month.market_key
+	toColumn: dim_market.market_key
+
+relationship 56c92100-6a4a-505c-952b-9928281f59b1
+	fromColumn: fact_ad_revenue.market_key
+	toColumn: dim_market.market_key
+
+relationship be6550bc-556a-5c6b-bfc7-673732b564fa
+	fromColumn: fact_marketing_spend.market_key
+	toColumn: dim_market.market_key
+
+relationship 3b986c4f-21ba-5dba-8b77-872a97acff18
+	fromColumn: fact_finance_month.market_key
+	toColumn: dim_market.market_key
+
+relationship a7a92598-66dc-5eab-a1ef-2b6936fb6ed2
+	fromColumn: fact_targets_month.market_key
+	toColumn: dim_market.market_key
+
+relationship b62f84f5-b5a5-5c0d-b1e9-5edc54a62cbe
+	fromColumn: fact_engagement_device_month.device_key
+	toColumn: dim_device.device_key
+
+relationship 6d0d940f-5be4-5866-b64e-8037fe66e34a
+	fromColumn: fact_app_performance_daily.device_key
+	toColumn: dim_device.device_key
+
+relationship 85d27f9c-85a4-5588-b52c-86465c711128
+	fromColumn: fact_app_performance_daily.app_version
+	toColumn: dim_app_version.app_version
+
+relationship 5f479e1b-0a25-5e48-835b-8b3b4abbb657
+	fromColumn: fact_billing_attempt.method_key
+	toColumn: dim_payment_method.method_key
+
+relationship 262a3045-6bb6-512f-99aa-021aa61ddf41
+	fromColumn: fact_marketing_spend.channel_key
+	toColumn: dim_channel.channel_key
+
+relationship 4a52bc27-c0be-549a-a47d-462fe9e1e619
+	fromColumn: fact_support_ticket.support_reason_key
+	toColumn: dim_support_reason.support_reason_key
+
+relationship edf7a0b0-40ab-507b-a568-19ebac9d13f0
+	fromColumn: fact_content_cost.content_key
+	toColumn: dim_content.content_key
+
+relationship b2e7c350-0797-56d1-b3f8-5447db525447
+	isActive: false
+	fromColumn: dim_content.release_date_key
+	toColumn: dim_date.date_key
+
+relationship 45bed10e-74e0-503a-ab79-5e5f0922c704
+	fromColumn: fact_finance_month.pnl_line
+	toColumn: 'P&L Line'.pnl_line
+

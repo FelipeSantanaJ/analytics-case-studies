@@ -1,0 +1,54 @@
+table dim_app_version
+	lineageTag: 642a4dee-fc6b-527e-92a7-0346ddf35595
+
+	column app_version_key
+		dataType: int64
+		isHidden
+		lineageTag: 8878e1ce-44d9-5e98-a180-dfab53048c98
+		summarizeBy: none
+		sourceColumn: app_version_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column app_version
+		dataType: string
+		lineageTag: c0a2e7cf-06e3-5da6-84ed-b84c6460b233
+		summarizeBy: none
+		sourceColumn: app_version
+
+		annotation SummarizationSetBy = Automatic
+
+	column major
+		dataType: int64
+		lineageTag: 7effa47d-c3c2-57b1-9879-688c1ec062f3
+		summarizeBy: none
+		sourceColumn: major
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_v3
+		dataType: boolean
+		lineageTag: fcbf6fe9-471b-53bc-85bf-4485ed054d50
+		summarizeBy: none
+		sourceColumn: is_v3
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_class_hint
+		dataType: string
+		lineageTag: a712ff00-642d-52f0-84cd-95348f27fcd4
+		summarizeBy: none
+		sourceColumn: device_class_hint
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_app_version = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_app_version.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

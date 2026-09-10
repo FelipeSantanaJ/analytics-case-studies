@@ -1,0 +1,13 @@
+market,chan_q,coh_era,cohort_n,m3_retention
+BR,low_quality,post_shift_cohorts,4243,0.8023
+BR,low_quality,pre_shift_cohorts,6753,0.8294
+BR,other,post_shift_cohorts,8688,0.7966
+BR,other,pre_shift_cohorts,13644,0.8266
+MX,low_quality,post_shift_cohorts,5148,0.7403
+MX,low_quality,pre_shift_cohorts,7363,0.8168
+MX,other,post_shift_cohorts,5893,0.7288
+MX,other,pre_shift_cohorts,8413,0.8189
+US,low_quality,post_shift_cohorts,2822,0.8104
+US,low_quality,pre_shift_cohorts,2718,0.83
+US,other,post_shift_cohorts,4810,0.8087
+US,other,pre_shift_cohorts,4533,0.8251

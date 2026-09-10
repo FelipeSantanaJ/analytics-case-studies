@@ -1,0 +1,38 @@
+table 'Reporting Currency'
+	lineageTag: 3ed41a94-aebe-5030-839c-50f0759d75ed
+
+	column Currency
+		dataType: string
+		lineageTag: 860b5c3e-6828-5b3b-ad6b-7364c3fa65d4
+		summarizeBy: none
+		sourceColumn: Currency
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Symbol
+		dataType: string
+		lineageTag: c5a1426f-4b11-5338-9265-da074cdcc126
+		summarizeBy: none
+		sourceColumn: Symbol
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		lineageTag: a730bda7-1d45-59f0-87c7-cfcf0e3f912f
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Reporting Currency' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Currency=text, Symbol=text, Sort=Int64.Type], {{"USD", "$", 1}, {"BRL", "R$", 2}, {"MXN", "MX$", 3}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

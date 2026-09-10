@@ -1,0 +1,137 @@
+table fact_engagement_device_month
+	lineageTag: adc26037-9ce3-5feb-aef4-d0792a900023
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_family
+		dataType: string
+		lineageTag: e0bd8337-43fa-52bb-b297-420dcda745ac
+		summarizeBy: none
+		sourceColumn: device_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: b46ba6e0-8572-5dfa-a768-291609e48872
+		summarizeBy: none
+		sourceColumn: device_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column streamed_hours
+		dataType: double
+		lineageTag: c9470700-9154-5467-9ff3-80726089218e
+		summarizeBy: sum
+		sourceColumn: streamed_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column play_starts
+		dataType: int64
+		lineageTag: c1c7d863-cf1b-5f7c-82e9-10f26e810bb4
+		summarizeBy: sum
+		sourceColumn: play_starts
+
+		annotation SummarizationSetBy = Automatic
+
+	column video_start_failures
+		dataType: int64
+		lineageTag: 9755d7a7-091d-5dff-8be0-44003e913713
+		summarizeBy: sum
+		sourceColumn: video_start_failures
+
+		annotation SummarizationSetBy = Automatic
+
+	column playback_errors
+		dataType: int64
+		lineageTag: d49b1197-c433-59c7-88c1-e237fc315067
+		summarizeBy: sum
+		sourceColumn: playback_errors
+
+		annotation SummarizationSetBy = Automatic
+
+	column rebuffer_ratio
+		dataType: double
+		lineageTag: 3e80033a-3f8a-5c90-be42-f5b0b940febf
+		summarizeBy: sum
+		sourceColumn: rebuffer_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column cdn_gb
+		dataType: double
+		lineageTag: cef43346-b58b-5706-9297-fd030a1c1ec2
+		summarizeBy: sum
+		sourceColumn: cdn_gb
+
+		annotation SummarizationSetBy = Automatic
+
+	column viewing_subs
+		dataType: int64
+		lineageTag: 2eb6edc9-0cd3-56cf-a61a-fec0b027225a
+		summarizeBy: sum
+		sourceColumn: viewing_subs
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column vsf_rate
+		dataType: double
+		lineageTag: 02b7b739-a10a-5a30-93d0-8cba4b3b0117
+		summarizeBy: sum
+		sourceColumn: vsf_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column playback_error_rate
+		dataType: double
+		lineageTag: 961b4993-8d1b-5e2f-8998-275c39e577e2
+		summarizeBy: sum
+		sourceColumn: playback_error_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_engagement_device_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_engagement_device_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

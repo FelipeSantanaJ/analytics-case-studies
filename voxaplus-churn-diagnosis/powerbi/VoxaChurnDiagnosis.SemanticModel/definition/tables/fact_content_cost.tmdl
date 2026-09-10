@@ -1,0 +1,56 @@
+table fact_content_cost
+	lineageTag: 515f125f-6817-57d8-b5a6-4b049a334367
+
+	column content_key
+		dataType: int64
+		isHidden
+		lineageTag: df8b5b53-9d2c-5db4-b186-6f453bcc1b16
+		summarizeBy: none
+		sourceColumn: content_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column amort_usd
+		dataType: double
+		lineageTag: 63c724e3-0e8c-501b-b370-e3cd53832ad2
+		summarizeBy: sum
+		sourceColumn: amort_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column cash_spend_usd
+		dataType: double
+		lineageTag: f2432983-cae5-5a5f-b335-72b9793b179c
+		summarizeBy: sum
+		sourceColumn: cash_spend_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_content_cost = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_content_cost.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

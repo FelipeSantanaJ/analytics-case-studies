@@ -1,0 +1,63 @@
+table dim_market
+	lineageTag: ccd85464-3275-570a-a770-0a50d722fd6e
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 97aa5545-f325-5e4b-9af1-eaa3380ee853
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: 94d4e30c-8aec-5db3-980c-6224a457168c
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_active_from_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 036d5419-2de4-5568-9bdd-473e0f901807
+		summarizeBy: none
+		sourceColumn: market_active_from_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone
+		dataType: string
+		lineageTag: 650499f8-33cf-5f9c-b5ab-be1788efaab6
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_comparable_base
+		dataType: boolean
+		lineageTag: e54d28fc-1436-59cd-82d0-35c73aa84750
+		summarizeBy: none
+		sourceColumn: is_comparable_base
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_market = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_market.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

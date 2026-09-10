@@ -1,0 +1,113 @@
+table fact_engagement_month
+	lineageTag: 4c338230-76da-51f9-a9d3-37122e3f7598
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_ref
+		dataType: string
+		isHidden
+		lineageTag: 95fb28ff-2671-5fa0-bfbb-fd6c02d9f68a
+		summarizeBy: none
+		sourceColumn: account_ref
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column streamed_hours
+		dataType: double
+		lineageTag: c9470700-9154-5467-9ff3-80726089218e
+		summarizeBy: sum
+		sourceColumn: streamed_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_days
+		dataType: int64
+		lineageTag: 67e43336-2d21-583b-8379-e6a9659ba514
+		summarizeBy: sum
+		sourceColumn: active_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column distinct_titles
+		dataType: int64
+		lineageTag: 7cf3e49f-fbee-5ba0-a673-95541a29280a
+		summarizeBy: sum
+		sourceColumn: distinct_titles
+
+		annotation SummarizationSetBy = Automatic
+
+	column playback_errors
+		dataType: int64
+		lineageTag: d49b1197-c433-59c7-88c1-e237fc315067
+		summarizeBy: sum
+		sourceColumn: playback_errors
+
+		annotation SummarizationSetBy = Automatic
+
+	column video_start_failures
+		dataType: int64
+		lineageTag: 9755d7a7-091d-5dff-8be0-44003e913713
+		summarizeBy: sum
+		sourceColumn: video_start_failures
+
+		annotation SummarizationSetBy = Automatic
+
+	column ctv_days
+		dataType: double
+		lineageTag: fed6642d-cf28-5c30-ad44-494cd4fd8832
+		summarizeBy: sum
+		sourceColumn: ctv_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_days_ctv
+		dataType: double
+		lineageTag: c330e9cf-2c88-5152-9486-bc7cd13ffcdc
+		summarizeBy: sum
+		sourceColumn: pct_days_ctv
+
+		annotation SummarizationSetBy = Automatic
+
+	column below_healthy_engagement
+		dataType: boolean
+		lineageTag: 7d8a1642-8d9b-5dce-a487-7a80ef95aad5
+		summarizeBy: none
+		sourceColumn: below_healthy_engagement
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_engagement_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_engagement_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

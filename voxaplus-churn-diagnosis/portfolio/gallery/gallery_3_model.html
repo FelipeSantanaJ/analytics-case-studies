@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8"><title>Voxa+ model</title>
+<link rel="stylesheet" href="_style.css">
+<style>
+  .grid{display:grid;grid-template-columns:200px 200px 1fr;gap:22px;margin-top:10px;align-items:start}
+  .lst{display:flex;flex-direction:column;gap:6px}
+  .b{border-radius:9px;padding:8px 11px;font-size:12.5px;background:var(--card);border:1px solid var(--hair)}
+  .b .k{color:var(--ink);font-weight:700}
+  .b .s{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+  .dim{border-left:4px solid var(--steel)} .fact{border-left:4px solid var(--violet)}
+  .hub{border-left:4px solid var(--amber);background:#FBF3E6}
+  .h3{font-size:12px;color:var(--violet);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+  table{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid var(--hair);border-radius:10px;overflow:hidden}
+  th,td{border:1px solid var(--hair);padding:6px 8px;text-align:center}
+  th{background:#F7F6FB;color:var(--ink)}
+  td.l{text-align:left;color:var(--ink);font-weight:600;background:#FAF9FC}
+  .d{color:var(--violet);font-weight:700}
+</style>
+<div class="band"><span class="wm">Voxa<b>+</b></span><span class="t">Semantic model — generated from the curated Parquet schemas (TMDL)</span></div>
+<div class="stage">
+  <h1>A subscriber-hub star: 10 dimensions, 14 facts, 34 relationships</h1>
+  <div class="sub"><span class="mono">powerbi/gen_semantic_model.py</span> emits every table with a <span class="mono">Parquet.Document</span> import partition. <b>dim_subscriber</b> is the hub.</div>
+
+  <div class="grid">
+    <div class="lst">
+      <div class="h3">Dimensions</div>
+      <div class="b hub"><span class="k">dim_subscriber</span><span class="s">cohort · channel · tier · device · is_comparable_base</span></div>
+      <div class="b dim"><span class="k">dim_date</span><span class="s">day grain · sortByColumn · abs_month</span></div>
+      <div class="b dim"><span class="k">dim_market</span> · <span class="k">dim_plan</span></div>
+      <div class="b dim"><span class="k">dim_price_history</span><span class="s">range table — DAX lookup</span></div>
+      <div class="b dim"><span class="k">dim_channel</span> · <span class="k">dim_device</span></div>
+      <div class="b dim"><span class="k">dim_payment_method</span> · <span class="k">dim_content</span></div>
+      <div class="b dim"><span class="k">dim_support_reason</span> · <span class="k">dim_app_version</span></div>
+    </div>
+    <div class="lst">
+      <div class="h3">Facts</div>
+      <div class="b fact"><span class="k">fact_subscription_month</span><span class="s">folded from the ledger</span></div>
+      <div class="b fact"><span class="k">fact_subscription_event</span><span class="s">the movement ledger</span></div>
+      <div class="b fact"><span class="k">fact_billing_attempt</span></div>
+      <div class="b fact"><span class="k">fact_engagement_month</span></div>
+      <div class="b fact"><span class="k">fact_engagement_device_month</span></div>
+      <div class="b fact"><span class="k">fact_app_performance_daily</span></div>
+      <div class="b fact"><span class="k">fact_support_ticket</span> · <span class="k">fact_marketing_spend</span></div>
+      <div class="b fact"><span class="k">fact_ad_revenue</span> · <span class="k">fact_content_cost</span></div>
+      <div class="b fact"><span class="k">fact_finance_month</span> · <span class="k">fact_fx_rate</span> · <span class="k">fact_targets_month</span></div>
+    </div>
+    <div>
+      <div class="h3">Bus matrix</div>
+      <table>
+        <tr><th>fact ↓ / dim →</th><th>date</th><th>market</th><th>subscriber</th><th>plan</th><th>channel</th><th>device</th><th>payment</th><th>content</th></tr>
+        <tr><td class="l">subscription_month</td><td class="d">●</td><td>○</td><td class="d">●</td><td>○</td><td>○</td><td>○</td><td></td><td></td></tr>
+        <tr><td class="l">subscription_event</td><td class="d">●</td><td>○</td><td class="d">●</td><td>○</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="l">billing_attempt</td><td class="d">●</td><td class="d">●</td><td class="d">●</td><td>○</td><td></td><td></td><td class="d">●</td><td></td></tr>
+        <tr><td class="l">engagement / device</td><td class="d">●</td><td class="d">●</td><td class="d">●</td><td></td><td></td><td class="d">●</td><td></td><td>○</td></tr>
+        <tr><td class="l">app_performance_daily</td><td class="d">●</td><td class="d">●</td><td></td><td></td><td></td><td class="d">●</td><td></td><td></td></tr>
+        <tr><td class="l">support_ticket</td><td class="d">●</td><td class="d">●</td><td class="d">●</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="l">marketing_spend</td><td class="d">●</td><td class="d">●</td><td></td><td></td><td class="d">●</td><td></td><td></td><td></td></tr>
+        <tr><td class="l">content_cost</td><td class="d">●</td><td>○</td><td></td><td></td><td></td><td></td><td></td><td class="d">●</td></tr>
+        <tr><td class="l">finance / targets / fx</td><td class="d">●</td><td class="d">●</td><td></td><td>○</td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="small" style="margin-top:9px">● direct relationship &nbsp;·&nbsp; ○ derived / bridged in DAX &nbsp;·&nbsp; one active <span class="mono">dim_date</span> role per fact &nbsp;·&nbsp; <span class="mono">Reporting Currency</span> disconnected (FX slicer)</div>
+    </div>
+  </div>
+</div>
+<div class="foot">Voxa+ Subscriber Churn Diagnosis · data &amp; BI portfolio project · synthetic data</div>

@@ -1,0 +1,805 @@
+table _Measures
+	lineageTag: 83209cf9-6914-5c25-983b-a28df2773cff
+
+	/// USD-to-selected-reporting-currency factor for the current date context.
+	measure 'FX Rate to Reporting' =
+			VAR cur = SELECTEDVALUE ( 'Reporting Currency'[Currency], "USD" )
+			RETURN
+			    IF (
+			        cur = "USD",
+			        1,
+			        CALCULATE (
+			            AVERAGE ( fact_fx_rate[avg_rate] ),
+			            REMOVEFILTERS ( 'Reporting Currency' ),
+			            fact_fx_rate[currency] = cur
+			        )
+			    )
+		formatString: 0.0000
+		isHidden
+		displayFolder: 00 Currency
+		lineageTag: cb7e8107-1bd9-5510-95fb-99e2bcba4879
+
+	/// Symbol of the selected reporting currency, for labels and the narrative.
+	measure 'Currency Symbol' = SELECTEDVALUE ( 'Reporting Currency'[Symbol], "$" )
+		displayFolder: 00 Currency
+		lineageTag: 6b908009-8e39-54e2-842e-7b179b50ce0d
+
+	/// Mean monthly count of subscribers with an in-force paid subscription. North Star.
+	measure 'Paid Active Subscribers' =
+			AVERAGEX (
+			    VALUES ( dim_date[window_month_idx] ),
+			    CALCULATE (
+			        DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			        fact_subscription_month[status] = "active"
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: bee3f5d3-0801-5f38-928a-bd7a383af58d
+
+	/// Active subscribers in the last month of the analysis window (end of period).
+	measure 'Paid Active Subscribers (EoP)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN
+			    CALCULATE ( [Paid Active Subscribers],
+			        FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: 233e50e5-e2dc-5d99-8cbc-8a0e24a3e1e3
+
+	measure 'Active at Start of Month' =
+			CALCULATE (
+			    DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			    fact_subscription_month[status] = "active",
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = MAX ( dim_date[window_month_idx] ) - 1 )
+			)
+		formatString: #,##0
+		isHidden
+		displayFolder: 01 Subscribers
+		lineageTag: dbe754a6-3575-59f1-a97b-ef9cd6ce0f6e
+
+	/// First paid billing in the period.
+	measure 'New Subscribers' = CALCULATE ( COUNTROWS ( fact_subscription_month ), fact_subscription_month[is_new] = TRUE )
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: acb7ccd0-bfa4-50dd-907f-6d826c9c5543
+
+	measure Reactivations = CALCULATE ( COUNTROWS ( fact_subscription_month ), fact_subscription_month[is_reactivation] = TRUE )
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: 203f0030-0d5b-53e1-9293-2557ebd6eeef
+
+	measure 'Voluntary Churned Subscribers' = CALCULATE ( COUNTROWS ( fact_subscription_month ), fact_subscription_month[is_voluntary_churn] = TRUE )
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: 450d1380-34e6-5bed-b87c-45cbeb03079e
+
+	measure 'Involuntary Churned Subscribers' = CALCULATE ( COUNTROWS ( fact_subscription_month ), fact_subscription_month[is_involuntary_churn] = TRUE )
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: a39fff97-4e5c-54b7-9e95-bc944e81aa7c
+
+	measure 'Gross Churned Subscribers' = [Voluntary Churned Subscribers] + [Involuntary Churned Subscribers]
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: f609fb86-b807-52f5-821f-14428a36e7b4
+
+	measure 'Net Adds' = [New Subscribers] + [Reactivations] - [Gross Churned Subscribers]
+		formatString: #,##0
+		displayFolder: 01 Subscribers
+		lineageTag: 66c3606d-a72f-5f66-8655-cb3d30ac44ce
+
+	/// Mean of the monthly (gross churned / start-of-month active) ratios in the period. Watch metric.
+	measure 'Gross Monthly Churn %' =
+			AVERAGEX (
+			    FILTER ( VALUES ( dim_date[window_month_idx] ),
+			        dim_date[window_month_idx] >= 0 && dim_date[window_month_idx] <= 35 ),
+			    DIVIDE ( CALCULATE ( [Gross Churned Subscribers] ), CALCULATE ( [Active at Start of Month] ) )
+			)
+		formatString: 0.0%
+		displayFolder: 02 Churn
+		lineageTag: 3783afcf-05be-5bfb-8085-cabedc5d2ba1
+
+	measure 'Voluntary Churn %' =
+			AVERAGEX (
+			    FILTER ( VALUES ( dim_date[window_month_idx] ),
+			        dim_date[window_month_idx] >= 0 && dim_date[window_month_idx] <= 35 ),
+			    DIVIDE ( CALCULATE ( [Voluntary Churned Subscribers] ), CALCULATE ( [Active at Start of Month] ) )
+			)
+		formatString: 0.0%
+		displayFolder: 02 Churn
+		lineageTag: e6f555c1-9fd0-55b4-8cef-4004ea91f2b9
+
+	measure 'Involuntary Churn %' =
+			AVERAGEX (
+			    FILTER ( VALUES ( dim_date[window_month_idx] ),
+			        dim_date[window_month_idx] >= 0 && dim_date[window_month_idx] <= 35 ),
+			    DIVIDE ( CALCULATE ( [Involuntary Churned Subscribers] ), CALCULATE ( [Active at Start of Month] ) )
+			)
+		formatString: 0.0%
+		displayFolder: 02 Churn
+		lineageTag: 1fef93a5-f253-5c35-a4fa-fc2a1a6fe97a
+
+	/// Blended gross monthly churn over window-months 25-33 (the stable pre-shift band).
+	measure 'Pre-Shift Baseline Churn %' =
+			CALCULATE (
+			    [Gross Monthly Churn %],
+			    REMOVEFILTERS ( dim_date ),
+			    dim_date[window_month_idx] >= 24 && dim_date[window_month_idx] <= 32
+			)
+		formatString: 0.0%
+		displayFolder: 02 Churn
+		lineageTag: ddf0a597-4aa3-5464-bb80-95b66135acd8
+
+	/// Percentage points above (or below) the pre-shift baseline. Higher is worse.
+	measure 'Churn vs Baseline (pp)' = [Gross Monthly Churn %] - [Pre-Shift Baseline Churn %]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 02 Churn
+		lineageTag: 6f68046e-b62d-59d5-b5b9-1accb5f82614
+
+	measure 'Churn vs Baseline (x)' = DIVIDE ( [Gross Monthly Churn %], [Pre-Shift Baseline Churn %] )
+		formatString: 0.00"x"
+		displayFolder: 02 Churn
+		lineageTag: 225951a0-1e1f-50fb-8c6d-c2338876b756
+
+	/// MRR from the cohort active 12 months ago, now vs then (incl. up/downgrades and churn).
+	measure 'Net MRR Retention %' =
+			VAR wlast =
+			    CALCULATE ( MAX ( dim_date[abs_month] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			VAR c = MIN ( MAX ( dim_date[abs_month] ), wlast )
+			VAR baseSubs =
+			    CALCULATETABLE (
+			        VALUES ( fact_subscription_month[subscriber_key] ),
+			        FILTER ( ALL ( dim_date ), dim_date[abs_month] = c - 12 ),
+			        fact_subscription_month[status] = "active"
+			    )
+			VAR startMRR =
+			    CALCULATE ( SUM ( fact_subscription_month[mrr_usd] ),
+			        FILTER ( ALL ( dim_date ), dim_date[abs_month] = c - 12 ), baseSubs )
+			VAR endMRR =
+			    CALCULATE ( SUM ( fact_subscription_month[mrr_usd] ),
+			        FILTER ( ALL ( dim_date ), dim_date[abs_month] = c ), baseSubs )
+			RETURN DIVIDE ( endMRR, startMRR )
+		formatString: 0.0%
+		displayFolder: 02 Churn
+		lineageTag: 880a2974-7af3-5c93-bbd4-985f91a4b875
+
+	/// Subscribers at tenure month 0 in the current filter context (use with a cohort slicer).
+	measure 'Cohort Size' = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ), fact_subscription_month[tenure_months] = 0 )
+		formatString: #,##0
+		displayFolder: 03 Cohorts
+		lineageTag: 02833239-cfca-5f02-97da-318480a6ea12
+
+	measure 'Active Subscribers at Tenure' = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ), fact_subscription_month[status] = "active" )
+		formatString: #,##0
+		isHidden
+		displayFolder: 03 Cohorts
+		lineageTag: 4fc3e5b5-24c0-5a26-a5db-090fdeed4de8
+
+	/// Share of a cohort still active — put cohort_month on rows and tenure_months on columns.
+	measure 'Retention %' =
+			DIVIDE (
+			    [Active Subscribers at Tenure],
+			    CALCULATE ( [Cohort Size], REMOVEFILTERS ( fact_subscription_month[tenure_months] ) )
+			)
+		formatString: 0.0%
+		displayFolder: 03 Cohorts
+		lineageTag: 71613b40-5f5e-5249-8cc0-41a29c362bdb
+
+	measure 'M1 Retention %' =
+			VAR c0 = [Cohort Size]
+			VAR c1 = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			             fact_subscription_month[tenure_months] = 1, fact_subscription_month[status] = "active",
+			             REMOVEFILTERS ( fact_subscription_month[tenure_months] ) )
+			RETURN DIVIDE ( c1, c0 )
+		formatString: 0.0%
+		displayFolder: 03 Cohorts
+		lineageTag: 92a616b4-e637-539b-b687-493fd5394196
+
+	measure 'M3 Retention %' =
+			VAR c0 = [Cohort Size]
+			VAR c3 = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			             fact_subscription_month[tenure_months] = 3, fact_subscription_month[status] = "active",
+			             REMOVEFILTERS ( fact_subscription_month[tenure_months] ) )
+			RETURN DIVIDE ( c3, c0 )
+		formatString: 0.0%
+		displayFolder: 03 Cohorts
+		lineageTag: ccf356af-77a4-5fa5-a633-362ae87c42c4
+
+	measure 'M6 Retention %' =
+			VAR c0 = [Cohort Size]
+			VAR c6 = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			             fact_subscription_month[tenure_months] = 6, fact_subscription_month[status] = "active",
+			             REMOVEFILTERS ( fact_subscription_month[tenure_months] ) )
+			RETURN DIVIDE ( c6, c0 )
+		formatString: 0.0%
+		displayFolder: 03 Cohorts
+		lineageTag: 50a36563-3759-57f9-bbb0-60ca70d6ae49
+
+	measure 'M12 Retention %' =
+			VAR c0 = [Cohort Size]
+			VAR c12 = CALCULATE ( DISTINCTCOUNT ( fact_subscription_month[subscriber_key] ),
+			             fact_subscription_month[tenure_months] = 12, fact_subscription_month[status] = "active",
+			             REMOVEFILTERS ( fact_subscription_month[tenure_months] ) )
+			RETURN DIVIDE ( c12, c0 )
+		formatString: 0.0%
+		displayFolder: 03 Cohorts
+		lineageTag: 12201466-fc0c-5335-b61f-91760b4c8ec2
+
+	measure 'Streamed Hours' = SUM ( fact_engagement_month[streamed_hours] )
+		formatString: #,##0
+		displayFolder: 04 Engagement
+		lineageTag: aa796108-cfb5-533a-9377-3073fbb759c5
+
+	measure 'Streaming Subscribers' = DISTINCTCOUNT ( fact_engagement_month[subscriber_key] )
+		formatString: #,##0
+		isHidden
+		displayFolder: 04 Engagement
+		lineageTag: 4d44a288-8f20-59b6-824c-f1c5126ad398
+
+	/// Share of paid subscribers who streamed at least once in the month.
+	measure 'Monthly Active Rate %' = DIVIDE ( [Streaming Subscribers], [Paid Active Subscribers] )
+		formatString: 0.0%
+		displayFolder: 04 Engagement
+		lineageTag: 53062701-0fe1-50b6-839b-2120c1954daf
+
+	measure 'Viewing Hours per Active Sub' = DIVIDE ( [Streamed Hours], [Streaming Subscribers] )
+		formatString: 0.0
+		displayFolder: 04 Engagement
+		lineageTag: 01b5e5e4-4477-5c4b-8205-6272a084f182
+
+	/// Streaming subscribers with < 5 hours this month — a leading indicator of churn.
+	measure '% Subs Below Healthy Engagement' =
+			DIVIDE (
+			    CALCULATE ( DISTINCTCOUNT ( fact_engagement_month[subscriber_key] ),
+			        fact_engagement_month[below_healthy_engagement] = TRUE ),
+			    [Streaming Subscribers]
+			)
+		formatString: 0.0%
+		displayFolder: 04 Engagement
+		lineageTag: 6d1c3e3a-b7ae-5247-93a0-4b4680a3fdf9
+
+	measure 'Titles Started per Active Sub' = DIVIDE ( SUM ( fact_engagement_month[distinct_titles] ), [Streaming Subscribers] )
+		formatString: 0.0
+		displayFolder: 04 Engagement
+		lineageTag: df32de95-1398-540a-8bcc-62f8b856fbd5
+
+	measure 'Avg % Days on Connected TV' = AVERAGE ( fact_engagement_month[pct_days_ctv] )
+		formatString: 0.0%
+		displayFolder: 04 Engagement
+		lineageTag: 36baaa32-3662-5427-91ae-2db66e93133f
+
+	measure 'Streamed Hours (by Device)' = SUM ( fact_engagement_device_month[streamed_hours] )
+		formatString: #,##0
+		displayFolder: 04 Engagement
+		lineageTag: 315d550c-049a-58fe-bc88-b9fa34187318
+
+	/// Play attempts that never start, by device family / market.
+	measure 'Video Start Failure Rate' = DIVIDE ( SUM ( fact_engagement_device_month[video_start_failures] ), SUM ( fact_engagement_device_month[play_starts] ) )
+		formatString: 0.00%
+		displayFolder: 04 Engagement
+		lineageTag: ad3a5f44-be1d-5f8c-be2c-47ee59ec7099
+
+	measure 'Playback Error Rate' = DIVIDE ( SUM ( fact_engagement_device_month[playback_errors] ), SUM ( fact_engagement_device_month[play_starts] ) )
+		formatString: 0.00%
+		displayFolder: 04 Engagement
+		lineageTag: ae8e00d3-4eec-5feb-8690-ee843d666a81
+
+	measure 'Rebuffer Ratio' = AVERAGE ( fact_engagement_device_month[rebuffer_ratio] )
+		formatString: 0.00%
+		displayFolder: 04 Engagement
+		lineageTag: 4fee9480-ff46-5a36-9409-74de27152e08
+
+	measure 'App Sessions' = SUM ( fact_app_performance_daily[sessions] )
+		formatString: #,##0
+		displayFolder: 05 App Quality
+		lineageTag: 626c6ba4-5757-54a1-8b90-391d0011e22c
+
+	measure Crashes = SUM ( fact_app_performance_daily[crashes] )
+		formatString: #,##0
+		displayFolder: 05 App Quality
+		lineageTag: 9b015055-f3d8-5cc5-b5fe-ff6799cb37fc
+
+	measure 'Crash-Free Session Rate %' = DIVIDE ( [App Sessions] - [Crashes], [App Sessions] )
+		formatString: 0.00%
+		displayFolder: 05 App Quality
+		lineageTag: 93ff04de-e774-5803-a34d-41c331b87cbe
+
+	measure '% Sessions on App v3' =
+			DIVIDE (
+			    CALCULATE ( [App Sessions], dim_app_version[is_v3] = TRUE ),
+			    [App Sessions]
+			)
+		formatString: 0.0%
+		displayFolder: 05 App Quality
+		lineageTag: f44b7c48-a5b6-55a8-aa5a-a0754dd7889d
+
+	measure 'Billing Attempts' = COUNTROWS ( fact_billing_attempt )
+		formatString: #,##0
+		displayFolder: 06 Payments
+		lineageTag: 3843882b-5cbc-553a-8d82-106fca2784b8
+
+	measure 'Approved Attempts' = CALCULATE ( [Billing Attempts], fact_billing_attempt[status] = "approved" )
+		formatString: #,##0
+		displayFolder: 06 Payments
+		lineageTag: 8968ee79-220a-52ca-875f-b9d0d1f27dae
+
+	measure 'Failed Attempts' = CALCULATE ( [Billing Attempts], fact_billing_attempt[status] = "failed" )
+		formatString: #,##0
+		displayFolder: 06 Payments
+		lineageTag: eefbb220-f844-5054-a111-2dc31e818670
+
+	/// First-attempt billing failures (excludes dunning retries).
+	measure 'Payment Failure Rate %' =
+			DIVIDE (
+			    CALCULATE ( [Failed Attempts], fact_billing_attempt[is_dunning] = FALSE ),
+			    CALCULATE ( [Billing Attempts], fact_billing_attempt[is_dunning] = FALSE )
+			)
+		formatString: 0.0%
+		displayFolder: 06 Payments
+		lineageTag: 77e61b75-ab65-51ca-8181-c05e1b6e43c3
+
+	/// Approved / attempted — slice by payment method.
+	measure 'Authorization Rate %' = DIVIDE ( [Approved Attempts], [Billing Attempts] )
+		formatString: 0.0%
+		displayFolder: 06 Payments
+		lineageTag: 29894b79-ada6-512f-8008-3fb5c772fab7
+
+	measure 'Dunning Recovery Rate %' =
+			DIVIDE (
+			    CALCULATE ( [Approved Attempts], fact_billing_attempt[is_dunning] = TRUE ),
+			    CALCULATE ( [Billing Attempts], fact_billing_attempt[is_dunning] = TRUE )
+			)
+		formatString: 0.0%
+		displayFolder: 06 Payments
+		lineageTag: 2e9a59e1-a842-5021-90d6-ad384bbf3950
+
+	measure 'Processing Cost' = SUM ( fact_billing_attempt[processing_cost_usd] ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 06 Payments
+		lineageTag: c3cd423c-5643-5c4d-a8ba-25a0d61d0c41
+
+	measure MRR = CALCULATE ( SUM ( fact_subscription_month[mrr_usd] ), fact_subscription_month[status] = "active" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 3746ff52-e969-53ba-9925-097e84f709a7
+
+	measure ARPU = DIVIDE ( [MRR], [Paid Active Subscribers] )
+		formatString: #,##0.00
+		displayFolder: 07 Revenue
+		lineageTag: 47f1e497-f18c-5cee-89e6-13394129233f
+
+	measure 'Subscription Revenue' = CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "subscription_revenue" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 3483a86d-c3d4-5328-95f0-43f21327c772
+
+	measure 'Advertising Revenue' = CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "advertising_revenue" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 9a74714c-8274-5b34-99f1-fc28ce7573f9
+
+	measure 'Partner Revenue' = CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "partner_revenue" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 5465bb7b-5033-50be-809a-c0f62a39d26f
+
+	measure 'Total Revenue' = [Subscription Revenue] + [Advertising Revenue] + [Partner Revenue]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 067d3317-9ce0-55c3-94a2-ad8ab3431628
+
+	measure 'Content Amortisation' = -1 * CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "content_amortization" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: ee18fad7-4bbd-52b4-b043-7ec02f073b9c
+
+	measure 'CDN Cost' = -1 * CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "streaming_delivery" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 1d75bb9c-a324-5ff9-aa49-70ae8dfb96cd
+
+	measure 'Payment Cost' = -1 * CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "payment_processing" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 09759b86-9b28-5124-960f-68c81f71a32d
+
+	measure 'Support Cost' = -1 * CALCULATE ( SUM ( fact_finance_month[amount_usd] ), fact_finance_month[pnl_line] = "customer_support" ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: d415ff4b-7944-5746-8258-d7df255a8064
+
+	measure 'Marketing Spend' = SUM ( fact_marketing_spend[spend_usd] ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 727d9f9a-422e-58cd-8b3d-045d39a3cb19
+
+	measure 'Gross Profit' = [Total Revenue] - [Content Amortisation] - [CDN Cost] - [Payment Cost] - [Support Cost]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: c09f2f2e-c47e-5b9b-bc57-1010b09c43eb
+
+	measure 'Gross Margin %' = DIVIDE ( [Gross Profit], [Total Revenue] )
+		formatString: 0.0%
+		displayFolder: 07 Revenue
+		lineageTag: 1617d52b-bf03-5b59-b159-4de18e521cdf
+
+	measure 'Contribution Margin' = [Gross Profit] - [Marketing Spend]
+		formatString: #,##0
+		displayFolder: 07 Revenue
+		lineageTag: 81ec8f66-7a42-58d4-8073-2394c9112550
+
+	measure 'Contribution Margin % (T12M)' =
+			VAR c = MAX ( dim_date[abs_month] )
+			VAR flt = FILTER ( ALL ( dim_date ), dim_date[abs_month] > c - 12 && dim_date[abs_month] <= c )
+			RETURN DIVIDE ( CALCULATE ( [Contribution Margin], flt ), CALCULATE ( [Total Revenue], flt ) )
+		formatString: 0.0%
+		displayFolder: 07 Revenue
+		lineageTag: 92f58913-d902-5b5c-9206-5b1ad29a30d2
+
+	measure 'Blended CAC' = DIVIDE ( [Marketing Spend], [New Subscribers] )
+		formatString: #,##0.00
+		displayFolder: 08 Unit Economics
+		lineageTag: a905f20b-f3f2-59f6-95b9-bf0de69ea4d5
+
+	measure 'Expected Lifetime (months)' = DIVIDE ( 1, [Gross Monthly Churn %] )
+		formatString: 0.0
+		displayFolder: 08 Unit Economics
+		lineageTag: efdc10f3-6e74-5ef8-b7fe-bbec0432f405
+
+	measure LTV = MAX ( 0, [ARPU] * [Gross Margin %] * [Expected Lifetime (months)] )
+		formatString: #,##0.00
+		displayFolder: 08 Unit Economics
+		lineageTag: ca5e01d3-d8de-520c-b7cc-3ab4a4cccb40
+
+	measure 'LTV to CAC' = DIVIDE ( [LTV], [Blended CAC] )
+		formatString: 0.00
+		displayFolder: 08 Unit Economics
+		lineageTag: ef4cfbcd-daee-5f51-a2e6-436251cc960c
+
+	measure 'CAC Payback (months)' = DIVIDE ( [Blended CAC], [ARPU] * [Gross Margin %] )
+		formatString: 0.0
+		displayFolder: 08 Unit Economics
+		lineageTag: c898b4ef-bedb-5079-bfd4-43104f1e8921
+
+	measure 'Paid Active Subscribers PY' = CALCULATE ( [Paid Active Subscribers], TREATAS ( SELECTCOLUMNS ( VALUES ( dim_date[abs_month] ), "abs_month", dim_date[abs_month] - 12 ), dim_date[abs_month] ) )
+		formatString: #,##0
+		isHidden
+		displayFolder: 09 Time Intelligence
+		lineageTag: 1343a53a-0525-508f-8e3b-ed0cf32a9726
+
+	measure 'Paid Active Subscribers YoY %' = DIVIDE ( [Paid Active Subscribers] - [Paid Active Subscribers PY], ABS ( [Paid Active Subscribers PY] ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: 7cf71b0c-0a7b-5d0a-9261-ba65ad419f99
+
+	measure 'MRR PY' = CALCULATE ( [MRR], TREATAS ( SELECTCOLUMNS ( VALUES ( dim_date[abs_month] ), "abs_month", dim_date[abs_month] - 12 ), dim_date[abs_month] ) )
+		formatString: #,##0
+		isHidden
+		displayFolder: 09 Time Intelligence
+		lineageTag: 97464a57-0456-510d-80ee-62ec7d48028e
+
+	measure 'MRR YoY %' = DIVIDE ( [MRR] - [MRR PY], ABS ( [MRR PY] ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: a0f19e99-d9fb-5c5c-b247-7e63c74a19ee
+
+	measure 'Total Revenue PY' = CALCULATE ( [Total Revenue], TREATAS ( SELECTCOLUMNS ( VALUES ( dim_date[abs_month] ), "abs_month", dim_date[abs_month] - 12 ), dim_date[abs_month] ) )
+		formatString: #,##0
+		isHidden
+		displayFolder: 09 Time Intelligence
+		lineageTag: fd41eacc-558e-5143-ae02-e639028a53ab
+
+	measure 'Total Revenue YoY %' = DIVIDE ( [Total Revenue] - [Total Revenue PY], ABS ( [Total Revenue PY] ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: a8dd80f2-af02-53fb-9c70-3b8a4f4604ff
+
+	measure 'Net Adds PY' = CALCULATE ( [Net Adds], TREATAS ( SELECTCOLUMNS ( VALUES ( dim_date[abs_month] ), "abs_month", dim_date[abs_month] - 12 ), dim_date[abs_month] ) )
+		formatString: #,##0
+		isHidden
+		displayFolder: 09 Time Intelligence
+		lineageTag: 3ad875c3-0827-581e-a621-6c680ac22716
+
+	measure 'Net Adds YoY %' = DIVIDE ( [Net Adds] - [Net Adds PY], ABS ( [Net Adds PY] ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: f8880128-bfdb-5a72-b826-98c392b5cdd7
+
+	measure 'Gross Monthly Churn % PY' = CALCULATE ( [Gross Monthly Churn %], TREATAS ( SELECTCOLUMNS ( VALUES ( dim_date[abs_month] ), "abs_month", dim_date[abs_month] - 12 ), dim_date[abs_month] ) )
+		formatString: 0.0%
+		isHidden
+		displayFolder: 09 Time Intelligence
+		lineageTag: a1f811a8-419e-50e2-8233-ae67ac20d435
+
+	measure 'Gross Monthly Churn % YoY %' = DIVIDE ( [Gross Monthly Churn %] - [Gross Monthly Churn % PY], ABS ( [Gross Monthly Churn % PY] ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: d3ec4666-24a6-5a7b-8e01-fc2a91211eb9
+
+	measure 'MRR MoM %' = DIVIDE ( [MRR] - CALCULATE ( [MRR], FILTER ( ALL ( dim_date ), dim_date[abs_month] = MAX ( dim_date[abs_month] ) - 1 ) ), CALCULATE ( [MRR], FILTER ( ALL ( dim_date ), dim_date[abs_month] = MAX ( dim_date[abs_month] ) - 1 ) ) )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 09 Time Intelligence
+		lineageTag: 74a37602-10a2-509c-981f-cb2d70da79e3
+
+	measure 'Total Revenue YTD' =
+			CALCULATE (
+			    [Total Revenue],
+			    FILTER ( ALL ( dim_date ),
+			        dim_date[year] = MAX ( dim_date[year] )
+			        && dim_date[abs_month] <= MAX ( dim_date[abs_month] ) )
+			)
+		formatString: #,##0
+		displayFolder: 09 Time Intelligence
+		lineageTag: 9022c665-d9e5-5fbe-bca5-40eca4e48d7a
+
+	measure 'Total Revenue MAT' =
+			CALCULATE (
+			    [Total Revenue],
+			    FILTER ( ALL ( dim_date ),
+			        dim_date[abs_month] > MAX ( dim_date[abs_month] ) - 12
+			        && dim_date[abs_month] <= MAX ( dim_date[abs_month] ) )
+			)
+		formatString: #,##0
+		displayFolder: 09 Time Intelligence
+		lineageTag: 315fcada-e98c-5d40-ae0a-07555f2107cd
+
+	measure 'Paid Active Subscribers (Comparable Base)' = CALCULATE ( [Paid Active Subscribers], dim_subscriber[is_comparable_base] = TRUE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: f457b4a7-ad23-5af8-8142-8d6241052a72
+
+	measure 'Paid Active Subscribers (Expansion)' = CALCULATE ( [Paid Active Subscribers], dim_subscriber[is_comparable_base] = FALSE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: 361b3dac-a183-5811-bc7a-17bf84cffa1f
+
+	measure 'Net Adds (Comparable Base)' = CALCULATE ( [Net Adds], dim_subscriber[is_comparable_base] = TRUE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: 8a1c3298-281d-53b1-b497-40e93b56f597
+
+	measure 'Net Adds (Expansion)' = CALCULATE ( [Net Adds], dim_subscriber[is_comparable_base] = FALSE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: 657afda8-ffea-512b-bfe6-bfd7f4503e53
+
+	measure 'MRR (Comparable Base)' = CALCULATE ( [MRR], dim_subscriber[is_comparable_base] = TRUE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: 29823b3d-49d7-51e2-ad41-f396fd64bd9d
+
+	measure 'MRR (Expansion)' = CALCULATE ( [MRR], dim_subscriber[is_comparable_base] = FALSE )
+		formatString: #,##0
+		displayFolder: 10 Comparable Base
+		lineageTag: 63a8c85b-4538-5399-8ac0-e66444b84250
+
+	measure 'Gross Monthly Churn % (Comparable Base)' = CALCULATE ( [Gross Monthly Churn %], dim_subscriber[is_comparable_base] = TRUE )
+		formatString: 0.0%
+		displayFolder: 10 Comparable Base
+		lineageTag: 0e0dae6b-170f-590f-8f66-4d88664273cc
+
+	measure 'Gross Monthly Churn % (Expansion)' = CALCULATE ( [Gross Monthly Churn %], dim_subscriber[is_comparable_base] = FALSE )
+		formatString: 0.0%
+		displayFolder: 10 Comparable Base
+		lineageTag: df57e093-2872-5576-ac40-04b0ca565498
+
+	measure 'Target Paid Active Subscribers' = CALCULATE ( SUM ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "paid_active_subscribers", FILTER ( ALL ( dim_date ), dim_date[abs_month] = CALCULATE ( MAX ( dim_date[abs_month] ), REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE ) ) )
+		formatString: #,##0
+		displayFolder: 11 Targets
+		lineageTag: 94a6014d-665e-5151-8c55-f51f211216e5
+
+	measure 'Target MRR' = CALCULATE ( SUM ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "mrr_usd", FILTER ( ALL ( dim_date ), dim_date[abs_month] = CALCULATE ( MAX ( dim_date[abs_month] ), REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE ) ) ) * [FX Rate to Reporting]
+		formatString: #,##0
+		displayFolder: 11 Targets
+		lineageTag: 0170384c-edc0-5bce-8add-89f25a23bfcf
+
+	measure 'Target Gross Churn %' = DIVIDE ( CALCULATE ( AVERAGE ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "gross_monthly_churn_pct" ), 100 )
+		formatString: 0.0%
+		displayFolder: 11 Targets
+		lineageTag: 1b29054a-1de2-5428-9fb8-b5f5779c11c0
+
+	/// Higher is better.
+	measure 'Paid Active Subscribers vs Target %' = DIVIDE ( [Paid Active Subscribers (EoP)] - [Target Paid Active Subscribers], [Target Paid Active Subscribers] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 11 Targets
+		lineageTag: 463f1ba3-c105-5a54-a7c6-10153701fe44
+
+	/// Higher is better.
+	measure 'MRR vs Target %' = DIVIDE ( [MRR (Latest)] - [Target MRR], [Target MRR] )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 11 Targets
+		lineageTag: db6a239f-4f8d-506b-8328-9901dfc873ed
+
+	/// LOWER is better — a negative value is good (below target).
+	measure 'Gross Churn vs Target (pp)' = [Gross Monthly Churn %] - [Target Gross Churn %]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 11 Targets
+		lineageTag: 4d78f321-d439-5145-8951-2715532a6e55
+
+	/// Target CAC US$22. LOWER is better.
+	measure 'Blended CAC vs Target %' = DIVIDE ( [Blended CAC] - 22, 22 )
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 11 Targets
+		lineageTag: 6b1f578f-5f88-50ea-bc5c-e74281560198
+
+	/// Cumulative gap to plan from window-month 34 onward — the board scoreboard.
+	measure 'Subscribers Lost vs Plan (since shift)' =
+			CALCULATE (
+			    [Target Paid Active Subscribers] - [Paid Active Subscribers (EoP)],
+			    REMOVEFILTERS ( dim_date ),
+			    dim_date[window_month_idx] >= 33
+			)
+		formatString: #,##0
+		displayFolder: 11 Targets
+		lineageTag: be9d730d-f181-5452-80e6-4cc0c1aa3ec2
+
+	/// Affiliate + partner-bundle share of new subscribers.
+	measure '% New via Low-Quality Channels' =
+			DIVIDE (
+			    CALCULATE ( [New Subscribers],
+			        dim_subscriber[acquisition_channel] IN { "affiliate", "partner_bundle" } ),
+			    [New Subscribers]
+			)
+		formatString: 0.0%
+		displayFolder: 12 Acquisition
+		lineageTag: b7fc92d7-dd5e-5e44-9d98-ab761e0e75d3
+
+	measure '% New Incentivised' = DIVIDE ( CALCULATE ( [New Subscribers], dim_subscriber[is_incentivised] = TRUE ), [New Subscribers] )
+		formatString: 0.0%
+		displayFolder: 12 Acquisition
+		lineageTag: c6b45d5e-1fc2-52e3-a505-8dd1dd7a6b66
+
+	measure 'Marketing Impressions' = SUM ( fact_marketing_spend[impressions] )
+		formatString: #,##0
+		displayFolder: 12 Acquisition
+		lineageTag: 9ef93cd9-1dc9-53dc-a8ed-da7670fa9bba
+
+	measure 'Signups Attributed' = SUM ( fact_marketing_spend[signups_attributed] )
+		formatString: #,##0
+		displayFolder: 12 Acquisition
+		lineageTag: 8efa7a23-30e2-5c48-8570-caa1b144de72
+
+	/// Alias of M3 Retention % — put acquisition_channel on the axis for channel quality.
+	measure 'Cohort M3 Retention (context)' = [M3 Retention %]
+		formatString: 0.0%
+		displayFolder: 12 Acquisition
+		lineageTag: eff01a4b-d5c6-5066-9d68-f0d3159f636e
+
+	measure 'Support Tickets' = COUNTROWS ( fact_support_ticket )
+		formatString: #,##0
+		displayFolder: 13 Support
+		lineageTag: 8421ae83-a36d-5842-b398-4ccecb4afbb8
+
+	measure 'Tickets per 1,000 Subs' = DIVIDE ( [Support Tickets], [Paid Active Subscribers] ) * 1000
+		formatString: #,##0
+		displayFolder: 13 Support
+		lineageTag: e5cc80f0-1aa3-51cc-a7d3-4dba10187b14
+
+	/// Mean post-contact satisfaction rescaled to 1-5.
+	measure CSAT = AVERAGE ( fact_support_ticket[csat_score] ) * 5
+		formatString: 0.00
+		displayFolder: 13 Support
+		lineageTag: d2d69b8c-c609-5260-88a4-be84ca7002ae
+
+	measure '% Tickets App/Tech' = DIVIDE ( CALCULATE ( [Support Tickets], fact_support_ticket[reason_group] = "app_tech" ), [Support Tickets] )
+		formatString: 0.0%
+		displayFolder: 13 Support
+		lineageTag: 44b5adaa-73e5-5f4f-80a2-95afb21b9a09
+
+	measure '% Tickets Billing' = DIVIDE ( CALCULATE ( [Support Tickets], fact_support_ticket[reason_group] = "billing" ), [Support Tickets] )
+		formatString: 0.0%
+		displayFolder: 13 Support
+		lineageTag: c9d91f4b-847c-567e-b058-fe7aecdc9ce8
+
+	/// Dynamic narrative that updates with the slicers; ships in the file (replaces the Smart Narrative visual).
+	measure 'Exec Insight' =
+			VAR churn = [Gross Monthly Churn % (Latest)]
+			VAR base = [Pre-Shift Baseline Churn %]
+			VAR ratio = DIVIDE ( churn, base )
+			VAR adds = [Net Adds (Latest)]
+			VAR br = CALCULATE ( [Gross Monthly Churn % (Latest)], dim_subscriber[market] = "BR" )
+			VAR mx = CALCULATE ( [Gross Monthly Churn % (Latest)], dim_subscriber[market] = "MX" )
+			VAR us = CALCULATE ( [Gross Monthly Churn % (Latest)], dim_subscriber[market] = "US" )
+			VAR worst =
+			    SWITCH ( TRUE (),
+			        br >= mx && br >= us, "Brazil",
+			        mx >= br && mx >= us, "Mexico",
+			        "the United States" )
+			RETURN
+			    "Gross monthly churn is " & FORMAT ( churn, "0.0%" ) & ". "
+			    & IF (
+			        ratio >= 1.35,
+			        "That is about " & FORMAT ( ratio, "0.0" ) & "x the pre-shift baseline of "
+			            & FORMAT ( base, "0.0%" ) & " and the highest of the three markets is "
+			            & worst & " (" & FORMAT ( MAX ( MAX ( br, mx ), us ), "0.0%" ) & "). ",
+			        "That is close to the pre-shift baseline of " & FORMAT ( base, "0.0%" ) & ". " )
+			    & "Net adds in the latest month: " & FORMAT ( adds, "#,##0" ) & ". "
+			    & "Reporting currency: " & [Currency Symbol] & "."
+		displayFolder: 14 Narrative
+		lineageTag: d9e73880-a137-586f-952b-7751a7648fd8
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'Gross Monthly Churn % (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [Gross Monthly Churn %],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: 0.0%
+		displayFolder: 15 Latest Month
+		lineageTag: 49824c30-3862-5fe5-93dc-5ecfbe8d40b2
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'Churn vs Baseline (x) (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [Churn vs Baseline (x)],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: 0.00"x"
+		displayFolder: 15 Latest Month
+		lineageTag: 5bba136e-e04d-59aa-84ae-629cdc6d770a
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'Net Adds (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [Net Adds],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: #,##0
+		displayFolder: 15 Latest Month
+		lineageTag: 39370e71-d43f-56f8-90b9-2794843d3736
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'MRR (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [MRR],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: #,##0
+		displayFolder: 15 Latest Month
+		lineageTag: 2fdacf97-5b69-55ce-b3d8-c1640b02b893
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'LTV to CAC (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [LTV to CAC],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: 0.00
+		displayFolder: 15 Latest Month
+		lineageTag: 9cf56bd2-1594-592a-8f28-880af69f9089
+
+	/// Value for the last month in the current filter context — for summary KPI cards.
+	measure 'Net MRR Retention % (Latest)' =
+			VAR lastm =
+			    CALCULATE ( MAX ( dim_date[window_month_idx] ),
+			        REMOVEFILTERS ( dim_date ), dim_date[in_analysis_window] = TRUE )
+			RETURN CALCULATE ( [Net MRR Retention %],
+			    FILTER ( ALL ( dim_date ), dim_date[window_month_idx] = lastm ) )
+		formatString: 0.0%
+		displayFolder: 15 Latest Month
+		lineageTag: be68d7f9-4826-549f-bd81-7d896dc42846
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: a704cf1b-df3f-5838-8e4a-cec6366c90eb
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_ResultType = Table
+

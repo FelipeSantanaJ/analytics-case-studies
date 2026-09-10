@@ -1,0 +1,95 @@
+table dim_plan
+	lineageTag: 88dc93cc-a998-5da6-bf8f-b295174399d1
+
+	column plan_key
+		dataType: int64
+		isHidden
+		lineageTag: cf5a37ea-dab6-5c29-bed0-0fdc343ec4d5
+		summarizeBy: none
+		sourceColumn: plan_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column plan_id
+		dataType: string
+		lineageTag: ce8f5309-1c2c-52ef-ae81-c2420c57fec7
+		summarizeBy: none
+		sourceColumn: plan_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier
+		dataType: string
+		lineageTag: 8d0ab550-f58f-5fb9-9eed-5db781471bfd
+		summarizeBy: none
+		sourceColumn: tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_period
+		dataType: string
+		lineageTag: 26052753-179d-57ef-8452-663941402489
+		summarizeBy: none
+		sourceColumn: billing_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 97aa5545-f325-5e4b-9af1-eaa3380ee853
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_ads
+		dataType: boolean
+		lineageTag: 516bedf0-ddd4-5dea-b836-f35749112ae2
+		summarizeBy: none
+		sourceColumn: has_ads
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_streams
+		dataType: int64
+		lineageTag: 23d8f3f8-5bd8-51eb-a6c4-d35ca2dcac00
+		summarizeBy: sum
+		sourceColumn: max_streams
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_resolution
+		dataType: string
+		lineageTag: dd1b1cf1-5545-50da-8a22-b5eade32e7e0
+		summarizeBy: none
+		sourceColumn: max_resolution
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_downloads
+		dataType: boolean
+		lineageTag: e3732e96-9ca6-52dc-92e9-485abd5c45d0
+		summarizeBy: none
+		sourceColumn: has_downloads
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_plan = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_plan.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

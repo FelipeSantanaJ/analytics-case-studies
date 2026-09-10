@@ -1,0 +1,46 @@
+table dim_payment_method
+	lineageTag: 53588db8-7a0b-566b-9a22-c5d8e733cbd4
+
+	column method_key
+		dataType: int64
+		isHidden
+		lineageTag: bd7b2419-b206-5a17-824a-ddb8bdadb8df
+		summarizeBy: none
+		sourceColumn: method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column method
+		dataType: string
+		lineageTag: 8e531762-6439-570b-97fc-77df82224948
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_prepaid
+		dataType: boolean
+		lineageTag: 0cdd6b6c-e0a6-5d1b-81fd-ccb5b328f260
+		summarizeBy: none
+		sourceColumn: is_prepaid
+
+		annotation SummarizationSetBy = Automatic
+
+	column settlement_lag_days_typical
+		dataType: int64
+		lineageTag: 93cafd5f-64d1-5ba0-9ae7-3e85fe4d815b
+		summarizeBy: sum
+		sourceColumn: settlement_lag_days_typical
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_payment_method = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_payment_method.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

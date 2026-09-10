@@ -1,0 +1,25 @@
+variant,canonical
+mobile_ios,mobile_ios
+iOS,mobile_ios
+iPhone,mobile_ios
+ios,mobile_ios
+mobile_android,mobile_android
+Android,mobile_android
+android,mobile_android
+web,web
+Web,web
+Browser,web
+desktop,web
+smart_tv,smart_tv
+Smart TV,smart_tv
+SmartTV,smart_tv
+CTV,smart_tv
+TV,smart_tv
+streaming_stick,streaming_stick
+Streaming Stick,streaming_stick
+stick,streaming_stick
+FireTV/Chromecast,streaming_stick
+console,console
+Console,console
+Game Console,console
+PS/Xbox,console

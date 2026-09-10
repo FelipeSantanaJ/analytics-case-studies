@@ -1,0 +1,56 @@
+table fact_fx_rate
+	isHidden
+	lineageTag: 621495de-a460-52ab-8b1a-d930b05dfbe1
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency
+		dataType: string
+		lineageTag: a43ebbf6-10aa-507d-9007-3761b485c529
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_rate
+		dataType: double
+		lineageTag: 905b98d8-d252-5548-abcc-f557b9690749
+		summarizeBy: sum
+		sourceColumn: avg_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column eop_rate
+		dataType: double
+		lineageTag: bc41923f-6b60-5133-92a7-f973af8f10d1
+		summarizeBy: sum
+		sourceColumn: eop_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_fx_rate = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_fx_rate.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

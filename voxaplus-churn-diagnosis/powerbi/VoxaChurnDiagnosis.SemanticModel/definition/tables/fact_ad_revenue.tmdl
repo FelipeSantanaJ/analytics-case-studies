@@ -1,0 +1,80 @@
+table fact_ad_revenue
+	lineageTag: fbbae656-2767-5782-9fba-8ae8cf5c5932
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions_served
+		dataType: int64
+		lineageTag: 73ec8745-b5ad-5987-973c-66be27b9e000
+		summarizeBy: sum
+		sourceColumn: impressions_served
+
+		annotation SummarizationSetBy = Automatic
+
+	column fill_rate
+		dataType: double
+		lineageTag: 01164e6a-6640-54bf-9685-2950aabd3020
+		summarizeBy: sum
+		sourceColumn: fill_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column ecpm_usd
+		dataType: double
+		lineageTag: 947ffbb0-a79c-5724-81ca-3b80a64c74cb
+		summarizeBy: sum
+		sourceColumn: ecpm_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column ad_revenue_usd
+		dataType: double
+		lineageTag: 6318d3ca-2cd9-59e4-931a-8ffc9d041582
+		summarizeBy: sum
+		sourceColumn: ad_revenue_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_ad_revenue = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_ad_revenue.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

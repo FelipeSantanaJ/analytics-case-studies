@@ -1,0 +1,113 @@
+table fact_marketing_spend
+	lineageTag: 20577731-84cd-5445-a98c-0a3c0acb6b7d
+
+	column week_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 1abdf348-10f5-5885-b000-6b41fb959792
+		summarizeBy: none
+		sourceColumn: week_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 47c77924-330c-53c0-abce-21f34c70b475
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		dataType: int64
+		isHidden
+		lineageTag: 0709ab81-244c-5d96-a8da-ea43c5abeebf
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_id
+		dataType: string
+		lineageTag: 9bb62f6d-60e0-5650-ba26-453ef7dd7f14
+		summarizeBy: none
+		sourceColumn: campaign_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column spend_usd
+		dataType: double
+		lineageTag: f5a8f751-54b1-5dda-bfc3-07eeeaf0db0a
+		summarizeBy: sum
+		sourceColumn: spend_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column spend_local
+		dataType: double
+		lineageTag: ada8fc43-28bb-5a8c-be10-835f3acf51ad
+		summarizeBy: sum
+		sourceColumn: spend_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions
+		dataType: int64
+		lineageTag: a785c5a2-308f-56b3-ba95-1e43c2cfe6ce
+		summarizeBy: sum
+		sourceColumn: impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks
+		dataType: double
+		lineageTag: da4fc8e3-5bb3-50a0-902f-56af8684d98e
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column signups_attributed
+		dataType: int64
+		lineageTag: b1939221-0cb2-5a16-a8fc-30dfc08eca2d
+		summarizeBy: sum
+		sourceColumn: signups_attributed
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_marketing_spend = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_marketing_spend.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

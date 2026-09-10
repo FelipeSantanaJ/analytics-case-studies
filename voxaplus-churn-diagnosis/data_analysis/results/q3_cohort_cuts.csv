@@ -1,0 +1,17 @@
+cut,grp,pre_shift,peak,delta_pp
+billing,monthly,0.04091,0.06807,0.0272
+billing,annual,0.05939,0.07784,0.0185
+channel,paid_search,0.04048,0.06858,0.0281
+channel,paid_social,0.04031,0.0679,0.0276
+channel,organic,0.04007,0.06744,0.0274
+channel,direct,0.04079,0.06755,0.0268
+channel,partner_bundle,0.04357,0.07031,0.0267
+channel,affiliate,0.03987,0.06585,0.026
+tenure_band,25+,0.03448,0.06637,0.0319
+tenure_band,13-24,0.02747,0.05869,0.0312
+tenure_band,0-1,0.07634,0.10741,0.0311
+tenure_band,7-12,0.03077,0.05772,0.027
+tenure_band,2-6,0.0451,0.07093,0.0258
+tier,Basico,0.04821,0.07574,0.0275
+tier,Standard,0.04202,0.06906,0.027
+tier,Premium,0.03011,0.05699,0.0269

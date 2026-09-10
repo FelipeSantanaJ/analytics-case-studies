@@ -1,0 +1,1146 @@
+{
+  "report_name": "VoxaChurnDiagnosis",
+  "canvas_width": 1280,
+  "kpi_frame": {
+    "x": 16,
+    "y": 128,
+    "w": 1248,
+    "h": 104,
+    "radius": 20
+  },
+  "slicers": [
+    {
+      "name": "sl-currency",
+      "field": "Reporting Currency.Currency",
+      "x": 1106,
+      "y": 238,
+      "w": 150,
+      "h": 28,
+      "title": "Currency"
+    },
+    {
+      "name": "sl-market",
+      "field": "dim_subscriber.market",
+      "x": 864,
+      "y": 238,
+      "w": 230,
+      "h": 28,
+      "title": "Market"
+    },
+    {
+      "name": "sl-period",
+      "field": "dim_date.year_month",
+      "x": 24,
+      "y": 238,
+      "w": 380,
+      "h": 28,
+      "title": "Analysis period"
+    }
+  ],
+  "pages": [
+    {
+      "key": "01_executive",
+      "name": "01_executive",
+      "height": 900,
+      "kpis": [
+        {
+          "title": "Paid Subscribers (EoP)",
+          "value": "_Measures.Paid Active Subscribers (EoP)",
+          "delta": "_Measures.Paid Active Subscribers vs Target %",
+          "good": "high",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Gross Monthly Churn",
+          "value": "_Measures.Gross Monthly Churn % (Latest)",
+          "delta": "_Measures.Gross Churn vs Target (pp)",
+          "good": "low",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Churn vs Baseline",
+          "value": "_Measures.Churn vs Baseline (x) (Latest)",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Net Adds (last month)",
+          "value": "_Measures.Net Adds (Latest)",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "MRR (last month)",
+          "value": "_Measures.MRR (Latest)",
+          "delta": "_Measures.MRR vs Target %",
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "LTV : CAC",
+          "value": "_Measures.LTV to CAC (Latest)",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "churn_vs_baseline",
+          "type": "lineChart",
+          "x": 24,
+          "y": 276,
+          "w": 714,
+          "h": 250,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Monthly Churn %",
+              "_Measures.Pre-Shift Baseline Churn %"
+            ]
+          },
+          "title": "Gross monthly churn vs the pre-shift baseline",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "exec_insight",
+          "type": "card",
+          "x": 750,
+          "y": 276,
+          "w": 506,
+          "h": 250,
+          "roles": {
+            "Values": [
+              "_Measures.Exec Insight"
+            ]
+          },
+          "title": "Read this"
+        },
+        {
+          "name": "churn_by_market",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 542,
+          "w": 610,
+          "h": 250,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Monthly Churn %"
+            ],
+            "Series": "dim_subscriber.market"
+          },
+          "title": "Gross monthly churn by market",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "vol_invol",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 542,
+          "w": 610,
+          "h": 250,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Voluntary Churned Subscribers",
+              "_Measures.Involuntary Churned Subscribers"
+            ]
+          },
+          "title": "Voluntary vs involuntary churned subscribers",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "net_adds",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 798,
+          "w": 1232,
+          "h": 92,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Net Adds"
+            ]
+          },
+          "title": "Net subscriber adds by month",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        }
+      ],
+      "display": "Executive Summary"
+    },
+    {
+      "key": "02_retention",
+      "name": "02_retention",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Gross Monthly Churn",
+          "value": "_Measures.Gross Monthly Churn %",
+          "delta": "_Measures.Gross Churn vs Target (pp)",
+          "good": "low",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Voluntary Churn",
+          "value": "_Measures.Voluntary Churn %",
+          "delta": null,
+          "good": "low",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Involuntary Churn",
+          "value": "_Measures.Involuntary Churn %",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "M1 Retention",
+          "value": "_Measures.M1 Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "M6 Retention",
+          "value": "_Measures.M6 Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Net MRR Retention",
+          "value": "_Measures.Net MRR Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "cohort_triangle",
+          "type": "pivotTable",
+          "x": 24,
+          "y": 276,
+          "w": 714,
+          "h": 204,
+          "roles": {
+            "Rows": "dim_subscriber.cohort_month",
+            "Columns": "fact_subscription_month.tenure_months",
+            "Values": [
+              "_Measures.Retention %"
+            ]
+          },
+          "title": "Cohort retention triangle (share still active)"
+        },
+        {
+          "name": "churn_by_tier",
+          "type": "clusteredBarChart",
+          "x": 750,
+          "y": 276,
+          "w": 506,
+          "h": 204,
+          "roles": {
+            "Category": "dim_subscriber.current_tier",
+            "Y": [
+              "_Measures.Gross Monthly Churn %"
+            ]
+          },
+          "title": "Gross monthly churn by plan tier"
+        },
+        {
+          "name": "churn_by_tenure",
+          "type": "lineChart",
+          "x": 24,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "fact_subscription_month.tenure_months",
+            "Y": [
+              "_Measures.Gross Monthly Churn %"
+            ]
+          },
+          "title": "Gross monthly churn by tenure (months)",
+          "sort": {
+            "by": "fact_subscription_month.tenure_months",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "churn_by_channel",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_subscriber.acquisition_channel",
+            "Y": [
+              "_Measures.Gross Churned Subscribers"
+            ]
+          },
+          "title": "Churned subscribers by acquisition channel"
+        }
+      ],
+      "display": "Retention & Cohorts"
+    },
+    {
+      "key": "03_engagement",
+      "name": "03_engagement",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Monthly Active Rate",
+          "value": "_Measures.Monthly Active Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Hours / Active Sub",
+          "value": "_Measures.Viewing Hours per Active Sub",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "% Below Healthy Eng.",
+          "value": "_Measures.% Subs Below Healthy Engagement",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Titles / Active Sub",
+          "value": "_Measures.Titles Started per Active Sub",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "% Days on CTV",
+          "value": "_Measures.Avg % Days on Connected TV",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Streamed Hours",
+          "value": "_Measures.Streamed Hours",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "hours_trend",
+          "type": "lineChart",
+          "x": 24,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Viewing Hours per Active Sub"
+            ]
+          },
+          "title": "Viewing hours per active subscriber",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "vsf_by_device",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Video Start Failure Rate"
+            ],
+            "Series": "dim_device.device_class"
+          },
+          "title": "Video-start-failure rate by device class",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "below_healthy_trend",
+          "type": "lineChart",
+          "x": 24,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.% Subs Below Healthy Engagement"
+            ]
+          },
+          "title": "Share of subscribers below healthy engagement",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "hours_by_device",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_device.device_family",
+            "Y": [
+              "_Measures.Streamed Hours (by Device)"
+            ]
+          },
+          "title": "Streamed hours by device family"
+        }
+      ],
+      "display": "Content & Engagement"
+    },
+    {
+      "key": "04_pricing",
+      "name": "04_pricing",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "ARPU",
+          "value": "_Measures.ARPU",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Gross Margin",
+          "value": "_Measures.Gross Margin %",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Gross Monthly Churn",
+          "value": "_Measures.Gross Monthly Churn %",
+          "delta": "_Measures.Gross Churn vs Target (pp)",
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "% Below Healthy Eng.",
+          "value": "_Measures.% Subs Below Healthy Engagement",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "MRR (last month)",
+          "value": "_Measures.MRR (Latest)",
+          "delta": "_Measures.MRR vs Target %",
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Net MRR Retention",
+          "value": "_Measures.Net MRR Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "churn_by_tier_time",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 276,
+          "w": 714,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Monthly Churn %"
+            ],
+            "Series": "dim_subscriber.current_tier"
+          },
+          "title": "Gross monthly churn by tier over time",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "price_history",
+          "type": "tableEx",
+          "x": 750,
+          "y": 276,
+          "w": 506,
+          "h": 204,
+          "roles": {
+            "Values": [
+              "dim_price_history.tier",
+              "dim_price_history.market_id",
+              "dim_price_history.list_price_local"
+            ]
+          },
+          "title": "Plan list-price history"
+        },
+        {
+          "name": "arpu_by_market",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.ARPU"
+            ],
+            "Series": "dim_subscriber.market"
+          },
+          "title": "ARPU by market",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "churned_by_tier_month",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Churned Subscribers"
+            ],
+            "Series": "dim_subscriber.current_tier"
+          },
+          "title": "Churned subscribers by tier and month (filter market = BR)",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        }
+      ],
+      "display": "Pricing & Plans"
+    },
+    {
+      "key": "05_acquisition",
+      "name": "05_acquisition",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "New Subscribers",
+          "value": "_Measures.New Subscribers",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "% via Low-Q Channels",
+          "value": "_Measures.% New via Low-Quality Channels",
+          "delta": null,
+          "good": "low",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "% Incentivised",
+          "value": "_Measures.% New Incentivised",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "M1 Retention",
+          "value": "_Measures.M1 Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "M3 Retention",
+          "value": "_Measures.M3 Retention %",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Blended CAC",
+          "value": "_Measures.Blended CAC",
+          "delta": "_Measures.Blended CAC vs Target %",
+          "good": "low",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "new_by_channel",
+          "type": "stackedColumnChart",
+          "x": 24,
+          "y": 276,
+          "w": 714,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.New Subscribers"
+            ],
+            "Series": "dim_subscriber.acquisition_channel"
+          },
+          "title": "New subscribers by acquisition channel",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "m3_by_channel",
+          "type": "clusteredBarChart",
+          "x": 750,
+          "y": 276,
+          "w": 506,
+          "h": 204,
+          "roles": {
+            "Category": "dim_subscriber.acquisition_channel",
+            "Y": [
+              "_Measures.M3 Retention %"
+            ]
+          },
+          "title": "M3 retention by acquisition channel"
+        },
+        {
+          "name": "lowq_trend",
+          "type": "lineChart",
+          "x": 24,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.% New via Low-Quality Channels"
+            ]
+          },
+          "title": "Share of new subscribers via low-quality channels",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "lowq_by_market",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.% New via Low-Quality Channels"
+            ],
+            "Series": "dim_subscriber.market"
+          },
+          "title": "Low-quality-channel share by market",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        }
+      ],
+      "display": "Acquisition Quality"
+    },
+    {
+      "key": "06_experience",
+      "name": "06_experience",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Payment Failure Rate",
+          "value": "_Measures.Payment Failure Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Dunning Recovery",
+          "value": "_Measures.Dunning Recovery Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Involuntary Churn",
+          "value": "_Measures.Involuntary Churn %",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Crash-Free Rate",
+          "value": "_Measures.Crash-Free Session Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Tickets / 1k Subs",
+          "value": "_Measures.Tickets per 1,000 Subs",
+          "delta": null,
+          "good": "low",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "CSAT",
+          "value": "_Measures.CSAT",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "crashfree_by_device",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Crash-Free Session Rate %"
+            ],
+            "Series": "dim_device.device_class"
+          },
+          "title": "Crash-free session rate by device class",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "pay_fail_recovery",
+          "type": "lineChart",
+          "x": 646,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Payment Failure Rate %",
+              "_Measures.Dunning Recovery Rate %"
+            ]
+          },
+          "title": "Payment failure rate and dunning recovery",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "auth_by_method",
+          "type": "clusteredBarChart",
+          "x": 24,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_payment_method.method",
+            "Y": [
+              "_Measures.Authorization Rate %"
+            ]
+          },
+          "title": "Authorization rate by payment method"
+        },
+        {
+          "name": "tickets_by_reason",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 496,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Tickets per 1,000 Subs"
+            ],
+            "Series": "dim_support_reason.reason_group"
+          },
+          "title": "Support contacts per 1,000 subscribers by reason",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        }
+      ],
+      "display": "CX, Billing & App"
+    },
+    {
+      "key": "07_market",
+      "name": "07_market",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Gross Churn (Total)",
+          "value": "_Measures.Gross Monthly Churn % (Latest)",
+          "delta": null,
+          "good": "low",
+          "x": 24,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Churn (Comp. Base)",
+          "value": "_Measures.Gross Monthly Churn % (Comparable Base)",
+          "delta": null,
+          "good": "low",
+          "x": 231,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Churn (Expansion)",
+          "value": "_Measures.Gross Monthly Churn % (Expansion)",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Net Adds (last month)",
+          "value": "_Measures.Net Adds (Latest)",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "MRR (last month)",
+          "value": "_Measures.MRR (Latest)",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        },
+        {
+          "title": "Lost vs Plan",
+          "value": "_Measures.Subscribers Lost vs Plan (since shift)",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 138,
+          "w": 195,
+          "val_h": 58,
+          "delta_y": 198,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "churn_by_market_7",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Monthly Churn %"
+            ],
+            "Series": "dim_subscriber.market"
+          },
+          "title": "Gross monthly churn by market",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "netadds_by_market",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 276,
+          "w": 610,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Net Adds"
+            ],
+            "Series": "dim_subscriber.market"
+          },
+          "title": "Net adds by market",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "cb_vs_exp",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 496,
+          "w": 714,
+          "h": 204,
+          "roles": {
+            "Category": "dim_date.year_month",
+            "Y": [
+              "_Measures.Gross Monthly Churn % (Comparable Base)",
+              "_Measures.Gross Monthly Churn % (Expansion)"
+            ]
+          },
+          "title": "Comparable Base vs Expansion churn",
+          "sort": {
+            "by": "dim_date.year_month",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "insight_7",
+          "type": "card",
+          "x": 750,
+          "y": 496,
+          "w": 506,
+          "h": 204,
+          "roles": {
+            "Values": [
+              "_Measures.Exec Insight"
+            ]
+          },
+          "title": "Read this"
+        }
+      ],
+      "display": "Market Context"
+    }
+  ]
+}

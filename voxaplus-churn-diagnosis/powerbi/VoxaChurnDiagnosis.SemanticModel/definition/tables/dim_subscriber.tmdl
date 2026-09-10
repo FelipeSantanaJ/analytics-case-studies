@@ -1,0 +1,155 @@
+table dim_subscriber
+	lineageTag: 485cef89-03e6-505e-87c9-267a0a488ec8
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscriber_id
+		dataType: string
+		lineageTag: 092f3428-89c9-5885-afd9-8724411d5824
+		summarizeBy: none
+		sourceColumn: subscriber_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c802eab5-1721-5818-bd60-d634aa39b483
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_month
+		dataType: string
+		lineageTag: 343259b8-63bf-5090-8efa-987c9904abf0
+		summarizeBy: none
+		sourceColumn: cohort_month
+		sortByColumn: first_paid_month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_paid_month_idx
+		dataType: int64
+		isHidden
+		lineageTag: 9ba2115c-bb9c-5553-89b0-9db09fc911bb
+		summarizeBy: none
+		sourceColumn: first_paid_month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 979d2f6e-a872-5ff1-98f6-6977ab870f00
+		summarizeBy: none
+		sourceColumn: signup_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: e2f3fdca-6e81-5a0b-96ae-a65db0bd794f
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		dataType: int64
+		isHidden
+		lineageTag: 0709ab81-244c-5d96-a8da-ea43c5abeebf
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_tier
+		dataType: string
+		lineageTag: cc82870f-a5b9-59c5-913d-3129cff77bb4
+		summarizeBy: none
+		sourceColumn: first_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_tier
+		dataType: string
+		lineageTag: 93d73a84-e8c8-5ab8-8e2d-7d6f9cde974b
+		summarizeBy: none
+		sourceColumn: current_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_period
+		dataType: string
+		lineageTag: 26052753-179d-57ef-8452-663941402489
+		summarizeBy: none
+		sourceColumn: billing_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_device_family
+		dataType: string
+		lineageTag: 55a7a5f4-9483-5027-b8a8-30f245149a4c
+		summarizeBy: none
+		sourceColumn: primary_device_family
+
+		annotation SummarizationSetBy = Automatic
+
+	column crm_lifecycle_stage
+		dataType: string
+		lineageTag: b8f003bd-b62a-51f0-b032-4f205801b843
+		summarizeBy: none
+		sourceColumn: crm_lifecycle_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_incentivised
+		dataType: boolean
+		lineageTag: e85ec830-22f8-5089-8c85-d987fcd23b94
+		summarizeBy: none
+		sourceColumn: is_incentivised
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_comparable_base
+		dataType: boolean
+		lineageTag: e54d28fc-1436-59cd-82d0-35c73aa84750
+		summarizeBy: none
+		sourceColumn: is_comparable_base
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_l4l_cohort
+		dataType: boolean
+		lineageTag: 2a1397df-2f7a-5b1a-96ae-bb1a46c3df70
+		summarizeBy: none
+		sourceColumn: is_l4l_cohort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_subscriber = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_subscriber.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

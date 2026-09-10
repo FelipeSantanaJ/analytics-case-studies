@@ -1,0 +1,25 @@
+source_version,source_reason,reason_category,reason_group
+v1,Billing,billing_payment,billing
+v1,Payment failed,billing_payment,billing
+v1,Refund request,billing_payment,billing
+v1,Cannot play video,app_playback,app_tech
+v1,Buffering,app_playback,app_tech
+v1,App crash,app_crash,app_tech
+v1,Login problem,account_access,account
+v1,Password reset,account_access,account
+v1,Missing title,content_request,content
+v1,Content suggestion,content_request,content
+v1,Other,other,other
+v2,billing.charge_dispute,billing_payment,billing
+v2,billing.payment_declined,billing_payment,billing
+v2,billing.refund,billing_payment,billing
+v2,playback.error,app_playback,app_tech
+v2,playback.buffering,app_playback,app_tech
+v2,playback.startup_failure,app_playback,app_tech
+v2,app.crash,app_crash,app_tech
+v2,app.freeze,app_crash,app_tech
+v2,account.login,account_access,account
+v2,account.credentials,account_access,account
+v2,catalog.request,content_request,content
+v2,catalog.availability,content_request,content
+v2,misc,other,other

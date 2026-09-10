@@ -1,0 +1,210 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "02retention-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-gross-monthly-churn-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Gross Monthly Churn",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Monthly Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-gross-monthly-churn-d",
+    "x": 24,
+    "y": 198,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Gross Churn vs Target (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-voluntary-churn-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Voluntary Churn",
+    "fields": {
+      "Values": [
+        "_Measures.Voluntary Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-involuntary-churn-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Involuntary Churn",
+    "fields": {
+      "Values": [
+        "_Measures.Involuntary Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-m1-retention-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "M1 Retention",
+    "fields": {
+      "Values": [
+        "_Measures.M1 Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-m6-retention-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "M6 Retention",
+    "fields": {
+      "Values": [
+        "_Measures.M6 Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02retention-net-mrr-retention-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Net MRR Retention",
+    "fields": {
+      "Values": [
+        "_Measures.Net MRR Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "pivotTable",
+    "name": "cohort_triangle",
+    "x": 24,
+    "y": 276,
+    "width": 714,
+    "height": 204,
+    "title": "Cohort retention triangle (share still active)",
+    "fields": {
+      "Rows": "dim_subscriber.cohort_month",
+      "Columns": "fact_subscription_month.tenure_months",
+      "Values": [
+        "_Measures.Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "churn_by_tier",
+    "x": 750,
+    "y": 276,
+    "width": 506,
+    "height": 204,
+    "title": "Gross monthly churn by plan tier",
+    "fields": {
+      "Category": "dim_subscriber.current_tier",
+      "Y": [
+        "_Measures.Gross Monthly Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "churn_by_tenure",
+    "x": 24,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Gross monthly churn by tenure (months)",
+    "fields": {
+      "Category": "fact_subscription_month.tenure_months",
+      "Y": [
+        "_Measures.Gross Monthly Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "churn_by_channel",
+    "x": 646,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Churned subscribers by acquisition channel",
+    "fields": {
+      "Category": "dim_subscriber.acquisition_channel",
+      "Y": [
+        "_Measures.Gross Churned Subscribers"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02retention-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02retention-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02retention-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

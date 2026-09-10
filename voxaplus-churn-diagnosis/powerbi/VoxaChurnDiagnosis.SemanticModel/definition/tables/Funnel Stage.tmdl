@@ -1,0 +1,29 @@
+table 'Funnel Stage'
+	lineageTag: a5b1194c-7b62-558d-836c-85007d108608
+
+	column Stage
+		dataType: string
+		lineageTag: 9404a838-0bbe-5693-b088-f8fe34379a16
+		summarizeBy: none
+		sourceColumn: Stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		lineageTag: a730bda7-1d45-59f0-87c7-cfcf0e3f912f
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Funnel Stage' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Stage=text, Sort=Int64.Type], {{"Sign-ups", 1}, {"Trial starts", 2}, {"Trial to paid", 3}, {"Active at M1", 4}, {"Active at M3", 5}, {"Active at M6", 6}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

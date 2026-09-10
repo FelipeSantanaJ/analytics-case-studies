@@ -1,0 +1,154 @@
+table fact_billing_attempt
+	lineageTag: 8104a61c-6e1f-506c-bd2e-db5f9141a883
+
+	column txn_id
+		dataType: string
+		lineageTag: fd37613d-7895-5087-a4c5-db8726d24e88
+		summarizeBy: none
+		sourceColumn: txn_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column attempt_ts_utc
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 6bcd2335-85ac-5b4c-bf18-d00aa5fb9ac9
+		summarizeBy: none
+		sourceColumn: attempt_ts_utc
+
+		annotation SummarizationSetBy = Automatic
+
+	column method
+		dataType: string
+		lineageTag: 8e531762-6439-570b-97fc-77df82224948
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column method_key
+		dataType: int64
+		isHidden
+		lineageTag: bd7b2419-b206-5a17-824a-ddb8bdadb8df
+		summarizeBy: none
+		sourceColumn: method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 5c550a3b-3551-58b9-9305-ed9bb5adef05
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 4475c715-8e2a-5f29-8b82-a21f1da304c1
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column attempt_number
+		dataType: int64
+		lineageTag: 2bf695e1-82ab-5f37-bbb6-83ba442cfbb4
+		summarizeBy: sum
+		sourceColumn: attempt_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_dunning
+		dataType: boolean
+		lineageTag: 57d517fb-e7b2-5b91-9126-c956c763a620
+		summarizeBy: none
+		sourceColumn: is_dunning
+
+		annotation SummarizationSetBy = Automatic
+
+	column failure_reason
+		dataType: string
+		lineageTag: b66c449c-ce54-55b9-98a2-0f83b8b0fde7
+		summarizeBy: none
+		sourceColumn: failure_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_local
+		dataType: double
+		lineageTag: 1e40158e-6dfd-5d42-b853-e7ca9143fefa
+		summarizeBy: sum
+		sourceColumn: amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_usd
+		dataType: double
+		lineageTag: 3b73b7f5-78de-55f6-bd21-747373cccba4
+		summarizeBy: sum
+		sourceColumn: amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column processing_cost_local
+		dataType: double
+		lineageTag: e6c9da18-3198-5d3d-85fb-ff3ee3c33397
+		summarizeBy: sum
+		sourceColumn: processing_cost_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column processing_cost_usd
+		dataType: double
+		lineageTag: 8b706c36-5ec7-5551-9399-ba88ba70a367
+		summarizeBy: sum
+		sourceColumn: processing_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_billing_attempt = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_billing_attempt.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

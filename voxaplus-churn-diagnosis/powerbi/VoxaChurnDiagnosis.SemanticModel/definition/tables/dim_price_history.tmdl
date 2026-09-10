@@ -1,0 +1,64 @@
+table dim_price_history
+	lineageTag: e84d0de6-91d1-5ccb-bb5a-e3a39d650c6d
+
+	column price_key
+		dataType: int64
+		isHidden
+		lineageTag: 64b3a331-51a5-5424-b354-1c4cf80143a7
+		summarizeBy: none
+		sourceColumn: price_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier
+		dataType: string
+		lineageTag: 8d0ab550-f58f-5fb9-9eed-5db781471bfd
+		summarizeBy: none
+		sourceColumn: tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 97aa5545-f325-5e4b-9af1-eaa3380ee853
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column effective_from_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 7bc1708c-6f16-5b81-b409-d533f75e36ac
+		summarizeBy: none
+		sourceColumn: effective_from_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column effective_to_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 66dc4b92-ed9c-55ad-b1ab-bd6447646933
+		summarizeBy: none
+		sourceColumn: effective_to_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column list_price_local
+		dataType: double
+		lineageTag: 56459781-1950-550f-a8cf-a119da8ead9f
+		summarizeBy: sum
+		sourceColumn: list_price_local
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_price_history = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_price_history.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

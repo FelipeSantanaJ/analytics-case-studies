@@ -1,0 +1,198 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "07market-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-gross-churn-total-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Gross Churn (Total)",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Monthly Churn % (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-churn-comp-base-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Churn (Comp. Base)",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Monthly Churn % (Comparable Base)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-churn-expansion-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Churn (Expansion)",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Monthly Churn % (Expansion)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-net-adds-last-month-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Net Adds (last month)",
+    "fields": {
+      "Values": [
+        "_Measures.Net Adds (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-mrr-last-month-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "MRR (last month)",
+    "fields": {
+      "Values": [
+        "_Measures.MRR (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "07market-lost-vs-plan-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Lost vs Plan",
+    "fields": {
+      "Values": [
+        "_Measures.Subscribers Lost vs Plan (since shift)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "churn_by_market_7",
+    "x": 24,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Gross monthly churn by market",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Gross Monthly Churn %"
+      ],
+      "Series": "dim_subscriber.market"
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "netadds_by_market",
+    "x": 646,
+    "y": 276,
+    "width": 610,
+    "height": 204,
+    "title": "Net adds by market",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Net Adds"
+      ],
+      "Series": "dim_subscriber.market"
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "cb_vs_exp",
+    "x": 24,
+    "y": 496,
+    "width": 714,
+    "height": 204,
+    "title": "Comparable Base vs Expansion churn",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Gross Monthly Churn % (Comparable Base)",
+        "_Measures.Gross Monthly Churn % (Expansion)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "insight_7",
+    "x": 750,
+    "y": 496,
+    "width": 506,
+    "height": 204,
+    "title": "Read this",
+    "fields": {
+      "Values": [
+        "_Measures.Exec Insight"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "07market-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "07market-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "07market-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

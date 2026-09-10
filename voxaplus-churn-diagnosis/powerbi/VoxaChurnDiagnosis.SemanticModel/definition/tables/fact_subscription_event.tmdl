@@ -1,0 +1,98 @@
+table fact_subscription_event
+	lineageTag: 1306168f-7640-5f72-82da-558ed41e4342
+
+	column event_id
+		dataType: string
+		lineageTag: 883eefe1-fb11-57eb-967f-750a95681ec1
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column subject
+		dataType: string
+		isHidden
+		lineageTag: 87494fff-0a37-5343-8fb8-4a40d0e06d35
+		summarizeBy: none
+		sourceColumn: subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_type
+		dataType: string
+		lineageTag: ce1d91e1-6c73-5336-9da8-089dcae1ad06
+		summarizeBy: none
+		sourceColumn: event_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_ts_utc
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: f007a832-2735-5dbd-a43b-3bad995b4f1f
+		summarizeBy: none
+		sourceColumn: event_ts_utc
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_date_key
+		dataType: int64
+		isHidden
+		lineageTag: cdb1a1c6-b767-5429-94e8-029f5043e3cd
+		summarizeBy: none
+		sourceColumn: event_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column from_tier
+		dataType: string
+		lineageTag: e3ea9736-ffce-5f04-89a6-e1e4afccfeff
+		summarizeBy: none
+		sourceColumn: from_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column to_tier
+		dataType: string
+		lineageTag: 7f2f4b3e-8ea7-516e-bbb6-0de5422c7288
+		summarizeBy: none
+		sourceColumn: to_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_code
+		dataType: string
+		lineageTag: be83be96-39ce-5ba5-ad68-ab7c287e511f
+		summarizeBy: none
+		sourceColumn: reason_code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_subscription_event = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_subscription_event.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

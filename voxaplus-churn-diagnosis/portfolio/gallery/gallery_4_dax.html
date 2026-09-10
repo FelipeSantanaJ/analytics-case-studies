@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><title>Voxa+ DAX</title>
+<link rel="stylesheet" href="_style.css">
+<style>
+  .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:6px}
+  .fold{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:12px 14px}
+  .fold h3{font-size:13px;color:var(--violet);margin-bottom:7px}
+  .fold ul{list-style:none}.fold li{font-size:12px;padding:2px 0;color:var(--body)}
+  .fold li b{color:var(--ink)}
+  .code{margin-top:20px;background:var(--deep);color:#E9E4F5;border-radius:12px;padding:16px 20px;
+    font-family:"Cascadia Code",Consolas,monospace;font-size:12.5px;line-height:1.6;white-space:pre;overflow:hidden}
+  .code .c{color:#9d8fc7}.code .kw{color:var(--amber)}.code .m{color:#7fc7bf}
+</style>
+<div class="band"><span class="wm">Voxa<b>+</b></span><span class="t">DAX measure library — 113 measures, 15 display folders, code-generated</span></div>
+<div class="stage">
+  <h1>The semantic layer, authored as a library</h1>
+  <div class="sub"><span class="mono">etl/pbi_measures.py</span> → injected into <span class="mono">_Measures.tmdl</span> · every <code>[Measure]</code> reference cross-resolved · doc auto-generated (<span class="mono">docs/06_dax_measures.md</span>).</div>
+
+  <div class="cols">
+    <div class="fold"><h3>01 Subscribers &nbsp;·&nbsp; 02 Churn</h3><ul>
+      <li><b>Paid Active Subscribers</b> — mean monthly active</li>
+      <li><b>Gross Monthly Churn %</b> — mean of monthly churned ÷ start-active</li>
+      <li>Voluntary / Involuntary Churn %</li>
+      <li><b>Pre-Shift Baseline Churn %</b> · <b>Churn vs Baseline (x)</b></li>
+      <li>Net MRR Retention %</li></ul></div>
+    <div class="fold"><h3>03 Cohorts &nbsp;·&nbsp; 04 Engagement</h3><ul>
+      <li><b>Retention %</b> — cohort × tenure matrix</li>
+      <li>M1 / M3 / M6 / M12 Retention %</li>
+      <li>Monthly Active Rate % · Viewing Hours / Active Sub</li>
+      <li><b>% Subs Below Healthy Engagement</b></li>
+      <li>Video Start Failure Rate · Playback Error Rate</li></ul></div>
+    <div class="fold"><h3>07 Revenue &nbsp;·&nbsp; 08 Unit econ</h3><ul>
+      <li>MRR · ARPU · Total Revenue</li>
+      <li>Gross Margin % · Contribution Margin % (T12M)</li>
+      <li>Blended CAC · <b>LTV</b> · LTV : CAC · CAC Payback</li></ul></div>
+    <div class="fold"><h3>09 Time &nbsp;·&nbsp; 11 Targets &nbsp;·&nbsp; 14 Narrative</h3><ul>
+      <li>PY / YoY % / YTD / MAT — via <span class="mono">abs_month</span> arithmetic (no marked date table)</li>
+      <li>… vs Target % per KPI — churn / CAC scored lower-is-better</li>
+      <li><b>Exec Insight</b> — dynamic narrative text measure</li></ul></div>
+  </div>
+
+  <div class="code"><span class="c">-- Gross Monthly Churn %  (the watch metric)</span>
+<span class="kw">AVERAGEX</span> (
+    <span class="kw">FILTER</span> ( <span class="kw">VALUES</span> ( dim_date[window_month_idx] ),
+        dim_date[window_month_idx] &gt;= <span class="m">0</span> &amp;&amp; dim_date[window_month_idx] &lt;= <span class="m">35</span> ),
+    <span class="kw">DIVIDE</span> ( <span class="kw">CALCULATE</span> ( [Gross Churned Subscribers] ),
+             <span class="kw">CALCULATE</span> ( [Active at Start of Month] ) )
+)</div>
+</div>
+<div class="foot">Voxa+ Subscriber Churn Diagnosis · data &amp; BI portfolio project · synthetic data</div>

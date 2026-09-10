@@ -1,0 +1,252 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "01executive-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-paid-subscribers-eop-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Paid Subscribers (EoP)",
+    "fields": {
+      "Values": [
+        "_Measures.Paid Active Subscribers (EoP)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-paid-subscribers-eop-d",
+    "x": 24,
+    "y": 198,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Paid Active Subscribers vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-gross-monthly-churn-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Gross Monthly Churn",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Monthly Churn % (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-gross-monthly-churn-d",
+    "x": 231,
+    "y": 198,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Gross Churn vs Target (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-churn-vs-baseline-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Churn vs Baseline",
+    "fields": {
+      "Values": [
+        "_Measures.Churn vs Baseline (x) (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-net-adds-last-month-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Net Adds (last month)",
+    "fields": {
+      "Values": [
+        "_Measures.Net Adds (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-mrr-last-month-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "MRR (last month)",
+    "fields": {
+      "Values": [
+        "_Measures.MRR (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-mrr-last-month-d",
+    "x": 853,
+    "y": 198,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.MRR vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-ltv--cac-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "LTV : CAC",
+    "fields": {
+      "Values": [
+        "_Measures.LTV to CAC (Latest)"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "churn_vs_baseline",
+    "x": 24,
+    "y": 276,
+    "width": 714,
+    "height": 250,
+    "title": "Gross monthly churn vs the pre-shift baseline",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Gross Monthly Churn %",
+        "_Measures.Pre-Shift Baseline Churn %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "exec_insight",
+    "x": 750,
+    "y": 276,
+    "width": 506,
+    "height": 250,
+    "title": "Read this",
+    "fields": {
+      "Values": [
+        "_Measures.Exec Insight"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "churn_by_market",
+    "x": 24,
+    "y": 542,
+    "width": 610,
+    "height": 250,
+    "title": "Gross monthly churn by market",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Gross Monthly Churn %"
+      ],
+      "Series": "dim_subscriber.market"
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "vol_invol",
+    "x": 646,
+    "y": 542,
+    "width": 610,
+    "height": 250,
+    "title": "Voluntary vs involuntary churned subscribers",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Voluntary Churned Subscribers",
+        "_Measures.Involuntary Churned Subscribers"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "net_adds",
+    "x": 24,
+    "y": 798,
+    "width": 1232,
+    "height": 92,
+    "title": "Net subscriber adds by month",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.Net Adds"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

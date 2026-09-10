@@ -1,0 +1,136 @@
+table fact_subscription_month
+	lineageTag: be82b805-9fe2-59a5-a481-4acec2f6f8de
+
+	column subscriber_key
+		dataType: int64
+		isHidden
+		lineageTag: d3ce47d9-563e-59ed-876b-937580451a8f
+		summarizeBy: none
+		sourceColumn: subscriber_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column subscriber_id
+		dataType: string
+		lineageTag: 092f3428-89c9-5885-afd9-8724411d5824
+		summarizeBy: none
+		sourceColumn: subscriber_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_idx
+		dataType: int64
+		isHidden
+		lineageTag: ff7e7919-ead5-5ab6-b9b2-0c2cdff35e7a
+		summarizeBy: none
+		sourceColumn: month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 5c550a3b-3551-58b9-9305-ed9bb5adef05
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column tier
+		dataType: string
+		lineageTag: 8d0ab550-f58f-5fb9-9eed-5db781471bfd
+		summarizeBy: none
+		sourceColumn: tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_period
+		dataType: string
+		lineageTag: 26052753-179d-57ef-8452-663941402489
+		summarizeBy: none
+		sourceColumn: billing_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column market
+		dataType: string
+		lineageTag: 41e224b2-298d-5266-86ef-0bc320f8aff9
+		summarizeBy: none
+		sourceColumn: market
+
+		annotation SummarizationSetBy = Automatic
+
+	column mrr_local
+		dataType: double
+		lineageTag: dcbe1dec-1c63-5c53-964f-72265b732f89
+		summarizeBy: sum
+		sourceColumn: mrr_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_months
+		dataType: int64
+		lineageTag: 464a4a7e-818d-53ad-bea7-f5cdc03ec20a
+		summarizeBy: sum
+		sourceColumn: tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_new
+		dataType: boolean
+		lineageTag: 95c5c499-0a83-5e4a-a4ab-66570d56f299
+		summarizeBy: none
+		sourceColumn: is_new
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reactivation
+		dataType: boolean
+		lineageTag: a725745d-6f1f-5862-b200-2e9beb16e579
+		summarizeBy: none
+		sourceColumn: is_reactivation
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_voluntary_churn
+		dataType: boolean
+		lineageTag: a57cef60-4c33-57a8-8673-b005d7ae7bdd
+		summarizeBy: none
+		sourceColumn: is_voluntary_churn
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_involuntary_churn
+		dataType: boolean
+		lineageTag: 019f647e-86e3-5878-a130-dd7801a5ece1
+		summarizeBy: none
+		sourceColumn: is_involuntary_churn
+
+		annotation SummarizationSetBy = Automatic
+
+	column mrr_usd
+		dataType: double
+		lineageTag: d31ca73c-970e-5b16-a9a9-065bdc9887ad
+		summarizeBy: sum
+		sourceColumn: mrr_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_subscription_month = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_subscription_month.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

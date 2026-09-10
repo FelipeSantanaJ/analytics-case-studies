@@ -1,0 +1,7 @@
+market,period,payment_failure_rate,dunning_recovery_rate
+BR,peak,0.0769,0.5198
+BR,pre_shift,0.0763,0.5069
+MX,peak,0.1823,0.3684
+MX,pre_shift,0.1878,0.3695
+US,peak,0.0776,0.5694
+US,pre_shift,0.0802,0.5794

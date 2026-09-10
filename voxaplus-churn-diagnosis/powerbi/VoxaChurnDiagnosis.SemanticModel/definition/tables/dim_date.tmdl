@@ -1,0 +1,170 @@
+table dim_date
+	lineageTag: d4e2a6a6-99b5-56cd-9c96-714c5fe8cc18
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: d87d8fe9-3c16-5ca1-aac5-8061941ff351
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: de3fc847-81d7-58f9-95c2-3c8bb62ced79
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 95de92da-c6af-53a8-9713-c79ab4497840
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: 7030e2c5-8170-585d-99fb-a18d6472ec64
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_num
+		dataType: int64
+		lineageTag: bbf4f63f-274f-5a90-a6b3-95068e6ac358
+		summarizeBy: none
+		sourceColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 50d89bc2-3e45-579c-b136-58c60ff912e3
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: 614991b8-f30a-550f-acad-8ed0b325dc37
+		summarizeBy: none
+		sourceColumn: year_month
+		sortByColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_sort
+		dataType: int64
+		lineageTag: 95500f6a-2f58-5876-b7d3-dc95501b9a38
+		summarizeBy: none
+		sourceColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column abs_month
+		dataType: int64
+		lineageTag: e4114439-64b4-569e-b976-b74f9d0c4fb1
+		summarizeBy: sum
+		sourceColumn: abs_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_month
+		dataType: int64
+		lineageTag: 1da89aa3-d1d3-5cb3-93b6-7adee6d245b3
+		summarizeBy: none
+		sourceColumn: day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_month_end
+		dataType: boolean
+		lineageTag: 2785ac7b-2dc3-542d-8a3f-39460641e8fe
+		summarizeBy: none
+		sourceColumn: is_month_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week
+		dataType: int64
+		lineageTag: 7cdea6a0-5273-5e6b-9b16-2d7423838014
+		summarizeBy: none
+		sourceColumn: iso_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column window_month_idx
+		dataType: int64
+		isHidden
+		lineageTag: 85de7616-ae2c-53f0-9547-365e82de13e8
+		summarizeBy: none
+		sourceColumn: window_month_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_analysis_window
+		dataType: boolean
+		lineageTag: 4cae0556-58f3-502e-b2e8-9b5fd017e223
+		summarizeBy: none
+		sourceColumn: in_analysis_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday_br
+		dataType: boolean
+		lineageTag: d20ced9d-f6e8-503c-b54c-b84b59fbbe21
+		summarizeBy: none
+		sourceColumn: is_holiday_br
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday_mx
+		dataType: boolean
+		lineageTag: da854876-299f-5d18-a63e-4421f83e3c1d
+		summarizeBy: none
+		sourceColumn: is_holiday_mx
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday_us
+		dataType: boolean
+		lineageTag: d9082d11-d4d7-577c-898c-3af38fff3319
+		summarizeBy: none
+		sourceColumn: is_holiday_us
+
+		annotation SummarizationSetBy = Automatic
+
+	column season_tag
+		dataType: string
+		lineageTag: 69d1586f-071a-57ec-bc6d-9e05419a91ef
+		summarizeBy: none
+		sourceColumn: season_tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_partial_period
+		dataType: boolean
+		lineageTag: 74335333-a6da-5db2-ada2-fb70d6102512
+		summarizeBy: none
+		sourceColumn: is_partial_period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_date.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

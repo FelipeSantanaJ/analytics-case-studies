@@ -1,0 +1,46 @@
+table 'P&L Line'
+	lineageTag: 635561cd-688b-5117-811d-fe409b934f2a
+
+	column pnl_line
+		dataType: string
+		lineageTag: 9e9f859b-f46d-5a60-a918-18db4c637a15
+		summarizeBy: none
+		sourceColumn: pnl_line
+
+		annotation SummarizationSetBy = Automatic
+
+	column Display
+		dataType: string
+		lineageTag: a954f8ad-8d14-5dd0-9c3c-ab37b00bc8b6
+		summarizeBy: none
+		sourceColumn: Display
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sign
+		dataType: int64
+		lineageTag: 26096dc4-a7ce-573b-ba5c-e9b69e6aa3de
+		summarizeBy: sum
+		sourceColumn: Sign
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		lineageTag: a730bda7-1d45-59f0-87c7-cfcf0e3f912f
+		summarizeBy: sum
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'P&L Line' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [pnl_line=text, Display=text, Sign=Int64.Type, Sort=Int64.Type], {{"subscription_revenue", "Subscription revenue", 1, 1}, {"advertising_revenue", "Advertising revenue", 1, 2}, {"partner_revenue", "Partner revenue", 1, 3}, {"content_amortization", "Content amortisation", -1, 4}, {"streaming_delivery", "Streaming delivery (CDN)", -1, 5}, {"payment_processing", "Payment processing", -1, 6}, {"customer_support", "Customer support", -1, 7}, {"marketing", "Marketing", -1, 8}, {"g_a_allocation", "G&A allocation", -1, 9}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

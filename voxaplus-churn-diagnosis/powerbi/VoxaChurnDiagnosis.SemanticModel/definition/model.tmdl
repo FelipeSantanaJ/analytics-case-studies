@@ -1,0 +1,45 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_app_version","dim_channel","dim_content","dim_date","dim_device","dim_market","dim_payment_method","dim_plan","dim_price_history","dim_subscriber","dim_support_reason","fact_ad_revenue","fact_app_performance_daily","fact_billing_attempt","fact_content_cost","fact_engagement_device_month","fact_engagement_month","fact_finance_month","fact_fx_rate","fact_marketing_spend","fact_subscription_event","fact_subscription_month","fact_support_ticket","fact_targets_month","Reporting Currency","P&L Line","Subscriber Bridge","Funnel Stage","pDataFolder"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_app_version
+ref table dim_channel
+ref table dim_content
+ref table dim_date
+ref table dim_device
+ref table dim_market
+ref table dim_payment_method
+ref table dim_plan
+ref table dim_price_history
+ref table dim_subscriber
+ref table dim_support_reason
+ref table fact_ad_revenue
+ref table fact_app_performance_daily
+ref table fact_billing_attempt
+ref table fact_content_cost
+ref table fact_engagement_device_month
+ref table fact_engagement_month
+ref table fact_finance_month
+ref table fact_fx_rate
+ref table fact_marketing_spend
+ref table fact_subscription_event
+ref table fact_subscription_month
+ref table fact_support_ticket
+ref table fact_targets_month
+ref table 'Funnel Stage'
+ref table 'P&L Line'
+ref table 'Reporting Currency'
+ref table 'Subscriber Bridge'
+ref table _Measures
+

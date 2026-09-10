@@ -1,0 +1,87 @@
+table dim_content
+	lineageTag: 8a971254-0ac7-5a69-a510-e3cf1c5a1fe0
+
+	column content_key
+		dataType: int64
+		isHidden
+		lineageTag: df8b5b53-9d2c-5db4-b186-6f453bcc1b16
+		summarizeBy: none
+		sourceColumn: content_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column content_id
+		dataType: string
+		lineageTag: 64cbb604-a7a4-59ac-8d6b-80f8021cbf06
+		summarizeBy: none
+		sourceColumn: content_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 24918aa5-e347-5de1-83ae-681c86110b16
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column content_type
+		dataType: string
+		lineageTag: a6f24e03-832f-5eb0-a3ab-917b8d42a0ba
+		summarizeBy: none
+		sourceColumn: content_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_genre
+		dataType: string
+		lineageTag: a72fbf4f-e311-5b6d-be7b-573dd9b64cf6
+		summarizeBy: none
+		sourceColumn: primary_genre
+
+		annotation SummarizationSetBy = Automatic
+
+	column language
+		dataType: string
+		lineageTag: 2d56e7fd-d66b-56fc-80c2-c45175b387ce
+		summarizeBy: none
+		sourceColumn: language
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_original
+		dataType: boolean
+		lineageTag: 7c011fe4-2683-5de3-823d-a90c8a5e894d
+		summarizeBy: none
+		sourceColumn: is_original
+
+		annotation SummarizationSetBy = Automatic
+
+	column runtime_min
+		dataType: int64
+		lineageTag: 734002ce-6b64-5330-b268-af7c76259169
+		summarizeBy: none
+		sourceColumn: runtime_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column release_date_key
+		dataType: int64
+		isHidden
+		lineageTag: bb05c7f4-0780-5792-b042-84065ae5ab36
+		summarizeBy: none
+		sourceColumn: release_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_content = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_content.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

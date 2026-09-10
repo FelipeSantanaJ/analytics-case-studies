@@ -1,0 +1,211 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "05acquisition-kpiframe",
+    "x": 16,
+    "y": 128,
+    "width": 1248,
+    "height": 104
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition-new-subscribers-v",
+    "x": 24,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "New Subscribers",
+    "fields": {
+      "Values": [
+        "_Measures.New Subscribers"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition--via-low-q-channels-v",
+    "x": 231,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "% via Low-Q Channels",
+    "fields": {
+      "Values": [
+        "_Measures.% New via Low-Quality Channels"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition--incentivised-v",
+    "x": 439,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "% Incentivised",
+    "fields": {
+      "Values": [
+        "_Measures.% New Incentivised"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition-m1-retention-v",
+    "x": 646,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "M1 Retention",
+    "fields": {
+      "Values": [
+        "_Measures.M1 Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition-m3-retention-v",
+    "x": 853,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "M3 Retention",
+    "fields": {
+      "Values": [
+        "_Measures.M3 Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition-blended-cac-v",
+    "x": 1061,
+    "y": 138,
+    "width": 195,
+    "height": 58,
+    "title": "Blended CAC",
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "05acquisition-blended-cac-d",
+    "x": 1061,
+    "y": 198,
+    "width": 195,
+    "height": 22,
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "stackedColumnChart",
+    "name": "new_by_channel",
+    "x": 24,
+    "y": 276,
+    "width": 714,
+    "height": 204,
+    "title": "New subscribers by acquisition channel",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.New Subscribers"
+      ],
+      "Series": "dim_subscriber.acquisition_channel"
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "m3_by_channel",
+    "x": 750,
+    "y": 276,
+    "width": 506,
+    "height": 204,
+    "title": "M3 retention by acquisition channel",
+    "fields": {
+      "Category": "dim_subscriber.acquisition_channel",
+      "Y": [
+        "_Measures.M3 Retention %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "lowq_trend",
+    "x": 24,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Share of new subscribers via low-quality channels",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.% New via Low-Quality Channels"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "lowq_by_market",
+    "x": 646,
+    "y": 496,
+    "width": 610,
+    "height": 204,
+    "title": "Low-quality-channel share by market",
+    "fields": {
+      "Category": "dim_date.year_month",
+      "Y": [
+        "_Measures.% New via Low-Quality Channels"
+      ],
+      "Series": "dim_subscriber.market"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "05acquisition-sl-currency",
+    "x": 1106,
+    "y": 238,
+    "width": 150,
+    "height": 28,
+    "title": "Currency",
+    "fields": {
+      "Values": [
+        "Reporting Currency.Currency"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "05acquisition-sl-market",
+    "x": 864,
+    "y": 238,
+    "width": 230,
+    "height": 28,
+    "title": "Market",
+    "fields": {
+      "Values": [
+        "dim_subscriber.market"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "05acquisition-sl-period",
+    "x": 24,
+    "y": 238,
+    "width": 380,
+    "height": 28,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.year_month"
+      ]
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "VoxaChurnDiagnosis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "06ae0734-3f98-4368-bf55-4cbcba495ce3"
+  }
+}
