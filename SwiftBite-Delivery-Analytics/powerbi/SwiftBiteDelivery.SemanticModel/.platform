@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SwiftBiteDelivery"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3756e390-df48-5513-aa4f-6d74b10d4bbc"
+  }
+}

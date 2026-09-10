@@ -1,0 +1,95 @@
+table fact_experiment_zone_block_week
+	lineageTag: ee25f3fd-d734-5781-b42f-4f30f91bb52a
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: ed2414d4-cf41-58c0-97c1-941879bb5142
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_week
+		dataType: double
+		lineageTag: 0be2db84-b6eb-5b0f-87a0-168a7fb27c79
+		summarizeBy: none
+		sourceColumn: experiment_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_block_key
+		isHidden
+		dataType: int64
+		lineageTag: 01a4eb4c-37f7-5e7c-a77e-3d41a2a6658b
+		summarizeBy: none
+		sourceColumn: time_block_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders_placed
+		dataType: int64
+		lineageTag: 0f07e5e7-95b5-5502-932c-ec0152507c5b
+		summarizeBy: sum
+		sourceColumn: orders_placed
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders_delivered
+		dataType: int64
+		lineageTag: 57e987f1-81ba-576f-94d7-24e009b82ff5
+		summarizeBy: sum
+		sourceColumn: orders_delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column eta_p90_min
+		dataType: double
+		lineageTag: 6cd1a2d5-4fcc-5a19-961e-458917f3124c
+		summarizeBy: none
+		sourceColumn: eta_p90_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_courier_hours
+		dataType: double
+		lineageTag: bd6296f2-1938-5bba-9cc8-69068a471b4a
+		summarizeBy: sum
+		sourceColumn: available_courier_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column fulfillment_rate
+		dataType: double
+		lineageTag: 5689cc40-cc16-5264-afca-a8bad9bbed2c
+		summarizeBy: none
+		sourceColumn: fulfillment_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: 83c07d5f-f5ef-537a-912e-4a729b8b854b
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm
+		dataType: string
+		lineageTag: b41bba88-931f-577c-baee-ca4c33cb8e46
+		summarizeBy: none
+		sourceColumn: arm
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_experiment_zone_block_week = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_experiment_zone_block_week.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,196 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "01executive-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-fulfillment-rate-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Fulfillment Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Fulfillment Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-peak-eta-p90-min-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Peak ETA p90 (min)",
+    "fields": {
+      "Values": [
+        "_Measures.Peak ETA p90 (min)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-no-courier-rate-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "No-Courier Rate",
+    "fields": {
+      "Values": [
+        "_Measures.No-Courier Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-idle-courier-ratio-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Idle Courier Ratio",
+    "fields": {
+      "Values": [
+        "_Measures.Idle Courier Ratio %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-incentive-lift-pp-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Incentive Lift (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.Fulfillment Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "01executive-cost--incremental-order-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Cost / Incremental Order",
+    "fields": {
+      "Values": [
+        "_Measures.G1 Incentive Cost per Incremental Order (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "fulfillment_trend",
+    "x": 24,
+    "y": 236,
+    "width": 730,
+    "height": 250,
+    "title": "Fulfillment rate over the window",
+    "fields": {
+      "Category": "dim_date.date",
+      "Y": [
+        "_Measures.Fulfillment Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "exec_insight",
+    "x": 766,
+    "y": 236,
+    "width": 490,
+    "height": 250,
+    "title": "Read this",
+    "fields": {
+      "Values": [
+        "_Measures.Exec Insight"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "lift_by_tier_exec",
+    "x": 24,
+    "y": 500,
+    "width": 490,
+    "height": 232,
+    "title": "Fulfillment lift by baseline supply-stress tier (pp)",
+    "fields": {
+      "Category": "dim_zone.baseline_supply_stress_tier",
+      "Y": [
+        "_Measures.Fulfillment Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "novelty_exec",
+    "x": 530,
+    "y": 500,
+    "width": 726,
+    "height": 232,
+    "title": "Weekly fulfillment, treated vs control \u2014 novelty check",
+    "fields": {
+      "Category": "fact_experiment_zone_block_week.experiment_week",
+      "Y": [
+        "_Measures.Weekly Fulfillment (Treated) %",
+        "_Measures.Weekly Fulfillment (Control) %"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 320,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.date"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-zone",
+    "x": 856,
+    "y": 126,
+    "width": 210,
+    "height": 34,
+    "title": "Zone",
+    "fields": {
+      "Values": [
+        "dim_zone.zone_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "01executive-sl-tier",
+    "x": 1078,
+    "y": 126,
+    "width": 178,
+    "height": 34,
+    "title": "Supply-stress tier",
+    "fields": {
+      "Values": [
+        "dim_zone.baseline_supply_stress_tier"
+      ]
+    }
+  }
+]

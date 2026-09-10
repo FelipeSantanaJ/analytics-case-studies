@@ -1,0 +1,540 @@
+table _Measures
+	lineageTag: 7b26134b-7da4-5d76-88a4-27836e39bfe9
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 23f2d1b0-d877-5c29-a645-a136deada0c9
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Orders Placed' =
+			SUM ( fact_zone_hour[orders_placed] )
+		formatString: #,0
+		displayFolder: 01 Marketplace Health
+		lineageTag: 0c25836d-9117-5e45-af9e-4155521921c2
+
+	measure 'Orders Delivered' =
+			SUM ( fact_zone_hour[orders_delivered] )
+		formatString: #,0
+		displayFolder: 01 Marketplace Health
+		lineageTag: 928b2a5e-8089-5d3f-973d-ee9aaca737f0
+
+	/// Delivered orders as a share of placed orders in the current filter context.
+	measure 'Fulfillment Rate %' =
+			DIVIDE ( [Orders Delivered], [Orders Placed] )
+		formatString: 0.0%
+		displayFolder: 01 Marketplace Health
+		lineageTag: f3c71eb3-952d-5709-a9fd-fbcb050d48b5
+
+	measure 'Cancellations' =
+			[Orders Placed] - [Orders Delivered]
+		formatString: #,0
+		displayFolder: 01 Marketplace Health
+		lineageTag: ad086ea1-e3eb-5892-94bb-0baed70c97fd
+
+	measure 'Cancellation Rate %' =
+			DIVIDE ( [Cancellations], [Orders Placed] )
+		formatString: 0.0%
+		displayFolder: 01 Marketplace Health
+		lineageTag: 04442b61-f9df-51cb-9044-8b6b14dfb1c8
+
+	measure 'No-Courier Cancels' =
+			SUM ( fact_zone_hour[cancelled_no_courier] )
+		formatString: #,0
+		displayFolder: 01 Marketplace Health
+		lineageTag: f534b66d-2e2d-56c6-ba64-03af3d4abe46
+
+	/// Orders cancelled because no courier could be assigned — the sharpest liquidity signal.
+	measure 'No-Courier Rate %' =
+			DIVIDE ( [No-Courier Cancels], [Orders Placed] )
+		formatString: 0.00%
+		displayFolder: 01 Marketplace Health
+		lineageTag: 8a7422c3-d329-5309-a2e5-34dcea81cd5e
+
+	measure 'Customer Cancels' =
+			SUM ( fact_zone_hour[cancelled_customer] )
+		formatString: #,0
+		displayFolder: 01 Marketplace Health
+		lineageTag: 000b5e92-fd4d-593e-b077-096480e74b01
+
+	/// Order-weighted mean of the per-zone-hour median ETA.
+	measure 'ETA p50 (min)' =
+			DIVIDE ( SUMX ( fact_zone_hour, fact_zone_hour[eta_p50_min] * fact_zone_hour[orders_delivered] ), [Orders Delivered] )
+		formatString: 0.0
+		displayFolder: 01 Marketplace Health
+		lineageTag: 0c8b764e-c8dc-5f51-8484-76cb6823c8de
+
+	/// Order-weighted mean of the per-zone-hour 90th-percentile ETA — the customer-pain metric.
+	measure 'ETA p90 (min)' =
+			DIVIDE ( SUMX ( fact_zone_hour, fact_zone_hour[eta_p90_min] * fact_zone_hour[orders_delivered] ), [Orders Delivered] )
+		formatString: 0.0
+		displayFolder: 01 Marketplace Health
+		lineageTag: fda2dd6f-9d20-508a-b7cf-6a64045bbca7
+
+	measure 'Assignment Latency p90 (s)' =
+			DIVIDE ( SUMX ( fact_zone_hour, fact_zone_hour[assignment_latency_p90_s] * fact_zone_hour[orders_placed] ), [Orders Placed] )
+		formatString: 0
+		displayFolder: 01 Marketplace Health
+		lineageTag: 3df244cb-03b2-5ed6-a4cc-430602aa4a46
+
+	/// Fulfillment restricted to the 18:00–21:59 dinner peak.
+	measure 'Peak Fulfillment Rate %' =
+			CALCULATE ( [Fulfillment Rate %], dim_time_block[is_peak_block] = TRUE () )
+		formatString: 0.0%
+		displayFolder: 01 Marketplace Health
+		lineageTag: 64ad5a59-e7c6-51f9-8db1-264e75524c9c
+
+	measure 'Peak ETA p90 (min)' =
+			CALCULATE ( [ETA p90 (min)], dim_time_block[is_peak_block] = TRUE () )
+		formatString: 0.0
+		displayFolder: 01 Marketplace Health
+		lineageTag: d7bdaec3-9526-5467-a727-150ce7c99af2
+
+	measure 'Available Courier-Hours' =
+			SUM ( fact_zone_hour[available_courier_hours] )
+		formatString: #,0.0
+		displayFolder: 02 Liquidity
+		lineageTag: 462ad9a2-933a-5c55-a271-687c0e4a7504
+
+	/// Orders placed × the period's average service time (pickup + drive + drop).
+	measure 'Demanded Courier-Hours' =
+			SUM ( fact_zone_hour[demanded_delivery_hours] )
+		formatString: #,0.0
+		displayFolder: 02 Liquidity
+		lineageTag: 5172d120-5bf4-5708-a17b-7fe51f30a6ba
+
+	/// Available ÷ demanded courier-hours. < 1 = supply-short.
+	measure 'Liquidity Ratio' =
+			DIVIDE ( [Available Courier-Hours], [Demanded Courier-Hours] )
+		formatString: 0.00
+		displayFolder: 02 Liquidity
+		lineageTag: 40426e16-01ad-5075-8231-d33ce8bfdd75
+
+	measure 'Idle Courier-Hours' =
+			SUM ( fact_zone_hour[idle_courier_hours] )
+		formatString: #,0.0
+		displayFolder: 02 Liquidity
+		lineageTag: b4d55ff5-043c-5d6b-9a86-9c739d78bac1
+
+	/// Logged-in courier-hours not on a run — supply present but unproductive.
+	measure 'Idle Courier Ratio %' =
+			DIVIDE ( [Idle Courier-Hours], [Available Courier-Hours] )
+		formatString: 0.0%
+		displayFolder: 02 Liquidity
+		lineageTag: af7dd016-8a4b-5c01-aa6c-19eaf8b3b7bb
+
+	/// Placed − delivered, the volume a liquidity fix would recover.
+	measure 'Unmet Demand' =
+			SUM ( fact_zone_hour[unmet_demand] )
+		formatString: #,0
+		displayFolder: 02 Liquidity
+		lineageTag: 3ecadd20-3393-53d5-b5ec-dc2d5d0eebac
+
+	measure 'Active Couriers' =
+			CALCULATE ( DISTINCTCOUNT ( fact_courier_shift_block[courier_key] ), fact_courier_shift_block[courier_key] > 0 )
+		formatString: #,0
+		displayFolder: 02 Liquidity
+		lineageTag: 890b1efd-eb1e-5d88-be3c-3c26784b7cc7
+
+	/// Share of peak zone-hours where available < demanded courier-hours.
+	measure 'Supply-Short Peak Zone-Hours %' =
+			VAR peak =
+			    FILTER (
+			        fact_zone_hour,
+			        fact_zone_hour[is_peak_block] = TRUE () && fact_zone_hour[orders_placed] > 0
+			    )
+			RETURN
+			DIVIDE (
+			    COUNTROWS ( FILTER ( peak, fact_zone_hour[liquidity_ratio] < 1 ) ),
+			    COUNTROWS ( peak )
+			)
+		formatString: 0.0%
+		displayFolder: 02 Liquidity
+		lineageTag: 9c135a81-11ff-5084-87d9-2e40941631e9
+
+	measure 'Deliveries per Active Hour' =
+			DIVIDE ( SUM ( fact_courier_shift_block[deliveries] ), DIVIDE ( SUM ( fact_courier_shift_block[active_min] ), 60 ) )
+		formatString: 0.00
+		displayFolder: 02 Liquidity
+		lineageTag: dd55ec9e-6b56-5b9e-a809-d710bb99916a
+
+	measure 'Courier Earnings (BRL)' =
+			SUM ( fact_courier_shift_block[earnings_brl] )
+		formatString: #,0
+		displayFolder: 03 Courier Economics
+		lineageTag: 32db0562-d262-5f16-913a-76f9a57ce604
+
+	measure 'Active Hours' =
+			DIVIDE ( SUM ( fact_courier_shift_block[active_min] ), 60 )
+		formatString: #,0.0
+		displayFolder: 03 Courier Economics
+		lineageTag: c749440e-be5f-5a47-af66-3243cecfba19
+
+	measure 'Logged-in Hours' =
+			DIVIDE ( SUM ( fact_courier_shift_block[logged_in_min] ), 60 )
+		formatString: #,0.0
+		displayFolder: 03 Courier Economics
+		lineageTag: 4bbf6d4b-a6de-54c2-9bf0-34b5a67bfa08
+
+	measure 'Earnings per Active Hour (BRL)' =
+			DIVIDE ( [Courier Earnings (BRL)], [Active Hours] )
+		formatString: #,0.00
+		displayFolder: 03 Courier Economics
+		lineageTag: b8196773-8af8-5362-beea-b00136d920d9
+
+	/// Active ÷ logged-in minutes.
+	measure 'Utilisation %' =
+			DIVIDE ( SUM ( fact_courier_shift_block[active_min] ), SUM ( fact_courier_shift_block[logged_in_min] ) )
+		formatString: 0.0%
+		displayFolder: 03 Courier Economics
+		lineageTag: 7d5c9047-3ae9-551e-ac2b-f18a8e6903c7
+
+	measure 'Payout per Delivery (BRL)' =
+			DIVIDE ( [Courier Earnings (BRL)], SUM ( fact_courier_shift_block[deliveries] ) )
+		formatString: #,0.00
+		displayFolder: 03 Courier Economics
+		lineageTag: ebb4cada-ae64-5fd4-9365-136381395006
+
+	measure 'Incentive Spend (BRL)' =
+			SUM ( fact_courier_shift_block[bonus_brl] )
+		formatString: #,0
+		displayFolder: 03 Courier Economics
+		lineageTag: 15037ae5-1bd0-543e-a1b8-f2fd773cbc1d
+
+	measure 'Incentive Spend as % of Payout' =
+			DIVIDE ( [Incentive Spend (BRL)], [Courier Earnings (BRL)] )
+		formatString: 0.0%
+		displayFolder: 03 Courier Economics
+		lineageTag: 55e25d53-8d02-5fb1-b9f6-276a99ff6f57
+
+	/// SwiftBite take (22% of basket + fee) − courier base+tip payout − payment/support cost, per delivered order. Excludes the experiment bonus.
+	measure 'Contribution Margin per Delivered Order (BRL)' =
+			VAR delivered = [Orders Delivered]
+			VAR take =
+			    0.22 * CALCULATE ( SUM ( fact_order[basket_value_brl] ), fact_order[outcome] = "delivered" )
+			    + CALCULATE ( SUM ( fact_order[delivery_fee_brl] ), fact_order[outcome] = "delivered" )
+			VAR payout =
+			    SUM ( fact_delivery[courier_base_payout_brl] ) + SUM ( fact_delivery[tip_brl] )
+			VAR support = 1.1 * delivered
+			RETURN
+			DIVIDE ( take - payout - support, delivered )
+		formatString: #,0.00
+		displayFolder: 03 Courier Economics
+		lineageTag: 21121436-6fd5-571a-841a-f9582b8277b3
+
+	measure 'Treated Zone-Days' =
+			CALCULATE ( COUNTROWS ( fact_experiment_zone_day ), fact_experiment_zone_day[arm] = "treatment" )
+		formatString: #,0
+		displayFolder: 04 Experiment
+		lineageTag: 5ff090e8-a18c-5861-bda1-7b5dcc38d336
+
+	measure 'Control Zone-Days' =
+			CALCULATE ( COUNTROWS ( fact_experiment_zone_day ), fact_experiment_zone_day[arm] = "control" )
+		formatString: #,0
+		displayFolder: 04 Experiment
+		lineageTag: 2214a646-c124-54e2-a90e-bcd8e1c7e066
+
+	/// Mean fulfillment rate across treated zone-days (peak block).
+	measure 'Fulfillment (Treated) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ), fact_experiment_zone_day[arm] = "treatment" )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 8a0ea096-a355-53da-ba38-dc6560985506
+
+	measure 'Fulfillment (Control) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ), fact_experiment_zone_day[arm] = "control" )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 0781e179-dea0-5fc3-9212-2ca038d68142
+
+	/// Primary metric: treated − control mean fulfillment, in percentage points.
+	measure 'Fulfillment Lift (pp)' =
+			( [Fulfillment (Treated) %] - [Fulfillment (Control) %] ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 54384692-1e5d-5238-be8b-1e7bd5b0e319
+
+	/// Two-sample normal SE on the zone-day means. The cluster-robust (by zone) SE is a Phase-10 artifact.
+	measure 'Fulfillment Lift SE (pp)' =
+			VAR nt = [Treated Zone-Days]
+			VAR nc = [Control Zone-Days]
+			VAR vt = CALCULATE ( VAR.S ( fact_experiment_zone_day[fulfillment_rate] ), fact_experiment_zone_day[arm] = "treatment" )
+			VAR vc = CALCULATE ( VAR.S ( fact_experiment_zone_day[fulfillment_rate] ), fact_experiment_zone_day[arm] = "control" )
+			RETURN
+			SQRT ( DIVIDE ( vt, nt ) + DIVIDE ( vc, nc ) ) * 100
+		formatString: 0.00
+		displayFolder: 04 Experiment
+		lineageTag: 097d125d-9942-56b8-b9bf-df596a6bc694
+
+	measure 'Fulfillment Lift CI Low (pp)' =
+			[Fulfillment Lift (pp)] - 1.96 * [Fulfillment Lift SE (pp)]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 973e9b54-c9b7-5413-bde2-fbee17d7847b
+
+	measure 'Fulfillment Lift CI High (pp)' =
+			[Fulfillment Lift (pp)] + 1.96 * [Fulfillment Lift SE (pp)]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: a42273b0-b5ae-5ab8-80c6-bf8a9e4e509c
+
+	measure 'Fulfillment Lift Significant?' =
+			IF ( [Fulfillment Lift CI Low (pp)] > 0, "Yes (95%)", "No" )
+		displayFolder: 04 Experiment
+		lineageTag: 36f311a7-d497-5075-acf9-ceade4119a03
+
+	measure 'ETA p90 (Treated) min' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[eta_p90_min] ), fact_experiment_zone_day[arm] = "treatment" )
+		formatString: 0.0
+		displayFolder: 04 Experiment
+		lineageTag: b1c237a3-37fb-541f-bf54-29fd3bd7ffad
+
+	measure 'ETA p90 (Control) min' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[eta_p90_min] ), fact_experiment_zone_day[arm] = "control" )
+		formatString: 0.0
+		displayFolder: 04 Experiment
+		lineageTag: bb95bc92-8475-5841-acdc-1d87cbfc52f4
+
+	/// Co-primary evidence (lower is better).
+	measure 'ETA p90 Lift (min)' =
+			[ETA p90 (Treated) min] - [ETA p90 (Control) min]
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 04 Experiment
+		lineageTag: 1e6b64ed-d774-5c4f-a590-6877b365e546
+
+	measure 'No-Courier Rate (Treated) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[cancel_no_courier_rate] ), fact_experiment_zone_day[arm] = "treatment" )
+		formatString: 0.00%
+		displayFolder: 04 Experiment
+		lineageTag: f9505882-0c94-5c33-88a0-7769a317cf62
+
+	measure 'No-Courier Rate (Control) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_day[cancel_no_courier_rate] ), fact_experiment_zone_day[arm] = "control" )
+		formatString: 0.00%
+		displayFolder: 04 Experiment
+		lineageTag: a081f026-4493-5f68-85c8-95b5ec841f62
+
+	/// Co-primary evidence (lower is better).
+	measure 'No-Courier Rate Lift (pp)' =
+			( [No-Courier Rate (Treated) %] - [No-Courier Rate (Control) %] ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 7698c53b-cdc7-5ef1-88af-b9b24964af73
+
+	measure 'Incentive Spend - Experiment (BRL)' =
+			SUM ( fact_experiment_zone_day[incentive_spend_brl] )
+		formatString: #,0
+		displayFolder: 04 Experiment
+		lineageTag: c01f2447-9698-5cac-9b63-c2deccf560ea
+
+	/// Treated orders delivered above the control fulfillment rate.
+	measure 'Incremental Delivered Orders' =
+			VAR lift = [Fulfillment (Treated) %] - [Fulfillment (Control) %]
+			VAR treated_placed =
+			    CALCULATE ( SUM ( fact_experiment_zone_day[orders_placed] ), fact_experiment_zone_day[arm] = "treatment" )
+			RETURN
+			lift * treated_placed
+		formatString: #,0
+		displayFolder: 04 Experiment
+		lineageTag: e22c2b83-8af4-5d07-9220-d8ffecffab16
+
+	/// The go/no-go economics: bonus spend ÷ incremental delivered orders.
+	measure 'G1 Incentive Cost per Incremental Order (BRL)' =
+			DIVIDE ( [Incentive Spend - Experiment (BRL)], [Incremental Delivered Orders] )
+		formatString: #,0.00
+		displayFolder: 04 Experiment
+		lineageTag: 0da9f171-3dda-5634-9aa3-5c69ab26e6e7
+
+	measure 'G1 Verdict' =
+			IF (
+			    [G1 Incentive Cost per Incremental Order (BRL)] < [Contribution Margin per Delivered Order (BRL)],
+			    "Pays for itself",
+			    "Costs more than it saves"
+			)
+		displayFolder: 04 Experiment
+		lineageTag: c9822a0c-7545-58bb-a6c3-b71897fec03d
+
+	measure 'Fulfillment Lift - Short tier (pp)' =
+			VAR t = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "treatment", dim_zone[baseline_supply_stress_tier] = "short" )
+			VAR c = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "control", dim_zone[baseline_supply_stress_tier] = "short" )
+			RETURN ( t - c ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: c8750444-1621-5584-8997-8f6fe391b353
+
+	measure 'Fulfillment Lift - Balanced tier (pp)' =
+			VAR t = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "treatment", dim_zone[baseline_supply_stress_tier] = "balanced" )
+			VAR c = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "control", dim_zone[baseline_supply_stress_tier] = "balanced" )
+			RETURN ( t - c ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 5229fe12-1bb2-5242-8ac2-5b259a5dba7e
+
+	measure 'Fulfillment Lift - Long tier (pp)' =
+			VAR t = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "treatment", dim_zone[baseline_supply_stress_tier] = "long" )
+			VAR c = CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			                    fact_experiment_zone_day[arm] = "control", dim_zone[baseline_supply_stress_tier] = "long" )
+			RETURN ( t - c ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 1ae11dbb-27cc-584b-800c-e20baa565c19
+
+	/// Descriptive heterogeneity contrast. The formal LR interaction test is Phase 10.
+	measure 'Arm x Tier Contrast (Short minus Long, pp)' =
+			[Fulfillment Lift - Short tier (pp)] - [Fulfillment Lift - Long tier (pp)]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 743f4839-92bb-52be-961c-e7a3a4611fa8
+
+	/// Fulfillment on control zone-days next to a treated zone minus control zone-days that are not. Negative = neighbours are being drained (cannibalisation).
+	measure 'Cannibalisation - Adjacent-Control Gap (pp)' =
+			VAR adj =
+			    CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			        fact_experiment_zone_day[arm] = "control", fact_experiment_zone_day[is_adjacent_to_treated] = TRUE () )
+			VAR noadj =
+			    CALCULATE ( AVERAGE ( fact_experiment_zone_day[fulfillment_rate] ),
+			        fact_experiment_zone_day[arm] = "control", fact_experiment_zone_day[is_adjacent_to_treated] = FALSE () )
+			RETURN ( adj - noadj ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 7578ddae-7592-5d4a-9856-4bc82d83da1e
+
+	/// Rough metro-level net of the local lift and the neighbour-zone drag. Phase 10 does the full spatial model.
+	measure 'Cannibalisation-Adjusted Net Lift (pp)' =
+			[Fulfillment Lift (pp)] + [Cannibalisation - Adjacent-Control Gap (pp)]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 7199198e-5f65-519c-9e8a-d9f40931fe91
+
+	/// Should be ≈ 0 — a smoke test that randomisation balanced the arms on the 15-month baseline.
+	measure 'Balance - Pre-period Fulfillment Gap (pp)' =
+			VAR t = CALCULATE ( AVERAGE ( fact_incentive_assignment[pre_fulfillment_rate] ), fact_incentive_assignment[arm] = "treatment" )
+			VAR c = CALCULATE ( AVERAGE ( fact_incentive_assignment[pre_fulfillment_rate] ), fact_incentive_assignment[arm] = "control" )
+			RETURN ( t - c ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 623b0145-e1b3-5f92-a58f-f1573bebb578
+
+	/// Lift over the last three weeks — after any launch-novelty bump has decayed.
+	measure 'Settled Lift (weeks 8-10, pp)' =
+			VAR t = CALCULATE ( AVERAGE ( fact_experiment_zone_block_week[fulfillment_rate] ),
+			                    fact_experiment_zone_block_week[arm] = "treatment", fact_experiment_zone_block_week[experiment_week] >= 8 )
+			VAR c = CALCULATE ( AVERAGE ( fact_experiment_zone_block_week[fulfillment_rate] ),
+			                    fact_experiment_zone_block_week[arm] = "control", fact_experiment_zone_block_week[experiment_week] >= 8 )
+			RETURN ( t - c ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 04 Experiment
+		lineageTag: 44bf9bd7-156a-508a-812e-7f0fba1074bc
+
+	/// Mean zone-block fulfillment per experiment week.
+	measure 'Weekly Fulfillment %' =
+			AVERAGE ( fact_experiment_zone_block_week[fulfillment_rate] )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 7f9f6f21-3344-5e33-ae45-67a2982be528
+
+	measure 'Weekly Fulfillment (Treated) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_block_week[fulfillment_rate] ), fact_experiment_zone_block_week[arm] = "treatment" )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 40e9c943-0689-51db-9c62-e7ce8e537583
+
+	measure 'Weekly Fulfillment (Control) %' =
+			CALCULATE ( AVERAGE ( fact_experiment_zone_block_week[fulfillment_rate] ), fact_experiment_zone_block_week[arm] = "control" )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 158c9608-c8f8-57f4-9996-f62fc6cf7e73
+
+	/// Mean fulfillment across the zone-days in context — split by `arm` for the guardrail table.
+	measure 'Zone-Day Fulfillment %' =
+			AVERAGE ( fact_experiment_zone_day[fulfillment_rate] )
+		formatString: 0.0%
+		displayFolder: 04 Experiment
+		lineageTag: 9164d702-8c2e-5862-930a-9c83cb4f4f9d
+
+	measure 'Zone-Day ETA p90 (min)' =
+			AVERAGE ( fact_experiment_zone_day[eta_p90_min] )
+		formatString: 0.0
+		displayFolder: 04 Experiment
+		lineageTag: c58ae641-bb10-52a1-97a1-b2129181b2ae
+
+	measure 'Zone-Day No-Courier Rate %' =
+			AVERAGE ( fact_experiment_zone_day[cancel_no_courier_rate] )
+		formatString: 0.00%
+		displayFolder: 04 Experiment
+		lineageTag: fdbde623-91bf-5cc9-9418-c3742f6f4782
+
+	measure 'Zone-Day Earnings per Active Hour (BRL)' =
+			AVERAGE ( fact_experiment_zone_day[courier_earnings_per_active_hour_brl] )
+		formatString: #,0.00
+		displayFolder: 04 Experiment
+		lineageTag: a724dfbd-696c-5d78-869d-f4c7d4f7089f
+
+	measure 'Zone-Day Incentive Cost per Order (BRL)' =
+			AVERAGE ( fact_experiment_zone_day[incentive_cost_per_delivered_order_brl] )
+		formatString: #,0.00
+		displayFolder: 04 Experiment
+		lineageTag: 1cc6fb1f-3dff-5b39-a5af-8aad2583c6bb
+
+	/// Plan: ≥ 98% metro-wide (doc 01 §10).
+	measure 'Fulfillment vs Target (pp)' =
+			( [Fulfillment Rate %] - 0.98 ) * 100
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 05 Targets & Context
+		lineageTag: b2913e21-8adc-5004-ad54-5810938b869a
+
+	/// Plan: ≤ 55 min at peak. Lower is better — good when negative.
+	measure 'Peak ETA p90 vs Target (min)' =
+			[Peak ETA p90 (min)] - 55
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 05 Targets & Context
+		lineageTag: 454f9d94-7ada-5fd3-9788-a1085bd47d53
+
+	/// Plan: ≤ 0.5%. Lower is better.
+	measure 'No-Courier Rate vs Target (pp)' =
+			( [No-Courier Rate %] - 0.005 ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 05 Targets & Context
+		lineageTag: 42416ae8-2b4c-5db5-816b-6ad39987d90d
+
+	/// Plan: ≤ 25%. Lower is better.
+	measure 'Idle Courier Ratio vs Target (pp)' =
+			( [Idle Courier Ratio %] - 0.25 ) * 100
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 05 Targets & Context
+		lineageTag: f0a2b945-7d00-522b-ad39-8bcc39bbb279
+
+	/// One-line dynamic read of the experiment for the Executive Overview page.
+	measure 'Exec Insight' =
+			VAR lift = [Fulfillment Lift (pp)]
+			VAR sig = [Fulfillment Lift CI Low (pp)] > 0
+			VAR g1 = [G1 Incentive Cost per Incremental Order (BRL)]
+			VAR cm = [Contribution Margin per Delivered Order (BRL)]
+			VAR eta = [ETA p90 Lift (min)]
+			VAR cann = [Cannibalisation - Adjacent-Control Gap (pp)]
+			RETURN
+			"Zone-hour incentive: fulfillment " &
+			    IF ( lift >= 0, "+", "" ) & FORMAT ( lift, "0.0" ) & " pp" &
+			    IF ( sig, " (significant at 95%)", " (not significant)" ) &
+			    ", ETA p90 " & FORMAT ( eta, "+0.0;-0.0" ) & " min. " &
+			    "Cost per incremental order R$ " & FORMAT ( g1, "0.00" ) &
+			    IF ( g1 < cm, " — below", " — above" ) & " the R$ " & FORMAT ( cm, "0.00" ) &
+			    " contribution margin. Neighbour zones " &
+			    IF ( cann < -0.3, "show a drag of " & FORMAT ( cann, "0.0" ) & " pp (cannibalisation).",
+			         "show no material drag." )
+		displayFolder: 06 Exec Insight
+		lineageTag: 90731362-1c5c-5de7-9829-acaa48296268
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_ResultType = Table

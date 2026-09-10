@@ -1,0 +1,197 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "04courier-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-active-couriers-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Active Couriers",
+    "fields": {
+      "Values": [
+        "_Measures.Active Couriers"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-earnings--active-hr-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Earnings / Active Hr",
+    "fields": {
+      "Values": [
+        "_Measures.Earnings per Active Hour (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-utilisation-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Utilisation",
+    "fields": {
+      "Values": [
+        "_Measures.Utilisation %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-deliveries--active-hr-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Deliveries / Active Hr",
+    "fields": {
+      "Values": [
+        "_Measures.Deliveries per Active Hour"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-contribution-margin-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Contribution Margin",
+    "fields": {
+      "Values": [
+        "_Measures.Contribution Margin per Delivered Order (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "04courier-incentive--of-payout-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Incentive % of Payout",
+    "fields": {
+      "Values": [
+        "_Measures.Incentive Spend as % of Payout"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "earnings_by_daypart",
+    "x": 24,
+    "y": 236,
+    "width": 610,
+    "height": 230,
+    "title": "Courier earnings per active hour by daypart",
+    "fields": {
+      "Category": "dim_time_block.daypart",
+      "Y": [
+        "_Measures.Earnings per Active Hour (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "utilisation_by_zone",
+    "x": 646,
+    "y": 236,
+    "width": 610,
+    "height": 230,
+    "title": "Utilisation by zone",
+    "fields": {
+      "Category": "dim_zone.zone_name",
+      "Y": [
+        "_Measures.Utilisation %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "supply_vs_demand",
+    "x": 24,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Available vs demanded courier-hours by hour",
+    "fields": {
+      "Category": "dim_time_block.hour",
+      "Y": [
+        "_Measures.Available Courier-Hours",
+        "_Measures.Demanded Courier-Hours"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "incentive_cost_by_tier",
+    "x": 646,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Incentive cost per delivered order by tier (treated zone-days)",
+    "fields": {
+      "Category": "dim_zone.baseline_supply_stress_tier",
+      "Y": [
+        "_Measures.Zone-Day Incentive Cost per Order (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04courier-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 320,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.date"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04courier-sl-zone",
+    "x": 856,
+    "y": 126,
+    "width": 210,
+    "height": 34,
+    "title": "Zone",
+    "fields": {
+      "Values": [
+        "dim_zone.zone_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "04courier-sl-tier",
+    "x": 1078,
+    "y": 126,
+    "width": 178,
+    "height": 34,
+    "title": "Supply-stress tier",
+    "fields": {
+      "Values": [
+        "dim_zone.baseline_supply_stress_tier"
+      ]
+    }
+  }
+]

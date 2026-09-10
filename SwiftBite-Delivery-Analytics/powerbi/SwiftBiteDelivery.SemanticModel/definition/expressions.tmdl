@@ -1,0 +1,6 @@
+expression pDataFolder = "C:/PATH/TO/REPO/SwiftBite-Delivery-Analytics/data/curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9fa2b323-a750-5229-9905-28df43168929
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation

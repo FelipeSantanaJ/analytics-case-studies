@@ -1,0 +1,54 @@
+table dim_restaurant
+	lineageTag: 31c27aba-fc48-57dc-8d89-83b15f51bfe3
+
+	column restaurant_key
+		isHidden
+		dataType: int64
+		lineageTag: 752185f5-5afd-5b75-a7cf-2bdaa98ab475
+		summarizeBy: none
+		sourceColumn: restaurant_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column restaurant_id
+		dataType: string
+		lineageTag: 7b6e6438-a888-535e-8613-8d42b623b9a1
+		summarizeBy: none
+		sourceColumn: restaurant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 0cf624b5-0752-5158-9a44-a0828822e628
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column cuisine
+		dataType: string
+		lineageTag: c0a6806e-92d8-52dc-b058-3e52fb6506d1
+		summarizeBy: none
+		sourceColumn: cuisine
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_band
+		dataType: string
+		lineageTag: 323eb0d9-7559-5086-a432-27ca25716406
+		summarizeBy: none
+		sourceColumn: price_band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_restaurant = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_restaurant.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

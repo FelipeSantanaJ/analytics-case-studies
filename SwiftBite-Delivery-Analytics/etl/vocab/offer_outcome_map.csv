@@ -1,0 +1,9 @@
+raw,canonical
+accepted,accepted
+accept,accepted
+rejected,rejected
+reject,rejected
+declined,rejected
+timeout,timeout
+timed_out,timeout
+ignored,ignored

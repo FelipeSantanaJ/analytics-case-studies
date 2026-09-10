@@ -1,0 +1,147 @@
+table fact_delivery
+	lineageTag: 17d8409d-35ab-5ae6-a29f-4706f9baea97
+
+	column delivery_key
+		isHidden
+		dataType: int64
+		lineageTag: e7c8e4fd-ea56-510f-ad48-557289ad49d3
+		summarizeBy: none
+		sourceColumn: delivery_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_key
+		isHidden
+		dataType: int64
+		lineageTag: 9d066422-b850-5b38-aa84-d7a1085aa194
+		summarizeBy: none
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column courier_key
+		isHidden
+		dataType: int64
+		lineageTag: 69d40325-9ca7-5b5a-a00f-1b76fb358dd5
+		summarizeBy: none
+		sourceColumn: courier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 14973c3c-0a80-55bd-a8b4-92516861b011
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: 2446951d-2f3e-5947-8001-105e127b3176
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_block_key
+		isHidden
+		dataType: int64
+		lineageTag: 199f7a8a-1dc4-5bf2-98fd-afe93cc66ebd
+		summarizeBy: none
+		sourceColumn: time_block_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column dropoff_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 04cfec1b-1fbe-50ba-81b6-dfc2a0b9e0a0
+		summarizeBy: none
+		sourceColumn: dropoff_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_min
+		dataType: double
+		lineageTag: 825da15c-8a9d-52f2-8185-414593d6e17a
+		summarizeBy: sum
+		sourceColumn: trip_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_distance_km
+		dataType: double
+		lineageTag: 6f3ce580-b9c5-5a29-b8ae-acab19fdfbd2
+		summarizeBy: sum
+		sourceColumn: trip_distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+	column courier_base_payout_brl
+		dataType: double
+		lineageTag: 0f2b63cb-d5a9-5f12-bd71-d72739863d22
+		summarizeBy: sum
+		sourceColumn: courier_base_payout_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column tip_brl
+		dataType: double
+		lineageTag: 271dce49-4c64-54ab-afe9-c1e12cc1d9c4
+		summarizeBy: sum
+		sourceColumn: tip_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column incentive_bonus_brl
+		dataType: double
+		lineageTag: 5cd5578b-7fbe-5da8-b461-4fbff10f652f
+		summarizeBy: sum
+		sourceColumn: incentive_bonus_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_payout_brl
+		dataType: double
+		lineageTag: 46a13565-f0e9-50f7-b42e-9bc82c1a367a
+		summarizeBy: sum
+		sourceColumn: total_payout_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_block
+		dataType: boolean
+		lineageTag: 76ef1f5f-cac8-5c18-b96b-46e98692db99
+		summarizeBy: none
+		sourceColumn: is_peak_block
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_phase
+		dataType: string
+		lineageTag: 653e8c0e-8491-5e8a-a754-c1859f8f1d8d
+		summarizeBy: none
+		sourceColumn: experiment_phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_treated_zone_day
+		dataType: boolean
+		lineageTag: 4f43bd18-f9e8-50b6-ae7b-4ce942bfe2ef
+		summarizeBy: none
+		sourceColumn: on_treated_zone_day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_delivery = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_delivery.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

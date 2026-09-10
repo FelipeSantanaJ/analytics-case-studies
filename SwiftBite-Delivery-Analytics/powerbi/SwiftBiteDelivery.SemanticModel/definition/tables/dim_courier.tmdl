@@ -1,0 +1,79 @@
+table dim_courier
+	lineageTag: 472cb43d-6408-5127-b2f5-d6816d84a5d6
+
+	column courier_key
+		isHidden
+		dataType: int64
+		lineageTag: d5cb8b13-54f7-59a5-97d7-d7841643a03a
+		summarizeBy: none
+		sourceColumn: courier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column courier_id
+		dataType: string
+		lineageTag: e6772216-2aff-5df7-9d27-5557a9c47c3e
+		summarizeBy: none
+		sourceColumn: courier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date_key
+		isHidden
+		dataType: int64
+		lineageTag: a849d761-863c-553e-b783-44dcb12fbb0e
+		summarizeBy: none
+		sourceColumn: signup_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_cohort_month
+		dataType: string
+		lineageTag: f17abcdc-785e-5614-92d0-c34e82d3ae36
+		summarizeBy: none
+		sourceColumn: signup_cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle_type
+		dataType: string
+		lineageTag: 5fc3146b-3ae8-57fb-a877-a018b2c0e471
+		summarizeBy: none
+		sourceColumn: vehicle_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: bff377e1-2333-5e1a-bdec-aad7b2d422b9
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 8012babe-fae3-58e9-b80e-34eac4a92627
+		summarizeBy: none
+		sourceColumn: home_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_test_account
+		dataType: int64
+		lineageTag: 429e5f19-7332-520d-aef6-b0ffa51158ef
+		summarizeBy: sum
+		sourceColumn: is_test_account
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_courier = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_courier.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

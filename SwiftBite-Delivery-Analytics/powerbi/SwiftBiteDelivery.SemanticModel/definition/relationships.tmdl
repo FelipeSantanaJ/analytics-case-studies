@@ -1,0 +1,113 @@
+relationship ba79aefc-784b-59ac-b04c-d5b2d0db8b7e
+	fromColumn: fact_order.placed_date_key
+	toColumn: dim_date.date_key
+
+relationship 6ad39096-9ddb-524f-994d-a42a472ffde6
+	fromColumn: fact_delivery.date_key
+	toColumn: dim_date.date_key
+
+relationship 5d393729-c773-50b3-967d-4cc0e330b633
+	fromColumn: fact_courier_shift_block.date_key
+	toColumn: dim_date.date_key
+
+relationship 5c7df134-9a4a-53e8-8cd3-15cabf323cdc
+	fromColumn: fact_zone_hour.date_key
+	toColumn: dim_date.date_key
+
+relationship f66c8ed6-4473-5eb6-9a46-ec919d331c33
+	fromColumn: fact_incentive_assignment.date_key
+	toColumn: dim_date.date_key
+
+relationship 86e79f3b-628f-556b-8da5-24f5d366b1f8
+	fromColumn: fact_experiment_zone_day.date_key
+	toColumn: dim_date.date_key
+
+relationship 9ebe8bf2-7c7b-5019-bd7b-811a8f9cefea
+	fromColumn: fact_experiment_zone_block_week.date_key
+	toColumn: dim_date.date_key
+
+relationship 521b3cbc-4707-5dde-805a-ef3ea39f0ddd
+	fromColumn: fact_order.time_block_key
+	toColumn: dim_time_block.time_block_key
+
+relationship c2a2eec5-fd17-51e6-ab8e-c366aa7517d5
+	fromColumn: fact_delivery.time_block_key
+	toColumn: dim_time_block.time_block_key
+
+relationship db160653-cbe9-56f5-a732-e841e9af33bb
+	fromColumn: fact_courier_shift_block.time_block_key
+	toColumn: dim_time_block.time_block_key
+
+relationship cbe0bd95-6d0d-5d9a-923a-a6a55e11a46a
+	fromColumn: fact_zone_hour.time_block_key
+	toColumn: dim_time_block.time_block_key
+
+relationship 5d90a6fa-cbfa-5377-a173-6b4c455d2312
+	fromColumn: fact_experiment_zone_block_week.time_block_key
+	toColumn: dim_time_block.time_block_key
+
+relationship ca7534c4-a841-56b4-94e8-8285a9675e44
+	fromColumn: fact_order.dropoff_zone_key_current
+	toColumn: dim_zone.zone_key
+
+relationship bacd1c1e-14b6-5304-9a76-bca20a975b12
+	fromColumn: fact_order.dropoff_zone_key_asbooked
+	toColumn: dim_zone.zone_key
+	isActive: false
+
+relationship 60b7d9e9-1e78-5fb5-9169-07f2a6d72582
+	fromColumn: fact_order.pickup_zone_key
+	toColumn: dim_zone.zone_key
+	isActive: false
+
+relationship e07cac43-7532-574d-88a6-7fd8562b5129
+	fromColumn: fact_delivery.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 402d2db3-4735-514a-92a1-af05ab559581
+	fromColumn: fact_courier_shift_block.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 390f04c1-c610-5afb-a460-a747b0b79463
+	fromColumn: fact_zone_hour.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 131862fb-8b17-58ac-b245-6bf836c23d0b
+	fromColumn: fact_incentive_assignment.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 6ad86446-a729-56bc-9fdc-53b929509132
+	fromColumn: fact_experiment_zone_day.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship f5a88971-a4ec-541f-b5a9-45dc878f8536
+	fromColumn: fact_experiment_zone_block_week.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 88e219cf-3efd-55c9-beee-809ab0b5ac03
+	fromColumn: dim_zone_adjacency.zone_key
+	toColumn: dim_zone.zone_key
+
+relationship 0d8c4e6e-b41e-5297-b0eb-d1bad0a8137b
+	fromColumn: fact_order.courier_key
+	toColumn: dim_courier.courier_key
+
+relationship 1439be90-e55c-5403-a84a-110f7f470312
+	fromColumn: fact_delivery.courier_key
+	toColumn: dim_courier.courier_key
+
+relationship 3d7f776c-8687-564b-abe5-e7f960f0a571
+	fromColumn: fact_courier_shift_block.courier_key
+	toColumn: dim_courier.courier_key
+
+relationship cf498e64-eaa3-5393-8f06-85b023054639
+	fromColumn: fact_order.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship f5e8ccf4-2ff0-549d-af22-1a227e145302
+	fromColumn: fact_order.restaurant_key
+	toColumn: dim_restaurant.restaurant_key
+
+relationship 91e925ae-a97c-5661-a79c-7a32c68c3d20
+	fromColumn: fact_incentive_assignment.campaign_key
+	toColumn: dim_incentive_campaign.campaign_key

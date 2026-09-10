@@ -1,0 +1,634 @@
+{
+  "report_name": "SwiftBiteDelivery",
+  "canvas_width": 1280,
+  "kpi_frame": {
+    "x": 16,
+    "y": 120,
+    "w": 1248,
+    "h": 116,
+    "radius": 18
+  },
+  "slicers": [
+    {
+      "name": "sl-period",
+      "field": "dim_date.date",
+      "x": 24,
+      "y": 126,
+      "w": 320,
+      "h": 34,
+      "title": "Analysis period"
+    },
+    {
+      "name": "sl-zone",
+      "field": "dim_zone.zone_name",
+      "x": 856,
+      "y": 126,
+      "w": 210,
+      "h": 34,
+      "title": "Zone"
+    },
+    {
+      "name": "sl-tier",
+      "field": "dim_zone.baseline_supply_stress_tier",
+      "x": 1078,
+      "y": 126,
+      "w": 178,
+      "h": 34,
+      "title": "Supply-stress tier"
+    }
+  ],
+  "pages": [
+    {
+      "key": "01_executive",
+      "name": "01_executive",
+      "display": "Executive Overview",
+      "height": 860,
+      "kpis": [
+        {
+          "title": "Fulfillment Rate",
+          "value": "_Measures.Fulfillment Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Peak ETA p90 (min)",
+          "value": "_Measures.Peak ETA p90 (min)",
+          "delta": null,
+          "good": "low",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "No-Courier Rate",
+          "value": "_Measures.No-Courier Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Idle Courier Ratio",
+          "value": "_Measures.Idle Courier Ratio %",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Incentive Lift (pp)",
+          "value": "_Measures.Fulfillment Lift (pp)",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Cost / Incremental Order",
+          "value": "_Measures.G1 Incentive Cost per Incremental Order (BRL)",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "fulfillment_trend",
+          "type": "lineChart",
+          "x": 24,
+          "y": 236,
+          "w": 730,
+          "h": 250,
+          "title": "Fulfillment rate over the window",
+          "roles": {
+            "Category": "dim_date.date",
+            "Y": [
+              "_Measures.Fulfillment Rate %"
+            ]
+          }
+        },
+        {
+          "name": "exec_insight",
+          "type": "card",
+          "x": 766,
+          "y": 236,
+          "w": 490,
+          "h": 250,
+          "title": "Read this",
+          "roles": {
+            "Values": [
+              "_Measures.Exec Insight"
+            ]
+          }
+        },
+        {
+          "name": "lift_by_tier_exec",
+          "type": "clusteredBarChart",
+          "x": 24,
+          "y": 500,
+          "w": 490,
+          "h": 232,
+          "title": "Fulfillment lift by baseline supply-stress tier (pp)",
+          "roles": {
+            "Category": "dim_zone.baseline_supply_stress_tier",
+            "Y": [
+              "_Measures.Fulfillment Lift (pp)"
+            ]
+          },
+          "sort": {
+            "by": "dim_zone.baseline_supply_stress_tier",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "novelty_exec",
+          "type": "lineChart",
+          "x": 530,
+          "y": 500,
+          "w": 726,
+          "h": 232,
+          "title": "Weekly fulfillment, treated vs control \u2014 novelty check",
+          "roles": {
+            "Category": "fact_experiment_zone_block_week.experiment_week",
+            "Y": [
+              "_Measures.Weekly Fulfillment (Treated) %",
+              "_Measures.Weekly Fulfillment (Control) %"
+            ]
+          },
+          "sort": {
+            "by": "fact_experiment_zone_block_week.experiment_week",
+            "dir": "asc"
+          }
+        }
+      ]
+    },
+    {
+      "key": "02_health",
+      "name": "02_health",
+      "display": "Marketplace Health",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Orders Placed",
+          "value": "_Measures.Orders Placed",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Fulfillment Rate",
+          "value": "_Measures.Fulfillment Rate %",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "ETA p90 (min)",
+          "value": "_Measures.ETA p90 (min)",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "No-Courier Rate",
+          "value": "_Measures.No-Courier Rate %",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Liquidity Ratio",
+          "value": "_Measures.Liquidity Ratio",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Idle Courier Ratio",
+          "value": "_Measures.Idle Courier Ratio %",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "fulfillment_by_zone",
+          "type": "clusteredBarChart",
+          "x": 24,
+          "y": 236,
+          "w": 610,
+          "h": 230,
+          "title": "Fulfillment rate by zone",
+          "roles": {
+            "Category": "dim_zone.zone_name",
+            "Y": [
+              "_Measures.Fulfillment Rate %"
+            ]
+          },
+          "sort": {
+            "by": "_Measures.Fulfillment Rate %",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "liquidity_matrix",
+          "type": "matrix",
+          "x": 646,
+          "y": 236,
+          "w": 610,
+          "h": 230,
+          "title": "Liquidity ratio by zone x daypart",
+          "roles": {
+            "Rows": "dim_zone.zone_name",
+            "Columns": "dim_time_block.daypart",
+            "Values": [
+              "_Measures.Liquidity Ratio"
+            ]
+          }
+        },
+        {
+          "name": "eta_by_hour",
+          "type": "lineChart",
+          "x": 24,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "title": "ETA p90 by hour of day",
+          "roles": {
+            "Category": "dim_time_block.hour",
+            "Y": [
+              "_Measures.ETA p90 (min)"
+            ]
+          },
+          "sort": {
+            "by": "dim_time_block.hour",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "cancels_by_cause",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "title": "Cancellations by cause and zone",
+          "roles": {
+            "Category": "dim_zone.zone_name",
+            "Y": [
+              "_Measures.No-Courier Cancels",
+              "_Measures.Customer Cancels"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "key": "03_experiment",
+      "name": "03_experiment",
+      "display": "Pricing & Incentive Experiment",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Fulfillment Lift (pp)",
+          "value": "_Measures.Fulfillment Lift (pp)",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "ETA p90 Lift (min)",
+          "value": "_Measures.ETA p90 Lift (min)",
+          "delta": null,
+          "good": "low",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "No-Courier Lift (pp)",
+          "value": "_Measures.No-Courier Rate Lift (pp)",
+          "delta": null,
+          "good": "low",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Cost / Incremental Order",
+          "value": "_Measures.G1 Incentive Cost per Incremental Order (BRL)",
+          "delta": null,
+          "good": "low",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Neighbour-Zone Gap (pp)",
+          "value": "_Measures.Cannibalisation - Adjacent-Control Gap (pp)",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Adjusted Net Lift (pp)",
+          "value": "_Measures.Cannibalisation-Adjusted Net Lift (pp)",
+          "delta": null,
+          "good": "high",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "lift_by_tier",
+          "type": "clusteredBarChart",
+          "x": 24,
+          "y": 236,
+          "w": 610,
+          "h": 232,
+          "title": "Fulfillment lift by tier (pp) \u2014 heterogeneity",
+          "roles": {
+            "Category": "dim_zone.baseline_supply_stress_tier",
+            "Y": [
+              "_Measures.Fulfillment Lift (pp)"
+            ]
+          },
+          "sort": {
+            "by": "dim_zone.baseline_supply_stress_tier",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "fulfillment_by_arm",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 236,
+          "w": 610,
+          "h": 232,
+          "title": "Fulfillment by arm (zone-day mean)",
+          "roles": {
+            "Category": "fact_experiment_zone_day.arm",
+            "Y": [
+              "_Measures.Zone-Day Fulfillment %"
+            ]
+          }
+        },
+        {
+          "name": "novelty_curve",
+          "type": "lineChart",
+          "x": 24,
+          "y": 482,
+          "w": 726,
+          "h": 224,
+          "title": "Weekly fulfillment, treated vs control \u2014 launch bump vs settled",
+          "roles": {
+            "Category": "fact_experiment_zone_block_week.experiment_week",
+            "Y": [
+              "_Measures.Weekly Fulfillment (Treated) %",
+              "_Measures.Weekly Fulfillment (Control) %"
+            ]
+          },
+          "sort": {
+            "by": "fact_experiment_zone_block_week.experiment_week",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "guardrails",
+          "type": "tableEx",
+          "x": 762,
+          "y": 482,
+          "w": 494,
+          "h": 224,
+          "title": "Guardrails by arm",
+          "roles": {
+            "Values": [
+              "fact_experiment_zone_day.arm",
+              "_Measures.Zone-Day Fulfillment %",
+              "_Measures.Zone-Day ETA p90 (min)",
+              "_Measures.Zone-Day No-Courier Rate %",
+              "_Measures.Zone-Day Earnings per Active Hour (BRL)",
+              "_Measures.Zone-Day Incentive Cost per Order (BRL)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "key": "04_courier",
+      "name": "04_courier",
+      "display": "Courier Economics",
+      "height": 720,
+      "kpis": [
+        {
+          "title": "Active Couriers",
+          "value": "_Measures.Active Couriers",
+          "delta": null,
+          "good": "high",
+          "x": 24,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Earnings / Active Hr",
+          "value": "_Measures.Earnings per Active Hour (BRL)",
+          "delta": null,
+          "good": "high",
+          "x": 231,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Utilisation",
+          "value": "_Measures.Utilisation %",
+          "delta": null,
+          "good": "high",
+          "x": 439,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Deliveries / Active Hr",
+          "value": "_Measures.Deliveries per Active Hour",
+          "delta": null,
+          "good": "high",
+          "x": 646,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Contribution Margin",
+          "value": "_Measures.Contribution Margin per Delivered Order (BRL)",
+          "delta": null,
+          "good": "high",
+          "x": 853,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        },
+        {
+          "title": "Incentive % of Payout",
+          "value": "_Measures.Incentive Spend as % of Payout",
+          "delta": null,
+          "good": "low",
+          "x": 1061,
+          "y": 132,
+          "w": 195,
+          "delta_y": 208,
+          "delta_h": 22
+        }
+      ],
+      "visuals": [
+        {
+          "name": "earnings_by_daypart",
+          "type": "clusteredColumnChart",
+          "x": 24,
+          "y": 236,
+          "w": 610,
+          "h": 230,
+          "title": "Courier earnings per active hour by daypart",
+          "roles": {
+            "Category": "dim_time_block.daypart",
+            "Y": [
+              "_Measures.Earnings per Active Hour (BRL)"
+            ]
+          },
+          "sort": {
+            "by": "dim_time_block.daypart",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "utilisation_by_zone",
+          "type": "clusteredBarChart",
+          "x": 646,
+          "y": 236,
+          "w": 610,
+          "h": 230,
+          "title": "Utilisation by zone",
+          "roles": {
+            "Category": "dim_zone.zone_name",
+            "Y": [
+              "_Measures.Utilisation %"
+            ]
+          },
+          "sort": {
+            "by": "_Measures.Utilisation %",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "supply_vs_demand",
+          "type": "lineChart",
+          "x": 24,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "title": "Available vs demanded courier-hours by hour",
+          "roles": {
+            "Category": "dim_time_block.hour",
+            "Y": [
+              "_Measures.Available Courier-Hours",
+              "_Measures.Demanded Courier-Hours"
+            ]
+          },
+          "sort": {
+            "by": "dim_time_block.hour",
+            "dir": "asc"
+          }
+        },
+        {
+          "name": "incentive_cost_by_tier",
+          "type": "clusteredColumnChart",
+          "x": 646,
+          "y": 480,
+          "w": 610,
+          "h": 224,
+          "title": "Incentive cost per delivered order by tier (treated zone-days)",
+          "roles": {
+            "Category": "dim_zone.baseline_supply_stress_tier",
+            "Y": [
+              "_Measures.Zone-Day Incentive Cost per Order (BRL)"
+            ]
+          },
+          "sort": {
+            "by": "dim_zone.baseline_supply_stress_tier",
+            "dir": "asc"
+          }
+        }
+      ]
+    }
+  ]
+}

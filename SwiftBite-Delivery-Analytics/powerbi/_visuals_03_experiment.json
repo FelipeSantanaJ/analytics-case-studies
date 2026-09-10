@@ -1,0 +1,201 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "03experiment-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-fulfillment-lift-pp-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Fulfillment Lift (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.Fulfillment Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-eta-p90-lift-min-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "ETA p90 Lift (min)",
+    "fields": {
+      "Values": [
+        "_Measures.ETA p90 Lift (min)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-no-courier-lift-pp-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "No-Courier Lift (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.No-Courier Rate Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-cost--incremental-order-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Cost / Incremental Order",
+    "fields": {
+      "Values": [
+        "_Measures.G1 Incentive Cost per Incremental Order (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-neighbour-zone-gap-pp-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Neighbour-Zone Gap (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.Cannibalisation - Adjacent-Control Gap (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "03experiment-adjusted-net-lift-pp-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Adjusted Net Lift (pp)",
+    "fields": {
+      "Values": [
+        "_Measures.Cannibalisation-Adjusted Net Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "lift_by_tier",
+    "x": 24,
+    "y": 236,
+    "width": 610,
+    "height": 232,
+    "title": "Fulfillment lift by tier (pp) \u2014 heterogeneity",
+    "fields": {
+      "Category": "dim_zone.baseline_supply_stress_tier",
+      "Y": [
+        "_Measures.Fulfillment Lift (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "fulfillment_by_arm",
+    "x": 646,
+    "y": 236,
+    "width": 610,
+    "height": 232,
+    "title": "Fulfillment by arm (zone-day mean)",
+    "fields": {
+      "Category": "fact_experiment_zone_day.arm",
+      "Y": [
+        "_Measures.Zone-Day Fulfillment %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "novelty_curve",
+    "x": 24,
+    "y": 482,
+    "width": 726,
+    "height": 224,
+    "title": "Weekly fulfillment, treated vs control \u2014 launch bump vs settled",
+    "fields": {
+      "Category": "fact_experiment_zone_block_week.experiment_week",
+      "Y": [
+        "_Measures.Weekly Fulfillment (Treated) %",
+        "_Measures.Weekly Fulfillment (Control) %"
+      ]
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "guardrails",
+    "x": 762,
+    "y": 482,
+    "width": 494,
+    "height": 224,
+    "title": "Guardrails by arm",
+    "fields": {
+      "Values": [
+        "fact_experiment_zone_day.arm",
+        "_Measures.Zone-Day Fulfillment %",
+        "_Measures.Zone-Day ETA p90 (min)",
+        "_Measures.Zone-Day No-Courier Rate %",
+        "_Measures.Zone-Day Earnings per Active Hour (BRL)",
+        "_Measures.Zone-Day Incentive Cost per Order (BRL)"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 320,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.date"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-zone",
+    "x": 856,
+    "y": 126,
+    "width": 210,
+    "height": 34,
+    "title": "Zone",
+    "fields": {
+      "Values": [
+        "dim_zone.zone_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "03experiment-sl-tier",
+    "x": 1078,
+    "y": 126,
+    "width": 178,
+    "height": 34,
+    "title": "Supply-stress tier",
+    "fields": {
+      "Values": [
+        "dim_zone.baseline_supply_stress_tier"
+      ]
+    }
+  }
+]

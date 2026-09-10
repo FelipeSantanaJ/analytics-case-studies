@@ -1,0 +1,7 @@
+cut,chi2,p_value
+overall,0.0,1.0
+tier=balanced,0.0,1.0
+tier=long,0.0,1.0
+tier=short,0.0,1.0
+weekend=0,0.0,1.0
+weekend=1,0.0,1.0

@@ -1,0 +1,102 @@
+table dim_zone
+	lineageTag: 44351640-941b-5a41-879b-34c801b6827c
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: ac9ff0f1-cbc6-5d99-800a-5bd1bb2489f6
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_id
+		dataType: string
+		lineageTag: 88b94101-9217-5ca9-9f13-5ff1acc03c24
+		summarizeBy: none
+		sourceColumn: zone_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_name
+		dataType: string
+		lineageTag: 592e2dc7-af6f-5c83-a98e-cf67e32e7d48
+		summarizeBy: none
+		sourceColumn: zone_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column macro_area
+		dataType: string
+		lineageTag: eab08716-a3b7-5248-be8f-5c50e3aa6f70
+		summarizeBy: none
+		sourceColumn: macro_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column area_km2
+		dataType: double
+		lineageTag: 517e06e6-0ca2-5a93-8278-d0b1a2788a9f
+		summarizeBy: none
+		sourceColumn: area_km2
+
+		annotation SummarizationSetBy = Automatic
+
+	column centroid_lat
+		dataType: double
+		lineageTag: bca4bd96-fc2c-5620-81cd-c6ac10748257
+		summarizeBy: none
+		sourceColumn: centroid_lat
+
+		annotation SummarizationSetBy = Automatic
+
+	column centroid_lon
+		dataType: double
+		lineageTag: dbf18272-0aa7-5fd8-8700-facc499d0078
+		summarizeBy: none
+		sourceColumn: centroid_lon
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_neighbours
+		dataType: int64
+		lineageTag: e602397e-a747-5513-b882-191182e2447c
+		summarizeBy: none
+		sourceColumn: n_neighbours
+
+		annotation SummarizationSetBy = Automatic
+
+	column baseline_supply_stress_tier
+		dataType: string
+		sortByColumn: zone_key
+		lineageTag: 20f9944b-e0fe-5d11-b60a-6e57b624ad0c
+		summarizeBy: none
+		sourceColumn: baseline_supply_stress_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_trip_km_baseline
+		dataType: double
+		lineageTag: 6f861ade-8641-5b63-98eb-587b33a142c7
+		summarizeBy: none
+		sourceColumn: avg_trip_km_baseline
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_boundary_redrawn
+		dataType: boolean
+		lineageTag: 52ef30f8-354b-5ef7-9312-d9d18d846307
+		summarizeBy: none
+		sourceColumn: is_boundary_redrawn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_zone = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_zone.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,95 @@
+table dim_incentive_campaign
+	lineageTag: 152dda91-bcfe-512a-a8d2-5e809e8e16d4
+
+	column campaign_key
+		isHidden
+		dataType: int64
+		lineageTag: 249f5789-542f-5085-931c-1ef1df84566a
+		summarizeBy: none
+		sourceColumn: campaign_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 54b73db5-9483-5133-ac9d-75859dbed0f6
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: 5717c458-fa04-54c2-8ff2-1ea63c2ab28f
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm
+		dataType: string
+		lineageTag: be2233ff-015e-594a-9937-3300446e1b71
+		summarizeBy: none
+		sourceColumn: arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column bonus_brl_per_delivery
+		dataType: double
+		lineageTag: ae56ff76-1b46-5c4e-8c12-6373b69c1ee4
+		summarizeBy: none
+		sourceColumn: bonus_brl_per_delivery
+
+		annotation SummarizationSetBy = Automatic
+
+	column push_radius_m
+		dataType: int64
+		lineageTag: a4448942-b676-5da0-8e1a-4805262b8501
+		summarizeBy: none
+		sourceColumn: push_radius_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_block_start_hour
+		dataType: int64
+		lineageTag: 551c1ade-86e8-5f79-968a-c80a1b117c53
+		summarizeBy: none
+		sourceColumn: peak_block_start_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_block_end_hour
+		dataType: int64
+		lineageTag: d2a18f60-5305-5e2e-8945-bffecebcc1d4
+		summarizeBy: none
+		sourceColumn: peak_block_end_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column stratum
+		dataType: string
+		lineageTag: 5df83b39-0277-58ad-aba9-52f9f773291a
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		lineageTag: 97425341-c432-5905-8cc8-427db0b17ea0
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_incentive_campaign = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_incentive_campaign.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

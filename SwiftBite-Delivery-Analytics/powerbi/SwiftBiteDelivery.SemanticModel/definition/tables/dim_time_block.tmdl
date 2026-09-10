@@ -1,0 +1,55 @@
+table dim_time_block
+	lineageTag: 8ad72c6b-782b-5aaf-a284-6a5efd2d9d97
+
+	column time_block_key
+		isHidden
+		dataType: int64
+		lineageTag: 48db6d47-8dcf-5c29-a3ee-8a5f176e5ebe
+		summarizeBy: none
+		sourceColumn: time_block_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour
+		dataType: int64
+		lineageTag: 9e7fc310-08e2-5494-bb2f-8800ee7fbbe0
+		summarizeBy: none
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column daypart
+		dataType: string
+		sortByColumn: hour
+		lineageTag: fbb9aad6-ee40-5aa4-8c54-34a9ebe382ee
+		summarizeBy: none
+		sourceColumn: daypart
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_block
+		dataType: boolean
+		lineageTag: 149765d2-be9e-54f9-b305-900b82863d1a
+		summarizeBy: none
+		sourceColumn: is_peak_block
+
+		annotation SummarizationSetBy = Automatic
+
+	column block_label
+		dataType: string
+		sortByColumn: hour
+		lineageTag: 9ce7dd69-9de5-5e5b-bb1a-3eee697a280a
+		summarizeBy: none
+		sourceColumn: block_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_time_block = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_time_block.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

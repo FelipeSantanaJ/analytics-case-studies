@@ -1,0 +1,119 @@
+table dim_date
+	lineageTag: 9ff085a6-a7e2-5cda-8c42-b69e55cf69fb
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 04385119-4bb6-5925-a934-86d03485a93d
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: 8828f1df-e580-5a78-b678-deeffdd98020
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 25caabe5-4701-5fc9-9fec-79282d619007
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: f8fec5eb-762a-5707-babd-ea640efab1b4
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		lineageTag: 944ad3e8-397c-59e7-8acb-04319b19bce3
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		sortByColumn: month
+		lineageTag: 4371b68a-e165-5e71-af6f-52567dd1e8fc
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week
+		dataType: int64
+		lineageTag: 7f8b5a83-692f-596f-b476-5296fa382245
+		summarizeBy: none
+		sourceColumn: iso_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		lineageTag: f32483c9-b84c-5d35-98fa-3a3263b0a244
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		lineageTag: 6b0deedd-9e9c-5e1a-953a-510ecf919df2
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday_br
+		dataType: boolean
+		lineageTag: fce707a9-38a7-55ae-9877-86a0c2cb015c
+		summarizeBy: none
+		sourceColumn: is_holiday_br
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rainy_season
+		dataType: boolean
+		lineageTag: 7fda5f46-d318-5d95-9683-e16c5994f661
+		summarizeBy: none
+		sourceColumn: is_rainy_season
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_phase
+		dataType: string
+		lineageTag: 68a4f84e-7031-5947-bd60-a551090fe79f
+		summarizeBy: none
+		sourceColumn: experiment_phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_week
+		dataType: double
+		lineageTag: 5588fed1-170e-58b4-9d9e-1093e33f147c
+		summarizeBy: none
+		sourceColumn: experiment_week
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_date.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

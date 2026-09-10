@@ -1,0 +1,231 @@
+table fact_zone_hour
+	lineageTag: a778d515-4684-5c9b-8c80-a68f5f085720
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 416dca15-755b-5862-9af9-03de675869e8
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: c5e4c1c5-01c6-55b9-8a25-c907b7c6b9cd
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour
+		dataType: int64
+		lineageTag: 6a8f06c1-b966-5010-bc65-71ccea73eb4c
+		summarizeBy: none
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders_placed
+		dataType: int64
+		lineageTag: 21f0f793-5ec0-5a95-a51a-c3378152b0df
+		summarizeBy: sum
+		sourceColumn: orders_placed
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders_delivered
+		dataType: int64
+		lineageTag: 9539f190-7963-5f30-a6e2-694d52eeb665
+		summarizeBy: sum
+		sourceColumn: orders_delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled_customer
+		dataType: int64
+		lineageTag: 5a33b990-0434-5daa-9a6d-6c2188326727
+		summarizeBy: sum
+		sourceColumn: cancelled_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled_courier
+		dataType: int64
+		lineageTag: 7fa60e31-bfbc-5ee0-b96c-8940e8265f9d
+		summarizeBy: sum
+		sourceColumn: cancelled_courier
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled_no_courier
+		dataType: int64
+		lineageTag: 16f22741-4b4a-5949-8c3b-8182d8fb6a6e
+		summarizeBy: sum
+		sourceColumn: cancelled_no_courier
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelled_restaurant
+		dataType: int64
+		lineageTag: 42c0678d-4aa7-50b3-b164-0b1501f735c3
+		summarizeBy: sum
+		sourceColumn: cancelled_restaurant
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_latency_p90_s
+		dataType: double
+		lineageTag: 15fe4599-0f1e-5187-b651-36c5c2296da6
+		summarizeBy: none
+		sourceColumn: assignment_latency_p90_s
+
+		annotation SummarizationSetBy = Automatic
+
+	column eta_p50_min
+		dataType: double
+		lineageTag: ea833c99-94c8-598a-af88-b0c3d0252aff
+		summarizeBy: none
+		sourceColumn: eta_p50_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column eta_p90_min
+		dataType: double
+		lineageTag: c6fc3d76-ca96-5e87-8f7b-1cec38762f61
+		summarizeBy: none
+		sourceColumn: eta_p90_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_block_key
+		isHidden
+		dataType: int64
+		lineageTag: 772ad6d4-18e5-55f8-88e9-752202a18ac7
+		summarizeBy: none
+		sourceColumn: time_block_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_block
+		dataType: boolean
+		lineageTag: e9277c7f-2cda-56a5-a54d-555a4024ce4e
+		summarizeBy: none
+		sourceColumn: is_peak_block
+
+		annotation SummarizationSetBy = Automatic
+
+	column fulfillment_rate
+		dataType: double
+		lineageTag: 19c7938a-1d7a-5ad2-a77a-b62f272b5d68
+		summarizeBy: none
+		sourceColumn: fulfillment_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column unmet_demand
+		dataType: int64
+		lineageTag: b9981642-d16b-5808-8aeb-fb62da2e03c6
+		summarizeBy: sum
+		sourceColumn: unmet_demand
+
+		annotation SummarizationSetBy = Automatic
+
+	column demanded_delivery_hours
+		dataType: double
+		lineageTag: b00015c6-9565-5465-be2f-30661b986e4d
+		summarizeBy: sum
+		sourceColumn: demanded_delivery_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_courier_hours
+		dataType: double
+		lineageTag: 0db2715e-b94b-542c-8c0a-dec5dd5be2e5
+		summarizeBy: sum
+		sourceColumn: available_courier_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column idle_courier_hours
+		dataType: double
+		lineageTag: e7f94fa0-39fa-569d-86d9-3ea785aa707d
+		summarizeBy: sum
+		sourceColumn: idle_courier_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_couriers
+		dataType: double
+		lineageTag: 888f262e-829d-50fa-b4ca-8d69979c8b92
+		summarizeBy: none
+		sourceColumn: active_couriers
+
+		annotation SummarizationSetBy = Automatic
+
+	column liquidity_ratio
+		dataType: double
+		lineageTag: 6982620d-973f-54bb-bcfc-21daf3eb3df8
+		summarizeBy: none
+		sourceColumn: liquidity_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column idle_courier_ratio
+		dataType: double
+		lineageTag: 8a90c4a0-2f1c-583e-9505-a0e9a6a713aa
+		summarizeBy: none
+		sourceColumn: idle_courier_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rainy
+		dataType: boolean
+		lineageTag: f775c8f3-8ce4-56d4-afad-92c28fc1e4c8
+		summarizeBy: none
+		sourceColumn: is_rainy
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_local_event
+		dataType: boolean
+		lineageTag: 2765ad20-36eb-5337-b8c5-ecb01c2c7c10
+		summarizeBy: none
+		sourceColumn: has_local_event
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_arm
+		dataType: string
+		lineageTag: fbd24d5d-a8d4-5e05-93ec-843c821709b3
+		summarizeBy: none
+		sourceColumn: experiment_arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_treated_zone_day
+		dataType: boolean
+		lineageTag: 18945596-3fc1-5dde-8b1c-7b56d57ba066
+		summarizeBy: none
+		sourceColumn: on_treated_zone_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_adjacent_to_treated_zone_day
+		dataType: boolean
+		lineageTag: 728fb6d7-3905-535a-85c4-24527326eeb3
+		summarizeBy: none
+		sourceColumn: is_adjacent_to_treated_zone_day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_zone_hour = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_zone_hour.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

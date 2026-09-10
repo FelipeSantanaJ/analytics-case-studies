@@ -1,0 +1,151 @@
+table fact_incentive_assignment
+	lineageTag: 77876be4-52b1-5bb4-b672-ec3d4cb616c9
+
+	column campaign_key
+		isHidden
+		dataType: int64
+		lineageTag: cee8cd06-302d-5d32-8c92-5b8f176a443d
+		summarizeBy: none
+		sourceColumn: campaign_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: d96cbb36-8c6d-5f53-a7ff-f0f46dc9f269
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: fba2b6c3-3acd-51e1-a57f-03c00152e943
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm
+		dataType: string
+		lineageTag: 181ddb54-3078-5d7b-8953-e3ce0c55546e
+		summarizeBy: none
+		sourceColumn: arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column bonus_brl_per_delivery
+		dataType: double
+		lineageTag: 9c498b02-8208-5985-86e3-23d22f367565
+		summarizeBy: none
+		sourceColumn: bonus_brl_per_delivery
+
+		annotation SummarizationSetBy = Automatic
+
+	column push_radius_m
+		dataType: int64
+		lineageTag: 4d5a8439-655d-5bf7-84e2-a6ae51cd0f24
+		summarizeBy: none
+		sourceColumn: push_radius_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_block_start_hour
+		dataType: int64
+		lineageTag: 12b3dcaf-503a-551d-9d07-e9345f565a97
+		summarizeBy: none
+		sourceColumn: peak_block_start_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_block_end_hour
+		dataType: int64
+		lineageTag: 3ea9e0dd-aaae-5c01-bcc3-ad5f473f36a8
+		summarizeBy: none
+		sourceColumn: peak_block_end_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column stratum
+		dataType: string
+		lineageTag: d9fffa26-7563-51d2-9f75-5c505d97a6e5
+		summarizeBy: none
+		sourceColumn: stratum
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		lineageTag: 28223406-b0b1-537a-b8bc-05b19ca520d2
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_fulfillment_rate
+		dataType: double
+		lineageTag: 531db76d-f317-505c-9cee-e923b19af849
+		summarizeBy: none
+		sourceColumn: pre_fulfillment_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_eta_p90_min
+		dataType: double
+		lineageTag: edefa9cd-4a3c-52f7-9351-0e75a913fa17
+		summarizeBy: none
+		sourceColumn: pre_eta_p90_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_orders_placed_mean
+		dataType: double
+		lineageTag: c2b96dca-70c3-5cb5-9a97-4994caf2af6f
+		summarizeBy: none
+		sourceColumn: pre_orders_placed_mean
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_liquidity_ratio
+		dataType: double
+		lineageTag: 51de7838-cad4-506b-82d4-00a47895b3d1
+		summarizeBy: none
+		sourceColumn: pre_liquidity_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column pre_idle_courier_ratio
+		dataType: double
+		lineageTag: ad0a7fd4-fdd7-58e6-b6ab-8027ce4679fb
+		summarizeBy: none
+		sourceColumn: pre_idle_courier_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_adjacent_zones_treated
+		dataType: int64
+		lineageTag: 0a1750dd-4446-5a15-ac80-c1cbe396e241
+		summarizeBy: none
+		sourceColumn: n_adjacent_zones_treated
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_adjacent_to_treated
+		dataType: boolean
+		lineageTag: 8e91a1b4-59b3-5075-87cc-2a7606a3799d
+		summarizeBy: none
+		sourceColumn: is_adjacent_to_treated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_incentive_assignment = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_incentive_assignment.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

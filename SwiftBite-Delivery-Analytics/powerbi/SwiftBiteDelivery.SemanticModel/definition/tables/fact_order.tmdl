@@ -1,0 +1,196 @@
+table fact_order
+	lineageTag: b148617b-4479-5c94-b4ed-9fd449737092
+
+	column order_key
+		isHidden
+		dataType: int64
+		lineageTag: f26a7b97-86d1-5940-b1db-32e5f3ccd0ad
+		summarizeBy: none
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: 427eaae7-f5ec-575f-8be5-7974b39bd1cf
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		isHidden
+		dataType: int64
+		lineageTag: c94f18ca-96f0-5f05-9f31-a5a96951184b
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column restaurant_key
+		isHidden
+		dataType: int64
+		lineageTag: e52b1e4c-b877-53e3-9dc4-384e43e442ba
+		summarizeBy: none
+		sourceColumn: restaurant_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column pickup_zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 58d27bc9-03c8-5a07-8656-8bd81b83d419
+		summarizeBy: none
+		sourceColumn: pickup_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column dropoff_zone_key_asbooked
+		dataType: int64
+		lineageTag: 7b5a4d1e-d8d3-52fd-88b0-ca1fec6c561d
+		summarizeBy: sum
+		sourceColumn: dropoff_zone_key_asbooked
+
+		annotation SummarizationSetBy = Automatic
+
+	column dropoff_zone_key_current
+		dataType: int64
+		lineageTag: 00242a9c-a4b3-599f-9327-c29e6e106cdb
+		summarizeBy: sum
+		sourceColumn: dropoff_zone_key_current
+
+		annotation SummarizationSetBy = Automatic
+
+	column placed_date_key
+		isHidden
+		dataType: int64
+		lineageTag: 6b97467d-974a-53b6-894d-900677bb56a0
+		summarizeBy: none
+		sourceColumn: placed_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column placed_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 73b7f8f6-4963-5d2c-b522-4c61e63616e1
+		summarizeBy: none
+		sourceColumn: placed_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column placed_hour
+		dataType: int64
+		lineageTag: 2ad849c5-14ca-5d45-a69d-636f0d7ff8eb
+		summarizeBy: sum
+		sourceColumn: placed_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_block_key
+		isHidden
+		dataType: int64
+		lineageTag: bc0dc430-694b-589b-a493-82476dd41d18
+		summarizeBy: none
+		sourceColumn: time_block_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_block
+		dataType: boolean
+		lineageTag: 9cf75995-52da-5c08-8fe3-7a2316a4d961
+		summarizeBy: none
+		sourceColumn: is_peak_block
+
+		annotation SummarizationSetBy = Automatic
+
+	column basket_value_brl
+		dataType: double
+		lineageTag: f87515dd-d78b-53c3-a819-4ba0d71f2113
+		summarizeBy: sum
+		sourceColumn: basket_value_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_fee_brl
+		dataType: double
+		lineageTag: e27dc346-8b8d-529a-ad5b-c9df7f91beb5
+		summarizeBy: sum
+		sourceColumn: delivery_fee_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column outcome
+		dataType: string
+		lineageTag: d115e306-8886-5fed-accd-5234b19073f4
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = Automatic
+
+	column eta_min
+		dataType: double
+		lineageTag: a34b36a2-c13b-575e-826f-743b41881d79
+		summarizeBy: none
+		sourceColumn: eta_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_latency_s
+		dataType: double
+		lineageTag: 7313720b-08f9-5807-bd74-cea63283eae8
+		summarizeBy: sum
+		sourceColumn: assignment_latency_s
+
+		annotation SummarizationSetBy = Automatic
+
+	column trip_distance_km
+		dataType: double
+		lineageTag: 6f904d06-8955-5261-8bfa-73da425d513a
+		summarizeBy: sum
+		sourceColumn: trip_distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_phase
+		dataType: string
+		lineageTag: 3586c861-aabe-5bf3-adaa-7f90cb817ef9
+		summarizeBy: none
+		sourceColumn: experiment_phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column on_treated_zone_day
+		dataType: boolean
+		lineageTag: adc6ab13-b5ba-59d3-bfcf-f4034929d6b8
+		summarizeBy: none
+		sourceColumn: on_treated_zone_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_adjacent_to_treated_zone_day
+		dataType: boolean
+		lineageTag: 0b9f79ac-cc61-5e0b-af69-24342cac623f
+		summarizeBy: none
+		sourceColumn: is_adjacent_to_treated_zone_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column courier_key
+		isHidden
+		dataType: int64
+		lineageTag: 8a952609-375c-5ca5-967a-edc633328cbb
+		summarizeBy: none
+		sourceColumn: courier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_order.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

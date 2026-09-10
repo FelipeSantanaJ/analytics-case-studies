@@ -1,0 +1,46 @@
+{
+  "name": "SwiftBite Marketplace",
+  "dataColors": [
+    "#1E6B4F",
+    "#8090A0",
+    "#E8823C",
+    "#3E9C93",
+    "#8E5EA8",
+    "#C9922E",
+    "#C77CA6",
+    "#6B7280"
+  ],
+  "foreground": "#33403A",
+  "foregroundNeutralSecondary": "#6B7A72",
+  "foregroundNeutralTertiary": "#9DAAA2",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F2F4F1",
+  "backgroundNeutral": "#E4E8E3",
+  "tableAccent": "#1E6B4F",
+  "good": "#2E7D5B",
+  "neutral": "#8A8A99",
+  "bad": "#C0453B",
+  "maximum": "#2E7D5B",
+  "center": "#EAD9C4",
+  "minimum": "#C0453B",
+  "hyperlink": "#1E6B4F",
+  "textClasses": {
+    "title":   { "fontFace": "Segoe UI Semibold", "fontSize": 15, "color": "#17241E" },
+    "header":  { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#17241E" },
+    "label":   { "fontFace": "Segoe UI", "fontSize": 9,  "color": "#33403A" },
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 30, "color": "#17241E" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background":   [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border":       [{ "show": true, "color": { "solid": { "color": "#D6DAD3" } }, "radius": 8 }],
+        "dropShadow":   [{ "show": false }],
+        "visualHeader": [{ "show": false }]
+      }
+    },
+    "page": {
+      "*": { "background": [{ "color": { "solid": { "color": "#F2F4F1" } }, "transparency": 0 }] }
+    }
+  }
+}

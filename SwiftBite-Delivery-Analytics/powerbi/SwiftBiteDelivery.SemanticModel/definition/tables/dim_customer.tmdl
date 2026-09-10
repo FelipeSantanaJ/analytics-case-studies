@@ -1,0 +1,46 @@
+table dim_customer
+	lineageTag: eeeded4a-8825-5a66-9db8-cab088e62b45
+
+	column customer_key
+		isHidden
+		dataType: int64
+		lineageTag: 35d8a56c-4e7b-5745-b474-6c8cf3796083
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: fe2d0bfb-650d-5120-9678-ddcf39e70e03
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_segment
+		dataType: string
+		lineageTag: 27ea0cb8-4f42-519f-9786-5c66ddc1a19b
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_zone_key
+		isHidden
+		dataType: int64
+		lineageTag: b7b74aa9-7ffe-54c4-b291-77d79c595c38
+		summarizeBy: none
+		sourceColumn: home_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_customer.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

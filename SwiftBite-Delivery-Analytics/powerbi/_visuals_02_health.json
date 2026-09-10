@@ -1,0 +1,198 @@
+[
+  {
+    "visual_type": "shape",
+    "name": "02health-kpiframe",
+    "x": 16,
+    "y": 120,
+    "width": 1248,
+    "height": 116
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-orders-placed-v",
+    "x": 24,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Orders Placed",
+    "fields": {
+      "Values": [
+        "_Measures.Orders Placed"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-fulfillment-rate-v",
+    "x": 231,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Fulfillment Rate",
+    "fields": {
+      "Values": [
+        "_Measures.Fulfillment Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-eta-p90-min-v",
+    "x": 439,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "ETA p90 (min)",
+    "fields": {
+      "Values": [
+        "_Measures.ETA p90 (min)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-no-courier-rate-v",
+    "x": 646,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "No-Courier Rate",
+    "fields": {
+      "Values": [
+        "_Measures.No-Courier Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-liquidity-ratio-v",
+    "x": 853,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Liquidity Ratio",
+    "fields": {
+      "Values": [
+        "_Measures.Liquidity Ratio"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "02health-idle-courier-ratio-v",
+    "x": 1061,
+    "y": 132,
+    "width": 195,
+    "height": 70,
+    "title": "Idle Courier Ratio",
+    "fields": {
+      "Values": [
+        "_Measures.Idle Courier Ratio %"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "fulfillment_by_zone",
+    "x": 24,
+    "y": 236,
+    "width": 610,
+    "height": 230,
+    "title": "Fulfillment rate by zone",
+    "fields": {
+      "Category": "dim_zone.zone_name",
+      "Y": [
+        "_Measures.Fulfillment Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "matrix",
+    "name": "liquidity_matrix",
+    "x": 646,
+    "y": 236,
+    "width": 610,
+    "height": 230,
+    "title": "Liquidity ratio by zone x daypart",
+    "fields": {
+      "Rows": "dim_zone.zone_name",
+      "Columns": "dim_time_block.daypart",
+      "Values": [
+        "_Measures.Liquidity Ratio"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "eta_by_hour",
+    "x": 24,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "ETA p90 by hour of day",
+    "fields": {
+      "Category": "dim_time_block.hour",
+      "Y": [
+        "_Measures.ETA p90 (min)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "cancels_by_cause",
+    "x": 646,
+    "y": 480,
+    "width": 610,
+    "height": 224,
+    "title": "Cancellations by cause and zone",
+    "fields": {
+      "Category": "dim_zone.zone_name",
+      "Y": [
+        "_Measures.No-Courier Cancels",
+        "_Measures.Customer Cancels"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02health-sl-period",
+    "x": 24,
+    "y": 126,
+    "width": 320,
+    "height": 34,
+    "title": "Analysis period",
+    "fields": {
+      "Values": [
+        "dim_date.date"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02health-sl-zone",
+    "x": 856,
+    "y": 126,
+    "width": 210,
+    "height": 34,
+    "title": "Zone",
+    "fields": {
+      "Values": [
+        "dim_zone.zone_name"
+      ]
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "02health-sl-tier",
+    "x": 1078,
+    "y": 126,
+    "width": 178,
+    "height": 34,
+    "title": "Supply-stress tier",
+    "fields": {
+      "Values": [
+        "dim_zone.baseline_supply_stress_tier"
+      ]
+    }
+  }
+]

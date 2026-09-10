@@ -1,0 +1,30 @@
+table dim_zone_adjacency
+	lineageTag: f6da9837-0419-5a76-a510-21f5765b8514
+
+	column zone_key
+		isHidden
+		dataType: int64
+		lineageTag: 39ad9f99-9994-52bd-9336-628b030938a4
+		summarizeBy: none
+		sourceColumn: zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbour_zone_key
+		isHidden
+		dataType: int64
+		lineageTag: db30d8f7-e134-5544-bdf4-4d8f2ee6e7cb
+		summarizeBy: none
+		sourceColumn: neighbour_zone_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_zone_adjacency = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_zone_adjacency.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
