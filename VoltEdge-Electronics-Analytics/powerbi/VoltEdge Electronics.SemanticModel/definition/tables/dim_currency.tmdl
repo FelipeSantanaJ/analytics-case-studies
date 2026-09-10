@@ -1,0 +1,55 @@
+table dim_currency
+	lineageTag: 2ef5517a-2774-5b7b-8099-55724a0d40b9
+
+	column currency_key
+		dataType: int64
+		isHidden
+		lineageTag: 83bb71bb-3d00-52ac-8383-c31adb1aed00
+		summarizeBy: none
+		sourceColumn: currency_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: c251a2fa-952d-5d38-bb20-ad38c59a8bc3
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_name
+		dataType: string
+		lineageTag: c4f00e91-433d-5cdd-99fe-44162da5c913
+		summarizeBy: none
+		sourceColumn: currency_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_symbol
+		dataType: string
+		lineageTag: daeabb8c-3099-58bc-9e75-d79c61e2782e
+		summarizeBy: none
+		sourceColumn: currency_symbol
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reporting_currency
+		dataType: boolean
+		lineageTag: b8a78205-4d20-5074-9ae5-3e1aac600118
+		summarizeBy: none
+		sourceColumn: is_reporting_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_currency = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_currency.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,147 @@
+table fact_returns
+	lineageTag: 7d20cf34-94fc-5a37-8c66-181779170ccd
+
+	column return_id
+		dataType: string
+		lineageTag: b07e853a-766c-5b03-bc7f-6e560d533aa2
+		summarizeBy: none
+		sourceColumn: return_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: bc61b24f-0596-5aa7-ac43-ab91c17eb419
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_line_id
+		dataType: string
+		lineageTag: 5c2ca8f4-57da-54ea-94ee-a1bd84b88031
+		summarizeBy: none
+		sourceColumn: order_line_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_date_key
+		dataType: int64
+		isHidden
+		lineageTag: e5d15220-bff9-56e1-b3d9-2d2d8f5946f3
+		summarizeBy: none
+		sourceColumn: return_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: int64
+		isHidden
+		lineageTag: a7c63718-f88d-53e4-af15-e03502f556ee
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		isHidden
+		lineageTag: e6854978-b0cd-50a5-826a-2f3d287bdc83
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c39738db-0f19-56cc-ba92-714abdecb87e
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_key
+		dataType: int64
+		isHidden
+		lineageTag: 4b441124-38af-50f8-a282-084b5a168cc6
+		summarizeBy: none
+		sourceColumn: currency_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column returned_qty
+		dataType: int64
+		lineageTag: 0f3bcff3-cc2f-530b-88ed-59948d5d98b3
+		summarizeBy: sum
+		sourceColumn: returned_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column refund_amount_local
+		dataType: double
+		lineageTag: 956ad331-54bc-5e63-9c59-ddca7db796c9
+		summarizeBy: sum
+		sourceColumn: refund_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column refund_amount_usd
+		dataType: double
+		lineageTag: e3fafb07-07a1-577c-8199-4a7eadbcd186
+		summarizeBy: sum
+		sourceColumn: refund_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost_usd
+		dataType: double
+		lineageTag: dcca4c8a-6873-51de-b950-0580765f3b40
+		summarizeBy: sum
+		sourceColumn: unit_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column cogs_recovered_usd
+		dataType: double
+		lineageTag: aa110a31-fa34-52ff-8f2d-bf8edb7d26f9
+		summarizeBy: none
+		sourceColumn: cogs_recovered_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: bc4db60f-05ed-5589-809a-9baa1c6694c4
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column restocked
+		dataType: boolean
+		lineageTag: b0c0def8-b69a-5257-80d8-f58944a40dc5
+		summarizeBy: none
+		sourceColumn: restocked
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition
+		dataType: string
+		lineageTag: 5aebadfe-939e-536a-a510-34ac60451e7d
+		summarizeBy: none
+		sourceColumn: condition
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_returns = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_returns.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

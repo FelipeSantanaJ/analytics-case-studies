@@ -1,0 +1,226 @@
+table dim_customer
+	lineageTag: fd0ce8f5-1989-5660-a716-35429e29a122
+
+	column customer_key
+		dataType: int64
+		isHidden
+		lineageTag: 8a5f5e92-21e9-53cd-afd6-c50607bf68ea
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 4bc47cc0-5cef-5c03-8886-90904d785035
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 84832e0e-7c82-58fd-8676-2e6673cd4e5a
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 23f95ac7-bc0b-5843-902f-1dc4ca112853
+		summarizeBy: none
+		sourceColumn: signup_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: 2cd1c2d4-dea3-50c3-ace3-19fd97e28aa8
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_name
+		dataType: string
+		lineageTag: ed24c7c0-61f8-56e9-ace8-72badcd84fb4
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 339c47a8-358f-5af0-a272-17576a46587d
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 100f8d31-edfe-5c9f-a2fe-e03adf5d02c1
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_region
+		dataType: string
+		lineageTag: e88394ca-3f63-57a5-8e56-145094ac83ce
+		summarizeBy: none
+		sourceColumn: state_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 4e1389f5-76b5-5685-886f-ec09ffc33083
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: a78e2eb6-d28e-5a75-ae4b-18f49f31c471
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_year
+		dataType: double
+		lineageTag: 38817b2f-726d-551f-9202-7b4142f54198
+		summarizeBy: none
+		sourceColumn: birth_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column marketing_consent
+		dataType: boolean
+		lineageTag: 611eb410-93d5-59d8-9198-537a53d52071
+		summarizeBy: none
+		sourceColumn: marketing_consent
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_email
+		dataType: boolean
+		lineageTag: e32d144d-515a-57c6-9d3f-731e974a8fc7
+		summarizeBy: none
+		sourceColumn: has_email
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquired_before_window
+		dataType: boolean
+		lineageTag: d8a19c39-1351-57d6-8634-c0caf48812d0
+		summarizeBy: none
+		sourceColumn: acquired_before_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_month
+		dataType: string
+		lineageTag: b5387598-6c30-5682-a2bd-7e2bd991b5b0
+		summarizeBy: none
+		sourceColumn: acquisition_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_band
+		dataType: string
+		lineageTag: 1fbe4dab-e096-582e-bb13-448062f7fce8
+		summarizeBy: none
+		sourceColumn: age_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: f0407e76-2224-5c53-8cf2-0b2971b5f1d3
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 60f2d9fc-fe3c-5131-a8c6-9779af05a64b
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 7e374ead-2f15-5ced-85e6-77174f6ad0ca
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column lifetime_orders
+		dataType: int64
+		lineageTag: bafe5099-20a7-5830-bc73-1bd671a38706
+		summarizeBy: none
+		sourceColumn: lifetime_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column lifetime_net_revenue_usd
+		dataType: double
+		lineageTag: 46e0627d-7dcc-5715-b35f-dc34b96c513f
+		summarizeBy: sum
+		sourceColumn: lifetime_net_revenue_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column lifetime_gross_profit_usd
+		dataType: double
+		lineageTag: a01833fe-9d05-5c8c-8ddc-70f57bdd26c1
+		summarizeBy: sum
+		sourceColumn: lifetime_gross_profit_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_repeat_customer
+		dataType: boolean
+		lineageTag: eadd0548-7bfc-5890-8660-76d6dc92e958
+		summarizeBy: none
+		sourceColumn: is_repeat_customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_status
+		dataType: string
+		lineageTag: de0c391e-4d83-5316-abae-33ec6c562105
+		summarizeBy: none
+		sourceColumn: customer_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column loyalty_tier
+		dataType: string
+		lineageTag: 5abe4c7e-a584-5faf-8b24-7ebbf5d67a1b
+		summarizeBy: none
+		sourceColumn: loyalty_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_customer.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

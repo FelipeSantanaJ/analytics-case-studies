@@ -1,0 +1,271 @@
+relationship 574c2245-3088-5401-b6fc-5f29dcc602c9
+	fromColumn: fact_order_lines.order_date_key
+	toColumn: dim_date.date_key
+
+relationship 58e87419-c116-52ca-9588-a239ed47ab92
+	isActive: false
+	fromColumn: fact_order_lines.ship_date_key
+	toColumn: dim_date.date_key
+
+relationship 54f7cab1-bcf1-5c59-94ea-b4695c96d0c3
+	isActive: false
+	fromColumn: fact_order_lines.delivery_date_key
+	toColumn: dim_date.date_key
+
+relationship 6df68454-f303-546b-8ffc-0d4747edd3e6
+	fromColumn: fact_orders.order_date_key
+	toColumn: dim_date.date_key
+
+relationship b5756889-f1f0-55ba-93bd-9e06c0ab7925
+	isActive: false
+	fromColumn: fact_orders.ship_date_key
+	toColumn: dim_date.date_key
+
+relationship e96fa0e8-b7ba-5caf-9859-b92734c2629a
+	isActive: false
+	fromColumn: fact_orders.delivery_date_key
+	toColumn: dim_date.date_key
+
+relationship 937d9909-950f-5ed9-9f0c-55676880a219
+	fromColumn: fact_payment_schedule.order_date_key
+	toColumn: dim_date.date_key
+
+relationship f4af1344-91ab-5f63-96db-fb0431b1edc7
+	isActive: false
+	fromColumn: fact_payment_schedule.due_date_key
+	toColumn: dim_date.date_key
+
+relationship 8050bb03-e1d0-56ca-9dd8-893d691025bd
+	fromColumn: fact_marketing_spend.date_key
+	toColumn: dim_date.date_key
+
+relationship 5d5e18f4-0301-523f-9140-b131ae3e260c
+	fromColumn: fact_web_traffic_daily.date_key
+	toColumn: dim_date.date_key
+
+relationship 7f3c3b30-022f-5822-9eb5-8f750478afdc
+	fromColumn: fact_returns.return_date_key
+	toColumn: dim_date.date_key
+
+relationship 55ddd605-afca-5258-9445-5320aeb5437d
+	fromColumn: fact_support_tickets.created_date_key
+	toColumn: dim_date.date_key
+
+relationship d3f6db5e-03a7-5b90-8463-a175cd5b1ce4
+	isActive: false
+	fromColumn: fact_support_tickets.resolved_date_key
+	toColumn: dim_date.date_key
+
+relationship 2dfe5438-3a01-5886-881d-077ddce74133
+	fromColumn: fact_purchase_orders.order_date_key
+	toColumn: dim_date.date_key
+
+relationship e87ca204-5f33-59ea-877c-6c5c425bf31c
+	isActive: false
+	fromColumn: fact_purchase_orders.expected_receipt_date_key
+	toColumn: dim_date.date_key
+
+relationship 7a5f5aa2-2adc-5449-a407-ea1f506af3c5
+	isActive: false
+	fromColumn: fact_purchase_orders.actual_receipt_date_key
+	toColumn: dim_date.date_key
+
+relationship d9a95ea9-25fa-5189-b010-26dc6a95e733
+	isActive: false
+	fromColumn: fact_purchase_orders.payment_due_date_key
+	toColumn: dim_date.date_key
+
+relationship 24abb0b6-2bdc-5ea3-ba73-25e1c5744336
+	isActive: false
+	fromColumn: fact_purchase_orders.supplier_paid_date_key
+	toColumn: dim_date.date_key
+
+relationship 0618f20d-4b3d-53a0-a841-d11fdb8d4b67
+	fromColumn: fact_inventory_movement.movement_date_key
+	toColumn: dim_date.date_key
+
+relationship fcc2f099-b8e0-586e-96d9-6c88e05ab714
+	fromColumn: fact_inventory_snapshot.snapshot_date_key
+	toColumn: dim_date.date_key
+
+relationship 557903d9-1c38-54d9-ab8a-722a85d51ca6
+	fromColumn: fact_exchange_rate.date_key
+	toColumn: dim_date.date_key
+
+relationship 4688ed17-7f80-59f4-a670-35739cad1334
+	fromColumn: fact_target.month_date_key
+	toColumn: dim_date.date_key
+
+relationship 7355d34e-ab08-5fc8-be24-98a2e40c3bce
+	fromColumn: fact_order_lines.market_key
+	toColumn: dim_market.market_key
+
+relationship b13b90d7-7840-5d4f-bfb2-f9b72688a9cd
+	fromColumn: fact_orders.market_key
+	toColumn: dim_market.market_key
+
+relationship de521b7a-c0b4-5f12-a47d-8898568e5c8b
+	fromColumn: fact_payment_schedule.market_key
+	toColumn: dim_market.market_key
+
+relationship 61a502a9-b38a-592e-a0f7-ba3a68dfb968
+	fromColumn: fact_returns.market_key
+	toColumn: dim_market.market_key
+
+relationship 4de262a6-760b-53e2-b728-13e548b86ef2
+	fromColumn: fact_marketing_spend.market_key
+	toColumn: dim_market.market_key
+
+relationship a0648503-dc08-510a-8761-9e1ec76174a1
+	fromColumn: fact_web_traffic_daily.market_key
+	toColumn: dim_market.market_key
+
+relationship 032a83d2-0c2f-52c4-a04b-dd132b30c7e5
+	fromColumn: fact_support_tickets.market_key
+	toColumn: dim_market.market_key
+
+relationship 3d075738-968b-5bac-8cdb-3790b8984a89
+	fromColumn: fact_purchase_orders.market_key
+	toColumn: dim_market.market_key
+
+relationship 2efa0cfa-e338-500c-b769-c6b87909ec8d
+	fromColumn: fact_inventory_movement.market_key
+	toColumn: dim_market.market_key
+
+relationship 005cfe66-f8cc-5075-8797-b0fc9f8dcb90
+	fromColumn: fact_inventory_snapshot.market_key
+	toColumn: dim_market.market_key
+
+relationship 43a29849-3f90-5477-9bfd-79055e1bbfcf
+	fromColumn: fact_target.market_key
+	toColumn: dim_market.market_key
+
+relationship 817c2004-f130-539b-ad6e-31b3576b5b18
+	fromColumn: fact_order_lines.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship a51764ab-8566-5a01-b660-477a4a86ed7c
+	fromColumn: fact_orders.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship 0e9c2ad8-e315-5717-8105-db81e0446b8d
+	fromColumn: fact_returns.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship 99899317-ecd7-5d73-92d0-7ea9760986aa
+	fromColumn: fact_support_tickets.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship 4b4aa610-e486-5d1b-91aa-f073c46cd8f2
+	fromColumn: fact_order_lines.product_key
+	toColumn: dim_product.product_key
+
+relationship 5743a862-5be7-570b-a965-811fd8db06d1
+	fromColumn: fact_returns.product_key
+	toColumn: dim_product.product_key
+
+relationship 3dc75877-57d9-53e4-b493-fd5d4ba85865
+	fromColumn: fact_purchase_orders.product_key
+	toColumn: dim_product.product_key
+
+relationship c36ff5d6-c746-5462-a4af-d5fbbb1f7f1e
+	fromColumn: fact_inventory_movement.product_key
+	toColumn: dim_product.product_key
+
+relationship bee485bb-9871-55d8-bd30-01daefb3dcae
+	fromColumn: fact_inventory_snapshot.product_key
+	toColumn: dim_product.product_key
+
+relationship e7ed9859-20cf-52cf-95b9-5f09213a7d92
+	fromColumn: fact_order_lines.channel_key
+	toColumn: dim_channel.channel_key
+
+relationship 62cfd38e-255a-5f28-8e1f-468df6ae30cc
+	fromColumn: fact_orders.channel_key
+	toColumn: dim_channel.channel_key
+
+relationship 05d82a1f-926a-5565-a343-22243e1be4aa
+	fromColumn: fact_marketing_spend.channel_key
+	toColumn: dim_channel.channel_key
+
+relationship 5b52c29e-805b-5ba4-af9d-47d488b24257
+	fromColumn: fact_web_traffic_daily.channel_key
+	toColumn: dim_channel.channel_key
+
+relationship 6dab1e27-fbaa-5c30-8525-3b4e24af28ca
+	fromColumn: fact_order_lines.currency_key
+	toColumn: dim_currency.currency_key
+
+relationship e96346ec-34e5-54d6-b538-336c9b53fc31
+	fromColumn: fact_orders.currency_key
+	toColumn: dim_currency.currency_key
+
+relationship cc3f090a-287a-54dd-b1e0-c04ff80afa72
+	fromColumn: fact_payment_schedule.currency_key
+	toColumn: dim_currency.currency_key
+
+relationship fbe64f56-f047-553e-8b1e-2283f2f48381
+	fromColumn: fact_returns.currency_key
+	toColumn: dim_currency.currency_key
+
+relationship 58f7bddd-96c8-523f-b212-057e64a5d311
+	fromColumn: fact_exchange_rate.currency_key
+	toColumn: dim_currency.currency_key
+
+relationship 88c1e687-3547-5148-a49d-80136578af90
+	fromColumn: fact_orders.warehouse_key
+	toColumn: dim_warehouse.warehouse_key
+
+relationship 57371f3e-adf5-57f0-bb58-5fc1fc67b9db
+	fromColumn: fact_purchase_orders.warehouse_key
+	toColumn: dim_warehouse.warehouse_key
+
+relationship 9384bba5-de67-50b9-afd3-dd594374d644
+	fromColumn: fact_inventory_movement.warehouse_key
+	toColumn: dim_warehouse.warehouse_key
+
+relationship 521e7b1f-7b2a-55a1-82ce-7ee5ba90e8b8
+	fromColumn: fact_inventory_snapshot.warehouse_key
+	toColumn: dim_warehouse.warehouse_key
+
+relationship 9c469579-f795-57e3-92b7-c48229f351c0
+	fromColumn: fact_orders.payment_method_key
+	toColumn: dim_payment_method.payment_method_key
+
+relationship 7ebc993f-947a-54c2-8676-380ad81cce10
+	fromColumn: fact_orders.carrier_key
+	toColumn: dim_carrier.carrier_key
+
+relationship 69835fde-c074-5b03-a02c-47dc6402369a
+	fromColumn: fact_purchase_orders.supplier_key
+	toColumn: dim_supplier.supplier_key
+
+relationship e7a3c7bc-7a40-5b43-85c4-1264731afe21
+	fromColumn: fact_marketing_spend.campaign_key
+	toColumn: dim_campaign.campaign_key
+
+relationship 029f4a8d-d872-5ca4-b2ed-0c86b6be31e0
+	isActive: false
+	fromColumn: dim_product.supplier_key
+	toColumn: dim_supplier.supplier_key
+
+relationship e1f23026-7115-5765-831f-9da2b24c5c29
+	fromColumn: fact_orders.device
+	toColumn: dim_device.device
+
+relationship ba44becc-653b-5765-90ff-1fa5f77dd2b8
+	fromColumn: fact_web_traffic_daily.device
+	toColumn: dim_device.device
+
+relationship 6a71cca2-772d-55aa-81d5-cb2403a7e439
+	fromColumn: fact_returns.reason
+	toColumn: dim_return_reason.reason
+
+relationship e167014e-6523-54ab-929c-51af630b6fc3
+	fromColumn: fact_support_tickets.category
+	toColumn: dim_ticket_category.category
+
+relationship 6e756615-090d-5b6f-b6d9-2d8bb5476b01
+	fromColumn: fact_target.metric
+	toColumn: dim_metric.metric
+

@@ -1,0 +1,320 @@
+table fact_orders
+	lineageTag: c718b7bb-857b-5e92-9263-581896d09ac6
+
+	column order_id
+		dataType: string
+		lineageTag: 1686c3f7-7719-5775-ad97-80c1c481e16a
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		isHidden
+		lineageTag: bd769492-8427-5d44-b7a5-deb33463f54f
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 03216a29-a243-5a9f-ab69-f4dbf3f77330
+		summarizeBy: none
+		sourceColumn: ship_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_date_key
+		dataType: int64
+		isHidden
+		lineageTag: d4a9b8ce-dfd6-503e-b83d-b533ddb16d15
+		summarizeBy: none
+		sourceColumn: delivery_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		isHidden
+		lineageTag: be371c0e-9bd7-5897-bdbc-aaebfd809613
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: 4b2afb0b-825a-59dd-bafe-9c3fb8844de6
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_key
+		dataType: int64
+		isHidden
+		lineageTag: e652c8c7-acfc-5caf-8268-d20d6dc35b52
+		summarizeBy: none
+		sourceColumn: currency_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		dataType: int64
+		isHidden
+		lineageTag: 18d397d9-e621-547d-8cf3-1bb5a9bf61b5
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_key
+		dataType: int64
+		isHidden
+		lineageTag: 71b5335b-5bad-5d1e-809d-e9b141689e92
+		summarizeBy: none
+		sourceColumn: warehouse_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column carrier_key
+		dataType: int64
+		isHidden
+		lineageTag: ce2e3b4e-a8a0-5bcf-8be3-79c38e7d0554
+		summarizeBy: none
+		sourceColumn: carrier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method_key
+		dataType: int64
+		isHidden
+		lineageTag: 5f9c0afe-5316-501e-846c-939cbe9fce73
+		summarizeBy: none
+		sourceColumn: payment_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: e5fb3b00-288d-53d6-9456-9484d21a69f3
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column device
+		dataType: string
+		lineageTag: 5d25381d-9211-5482-8f15-dd636a3e5259
+		summarizeBy: none
+		sourceColumn: device
+
+		annotation SummarizationSetBy = Automatic
+
+	column installments
+		dataType: int64
+		lineageTag: 01cf13a1-9bfd-5ecd-add1-8d792e74d20c
+		summarizeBy: none
+		sourceColumn: installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column installment_plan
+		dataType: string
+		lineageTag: efb382b4-a4f9-5e5d-81b6-408c9f2a1ddf
+		summarizeBy: none
+		sourceColumn: installment_plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column units
+		dataType: int64
+		lineageTag: 4529a843-6060-5367-9c41-086fb9b65fdb
+		summarizeBy: sum
+		sourceColumn: units
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_amount_local
+		dataType: double
+		lineageTag: cca2276d-ed45-5ccf-b526-e2b5aab01c68
+		summarizeBy: sum
+		sourceColumn: gross_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_amount_local
+		dataType: double
+		lineageTag: 4d6b2457-192d-5c52-8b05-75cb5a4bb2b0
+		summarizeBy: sum
+		sourceColumn: discount_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_amount_local
+		dataType: double
+		lineageTag: 661f02d2-d5e4-5591-943e-966f9fe56e5e
+		summarizeBy: sum
+		sourceColumn: net_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column tax_amount_local
+		dataType: double
+		lineageTag: f807d43d-9e99-5717-9eaf-e2a610963b54
+		summarizeBy: sum
+		sourceColumn: tax_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_fee_local
+		dataType: double
+		lineageTag: d474efd0-3600-5669-b751-db798c21061c
+		summarizeBy: sum
+		sourceColumn: shipping_fee_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_fee_local
+		dataType: double
+		lineageTag: 14acf329-bdbe-5c1d-b6d9-fc9c42ef27b4
+		summarizeBy: sum
+		sourceColumn: payment_fee_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_amount_usd
+		dataType: double
+		lineageTag: 5f69ef8a-aa18-5fe6-aca0-5dfb9184a2ff
+		summarizeBy: sum
+		sourceColumn: gross_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_amount_usd
+		dataType: double
+		lineageTag: b2800835-a863-54f8-8f81-c82064fd0536
+		summarizeBy: sum
+		sourceColumn: discount_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_amount_usd
+		dataType: double
+		lineageTag: d9585709-deea-50f5-9349-1ed95aa2f344
+		summarizeBy: sum
+		sourceColumn: net_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column tax_amount_usd
+		dataType: double
+		lineageTag: e85dd913-1e50-5a72-ba62-75fa51b2ab13
+		summarizeBy: sum
+		sourceColumn: tax_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_fee_usd
+		dataType: double
+		lineageTag: 8a8f0d4c-e85b-50ff-b728-b4ae05f709eb
+		summarizeBy: sum
+		sourceColumn: shipping_fee_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_fee_usd
+		dataType: double
+		lineageTag: 4a8ab214-9710-5dd3-8aaf-26886de72421
+		summarizeBy: sum
+		sourceColumn: payment_fee_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_cost_usd
+		dataType: double
+		lineageTag: 66ab194e-8cd2-5d70-8b51-8fda975c5377
+		summarizeBy: sum
+		sourceColumn: shipping_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_days
+		dataType: int64
+		lineageTag: a8237191-b319-56a1-b824-26eb90d6f503
+		summarizeBy: none
+		sourceColumn: ship_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: double
+		lineageTag: 6217dc4b-1b46-595e-8333-7471b54339fb
+		summarizeBy: none
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: boolean
+		lineageTag: daf0dcd4-4d64-592e-9c26-ea0c9102bf29
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_on_time
+		dataType: boolean
+		lineageTag: e02f19e0-e447-5f9d-8a8a-c445a5fe46c6
+		summarizeBy: none
+		sourceColumn: is_on_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_delivered
+		dataType: boolean
+		lineageTag: 24120864-72a9-5ccb-90cc-406320128958
+		summarizeBy: none
+		sourceColumn: is_delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_cancelled
+		dataType: boolean
+		lineageTag: 43ca0744-991f-590b-89e3-49b9abcc1841
+		summarizeBy: none
+		sourceColumn: is_cancelled
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_return
+		dataType: boolean
+		lineageTag: 17232164-f801-5e8f-8682-240385c9d1c7
+		summarizeBy: none
+		sourceColumn: has_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_perfect_order
+		dataType: boolean
+		lineageTag: bb9c6977-dcf7-5e0d-883a-cd6589fa80bb
+		summarizeBy: none
+		sourceColumn: is_perfect_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_orders = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_orders.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

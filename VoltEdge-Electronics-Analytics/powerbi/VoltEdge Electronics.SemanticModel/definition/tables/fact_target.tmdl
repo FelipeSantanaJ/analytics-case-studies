@@ -1,0 +1,48 @@
+table fact_target
+	lineageTag: 66772f06-de1a-5609-86fd-9f2fa509ef88
+
+	column month_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 52823105-d777-5c00-a6fe-b2c9bc7e9f3b
+		summarizeBy: none
+		sourceColumn: month_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: 47ad882c-091f-557d-808c-c3bb3dd31d51
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 3e796998-003d-5eb6-a203-4d093e75178b
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	column target_value
+		dataType: double
+		lineageTag: dfc146de-8a99-5039-bac1-633a8500e301
+		summarizeBy: sum
+		sourceColumn: target_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_target = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_target.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

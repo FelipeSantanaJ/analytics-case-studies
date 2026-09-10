@@ -1,0 +1,95 @@
+table dim_payment_method
+	lineageTag: 519be57e-368d-57e6-a8d4-ca16bfb21cda
+
+	column payment_method_key
+		dataType: int64
+		isHidden
+		lineageTag: 74bfc146-663b-5488-85b9-b034d0ba5556
+		summarizeBy: none
+		sourceColumn: payment_method_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column method_name
+		dataType: string
+		lineageTag: 0c52a67f-3109-54be-b5cc-6b44a7e370da
+		summarizeBy: none
+		sourceColumn: method_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column method_group
+		dataType: string
+		lineageTag: 2a758209-40ed-5164-8cbe-e91f602bf21e
+		summarizeBy: none
+		sourceColumn: method_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_scheme
+		dataType: string
+		lineageTag: e82842be-d5fa-505e-9233-78106ba21516
+		summarizeBy: none
+		sourceColumn: card_scheme
+
+		annotation SummarizationSetBy = Automatic
+
+	column mdr_pct
+		dataType: double
+		lineageTag: 2d937bef-c119-54e7-b42d-3f4f40d87c72
+		summarizeBy: none
+		sourceColumn: mdr_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column fixed_fee_local_nominal
+		dataType: double
+		lineageTag: 4b32a22d-85f4-5360-8688-92ac6e54be51
+		summarizeBy: sum
+		sourceColumn: fixed_fee_local_nominal
+
+		annotation SummarizationSetBy = Automatic
+
+	column settlement_days
+		dataType: int64
+		lineageTag: 571e0102-cd40-5c05-afb4-70110485539d
+		summarizeBy: none
+		sourceColumn: settlement_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column installment_eligible
+		dataType: boolean
+		lineageTag: fc5e16a7-2007-542a-84e5-8af02039982b
+		summarizeBy: none
+		sourceColumn: installment_eligible
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_installments
+		dataType: int64
+		lineageTag: 1946f5e6-3e45-51af-8c92-c2669673c2b5
+		summarizeBy: none
+		sourceColumn: max_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_markets
+		dataType: string
+		lineageTag: 764c7625-acdd-5752-8eeb-30df6881a475
+		summarizeBy: none
+		sourceColumn: available_markets
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_payment_method = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_payment_method.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

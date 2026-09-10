@@ -1,0 +1,117 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU05",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "VoltEdge.json",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU05",
+          "path": "BaseThemes/CY26SU05.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "pagebg-crm-customer_17882955052453802.png",
+          "path": "pagebg-crm-customer_17882955052453802.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-executive-summary_17882954702422294.png",
+          "path": "pagebg-executive-summary_17882954702422294.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-logistics-fulfillment_17882954979115190.png",
+          "path": "pagebg-logistics-fulfillment_17882954979115190.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-marketing-acquisition_17882954859997914.png",
+          "path": "pagebg-marketing-acquisition_17882954859997914.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-product-inventory_17882955118664654.png",
+          "path": "pagebg-product-inventory_17882955118664654.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-sales-performance_17882954801436880.png",
+          "path": "pagebg-sales-performance_17882954801436880.png",
+          "type": "Image"
+        },
+        {
+          "name": "pagebg-website-digital_17882954920253500.png",
+          "path": "pagebg-website-digital_17882954920253500.png",
+          "type": "Image"
+        },
+        {
+          "name": "VoltEdge.json",
+          "path": "VoltEdge.json",
+          "type": "CustomTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true
+  }
+}

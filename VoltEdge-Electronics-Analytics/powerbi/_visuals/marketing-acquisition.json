@@ -1,0 +1,279 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Marketing Spend",
+    "fields": {
+      "Values": [
+        "_Measures.Marketing Spend (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Blended CAC",
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1_d",
+    "x": 232,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "MER",
+    "fields": {
+      "Values": [
+        "_Measures.MER"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "New Customers",
+    "fields": {
+      "Values": [
+        "_Measures.New Customers"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3_d",
+    "x": 648,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.New Customers vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "% New via Paid",
+    "fields": {
+      "Values": [
+        "_Measures.% New Customers via Paid"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "ROAS",
+    "fields": {
+      "Values": [
+        "_Measures.ROAS"
+      ]
+    }
+  },
+  {
+    "visual_type": "funnel",
+    "name": "mkt_funnel",
+    "x": 24,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "On-site Funnel",
+    "fields": {
+      "Category": "Funnel Stage.Stage",
+      "Y": "_Measures.Funnel Value"
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "mkt_trend",
+    "x": 440,
+    "y": 314,
+    "width": 816,
+    "height": 318,
+    "title": "Marketing Spend (bars) and Blended CAC (line) by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Marketing Spend (USD)"
+      ],
+      "Y2": [
+        "_Measures.Blended CAC (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "mkt_acq",
+    "x": 24,
+    "y": 656,
+    "width": 296,
+    "height": 318,
+    "title": "New Customers by Acquisition Channel",
+    "fields": {
+      "Category": "dim_customer.acquisition_channel",
+      "Y": "_Measures.New Customers (acq month)"
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "mkt_channel",
+    "x": 336,
+    "y": 656,
+    "width": 296,
+    "height": 318,
+    "title": "Spend (bars) and ROAS (line) by Channel",
+    "fields": {
+      "Category": "dim_channel.channel_name",
+      "Y": [
+        "_Measures.Marketing Spend (USD)"
+      ],
+      "Y2": [
+        "_Measures.ROAS"
+      ]
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "mkt_campaign",
+    "x": 648,
+    "y": 656,
+    "width": 608,
+    "height": 318,
+    "title": "Campaign Media Performance (orders Are Not Campaign-attributed)",
+    "fields": {
+      "Values": [
+        "dim_campaign.campaign",
+        "_Measures.Marketing Spend (USD)",
+        "_Measures.Impressions",
+        "_Measures.Clicks",
+        "_Measures.CTR %",
+        "_Measures.CPC (USD)"
+      ]
+    }
+  }
+]

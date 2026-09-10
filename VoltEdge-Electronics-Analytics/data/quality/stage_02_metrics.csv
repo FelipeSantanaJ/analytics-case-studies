@@ -1,0 +1,27 @@
+check,detail,count,severity
+fx,rows after fill to full calendar,4384,info
+products,category spellings normalized to canonical,81,info
+products,category values left unmapped,0,info
+products,duplicate SKU rows dropped,0,info
+customers,regional file decoded as latin-1,12904,info
+customers,exact duplicate rows dropped,1441,info
+customers,rows sharing customer_id dropped,236,info
+customers,rows with no e-mail,2196,warn
+orders,unparseable order timestamps,0,info
+orders,orders with blank customer_id,484,warn
+orders,orders whose customer_id is not in CRM,0,warn
+orders,orders outside the extract window,0,info
+order_lines,exact duplicate lines dropped,1378,info
+order_lines,non-positive-qty lines moved to rejects,519,warn
+order_lines,lines with no matching order,0,info
+order_lines,distinct SKUs missing from ERP master (late-arriving dim),6,warn
+psp,transactions not matching any order,1678,warn
+psp,orders with no PSP transaction,702,warn
+purchase_orders,PO lines received late,1131,info
+inventory,snapshot rows disagreeing with the movement ledger,7216,warn
+returns,return rows with no matching order line,48,warn
+web,rows with negative sessions (abs-corrected),109,warn
+web,market-days with no web analytics rows at all,69,warn
+marketing,unified spend rows (google+meta+other),10935,info
+support,tickets with negative resolution time,0,info
+carrier,distinct raw status strings collapsed to canonical vocab,12,info

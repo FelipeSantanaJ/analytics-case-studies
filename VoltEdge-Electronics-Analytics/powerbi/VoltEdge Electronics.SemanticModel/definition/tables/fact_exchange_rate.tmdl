@@ -1,0 +1,56 @@
+table fact_exchange_rate
+	lineageTag: 957c8de6-2ac9-5f7f-ad62-135773b38de5
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: eac61369-e8be-5e65-aead-f14a8786f741
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_key
+		dataType: int64
+		isHidden
+		lineageTag: 6210fe0a-66b5-589a-a1cc-30153d5bca0e
+		summarizeBy: none
+		sourceColumn: currency_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: 340d38d1-0ef2-5e16-92ec-7d5cd61f2a5c
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column rate_to_usd
+		dataType: double
+		lineageTag: ba7720b8-af43-571e-bc74-0de3bdf972f5
+		summarizeBy: none
+		sourceColumn: rate_to_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column rate_from_usd
+		dataType: double
+		lineageTag: 543db744-60d8-5f4c-9f1a-eda9ac9f6abf
+		summarizeBy: none
+		sourceColumn: rate_from_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_exchange_rate = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_exchange_rate.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

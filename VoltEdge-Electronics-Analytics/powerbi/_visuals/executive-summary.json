@@ -1,0 +1,354 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Net Revenue",
+    "fields": {
+      "Values": [
+        "_Measures.Net Revenue (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0_d",
+    "x": 24,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Net Revenue vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Gross Margin %",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Margin %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1_d",
+    "x": 232,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Margin % vs Target (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Orders",
+    "fields": {
+      "Values": [
+        "_Measures.Orders"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2_d",
+    "x": 440,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Orders vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Contribution Margin",
+    "fields": {
+      "Values": [
+        "_Measures.Contribution Margin (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "New Customers",
+    "fields": {
+      "Values": [
+        "_Measures.New Customers"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4_d",
+    "x": 856,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.New Customers vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Blended CAC",
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5_d",
+    "x": 1064,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Blended CAC vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "exec_insight",
+    "x": 24,
+    "y": 314,
+    "width": 1232,
+    "height": 122,
+    "title": "Key Insights",
+    "fields": {
+      "Values": "_Measures.Exec Insight"
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "exec_trend",
+    "x": 24,
+    "y": 452,
+    "width": 816,
+    "height": 244,
+    "title": "Net Revenue by Month - Current vs Prior Year",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Net Revenue (USD)",
+        "_Measures.Net Revenue PY (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "exec_budget",
+    "x": 856,
+    "y": 452,
+    "width": 400,
+    "height": 244,
+    "title": "Budget Scorecard - Actual vs Plan",
+    "fields": {
+      "Values": [
+        "dim_metric.metric",
+        "_Measures.Budget Actual (fmt)",
+        "_Measures.Budget Attainment %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "exec_cmtrend",
+    "x": 24,
+    "y": 704,
+    "width": 1232,
+    "height": 244,
+    "title": "Contribution Margin % - Monthly (bars) and Trailing-12-month Trend (line)",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Contribution Margin %"
+      ],
+      "Y2": [
+        "_Measures.Contribution Margin % (Trailing 12M)"
+      ]
+    }
+  },
+  {
+    "visual_type": "waterfallChart",
+    "name": "exec_rev_cat",
+    "x": 24,
+    "y": 956,
+    "width": 296,
+    "height": 244,
+    "title": "Net Revenue by Product Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Net Revenue (USD)"
+    }
+  },
+  {
+    "visual_type": "waterfallChart",
+    "name": "exec_rev_area",
+    "x": 336,
+    "y": 956,
+    "width": 296,
+    "height": 244,
+    "title": "Net Revenue by Region",
+    "fields": {
+      "Category": "dim_market.market_name",
+      "Y": "_Measures.Net Revenue (USD)"
+    }
+  },
+  {
+    "visual_type": "waterfallChart",
+    "name": "exec_cm_cat",
+    "x": 648,
+    "y": 956,
+    "width": 296,
+    "height": 244,
+    "title": "Contribution Margin by Product Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Contribution Margin (Alloc) (USD)"
+    }
+  },
+  {
+    "visual_type": "waterfallChart",
+    "name": "exec_cm_area",
+    "x": 960,
+    "y": 956,
+    "width": 296,
+    "height": 244,
+    "title": "Contribution Margin by Region",
+    "fields": {
+      "Category": "dim_market.market_name",
+      "Y": "_Measures.Contribution Margin (Alloc) (USD)"
+    }
+  }
+]

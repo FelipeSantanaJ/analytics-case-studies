@@ -1,0 +1,154 @@
+table fact_payment_schedule
+	lineageTag: 873bbc4c-afb9-5c50-a1b5-7b08e743db4c
+
+	column order_id
+		dataType: string
+		lineageTag: 1526fae7-7e5c-57f3-9549-ec3351026f5e
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_installments
+		dataType: int64
+		lineageTag: 77d4bd83-eb1d-5a29-867f-d56b6eaa7cc6
+		summarizeBy: none
+		sourceColumn: n_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column installment_number
+		dataType: int64
+		lineageTag: ec3bf3aa-7d5a-574a-8a88-237183c0cd0a
+		summarizeBy: none
+		sourceColumn: installment_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column installment_plan
+		dataType: string
+		lineageTag: e7c2ba9a-c2e1-53c1-8b01-5703fd0a2aa5
+		summarizeBy: none
+		sourceColumn: installment_plan
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_amount_local
+		dataType: double
+		lineageTag: 4f357271-ae59-5f28-a28c-01a9755235c2
+		summarizeBy: sum
+		sourceColumn: gross_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column fee_amount_local
+		dataType: double
+		lineageTag: 2056f08f-047c-5018-9d23-e4ecd4a20a37
+		summarizeBy: sum
+		sourceColumn: fee_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column financing_cost_local
+		dataType: double
+		lineageTag: a4c054ab-36f4-5e45-8c89-40031e842630
+		summarizeBy: sum
+		sourceColumn: financing_cost_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_amount_local
+		dataType: double
+		lineageTag: 576a2b75-cd80-59fc-8da9-857b37e0bdfa
+		summarizeBy: sum
+		sourceColumn: net_amount_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: b1833849-0949-5659-bdea-7163fdd2084e
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_key
+		dataType: int64
+		isHidden
+		lineageTag: adec1910-a462-5036-ad47-aff04fdd8b47
+		summarizeBy: none
+		sourceColumn: currency_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		isHidden
+		lineageTag: c5fce8ba-2107-596d-8e51-bcb1a5923899
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column due_date_key
+		dataType: int64
+		isHidden
+		lineageTag: a8dae692-6a0b-529c-82e7-5399febe4225
+		summarizeBy: none
+		sourceColumn: due_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column settlement_lag_days
+		dataType: int64
+		lineageTag: 81fedf3c-8ce2-5b73-8722-511cdfda808f
+		summarizeBy: none
+		sourceColumn: settlement_lag_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_amount_usd
+		dataType: double
+		lineageTag: d07a9e6d-d970-594b-9585-856155f203b3
+		summarizeBy: sum
+		sourceColumn: gross_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column fee_amount_usd
+		dataType: double
+		lineageTag: 95949047-1731-5b43-8ac1-a97e9d5a0e9b
+		summarizeBy: sum
+		sourceColumn: fee_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column financing_cost_usd
+		dataType: double
+		lineageTag: 300eb94c-5f5b-5e35-9d0c-feed8add37b5
+		summarizeBy: sum
+		sourceColumn: financing_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_amount_usd
+		dataType: double
+		lineageTag: 603903cd-922e-5378-9b66-ed16eedb4ef5
+		summarizeBy: sum
+		sourceColumn: net_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_payment_schedule = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_payment_schedule.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

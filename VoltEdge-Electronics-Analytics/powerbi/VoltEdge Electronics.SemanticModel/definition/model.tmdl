@@ -1,0 +1,63 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup dimensions
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup facts
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup parameters
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dim_campaign","dim_carrier","dim_channel","dim_currency","dim_customer","dim_date","dim_device","dim_market","dim_metric","dim_order_status","dim_payment_method","dim_product","dim_return_reason","dim_supplier","dim_ticket_category","dim_warehouse","fact_exchange_rate","fact_inventory_movement","fact_inventory_snapshot","fact_marketing_spend","fact_order_lines","fact_orders","fact_payment_schedule","fact_purchase_orders","fact_returns","fact_support_tickets","fact_target","fact_web_traffic_daily","_Measures","Reporting Currency","Funnel Stage","PL Line","Revenue Bridge","pDataFolder"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_campaign
+ref table dim_carrier
+ref table dim_channel
+ref table dim_currency
+ref table dim_customer
+ref table dim_date
+ref table dim_device
+ref table dim_market
+ref table dim_metric
+ref table dim_order_status
+ref table dim_payment_method
+ref table dim_product
+ref table dim_return_reason
+ref table dim_supplier
+ref table dim_ticket_category
+ref table dim_warehouse
+ref table fact_exchange_rate
+ref table fact_inventory_movement
+ref table fact_inventory_snapshot
+ref table fact_marketing_spend
+ref table fact_order_lines
+ref table fact_orders
+ref table fact_payment_schedule
+ref table fact_purchase_orders
+ref table fact_returns
+ref table fact_support_tickets
+ref table fact_target
+ref table fact_web_traffic_daily
+ref table _Measures
+ref table 'Reporting Currency'
+ref table 'Funnel Stage'
+ref table 'PL Line'
+ref table 'Revenue Bridge'
+
+ref cultureInfo en-US
+

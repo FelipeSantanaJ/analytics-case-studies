@@ -1,0 +1,41 @@
+table 'Revenue Bridge'
+	lineageTag: 1b65ddfc-f4bc-5942-98df-2a5279f80426
+
+	column Line
+		dataType: string
+		lineageTag: da266a48-a454-51c4-b9ea-e75f4f1c3def
+		summarizeBy: none
+		sourceColumn: Line
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: 33e095c5-b014-5bd7-9f01-d2388d271dfe
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Revenue Bridge' = m
+		mode: import
+		queryGroup: parameters
+		source =
+				let
+				    Source = #table(type table [Line = Text.Type, Sort = Int64.Type], {
+						{"Plan", 1},
+						{"Smartphones", 2},
+						{"Laptops & Tablets", 3},
+						{"Audio", 4},
+						{"Gaming", 5},
+						{"Smart Home", 6},
+						{"Wearables", 7},
+						{"Accessories", 8}
+				    })
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

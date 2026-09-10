@@ -1,0 +1,228 @@
+table dim_date
+	lineageTag: 534e2daf-e52b-58fb-ba46-05b5ed9eeef5
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: bf8b91aa-d2c5-5060-954d-af1849d6691e
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 9c1e4206-72c1-587d-9357-9e485f3d7cbc
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 424debdd-508f-5bd6-94cc-0693cb50704e
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: 5d6ab176-3245-538e-b452-23b3d48b7d8a
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_name
+		dataType: string
+		lineageTag: 5dcbc098-ef60-504f-9b8f-62d50b0a937a
+		summarizeBy: none
+		sourceColumn: quarter_name
+		sortByColumn: quarter_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		lineageTag: 067ab210-c0bd-5b69-afae-d28afe851e1a
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 405d944b-b016-5ede-8305-07783d50836e
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_year
+		dataType: string
+		lineageTag: 5dce37c8-f258-5716-b653-bf63db768d1f
+		summarizeBy: none
+		sourceColumn: month_year
+		sortByColumn: month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 197ada5d-c40d-57da-9218-e7568edd6f05
+		summarizeBy: none
+		sourceColumn: month_start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_month
+		dataType: int64
+		lineageTag: 70a06643-0abd-5819-8177-7c4d2ba6a839
+		summarizeBy: none
+		sourceColumn: day_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		lineageTag: 3b39acd9-a328-5e67-90e1-1315f46e5eb7
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: 99b82524-0372-5ff9-ba26-c63c6b86cbaa
+		summarizeBy: none
+		sourceColumn: day_name
+		sortByColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		lineageTag: 56846afc-472f-5126-aed8-07a39de0b479
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_week
+		dataType: int64
+		lineageTag: fa28f59c-5f8c-5e45-8905-bde8c8137efc
+		summarizeBy: none
+		sourceColumn: iso_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_year
+		dataType: int64
+		lineageTag: e03ed7e6-fd53-58c4-a395-4374162536ef
+		summarizeBy: none
+		sourceColumn: day_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		lineageTag: 99b09582-c6b5-5a71-acd8-6b99e9efaa9c
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_quarter
+		dataType: int64
+		lineageTag: 1b3cbb63-a087-5a5d-b6e6-33844a7e6781
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period
+		dataType: int64
+		lineageTag: 051289f5-a41e-5b19-9743-b6093855804d
+		summarizeBy: none
+		sourceColumn: fiscal_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_promo_period
+		dataType: boolean
+		lineageTag: 3f2a36a8-55cd-55cc-b474-b7bf49fa1d2c
+		summarizeBy: none
+		sourceColumn: is_promo_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column promo_name
+		dataType: string
+		lineageTag: d2ff9a37-cebe-5593-993f-120561323892
+		summarizeBy: none
+		sourceColumn: promo_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_black_friday_week
+		dataType: boolean
+		lineageTag: df4ba4e7-6064-59c1-91e9-5836d6ca8151
+		summarizeBy: none
+		sourceColumn: is_black_friday_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_extract_window
+		dataType: boolean
+		lineageTag: f240de0a-59af-5d4e-966b-c4379f71a56e
+		summarizeBy: none
+		sourceColumn: in_extract_window
+
+		annotation SummarizationSetBy = Automatic
+
+	column yoy_period
+		dataType: string
+		lineageTag: 83d96375-712e-5558-9d57-ea321247069a
+		summarizeBy: none
+		sourceColumn: yoy_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_label = IF ( dim_date[in_extract_window], "Analysis window", "Buffer" )
+		dataType: string
+		lineageTag: 738e0331-3f4f-5515-9534-5c669b60ecf4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_sort = dim_date[year] * 100 + dim_date[month]
+		dataType: int64
+		isHidden
+		lineageTag: 49b6162a-99f5-5bfb-8cdb-01cef80b275f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_sort = dim_date[year] * 10 + dim_date[quarter]
+		dataType: int64
+		isHidden
+		lineageTag: 2d6a71eb-6fa7-5a0a-891b-9c67d4441cb3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_date.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

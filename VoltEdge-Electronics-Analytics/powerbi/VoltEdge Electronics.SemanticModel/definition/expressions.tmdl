@@ -1,0 +1,8 @@
+expression pDataFolder = "C:\\PATH\\TO\\REPO\\VoltEdge-Electronics-Analytics\\data\\curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 38e0abeb-0fc1-5307-9f49-7640427d2713
+	queryGroup: parameters
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

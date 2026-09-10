@@ -1,0 +1,55 @@
+table dim_warehouse
+	lineageTag: 89fae875-26cf-5d99-bcc7-329f6f33c4d3
+
+	column warehouse_key
+		dataType: int64
+		isHidden
+		lineageTag: 6100b07d-5dd2-5b7a-befc-72d3c8f35c89
+		summarizeBy: none
+		sourceColumn: warehouse_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_id
+		dataType: string
+		lineageTag: 0c0de53b-ed8c-5916-b9b6-31346177f993
+		summarizeBy: none
+		sourceColumn: warehouse_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_name
+		dataType: string
+		lineageTag: d14c7135-7d57-555d-98e9-914747856627
+		summarizeBy: none
+		sourceColumn: warehouse_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 8ba06936-dbdc-5a0a-a3f2-5fd040abc8b6
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: d3bd73df-3720-510b-904c-6b286f100bac
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_warehouse = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_warehouse.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

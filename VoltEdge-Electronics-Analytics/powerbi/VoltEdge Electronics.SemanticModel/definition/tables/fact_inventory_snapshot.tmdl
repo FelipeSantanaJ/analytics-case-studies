@@ -1,0 +1,130 @@
+table fact_inventory_snapshot
+	lineageTag: 17b4fc11-ec24-53a6-94e7-9e7f2cd726b8
+
+	column snapshot_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 4b1f1c53-09cb-5149-ba5e-7fc0bdf5abe5
+		summarizeBy: none
+		sourceColumn: snapshot_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_year
+		dataType: string
+		lineageTag: 706a9abe-2e02-51bc-86b4-08e0aa8e211f
+		summarizeBy: none
+		sourceColumn: month_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_id
+		dataType: string
+		lineageTag: 0fddff40-13c8-5636-b80e-9e659f63c308
+		summarizeBy: none
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: int64
+		isHidden
+		lineageTag: 5a3bea0c-be11-5bcc-9582-b1bb3e20ed16
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_key
+		dataType: int64
+		isHidden
+		lineageTag: 1e2623a9-ccd4-5058-8864-d601d302ea58
+		summarizeBy: none
+		sourceColumn: warehouse_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: b28f9aaf-8483-5859-a096-ca9a980f63b3
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_on_hand
+		dataType: int64
+		lineageTag: a587e46d-e954-5e69-9014-b677c5ec08fa
+		summarizeBy: none
+		sourceColumn: units_on_hand
+
+		annotation SummarizationSetBy = Automatic
+
+	column moving_avg_cost_usd
+		dataType: double
+		lineageTag: f02b6805-67c0-5c7d-b3de-5a6789c6838b
+		summarizeBy: sum
+		sourceColumn: moving_avg_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column inventory_value_usd
+		dataType: double
+		lineageTag: 6b185c22-429a-5bd1-b962-1018e0c986f6
+		summarizeBy: sum
+		sourceColumn: inventory_value_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_in_transit
+		dataType: int64
+		lineageTag: 40cab848-fad1-5d4d-a4c3-da9264dd47c9
+		summarizeBy: none
+		sourceColumn: units_in_transit
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_weekly_units_sold
+		dataType: double
+		lineageTag: c534a0f8-ec13-54a3-873a-5d6b793e4a94
+		summarizeBy: none
+		sourceColumn: avg_weekly_units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column weeks_of_cover
+		dataType: double
+		lineageTag: 48d5d2bb-4134-58c1-8212-85d6907cb3e6
+		summarizeBy: none
+		sourceColumn: weeks_of_cover
+
+		annotation SummarizationSetBy = Automatic
+
+	column raw_snapshot_units
+		dataType: int64
+		lineageTag: 471136d1-4031-5a71-b8cc-64731baccae4
+		summarizeBy: sum
+		sourceColumn: raw_snapshot_units
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshot_variance_units
+		dataType: int64
+		lineageTag: e4bb5919-31ad-59c8-a2e0-2cc4c957d811
+		summarizeBy: sum
+		sourceColumn: snapshot_variance_units
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_inventory_snapshot = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_inventory_snapshot.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,106 @@
+table fact_support_tickets
+	lineageTag: 096c5b61-c6fe-515d-90e8-ffff9a9d7869
+
+	column ticket_id
+		dataType: string
+		lineageTag: e9ebe643-1e34-5ca8-9f6e-19696010d256
+		summarizeBy: none
+		sourceColumn: ticket_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: 00fd8fc9-7a35-5ae0-9cc6-9b156e9b5ac7
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column created_date_key
+		dataType: int64
+		isHidden
+		lineageTag: ac7424b6-5347-593d-8d97-3517e07227c0
+		summarizeBy: none
+		sourceColumn: created_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolved_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 81c136f1-35ab-508a-a201-50ee7196722b
+		summarizeBy: none
+		sourceColumn: resolved_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: c0ee3466-8fdb-5a88-9dfa-76e1b2a8e763
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		isHidden
+		lineageTag: 9abf5417-07c2-5476-8029-ba13df74d7d9
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 2f22739c-e075-522a-b3f8-026e52ccc65f
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: string
+		lineageTag: 9405719f-68b4-5bb0-9ec9-6535d6625f56
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolution_hours
+		dataType: double
+		lineageTag: f3673639-9212-5eb6-abbd-58cbdd94699b
+		summarizeBy: none
+		sourceColumn: resolution_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_contact_resolution
+		dataType: boolean
+		lineageTag: ea1a6636-685a-5083-951e-a75a93322624
+		summarizeBy: none
+		sourceColumn: first_contact_resolution
+
+		annotation SummarizationSetBy = Automatic
+
+	column csat
+		dataType: int64
+		lineageTag: d675681b-daed-5160-9216-d0182f9464e7
+		summarizeBy: none
+		sourceColumn: csat
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_support_tickets = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_support_tickets.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

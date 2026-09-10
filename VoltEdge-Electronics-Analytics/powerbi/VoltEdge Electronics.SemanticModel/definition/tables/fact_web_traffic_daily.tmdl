@@ -1,0 +1,113 @@
+table fact_web_traffic_daily
+	lineageTag: 4031c40a-a36e-52b7-b5fd-633e45af13a4
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: a68fff7d-1f86-52a5-8fe2-d77d9f6b0566
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: b2923168-be65-54eb-bbcd-29c5f05d3921
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		dataType: int64
+		isHidden
+		lineageTag: 06f7afee-2759-520a-8bb5-a4aa9605362e
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column device
+		dataType: string
+		lineageTag: 18d7b799-c1b5-583d-aa0d-1d1185e75702
+		summarizeBy: none
+		sourceColumn: device
+
+		annotation SummarizationSetBy = Automatic
+
+	column sessions
+		dataType: int64
+		lineageTag: 88bf2886-ae26-59d4-ab81-84f3985e1002
+		summarizeBy: sum
+		sourceColumn: sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column users
+		dataType: int64
+		lineageTag: da6bb7f4-9b33-5142-af05-0063bd26919a
+		summarizeBy: sum
+		sourceColumn: users
+
+		annotation SummarizationSetBy = Automatic
+
+	column pageviews
+		dataType: int64
+		lineageTag: 58b5f9d6-e81c-5ba9-9224-76b4df918a2c
+		summarizeBy: sum
+		sourceColumn: pageviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column bounces
+		dataType: int64
+		lineageTag: 9e7abcf4-25db-570d-a5e9-4aaf632c9107
+		summarizeBy: sum
+		sourceColumn: bounces
+
+		annotation SummarizationSetBy = Automatic
+
+	column add_to_carts
+		dataType: int64
+		lineageTag: 939dc6f3-d117-5cfc-9311-ffcfca6f852d
+		summarizeBy: sum
+		sourceColumn: add_to_carts
+
+		annotation SummarizationSetBy = Automatic
+
+	column carts_created
+		dataType: int64
+		lineageTag: 13034b2a-a975-5f0b-b95d-6d581c4e8398
+		summarizeBy: sum
+		sourceColumn: carts_created
+
+		annotation SummarizationSetBy = Automatic
+
+	column transactions
+		dataType: int64
+		lineageTag: 666f9996-9753-5de6-9627-a0f747da0ec3
+		summarizeBy: sum
+		sourceColumn: transactions
+
+		annotation SummarizationSetBy = Automatic
+
+	column had_data_anomaly
+		dataType: boolean
+		lineageTag: c08d90db-6018-5704-bbb8-deaaad05e1f9
+		summarizeBy: none
+		sourceColumn: had_data_anomaly
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_web_traffic_daily = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_web_traffic_daily.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

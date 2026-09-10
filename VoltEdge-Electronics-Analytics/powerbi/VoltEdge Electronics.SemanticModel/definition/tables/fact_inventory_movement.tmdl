@@ -1,0 +1,90 @@
+table fact_inventory_movement
+	lineageTag: 9131cd3a-c9b0-5187-9312-aeef48a1e9be
+
+	column movement_id
+		dataType: string
+		lineageTag: d3ebc4bf-852a-522d-87bf-b34f342b9d59
+		summarizeBy: none
+		sourceColumn: movement_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column movement_date_key
+		dataType: int64
+		isHidden
+		lineageTag: c0083374-88ec-5723-a23f-9655d068aad7
+		summarizeBy: none
+		sourceColumn: movement_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: int64
+		isHidden
+		lineageTag: 4e9fce41-8dd7-5fd2-bb72-c720a2a1065b
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_key
+		dataType: int64
+		isHidden
+		lineageTag: d4bd2a48-0873-581b-b5d8-b946bf625b96
+		summarizeBy: none
+		sourceColumn: warehouse_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: 8d9231c6-e1e7-58e0-a9b8-8106c36f52b7
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column movement_type
+		dataType: string
+		lineageTag: 5440ba04-6b6a-5e3b-9021-d3dd0c25afba
+		summarizeBy: none
+		sourceColumn: movement_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		lineageTag: 5a2eb330-2851-5b3d-866d-b73099e555b0
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost_usd
+		dataType: double
+		lineageTag: 0e00b6f3-3c19-56df-84ef-903e15d461a1
+		summarizeBy: sum
+		sourceColumn: unit_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_usd
+		dataType: double
+		lineageTag: 3a630287-36f4-5ba9-af65-3f99df91f383
+		summarizeBy: sum
+		sourceColumn: value_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_inventory_movement = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_inventory_movement.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

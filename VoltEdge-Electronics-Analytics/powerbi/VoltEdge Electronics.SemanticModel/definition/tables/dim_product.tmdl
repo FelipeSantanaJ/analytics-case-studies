@@ -1,0 +1,154 @@
+table dim_product
+	lineageTag: e4780574-5f52-5ab5-8749-93aebba04a36
+
+	column product_key
+		dataType: int64
+		isHidden
+		lineageTag: 2e09e69a-9350-53d5-986a-f91b74e6e83e
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku_id
+		dataType: string
+		lineageTag: 4d9378b6-1048-5534-b2ca-b419133e87bf
+		summarizeBy: none
+		sourceColumn: sku_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 5d558125-af2c-5db2-8b39-d7b3bfeb5e2f
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 3bf534b5-ac85-5c6c-80ec-3c885e8b685d
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcategory
+		dataType: string
+		lineageTag: 71012a72-a669-5362-a2da-b5a36c1facf5
+		summarizeBy: none
+		sourceColumn: subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: 5b843c37-e59f-5b65-9962-bde669942edb
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column list_price_usd
+		dataType: double
+		lineageTag: 44f7c171-a2c7-560a-a56a-dd0aadc8824a
+		summarizeBy: sum
+		sourceColumn: list_price_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost_usd
+		dataType: double
+		lineageTag: fa8f4c7e-2973-5d05-8a14-f656dfc59104
+		summarizeBy: sum
+		sourceColumn: unit_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column launch_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 4d56c487-e692-517e-ade6-f7158dd88929
+		summarizeBy: none
+		sourceColumn: launch_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column discontinue_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 7251f731-f1d0-5397-84e4-38b02c2c099c
+		summarizeBy: none
+		sourceColumn: discontinue_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_warranty_eligible
+		dataType: boolean
+		lineageTag: ef564b94-4d09-56b2-9cc9-6070d1fac7ca
+		summarizeBy: none
+		sourceColumn: is_warranty_eligible
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_kg
+		dataType: double
+		lineageTag: 6711c8ea-9a40-5d11-9b0f-f91839626e74
+		summarizeBy: none
+		sourceColumn: weight_kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column warranty_months
+		dataType: double
+		lineageTag: 05227dc5-41b1-51a4-ac17-c1f060a14177
+		summarizeBy: none
+		sourceColumn: warranty_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: 211b5dde-711b-5e94-adf3-efa3e6bce680
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active_at_window_end
+		dataType: boolean
+		lineageTag: cb69f63e-ad6b-53bd-9c8f-b36678e3fc0b
+		summarizeBy: none
+		sourceColumn: is_active_at_window_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_tier
+		dataType: string
+		lineageTag: 8c1a3da5-f2de-571e-b394-6ee8ee97364f
+		summarizeBy: none
+		sourceColumn: price_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_key
+		dataType: int64
+		isHidden
+		lineageTag: a23048cc-8c03-519b-ba86-e42c3f98bd8a
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_product.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

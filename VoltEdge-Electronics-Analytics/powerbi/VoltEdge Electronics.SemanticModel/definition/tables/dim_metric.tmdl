@@ -1,0 +1,31 @@
+table dim_metric
+	lineageTag: f49712cf-834e-52e1-a608-c6cfa07c7811
+
+	column metric_key
+		dataType: int64
+		isHidden
+		lineageTag: 2fda047b-db53-56fe-a81e-b1fb73886348
+		summarizeBy: none
+		sourceColumn: metric_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric
+		dataType: string
+		lineageTag: 179ef221-f1cd-5e29-bfb5-e33a32055bb1
+		summarizeBy: none
+		sourceColumn: metric
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_metric = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_metric.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

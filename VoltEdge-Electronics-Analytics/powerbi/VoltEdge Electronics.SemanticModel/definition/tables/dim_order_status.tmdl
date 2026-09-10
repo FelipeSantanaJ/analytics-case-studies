@@ -1,0 +1,31 @@
+table dim_order_status
+	lineageTag: 07129608-2f7a-50af-af09-49919855481d
+
+	column order_status_key
+		dataType: int64
+		isHidden
+		lineageTag: 8eb09ea9-6777-590c-a2e6-7b6e32f8e386
+		summarizeBy: none
+		sourceColumn: order_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 18ee74ad-fb21-5b9b-a244-4e0ebf150d6d
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_order_status = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_order_status.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

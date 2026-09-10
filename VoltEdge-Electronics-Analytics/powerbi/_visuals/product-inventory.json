@@ -1,0 +1,245 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Inventory Value",
+    "fields": {
+      "Values": [
+        "_Measures.Inventory Value (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Inventory Turnover",
+    "fields": {
+      "Values": [
+        "_Measures.Inventory Turnover"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Weeks of Cover",
+    "fields": {
+      "Values": [
+        "_Measures.Weeks of Cover"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Return Rate %",
+    "fields": {
+      "Values": [
+        "_Measures.Return Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "In Transit",
+    "fields": {
+      "Values": [
+        "_Measures.Inventory in Transit (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Supplier Spend",
+    "fields": {
+      "Values": [
+        "_Measures.Supplier Spend (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "barChart",
+    "name": "prd_margin",
+    "x": 24,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "Gross Margin % by Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Gross Margin %"
+    }
+  },
+  {
+    "visual_type": "barChart",
+    "name": "prd_return",
+    "x": 440,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "Return Rate % by Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Return Rate %"
+    }
+  },
+  {
+    "visual_type": "scatterChart",
+    "name": "prd_scatter",
+    "x": 856,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "SKUs - Revenue vs Margin",
+    "fields": {
+      "Category": "dim_product.product_name",
+      "X": "_Measures.Net Revenue (USD)",
+      "Y": "_Measures.Gross Margin %"
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "prd_inv",
+    "x": 24,
+    "y": 656,
+    "width": 816,
+    "height": 318,
+    "title": "Inventory Value (bars) and Weeks of Cover (line) by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Inventory Value (Month-End) (USD)"
+      ],
+      "Y2": [
+        "_Measures.Weeks of Cover (Month-End)"
+      ]
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "prd_slow",
+    "x": 856,
+    "y": 656,
+    "width": 400,
+    "height": 318,
+    "title": "Slow Movers - High Cover, Low Sales",
+    "fields": {
+      "Values": [
+        "dim_product.product_name",
+        "_Measures.Weeks of Cover",
+        "_Measures.Units Sold",
+        "_Measures.Inventory Value (USD)"
+      ]
+    }
+  }
+]

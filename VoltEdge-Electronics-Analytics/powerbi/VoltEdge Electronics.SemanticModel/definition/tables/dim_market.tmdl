@@ -1,0 +1,72 @@
+table dim_market
+	lineageTag: b9d7f220-68b9-5e46-ad45-119bc51436dd
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: f2b95387-9150-5e26-83a6-0d9b9dbf453a
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 2c30e224-e591-5cde-b2fc-928f5e0d4672
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_name
+		dataType: string
+		lineageTag: 822f79aa-48c7-5c9e-b956-55444b56da78
+		summarizeBy: none
+		sourceColumn: market_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 51b957d9-6ef2-5cbd-82d2-64702a452079
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: 7594d471-ed72-56a8-be73-0c7158aa13ae
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column live_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: fd8cfec1-e7e9-5e66-b90e-f0dfe8df8ac2
+		summarizeBy: none
+		sourceColumn: live_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_comparable_base
+		dataType: boolean
+		lineageTag: dfc492a3-749c-5185-90fa-454cdf4b078e
+		summarizeBy: none
+		sourceColumn: is_comparable_base
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_market = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_market.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

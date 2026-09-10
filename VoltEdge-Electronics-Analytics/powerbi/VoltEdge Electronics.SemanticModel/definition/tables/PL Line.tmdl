@@ -1,0 +1,38 @@
+table 'PL Line'
+	lineageTag: a18557c0-2c87-5e6d-a319-39ab09fbf08f
+
+	column Line
+		dataType: string
+		lineageTag: 953c1d54-7fad-5eac-999d-58a0f8fe0726
+		summarizeBy: none
+		sourceColumn: Line
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: 02d4c2ea-99a9-572a-94fc-b6dc550dddf5
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'PL Line' = m
+		mode: import
+		queryGroup: parameters
+		source =
+				let
+				    Source = #table(type table [Line = Text.Type, Sort = Int64.Type], {
+						{"Gross Profit", 1},
+						{"Marketing", 2},
+						{"Shipping", 3},
+						{"Payment Fees", 4},
+						{"Financing", 5}
+				    })
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

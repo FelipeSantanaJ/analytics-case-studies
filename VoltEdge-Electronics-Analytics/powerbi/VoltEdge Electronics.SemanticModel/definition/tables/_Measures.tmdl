@@ -1,0 +1,1156 @@
+table _Measures
+	lineageTag: b5f9bd04-8ad8-5358-b315-a17d6f795bb2
+
+	measure 'Exec Insight' =
+			VAR _nr    = [Net Revenue (USD)]
+			VAR _yoy   = [Net Revenue YoY %]
+			VAR _yoyC  = [Net Revenue YoY % (Comparable Base)]
+			VAR _tgt   = [Net Revenue vs Target %]
+			VAR _gm    = [Gross Margin %]
+			VAR _gmYoY = [Gross Margin %] - [Gross Margin % PY]
+			VAR _cm    = [Contribution Margin %]
+			VAR _cmT   = [Contribution Margin % (Trailing 12M)]
+			VAR _cac   = [Blended CAC (USD)]
+			VAR _ncT   = [New Customers vs Target %]
+			VAR _rep   = [Repeat Purchase Rate %]
+			VAR _ot    = [On-Time Delivery %]
+			VAR _dd    = [Avg Delivery Days]
+			
+			VAR _growth =
+			    "Net revenue of " & [Currency Symbol] & FORMAT ( _nr / 1000000, "#,0.0" ) & "M is "
+			    & IF ( _yoy >= 0, "up ", "down " ) & FORMAT ( ABS ( _yoy ), "0%" ) & " year on year"
+			    & IF ( ISBLANK ( _yoyC ), ". ",
+			        " (" & FORMAT ( _yoyC, "+0%;-0%" ) & " like-for-like, so the newer markets are adding to the core rather than masking it). " )
+			
+			VAR _plan =
+			    IF ( ISBLANK ( _tgt ), "",
+			        "The period is "
+			        & IF ( _tgt >= 0, "tracking " & FORMAT ( _tgt, "0.0%" ) & " ahead of plan",
+			                          FORMAT ( -_tgt, "0.0%" ) & " short of plan" )
+			        & IF ( ABS ( _tgt ) < 0.05, ", essentially on target. ", ", worth reviewing by market. " ) )
+			
+			VAR _margin =
+			    "Profitability is "
+			    & IF ( _cmT >= -0.01, "at break-even", IF ( _cmT >= -0.05, "closing on break-even", "still loss-making" ) )
+			    & ": gross margin " & FORMAT ( _gm, "0.0%" )
+			    & IF ( _gmYoY >= 0.005, " (up " & FORMAT ( _gmYoY, "0.0%" ) & " on last year)", "" )
+			    & " and contribution margin " & FORMAT ( _cm, "0.0%" ) & " this period, "
+			    & FORMAT ( _cmT, "0.0%" ) & " on a trailing-12-month basis"
+			    & IF ( _cmT > -0.03, " — the cost and marketing-efficiency work is landing. ", ", so the improvement still has to hold. " )
+			
+			VAR _watch =
+			    IF ( NOT ISBLANK ( _ncT ) && _ncT < -0.03,
+			        "The watch item is acquisition: new customers are " & FORMAT ( -_ncT, "0%" )
+			            & " below plan while blended CAC held at " & [Currency Symbol] & FORMAT ( _cac, "#,0" )
+			            & ", so growth is leaning on the existing base (repeat rate " & FORMAT ( _rep, "0%" ) & "). ",
+			        "Acquisition looks healthy — CAC " & [Currency Symbol] & FORMAT ( _cac, "#,0" )
+			            & " and a " & FORMAT ( _rep, "0%" ) & " repeat rate. " )
+			
+			VAR _ops =
+			    "Fulfilment is steady at " & FORMAT ( _dd, "0.0" ) & " days to deliver and "
+			    & FORMAT ( _ot, "0%" ) & " on-time."
+			
+			RETURN _growth & _plan & _margin & _watch & _ops
+		displayFolder: 00 Selectors
+		lineageTag: 90e82c11-7ba4-5e4c-ac70-e163d6292e8b
+
+	measure 'Selected Reporting Currency' = SELECTEDVALUE('Reporting Currency'[Currency], "USD")
+		displayFolder: 00 Selectors
+		lineageTag: 58965d4f-1866-5504-87d2-3cdd85e77c03
+
+	measure 'FX Rate to Reporting Currency' =
+			VAR _ccy = [Selected Reporting Currency]
+			RETURN
+			IF (
+			    _ccy = "USD",
+			    1,
+			    CALCULATE (
+			        AVERAGE ( fact_exchange_rate[rate_from_usd] ),
+			        fact_exchange_rate[currency_code] = _ccy,
+			        REMOVEFILTERS ( dim_currency )
+			    )
+			)
+		formatString: #,0.0000
+		displayFolder: 00 Selectors
+		lineageTag: 3c0d5cfb-1ec2-5d0b-9e16-7292dac854bc
+
+	measure 'Currency Symbol' = SWITCH ( [Selected Reporting Currency], "USD", "$", "GBP", "£", "EUR", "€", "BRL", "R$", "$" )
+		displayFolder: 00 Selectors
+		lineageTag: b9907774-3d46-5a59-a98a-954c5565a487
+
+	measure 'Gross Revenue (USD)' =
+			(
+			CALCULATE ( SUM ( fact_order_lines[gross_amount_usd] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 415c1790-2384-56a0-b3fc-63a411e84bea
+
+	measure 'Discounts (USD)' =
+			(
+			CALCULATE ( SUM ( fact_order_lines[discount_amount_usd] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 4fd7ef9b-7749-5d73-a5ae-855f5a9d8763
+
+	measure 'Returns (USD)' =
+			(
+			CALCULATE ( SUM ( fact_order_lines[refund_amount_usd] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 35cf0db4-bda2-57f8-89ee-17426ad18fcb
+
+	measure 'Gross Sales (USD)' =
+			(
+			CALCULATE ( SUM ( fact_order_lines[net_amount_usd] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 46c9dc3e-7294-53ec-aba0-7a178cc16d5c
+
+	measure 'Net Revenue (USD)' = [Gross Sales (USD)] - [Returns (USD)]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: aac72065-ce73-5757-97a1-03fc19ac6cd2
+
+	measure 'COGS (USD)' =
+			(
+			CALCULATE ( SUM ( fact_order_lines[cogs_usd] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 0e709b23-d38b-5f34-ac20-f0a11261a64d
+
+	measure 'Returns COGS Recovered (USD)' =
+			(
+			SUM ( fact_returns[cogs_recovered_usd] )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: f9525d22-696f-58dd-9753-bca234af3768
+
+	measure 'Gross Profit (USD)' = [Net Revenue (USD)] - [COGS (USD)] + [Returns COGS Recovered (USD)]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: b0bf0503-6911-5434-8694-f2961b8ec479
+
+	measure 'Gross Margin %' = DIVIDE ( [Gross Profit (USD)], [Net Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 01 Sales
+		lineageTag: 6b3b2c91-9e1c-5337-a63a-0ee9738f83e9
+
+	measure Orders = CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+		formatString: #,0
+		displayFolder: 01 Sales
+		lineageTag: 8fd9ecc9-33ae-5d71-af05-e5ab52141bb3
+
+	measure 'Units Sold' = CALCULATE ( SUM ( fact_order_lines[quantity] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ), KEEPFILTERS ( fact_order_lines[line_type] = "product" ) )
+		formatString: #,0
+		displayFolder: 01 Sales
+		lineageTag: 3b5e9afb-73a5-5cfe-8dcd-622cdef6cf09
+
+	measure 'Average Order Value' = DIVIDE ( [Net Revenue (USD)], [Orders] )
+		formatString: "$"#,0.00
+		displayFolder: 01 Sales
+		lineageTag: 17c27545-88ab-51b4-98fb-1280a5c62fa9
+
+	measure 'Units per Order' = DIVIDE ( [Units Sold], [Orders] )
+		formatString: #,0.0
+		displayFolder: 01 Sales
+		lineageTag: e9d6dede-11c9-5aa1-a7f3-0dc237873d22
+
+	measure 'Discount Rate %' = DIVIDE ( [Discounts (USD)], [Gross Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 01 Sales
+		lineageTag: 6a6848ad-8d82-5e53-97b5-564dd56cdd28
+
+	measure 'Warranty Revenue (USD)' = CALCULATE ( [Gross Sales (USD)], KEEPFILTERS ( fact_order_lines[line_type] = "warranty" ) )
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 7e6cffeb-03c3-5746-b7ed-65f85e5dcb0d
+
+	measure 'Product Revenue (USD)' = CALCULATE ( [Net Revenue (USD)], KEEPFILTERS ( fact_order_lines[line_type] = "product" ) )
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 635d60a0-5a03-537e-ad3b-610699c6b674
+
+	measure 'Warranty Attach Rate %' =
+			VAR _warr = CALCULATE ( DISTINCTCOUNT ( fact_order_lines[order_id] ), fact_order_lines[line_type] = "warranty" )
+			RETURN DIVIDE ( _warr, [Orders] )
+		formatString: 0.0%
+		displayFolder: 01 Sales
+		lineageTag: 1c4fde3e-ca37-5f82-934b-f2854eda3aea
+
+	measure 'Contribution Margin (USD)' = [Gross Profit (USD)] - [Marketing Spend (USD)] - [Shipping Cost (USD)] - [Total Payment Cost (USD)]
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 924fa683-17e2-587b-9ab8-2210e3dc4415
+
+	measure 'Contribution Margin %' = DIVIDE ( [Contribution Margin (USD)], [Net Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 01 Sales
+		lineageTag: 3334aa82-615b-5f68-9a83-c1e2c2b6f63c
+
+	measure 'Contribution Margin (Alloc) (USD)' =
+			VAR _share = DIVIDE (
+			    [Net Revenue (USD)],
+			    CALCULATE ( [Net Revenue (USD)], REMOVEFILTERS ( dim_product ), REMOVEFILTERS ( dim_market ) )
+			)
+			VAR _belowGP = CALCULATE (
+			    [Marketing Spend (USD)] + [Shipping Cost (USD)] + [Total Payment Cost (USD)],
+			    REMOVEFILTERS ( dim_product ), REMOVEFILTERS ( dim_market )
+			)
+			RETURN [Gross Profit (USD)] - _belowGP * _share
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: f090556c-4b03-5e6f-a52a-53711ace136a
+
+	measure 'CM Bridge Value (USD)' =
+			SWITCH (
+			    SELECTEDVALUE ( 'PL Line'[Line] ),
+			    "Gross Profit", [Gross Profit (USD)],
+			    "Marketing", -[Marketing Spend (USD)],
+			    "Shipping", -[Shipping Cost (USD)],
+			    "Payment Fees", -[Payment Fees (USD)],
+			    "Financing", -[Financing Cost Interest-Free (USD)],
+			    BLANK ()
+			)
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: e5d94ec9-33ff-5cd0-816e-8cc89685a6a3
+
+	measure 'Contribution Margin % (Trailing 12M)' =
+			VAR _p = DATESINPERIOD ( dim_date[date], MAX ( dim_date[date] ), -12, MONTH )
+			RETURN DIVIDE (
+			    CALCULATE ( [Contribution Margin (USD)], _p ),
+			    CALCULATE ( [Net Revenue (USD)], _p )
+			)
+		formatString: 0.0%
+		displayFolder: 01 Sales
+		lineageTag: c0da380a-baf7-55b5-bd51-468f3b6bbbc2
+
+	measure 'Rev Bridge Value (USD)' =
+			VAR _line = SELECTEDVALUE ( 'Revenue Bridge'[Line] )
+			RETURN
+			IF (
+			    _line = "Plan",
+			    CALCULATE ( [Net Revenue Target (USD)], REMOVEFILTERS ( dim_product ) ),
+			    CALCULATE (
+			        [Net Revenue vs Category Plan (USD)],
+			        REMOVEFILTERS ( dim_product ),
+			        dim_product[category] = _line
+			    )
+			)
+		formatString: "$"#,0
+		displayFolder: 01 Sales
+		lineageTag: 29da0439-d21c-5640-be4a-0253688d5484
+
+	measure 'Net Revenue PY (USD)' = CALCULATE ( [Net Revenue (USD)], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 80c989c4-ae6b-5cbe-bd63-01ef25c83761
+
+	measure 'Net Revenue YoY (USD)' = [Net Revenue (USD)] - [Net Revenue PY (USD)]
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 8dd5935e-4cf2-5fcd-a5f7-527ebad052ba
+
+	measure 'Net Revenue YoY %' = DIVIDE ( [Net Revenue YoY (USD)], [Net Revenue PY (USD)] )
+		formatString: 0.0%
+		displayFolder: 02 Time Intelligence
+		lineageTag: 62799f90-485d-56ab-a21d-8ec0fe670049
+
+	measure 'Orders PY' = CALCULATE ( [Orders], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: #,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: bba2fd5e-5979-55fb-8900-8ad610f74664
+
+	measure 'Orders YoY %' = DIVIDE ( [Orders] - [Orders PY], [Orders PY] )
+		formatString: 0.0%
+		displayFolder: 02 Time Intelligence
+		lineageTag: ef46e1ec-34f8-5617-b4f8-93a8d8cf14d5
+
+	measure 'AOV PY' = CALCULATE ( [Average Order Value], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0.00
+		displayFolder: 02 Time Intelligence
+		lineageTag: 0c596486-cd38-56b1-a397-779e60a279cd
+
+	measure 'AOV YoY %' = DIVIDE ( [Average Order Value] - [AOV PY], [AOV PY] )
+		formatString: 0.0%
+		displayFolder: 02 Time Intelligence
+		lineageTag: 4ca0e3d7-3a9a-5eb0-93e9-d105eebcd3c7
+
+	measure 'Gross Profit PY (USD)' = CALCULATE ( [Gross Profit (USD)], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 3ea3c35d-2196-529a-bfa1-9f9fd07088b0
+
+	measure 'Gross Margin % PY' = CALCULATE ( [Gross Margin %], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: 0.0%
+		displayFolder: 02 Time Intelligence
+		lineageTag: c8cbbcaa-8c9f-5cf0-9bb5-fc1cf9aeefde
+
+	measure 'Gross Margin % Delta (pp)' = ( [Gross Margin %] - [Gross Margin % PY] ) * 100
+		formatString: #,0.0
+		displayFolder: 02 Time Intelligence
+		lineageTag: b819ea9e-9bd8-5933-9fd4-6c1e88589a11
+
+	measure 'Net Revenue YTD (USD)' = CALCULATE ( [Net Revenue (USD)], DATESYTD ( dim_date[date], "06-30" ) )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 03242df0-47ca-5152-b5fb-9d74170036c1
+
+	measure 'Net Revenue MAT (USD)' = CALCULATE ( [Net Revenue (USD)], DATESINPERIOD ( dim_date[date], MAX ( dim_date[date] ), -12, MONTH ) )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 4e93f549-3377-5392-a890-d95d02750caf
+
+	measure 'Net Revenue Prev Month (USD)' = CALCULATE ( [Net Revenue (USD)], DATEADD ( dim_date[date], -1, MONTH ) )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 09679c91-28dd-5ba8-a5aa-1ae4d1f9569b
+
+	measure 'Net Revenue MoM %' = DIVIDE ( [Net Revenue (USD)] - [Net Revenue Prev Month (USD)], [Net Revenue Prev Month (USD)] )
+		formatString: 0.0%
+		displayFolder: 02 Time Intelligence
+		lineageTag: 4b5cc2ca-ce1f-5c8d-b35b-5ab3799c6401
+
+	measure 'Net Revenue 3M Avg (USD)' = AVERAGEX ( DATESINPERIOD ( dim_date[date], MAX ( dim_date[date] ), -3, MONTH ), [Net Revenue (USD)] )
+		formatString: "$"#,0
+		displayFolder: 02 Time Intelligence
+		lineageTag: 1015fe98-d326-5789-b624-01b882a5dd92
+
+	measure 'Net Revenue (Comparable Base) (USD)' = CALCULATE ( [Net Revenue (USD)], KEEPFILTERS ( dim_market[is_comparable_base] = TRUE ) )
+		formatString: "$"#,0
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: f1bbb0a6-8ad6-5dc9-9c47-44b440b7ae68
+
+	measure 'Net Revenue (Expansion) (USD)' = [Net Revenue (USD)] - [Net Revenue (Comparable Base) (USD)]
+		formatString: "$"#,0
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: 3087add1-629f-52fd-96b7-b12b0fa0392a
+
+	measure 'Net Revenue (Comparable Base) PY (USD)' = CALCULATE ( [Net Revenue (Comparable Base) (USD)], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: b58d2626-4715-5c5d-ade3-5c90575d140a
+
+	measure 'Net Revenue YoY % (Comparable Base)' = DIVIDE ( [Net Revenue (Comparable Base) (USD)] - [Net Revenue (Comparable Base) PY (USD)], [Net Revenue (Comparable Base) PY (USD)] )
+		formatString: 0.0%
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: db81f675-bb36-5d3f-b544-cbe2ac56db18
+
+	measure 'Expansion Contribution %' = DIVIDE ( [Net Revenue (Expansion) (USD)], [Net Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: 0a6626d6-43d6-5fa8-90a7-dd4244a13419
+
+	measure 'Orders (Comparable Base)' = CALCULATE ( [Orders], KEEPFILTERS ( dim_market[is_comparable_base] = TRUE ) )
+		formatString: #,0
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: 2a6b48bd-e6e8-598e-bbc0-72679a760f63
+
+	measure 'Net Revenue (Comparable, Dynamic) (USD)' =
+			VAR _pyStart = EDATE ( MIN ( dim_date[date] ), -12 )
+			VAR _eligible = FILTER ( ALL ( dim_market ), dim_market[live_date] <= _pyStart )
+			RETURN CALCULATE ( [Net Revenue (USD)], KEEPFILTERS ( _eligible ) )
+		formatString: "$"#,0
+		displayFolder: 03 Comparable Base (like-for-like)
+		lineageTag: fa3af3b1-6779-589b-a518-aa743814eb21
+
+	measure 'Net Revenue Target (USD)' =
+			(
+			CALCULATE ( SUM ( fact_target[target_value] ), fact_target[metric] = "Net Revenue" )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: f026af09-bd0e-578c-bd5f-20864e72fa42
+
+	measure 'Net Revenue vs Target (USD)' = [Net Revenue (USD)] - [Net Revenue Target (USD)]
+		formatString: "$"#,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: eada3019-b6c6-5f91-b56d-02435f69a0d1
+
+	measure 'Net Revenue vs Target %' = DIVIDE ( [Net Revenue (USD)], [Net Revenue Target (USD)] ) - 1
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 837ce1c4-6748-5489-9d81-061fe731257b
+
+	measure 'Orders Target' = CALCULATE ( SUM ( fact_target[target_value] ), fact_target[metric] = "Orders" )
+		formatString: #,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: b3b4cbbc-d4d9-570b-9885-203ca40f9a39
+
+	measure 'Orders vs Target' = [Orders] - [Orders Target]
+		formatString: #,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: d89162ca-e0bc-5375-9049-1d3f12fc0ff5
+
+	measure 'Orders vs Target %' = DIVIDE ( [Orders], [Orders Target] ) - 1
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 5cc52715-12fa-56db-88fe-9de03820a630
+
+	measure 'Gross Margin % Target' = CALCULATE ( AVERAGE ( fact_target[target_value] ), fact_target[metric] = "Gross Margin %" )
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: bb3fb4b2-237c-57d9-b68f-f12da0b8efdf
+
+	measure 'Gross Margin % vs Target (pp)' = ( [Gross Margin %] - [Gross Margin % Target] ) * 100
+		formatString: #,0.0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: cb6ad5b0-f5be-539b-923b-b8710302f200
+
+	measure 'Blended CAC Target' = CALCULATE ( AVERAGE ( fact_target[target_value] ), fact_target[metric] = "Blended CAC" )
+		formatString: "$"#,0.00
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 16150d3c-954b-5aeb-9316-57a09f9b23f3
+
+	measure 'Blended CAC vs Target (USD)' = [Blended CAC (USD)] - [Blended CAC Target]
+		formatString: "$"#,0.00
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 9c45aebc-4e02-545c-a684-2044e51d7f6a
+
+	measure 'Blended CAC vs Target %' = DIVIDE ( [Blended CAC (USD)], [Blended CAC Target] ) - 1
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 01fe7796-582d-5d02-8d2b-b536645bbef0
+
+	measure 'New Customers Target' = CALCULATE ( SUM ( fact_target[target_value] ), fact_target[metric] = "New Customers" )
+		formatString: #,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: a97d7c32-d540-53d5-b281-614e3ea421e2
+
+	measure 'New Customers vs Target' = [New Customers] - [New Customers Target]
+		formatString: #,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: ee04296f-55f1-530f-a7f2-2628844761d4
+
+	measure 'New Customers vs Target %' = DIVIDE ( [New Customers], [New Customers Target] ) - 1
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 1523dcc9-1d9b-5402-97f6-e2e8bcde67f8
+
+	measure 'Budget Actual' =
+			SWITCH (
+			    SELECTEDVALUE ( dim_metric[metric] ),
+			    "Net Revenue", [Net Revenue (USD)],
+			    "Orders", [Orders],
+			    "New Customers", [New Customers],
+			    "Gross Margin %", [Gross Margin %],
+			    "Blended CAC", [Blended CAC (USD)],
+			    BLANK ()
+			)
+		formatString: #,0.###
+		displayFolder: 04 Targets vs Plan
+		lineageTag: e18b16ef-9817-5a0d-81fc-f97c96b59d30
+
+	measure 'Budget Target' =
+			VAR _m = SELECTEDVALUE ( dim_metric[metric] )
+			RETURN
+			    IF (
+			        _m IN { "Gross Margin %", "Blended CAC" },
+			        CALCULATE ( AVERAGE ( fact_target[target_value] ) ) * IF ( _m IN { "Gross Margin %" }, 1, [FX Rate to Reporting Currency] ),
+			        CALCULATE ( SUM ( fact_target[target_value] ) ) * IF ( _m = "Blended CAC", [FX Rate to Reporting Currency], IF ( _m IN { "Orders", "New Customers" }, 1, [FX Rate to Reporting Currency] ) )
+			    )
+		formatString: #,0.###
+		displayFolder: 04 Targets vs Plan
+		lineageTag: dc7f8eb1-defd-5ab4-8fa7-9a4983eb9ebe
+
+	measure 'Budget Attainment %' =
+			VAR _a = [Budget Actual]
+			VAR _t = [Budget Target]
+			VAR _lowerBetter = SELECTEDVALUE ( dim_metric[metric] ) = "Blended CAC"
+			RETURN DIVIDE ( IF ( _lowerBetter, _t - _a, _a - _t ), _t )
+		formatString: 0.0%
+		displayFolder: 04 Targets vs Plan
+		lineageTag: af2f22ef-97d7-5fda-8257-0aa984d990e8
+
+	measure 'Budget Actual (fmt)' =
+			VAR _m = SELECTEDVALUE ( dim_metric[metric] )
+			VAR _v = [Budget Actual]
+			RETURN
+			    SWITCH ( _m,
+			        "Net Revenue", [Currency Symbol] & FORMAT ( _v / 1000000, "#,0.0" ) & " M",
+			        "Blended CAC", [Currency Symbol] & FORMAT ( _v, "#,0.00" ),
+			        "Gross Margin %", FORMAT ( _v, "0.0%" ),
+			        FORMAT ( _v, "#,0" ) )
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 5fcd2321-530d-5c0b-95b1-a131b651dffd
+
+	measure 'Budget Target (fmt)' =
+			VAR _m = SELECTEDVALUE ( dim_metric[metric] )
+			VAR _v = [Budget Target]
+			RETURN
+			    SWITCH ( _m,
+			        "Net Revenue", [Currency Symbol] & FORMAT ( _v / 1000000, "#,0.0" ) & " M",
+			        "Blended CAC", [Currency Symbol] & FORMAT ( _v, "#,0.00" ),
+			        "Gross Margin %", FORMAT ( _v, "0.0%" ),
+			        FORMAT ( _v, "#,0" ) )
+		displayFolder: 04 Targets vs Plan
+		lineageTag: a931033b-4725-50c7-b551-1cee27e62b1a
+
+	measure 'Net Revenue Target (Category Alloc) (USD)' =
+			VAR _share = DIVIDE (
+			    [Net Revenue (USD)],
+			    CALCULATE ( [Net Revenue (USD)], REMOVEFILTERS ( dim_product ) )
+			)
+			RETURN CALCULATE ( [Net Revenue Target (USD)], REMOVEFILTERS ( dim_product ) ) * _share
+		formatString: "$"#,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 9aa2c7bf-7a89-5a13-af4a-6297e02a4de9
+
+	measure 'Net Revenue vs Category Plan (USD)' = [Net Revenue (USD)] - [Net Revenue Target (Category Alloc) (USD)]
+		formatString: "$"#,0
+		displayFolder: 04 Targets vs Plan
+		lineageTag: 29ed9aeb-5bfe-580d-a136-f0b422da3b37
+
+	measure 'Payment Fees (USD)' =
+			(
+			CALCULATE ( SUM ( fact_orders[payment_fee_usd] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 0a66d713-ab68-53bc-a415-8195d164f844
+
+	measure 'Effective Fee Rate %' = DIVIDE ( [Payment Fees (USD)], [Gross Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 06 Payments & Cash
+		lineageTag: 8f352554-036e-5554-8520-65c27fde84b5
+
+	measure 'Financing Cost Interest-Free (USD)' =
+			(
+			CALCULATE ( SUM ( fact_payment_schedule[financing_cost_usd] ), fact_payment_schedule[installment_plan] = "Interest-Free" )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 24ec1aac-b860-59b2-9b78-e88ea1dfd73b
+
+	measure 'Total Payment Cost (USD)' = [Payment Fees (USD)] + [Financing Cost Interest-Free (USD)]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 0127582c-56e2-57a7-ab85-68f312301688
+
+	measure 'Installment Orders' = CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), fact_orders[installments] > 1, KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+		formatString: #,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: c5015d90-b355-558a-860f-566eabc7f7e1
+
+	measure 'Installment Mix %' = DIVIDE ( [Installment Orders], [Orders] )
+		formatString: 0.0%
+		displayFolder: 06 Payments & Cash
+		lineageTag: ed824c7e-a71a-573c-80f6-26edbe2c8fcc
+
+	measure 'Avg Installments (plans only)' = CALCULATE ( AVERAGE ( fact_orders[installments] ), fact_orders[installments] > 1, KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+		formatString: #,0.0
+		displayFolder: 06 Payments & Cash
+		lineageTag: b6082f6c-7de7-50ba-846d-855fd9235fd0
+
+	measure 'Cash Received (USD)' =
+			(
+			CALCULATE (
+			    SUM ( fact_payment_schedule[net_amount_usd] ),
+			    USERELATIONSHIP ( fact_payment_schedule[due_date_key], dim_date[date_key] )
+			)
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: fb4b391f-4f69-5dc4-aa1a-6fcefbdf2fca
+
+	measure 'Revenue Booked (USD)' =
+			(
+			[Gross Sales (USD)] + CALCULATE ( SUM ( fact_orders[tax_amount_usd] ) + SUM ( fact_orders[shipping_fee_usd] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 3e33c728-c119-577b-9837-48dca751bb6a
+
+	measure 'Revenue Booked (Cumulative) (USD)' =
+			CALCULATE (
+			    [Revenue Booked (USD)],
+			    FILTER ( ALL ( dim_date ), dim_date[date] <= MAX ( dim_date[date] ) )
+			)
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 780e4e5d-2f1b-5c97-9a95-ec3242b15aeb
+
+	measure 'Cash Received (Cumulative) (USD)' =
+			(
+			CALCULATE (
+			    SUM ( fact_payment_schedule[net_amount_usd] ),
+			    USERELATIONSHIP ( fact_payment_schedule[due_date_key], dim_date[date_key] ),
+			    FILTER ( ALL ( dim_date ), dim_date[date] <= MAX ( dim_date[date] ) )
+			)
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 8e11cc92-fd36-5a92-af04-ef05c673cc46
+
+	measure 'Booked vs Cash Gap (USD)' = [Revenue Booked (Cumulative) (USD)] - [Cash Received (Cumulative) (USD)]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: e43fa055-f4b4-5ec8-a4a4-48a56c6ed5e8
+
+	measure 'Receivables Outstanding (USD)' =
+			(
+			VAR _asOfKey = CALCULATE ( MAX ( dim_date[date_key] ), ALLSELECTED ( dim_date ) )
+			VAR _booked =
+			    CALCULATE ( SUM ( fact_payment_schedule[gross_amount_usd] ),
+			        FILTER ( ALL ( fact_payment_schedule ), fact_payment_schedule[order_date_key] <= _asOfKey ),
+			        REMOVEFILTERS ( dim_date ) )
+			VAR _settled =
+			    CALCULATE ( SUM ( fact_payment_schedule[gross_amount_usd] ),
+			        FILTER ( ALL ( fact_payment_schedule ), fact_payment_schedule[due_date_key] <= _asOfKey ),
+			        REMOVEFILTERS ( dim_date ) )
+			RETURN _booked - _settled
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 06 Payments & Cash
+		lineageTag: 5bb276cc-bf9d-5863-8c14-198eaf0bfcac
+
+	measure 'DSO (days)' =
+			DIVIDE (
+			    SUMX ( fact_payment_schedule, fact_payment_schedule[gross_amount_usd] * fact_payment_schedule[settlement_lag_days] ),
+			    SUM ( fact_payment_schedule[gross_amount_usd] )
+			)
+		formatString: #,0.0" d"
+		displayFolder: 06 Payments & Cash
+		lineageTag: 4c235302-715d-5e7d-ab33-42644a806844
+
+	measure 'Avg Selling Price' = DIVIDE ( [Gross Revenue (USD)], [Units Sold] )
+		formatString: "$"#,0.00
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: a052c2df-9bcb-581e-aca6-b79446e71f10
+
+	measure 'Avg Selling Price PY' = CALCULATE ( [Avg Selling Price], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0.00
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: e308555e-3b4a-56d8-8fe8-e1cfe4a156a3
+
+	measure 'Units Sold PY' = CALCULATE ( [Units Sold], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: #,0
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: aee4c09f-81d6-5982-97b8-bc3d56c541c5
+
+	measure 'PVM Price Effect (USD)' =
+			SUMX (
+			    VALUES ( dim_product[category] ),
+			    VAR _pxCY = [Avg Selling Price]
+			    VAR _pxPY = [Avg Selling Price PY]
+			    VAR _qtyPY = [Units Sold PY]
+			    RETURN ( _pxCY - _pxPY ) * _qtyPY
+			)
+		formatString: "$"#,0
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: cebc3d3c-74a1-5127-9379-278935f20197
+
+	measure 'PVM Volume Effect (USD)' =
+			VAR _totQtyPY = [Units Sold PY]
+			VAR _totRevPY = [Gross Revenue (USD) PY]
+			VAR _growth = DIVIDE ( [Units Sold] - _totQtyPY, _totQtyPY )
+			RETURN _totRevPY * _growth
+		formatString: "$"#,0
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: 78b1c966-7aa2-5a5e-9612-0d790d27b3d8
+
+	measure 'Gross Revenue (USD) PY' = CALCULATE ( [Gross Revenue (USD)], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: ab86e8da-bddb-5bb1-8170-480e1f211e45
+
+	measure 'PVM Mix Effect (USD)' = [Gross Revenue (USD)] - [Gross Revenue (USD) PY] - [PVM Price Effect (USD)] - [PVM Volume Effect (USD)]
+		formatString: "$"#,0
+		displayFolder: 07 Price / Volume / Mix
+		lineageTag: 13aa0569-5f1c-55f8-a9cd-18f7d236e091
+
+	measure 'Marketing Spend (USD)' =
+			(
+			SUM ( fact_marketing_spend[cost_usd] )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 08db022c-c84f-5a25-95f3-b308e8c7d95c
+
+	measure Impressions = SUM ( fact_marketing_spend[impressions] )
+		formatString: #,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 1b200ae9-b606-594d-b1be-9fa72c68bd54
+
+	measure Clicks = SUM ( fact_marketing_spend[clicks] )
+		formatString: #,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 98da62c4-82cc-569d-9a39-a0e4527ce764
+
+	measure 'CTR %' = DIVIDE ( [Clicks], [Impressions] )
+		formatString: 0.0%
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 7c2c2b87-2e91-55b4-8cbc-40e2d9244cf7
+
+	measure 'CPC (USD)' = DIVIDE ( [Marketing Spend (USD)], [Clicks] )
+		formatString: "$"#,0.00
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 45606358-3c41-5086-aec6-c1c3c75a6c0b
+
+	measure 'New Customers' =
+			VAR _newCust =
+			    FILTER (
+			        VALUES ( dim_customer[customer_key] ),
+			        CALCULATE ( MIN ( fact_orders[order_date_key] ) ) =
+			        CALCULATE ( MIN ( fact_orders[order_date_key] ), REMOVEFILTERS ( dim_date ) )
+			    )
+			RETURN
+			    CALCULATE (
+			        DISTINCTCOUNT ( fact_orders[customer_key] ),
+			        KEEPFILTERS ( _newCust ),
+			        KEEPFILTERS ( fact_orders[is_cancelled] = FALSE )
+			    )
+		formatString: #,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: c3e223d4-ba5f-532d-8a3a-2ed98bacad87
+
+	measure 'Returning Customers' = [Customers with Orders] - [New Customers]
+		formatString: #,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 8b420285-aa6c-50dc-8821-a43c80d230c1
+
+	measure 'New Customer Revenue (USD)' =
+			VAR _newCust =
+			    FILTER (
+			        VALUES ( dim_customer[customer_key] ),
+			        CALCULATE ( MIN ( fact_orders[order_date_key] ) ) =
+			        CALCULATE ( MIN ( fact_orders[order_date_key] ), REMOVEFILTERS ( dim_date ) )
+			    )
+			RETURN CALCULATE ( [Net Revenue (USD)], KEEPFILTERS ( _newCust ) )
+		formatString: "$"#,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: cacaf10e-51df-59f1-acf2-70bf6a6b9aea
+
+	measure 'Returning Customer Revenue (USD)' = [Net Revenue (USD)] - [New Customer Revenue (USD)]
+		formatString: "$"#,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: fff343bf-cdf7-5175-a8ec-7022468c120f
+
+	measure 'New Revenue %' = DIVIDE ( [New Customer Revenue (USD)], [Net Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 291e26ca-1219-568a-96fa-c5dacbd1b378
+
+	measure 'Blended CAC (USD)' = DIVIDE ( [Marketing Spend (USD)], [New Customers] )
+		formatString: "$"#,0.00
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: e54406d0-1c29-5585-aa5f-d248fd7709ce
+
+	measure '% New Customers via Paid' =
+			DIVIDE (
+			    CALCULATE ( [New Customers (acq month)],
+			        dim_customer[acquisition_channel] IN { "Paid Search", "Paid Social", "Display", "Affiliate" } ),
+			    [New Customers (acq month)]
+			)
+		formatString: 0.0%
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: c55e8304-6537-5d76-b966-777a474e2b49
+
+	measure ROAS = DIVIDE ( [Net Revenue (USD)], [Marketing Spend (USD)] )
+		formatString: #,0.0"x"
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 4b962f5f-d314-59e0-ae51-8752a3c6170a
+
+	measure MER = DIVIDE ( [Net Revenue (USD)], [Marketing Spend (USD)] )
+		formatString: #,0.0"x"
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 4bf322bf-583c-5027-8f7c-14ac3b1dc408
+
+	measure 'Marketing Spend PY (USD)' = CALCULATE ( [Marketing Spend (USD)], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+		formatString: "$"#,0
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: c6fc4dd3-90c4-5110-9f08-9e8588e63800
+
+	measure 'Marketing Spend YoY %' = DIVIDE ( [Marketing Spend (USD)] - [Marketing Spend PY (USD)], [Marketing Spend PY (USD)] )
+		formatString: 0.0%
+		displayFolder: 08 Marketing & Acquisition
+		lineageTag: 996771b3-ca6e-5179-a112-d49f4d378b43
+
+	measure Sessions = SUM ( fact_web_traffic_daily[sessions] )
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: e9681d8d-d9ca-57fb-8de6-73e06cf2014a
+
+	measure Users = SUM ( fact_web_traffic_daily[users] )
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: ccc8bfdc-70a3-560b-8b1d-278be497212f
+
+	measure Pageviews = SUM ( fact_web_traffic_daily[pageviews] )
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 00a0210f-5dca-5903-abdf-c6d2bf2a375e
+
+	measure 'Bounce Rate %' = DIVIDE ( SUM ( fact_web_traffic_daily[bounces] ), [Sessions] )
+		formatString: 0.0%
+		displayFolder: 09 Website & Funnel
+		lineageTag: 3dc184bc-235d-5d00-aa3c-e2f2acbdef11
+
+	measure 'Pages per Session' = DIVIDE ( [Pageviews], [Sessions] )
+		formatString: #,0.0
+		displayFolder: 09 Website & Funnel
+		lineageTag: dbc02ab4-6913-5a49-8433-3ad6e5dba0ed
+
+	measure 'Add-to-Cart Rate %' = DIVIDE ( SUM ( fact_web_traffic_daily[add_to_carts] ), [Sessions] )
+		formatString: 0.0%
+		displayFolder: 09 Website & Funnel
+		lineageTag: f4a7cc30-e660-562c-98cd-a39952c7fba7
+
+	measure Add-to-Carts = SUM ( fact_web_traffic_daily[add_to_carts] )
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 75923214-9e02-52e5-a61f-16024e2378dc
+
+	measure 'Carts Created' = SUM ( fact_web_traffic_daily[carts_created] )
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 3da863c3-07d1-59a6-b201-7af4969e497a
+
+	measure 'Cart Abandonment Rate %' = 1 - DIVIDE ( [Orders], [Carts Created] )
+		formatString: 0.0%
+		displayFolder: 09 Website & Funnel
+		lineageTag: 4b3f939b-293a-5662-9518-ba3172fbd847
+
+	measure 'Conversion Rate %' = DIVIDE ( [Orders], [Sessions] )
+		formatString: 0.0%
+		displayFolder: 09 Website & Funnel
+		lineageTag: 23456638-7ea6-5303-9f5f-307fb4886682
+
+	measure 'Revenue per Session (USD)' = DIVIDE ( [Net Revenue (USD)], [Sessions] )
+		formatString: "$"#,0.00
+		displayFolder: 09 Website & Funnel
+		lineageTag: 2867b713-5a44-5067-a7d0-9ef3c730cf2a
+
+	measure 'Funnel Impressions' = [Impressions]
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 3e0b579d-2e6c-5599-839b-e66c995e6159
+
+	measure 'Funnel Clicks' = [Clicks]
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: d37e6b25-f257-5764-a141-e17076125a59
+
+	measure 'Funnel Sessions' = [Sessions]
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 3d1f76ae-8b1d-5767-b2a6-aec24b4274d8
+
+	measure 'Funnel Carts' = [Carts Created]
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 4b20ec67-0b53-52fb-be7d-33bf44c65e63
+
+	measure 'Funnel Orders' = [Orders]
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 13aa42dd-d18d-542f-985a-f40e1bab3102
+
+	measure 'Funnel Value' =
+			SWITCH (
+			    SELECTEDVALUE ( 'Funnel Stage'[Stage] ),
+			    "Sessions", [Sessions],
+			    "Add-to-Cart", [Add-to-Carts],
+			    "Cart", [Carts Created],
+			    "Orders", [Orders],
+			    BLANK ()
+			)
+		formatString: #,0
+		displayFolder: 09 Website & Funnel
+		lineageTag: 074a0424-6dbc-5923-81a4-f92409fce883
+
+	measure 'Orders Delivered' = CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), fact_orders[is_delivered] = TRUE )
+		formatString: #,0
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 3f96219d-e727-50d7-a1ba-486d64815663
+
+	measure 'Avg Delivery Days' = CALCULATE ( AVERAGE ( fact_orders[delivery_days] ), fact_orders[is_delivered] = TRUE )
+		formatString: #,0.0" d"
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 5a038055-0c50-5922-a8b8-7f0d6ba66b3e
+
+	measure 'Avg Ship Days' = AVERAGE ( fact_orders[ship_days] )
+		formatString: #,0.0" d"
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 432e63c2-9bc6-5ec2-9f4c-be02a4541883
+
+	measure 'On-Time Delivery %' = DIVIDE ( CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), fact_orders[is_on_time] = TRUE ), [Orders Delivered] )
+		formatString: 0.0%
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 77d41647-4efc-5b80-b727-6132510c7bde
+
+	measure 'Late Deliveries' = CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), fact_orders[is_late] = TRUE, fact_orders[is_delivered] = TRUE )
+		formatString: #,0
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: f12509e4-40cb-5719-b9f1-a13dcb020185
+
+	measure 'Perfect Order Rate %' = DIVIDE ( CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), fact_orders[is_perfect_order] = TRUE ), [Orders] )
+		formatString: 0.0%
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: b5a69c47-09ce-56b6-b60c-41e9c4679e92
+
+	measure 'Shipping Cost (USD)' =
+			(
+			CALCULATE ( SUM ( fact_orders[shipping_cost_usd] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 75b9a63f-a5b3-5739-8489-8658bc867947
+
+	measure 'Shipping Cost per Order (USD)' = DIVIDE ( [Shipping Cost (USD)], [Orders] )
+		formatString: "$"#,0.00
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: 30513666-ebbe-5091-b816-245c01b130b7
+
+	measure 'Shipping Fee Revenue (USD)' =
+			(
+			CALCULATE ( SUM ( fact_orders[shipping_fee_usd] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: d7f70034-6c08-5611-bb7a-168d9f192b0a
+
+	measure 'Shipping Cost Recovery %' = DIVIDE ( [Shipping Fee Revenue (USD)], [Shipping Cost (USD)] )
+		formatString: 0.0%
+		displayFolder: 10 Logistics & Fulfillment
+		lineageTag: adc2c145-9a88-55ec-b7ae-c479515336a8
+
+	measure 'Inventory Value (USD)' =
+			(
+			VAR _lastSnap = CALCULATE ( MAX ( fact_inventory_snapshot[snapshot_date_key] ), ALLSELECTED ( dim_date ) )
+			RETURN CALCULATE ( SUM ( fact_inventory_snapshot[inventory_value_usd] ), fact_inventory_snapshot[snapshot_date_key] = _lastSnap )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: ad439fc6-20e5-508b-8c36-e9eda96dae31
+
+	measure 'Inventory Value (Month-End) (USD)' =
+			(
+			VAR _snap = MAX ( fact_inventory_snapshot[snapshot_date_key] )
+			RETURN CALCULATE ( SUM ( fact_inventory_snapshot[inventory_value_usd] ),
+			    fact_inventory_snapshot[snapshot_date_key] = _snap )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 057a4b46-a2db-5235-aab1-a99bc19443d7
+
+	measure 'Weeks of Cover (Month-End)' =
+			VAR _snap = MAX ( fact_inventory_snapshot[snapshot_date_key] )
+			RETURN CALCULATE (
+			    DIVIDE ( SUM ( fact_inventory_snapshot[units_on_hand] ),
+			             SUM ( fact_inventory_snapshot[avg_weekly_units_sold] ) ),
+			    fact_inventory_snapshot[snapshot_date_key] = _snap )
+		formatString: #,0.0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 0d18ae2e-38c9-5248-875f-9445a5caa73a
+
+	measure 'Inventory in Transit (USD)' =
+			(
+			VAR _lastSnap = CALCULATE ( MAX ( fact_inventory_snapshot[snapshot_date_key] ), ALLSELECTED ( dim_date ) )
+			RETURN CALCULATE ( SUMX ( fact_inventory_snapshot, fact_inventory_snapshot[units_in_transit] * fact_inventory_snapshot[moving_avg_cost_usd] ), fact_inventory_snapshot[snapshot_date_key] = _lastSnap )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 6048fdfd-8f62-5872-a701-4c64e5d134ca
+
+	measure 'Avg Inventory Value (USD)' =
+			(
+			AVERAGEX ( VALUES ( fact_inventory_snapshot[snapshot_date_key] ), CALCULATE ( SUM ( fact_inventory_snapshot[inventory_value_usd] ) ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 403ff0b5-39f8-5a21-ac78-27c9a2b938d5
+
+	measure 'COGS Trailing 12M (USD)' = CALCULATE ( [COGS (USD)], DATESINPERIOD ( dim_date[date], MAX ( dim_date[date] ), -12, MONTH ) )
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 02f57558-d5cf-5c45-9b0f-2af92b9ee9cf
+
+	measure 'Inventory Turnover' = DIVIDE ( [COGS Trailing 12M (USD)], [Avg Inventory Value (USD)] )
+		formatString: #,0.0"x"
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 377a16aa-66f5-56fb-af45-747a48930524
+
+	measure 'DIO (days)' = DIVIDE ( [Avg Inventory Value (USD)] * COUNTROWS ( VALUES ( dim_date[date] ) ), [COGS (USD)] )
+		formatString: #,0.0" d"
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 7f671fcb-0975-5ffd-9252-281dc1c4aa61
+
+	measure 'Accounts Payable Open (USD)' =
+			(
+			VAR _asOfKey = CALCULATE ( MAX ( dim_date[date_key] ), ALLSELECTED ( dim_date ) )
+			RETURN
+			CALCULATE (
+			    SUM ( fact_purchase_orders[po_value_usd] ),
+			    FILTER (
+			        ALL ( fact_purchase_orders ),
+			        fact_purchase_orders[actual_receipt_date_key] <= _asOfKey
+			            && fact_purchase_orders[supplier_paid_date_key] > _asOfKey
+			    ),
+			    REMOVEFILTERS ( dim_date )
+			)
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: a89adc66-4f5c-586b-a0e6-d014f80e0c2d
+
+	measure 'DPO (days)' = DIVIDE ( [Accounts Payable Open (USD)] * COUNTROWS ( VALUES ( dim_date[date] ) ), [COGS (USD)] )
+		formatString: #,0.0" d"
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 3b74947c-2a91-5338-9ab9-919b080dafac
+
+	measure 'Accounts Receivable Open (USD)' = [Receivables Outstanding (USD)]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 7c727b78-8590-5664-993d-1fa87d464afe
+
+	measure 'Cash Conversion Cycle (days)' = [DIO (days)] + [DSO (days)] - [DPO (days)]
+		formatString: #,0.0" d"
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 9069e330-f1f5-5e1b-9be8-6467dcbad764
+
+	measure 'Weeks of Cover' =
+			VAR _lastSnap = CALCULATE ( MAX ( fact_inventory_snapshot[snapshot_date_key] ), ALLSELECTED ( dim_date ) )
+			RETURN CALCULATE (
+			    DIVIDE ( SUM ( fact_inventory_snapshot[units_on_hand] ), SUM ( fact_inventory_snapshot[avg_weekly_units_sold] ) ),
+			    fact_inventory_snapshot[snapshot_date_key] = _lastSnap )
+		formatString: #,0.0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 28e60ba6-5370-5bdb-9886-4967a01286c0
+
+	measure 'Supplier Spend (USD)' =
+			(
+			CALCULATE ( SUM ( fact_purchase_orders[po_value_usd] ),
+			    USERELATIONSHIP ( fact_purchase_orders[actual_receipt_date_key], dim_date[date_key] ) )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 472919fb-746a-59bc-85ce-8dd203bc8cc8
+
+	measure 'Working Capital Tied Up (USD)' = [Inventory Value (USD)] + [Accounts Receivable Open (USD)] - [Accounts Payable Open (USD)]
+		formatString: "$"#,0
+		displayFolder: 11 Working Capital & Inventory
+		lineageTag: 2ddfd3ec-1892-5f84-94a1-beef19fd189f
+
+	measure 'Customers with Orders' = CALCULATE ( DISTINCTCOUNT ( fact_orders[customer_key] ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+		formatString: #,0
+		displayFolder: 12 CRM & Retention
+		lineageTag: 1293608b-8448-5af9-a0fe-43783296d36c
+
+	measure 'Active Customers (12M)' = CALCULATE ( DISTINCTCOUNT ( fact_orders[customer_key] ), DATESINPERIOD ( dim_date[date], MAX ( dim_date[date] ), -12, MONTH ), KEEPFILTERS ( fact_orders[is_cancelled] = FALSE ) )
+		formatString: #,0
+		displayFolder: 12 CRM & Retention
+		lineageTag: b50f156b-ffed-564b-b8b4-d8f24991c061
+
+	measure 'Avg Orders per Customer' = DIVIDE ( [Orders], [Customers with Orders] )
+		formatString: #,0.0
+		displayFolder: 12 CRM & Retention
+		lineageTag: 0d963bcb-c3f3-5839-80eb-bc515b88849c
+
+	measure 'Repeat Purchase Rate %' =
+			VAR _cust = CALCULATETABLE ( VALUES ( fact_orders[customer_key] ), fact_orders[is_cancelled] = FALSE )
+			VAR _repeat = FILTER ( _cust, CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ) ) > 1 )
+			RETURN DIVIDE ( COUNTROWS ( _repeat ), COUNTROWS ( _cust ) )
+		formatString: 0.0%
+		displayFolder: 12 CRM & Retention
+		lineageTag: dc4ffc46-85ff-53e3-8b6d-48cd7d4f646e
+
+	measure 'CLV Gross Profit (USD)' = DIVIDE ( [Gross Profit (USD)], [Customers with Orders] )
+		formatString: "$"#,0.00
+		displayFolder: 12 CRM & Retention
+		lineageTag: 0a0abcd6-42ec-5174-8bda-91585be6225c
+
+	measure 'New Customers (acq month)' = DISTINCTCOUNT ( dim_customer[customer_id] )
+		formatString: #,0
+		displayFolder: 12 CRM & Retention
+		lineageTag: fbd8c60b-6c61-563c-8f6f-56b84764de9b
+
+	measure 'Repeat Customers (lifetime)' = CALCULATE ( DISTINCTCOUNT ( dim_customer[customer_id] ), dim_customer[is_repeat_customer] = TRUE )
+		formatString: #,0
+		displayFolder: 12 CRM & Retention
+		lineageTag: 4aea30f2-a1fe-5d18-906e-95b21b520eee
+
+	measure 'Churned Customers' = CALCULATE ( DISTINCTCOUNT ( dim_customer[customer_id] ), dim_customer[customer_status] = "Churned" )
+		formatString: #,0
+		displayFolder: 12 CRM & Retention
+		lineageTag: cfae460b-c284-5ea9-bcdf-765a02f0314f
+
+	measure 'Gold Tier Revenue %' = DIVIDE ( CALCULATE ( [Net Revenue (USD)], dim_customer[loyalty_tier] = "Gold" ), [Net Revenue (USD)] )
+		formatString: 0.0%
+		displayFolder: 12 CRM & Retention
+		lineageTag: 2b203104-94f0-5d16-89bb-b40b10eace59
+
+	measure 'Support Tickets' = DISTINCTCOUNT ( fact_support_tickets[ticket_id] )
+		formatString: #,0
+		displayFolder: 13 Support & Returns
+		lineageTag: b440c0f2-9c07-5922-90e3-708fdbb6ff5f
+
+	measure 'Avg Resolution Hours' = AVERAGE ( fact_support_tickets[resolution_hours] )
+		formatString: #,0.0
+		displayFolder: 13 Support & Returns
+		lineageTag: 893e9922-9416-580e-9cfd-9bcf6a2629cb
+
+	measure 'First Contact Resolution %' = DIVIDE ( CALCULATE ( DISTINCTCOUNT ( fact_support_tickets[ticket_id] ), fact_support_tickets[first_contact_resolution] = TRUE ), [Support Tickets] )
+		formatString: 0.0%
+		displayFolder: 13 Support & Returns
+		lineageTag: feebbfab-61a3-5ad2-95c8-089645c6bccb
+
+	measure 'Avg CSAT' = AVERAGE ( fact_support_tickets[csat] )
+		formatString: #,0.00
+		displayFolder: 13 Support & Returns
+		lineageTag: 1f33d15f-6bbd-57ea-b778-3a2c45abeb59
+
+	measure 'Tickets per 1000 Orders' = DIVIDE ( [Support Tickets], [Orders] ) * 1000
+		formatString: #,0.0
+		displayFolder: 13 Support & Returns
+		lineageTag: f238853c-3283-53ff-925f-5a915cd46dd4
+
+	measure 'Returned Units' = SUM ( fact_returns[returned_qty] )
+		formatString: #,0
+		displayFolder: 13 Support & Returns
+		lineageTag: a1338028-b4ed-5c6a-9221-94596211e0f8
+
+	measure 'Return Value (USD)' =
+			(
+			SUM ( fact_returns[refund_amount_usd] )
+			) * [FX Rate to Reporting Currency]
+		formatString: "$"#,0
+		displayFolder: 13 Support & Returns
+		lineageTag: 6e9347a8-09b4-5af1-a5e6-e52024dfd751
+
+	measure 'Return Rate %' = DIVIDE ( CALCULATE ( SUM ( fact_order_lines[returned_qty] ), KEEPFILTERS ( fact_order_lines[order_status] <> "cancelled" ) ), [Units Sold] )
+		formatString: 0.0%
+		displayFolder: 13 Support & Returns
+		lineageTag: a43bb81c-f510-55b4-a3de-a3b06cec5e8b
+
+	measure 'Restock Rate %' = DIVIDE ( CALCULATE ( SUM ( fact_returns[returned_qty] ), fact_returns[restocked] = TRUE ), [Returned Units] )
+		formatString: 0.0%
+		displayFolder: 13 Support & Returns
+		lineageTag: 7a30cfec-e601-5805-8279-60a0ba3ab3ac
+
+	column _placeholder
+		dataType: int64
+		isHidden
+		lineageTag: 2211c6f5-00d3-5039-8801-24aed387e260
+		summarizeBy: none
+		sourceColumn: _placeholder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		queryGroup: parameters
+		source =
+				let
+				    Source = #table(type table [_placeholder = Int64.Type], {{1}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

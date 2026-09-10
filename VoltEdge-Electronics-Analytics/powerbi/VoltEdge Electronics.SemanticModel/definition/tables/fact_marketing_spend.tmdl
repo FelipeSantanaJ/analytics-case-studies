@@ -1,0 +1,82 @@
+table fact_marketing_spend
+	lineageTag: 484b82f5-8dc3-50d2-8808-f88f60550089
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 6a0c6c54-ffc8-5a05-a9c0-5480c8ab2721
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: ef9e7658-54b9-5256-a4b3-11954c7761a3
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		dataType: int64
+		isHidden
+		lineageTag: e93c1150-930b-59e9-b1ad-8aacc959d348
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_key
+		dataType: int64
+		isHidden
+		lineageTag: e3a4a86d-15ac-5203-95c0-fef98ae94ed8
+		summarizeBy: none
+		sourceColumn: campaign_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column impressions
+		dataType: int64
+		lineageTag: 5842f764-a9de-5907-a3ad-59ed55a62bb4
+		summarizeBy: sum
+		sourceColumn: impressions
+
+		annotation SummarizationSetBy = Automatic
+
+	column clicks
+		dataType: int64
+		lineageTag: cfd5c7a8-188e-569b-811a-d28ca3130679
+		summarizeBy: sum
+		sourceColumn: clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_local
+		dataType: double
+		lineageTag: c26f5828-e5d7-5e81-8b3f-bd8879687ef9
+		summarizeBy: sum
+		sourceColumn: cost_local
+
+		annotation SummarizationSetBy = Automatic
+
+	column cost_usd
+		dataType: double
+		lineageTag: 1ca9df65-54fc-5293-8ab8-10242208ff2e
+		summarizeBy: sum
+		sourceColumn: cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_marketing_spend = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_marketing_spend.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

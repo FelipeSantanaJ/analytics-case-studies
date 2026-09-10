@@ -1,0 +1,230 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Customers w/ Orders",
+    "fields": {
+      "Values": [
+        "_Measures.Customers with Orders"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Repeat Rate %",
+    "fields": {
+      "Values": [
+        "_Measures.Repeat Purchase Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Avg Orders / Cust",
+    "fields": {
+      "Values": [
+        "_Measures.Avg Orders per Customer"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "CLV (Gross Profit)",
+    "fields": {
+      "Values": [
+        "_Measures.CLV Gross Profit (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Churned Customers",
+    "fields": {
+      "Values": [
+        "_Measures.Churned Customers"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Gold Tier Rev %",
+    "fields": {
+      "Values": [
+        "_Measures.Gold Tier Revenue %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineChart",
+    "name": "crm_new",
+    "x": 24,
+    "y": 314,
+    "width": 816,
+    "height": 318,
+    "title": "New vs Returning Customer Revenue by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.New Customer Revenue (USD)",
+        "_Measures.Returning Customer Revenue (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "clusteredBarChart",
+    "name": "crm_seg",
+    "x": 856,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "Customers by Status",
+    "fields": {
+      "Category": "dim_customer.customer_status",
+      "Y": "_Measures.New Customers (acq month)"
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "crm_cohort",
+    "x": 24,
+    "y": 656,
+    "width": 816,
+    "height": 318,
+    "title": "Customers Acquired by Cohort Month and Channel",
+    "fields": {
+      "Category": "dim_customer.acquisition_month",
+      "Y": "_Measures.New Customers (acq month)",
+      "Series": "dim_customer.acquisition_channel"
+    }
+  },
+  {
+    "visual_type": "tableEx",
+    "name": "crm_returns",
+    "x": 856,
+    "y": 656,
+    "width": 400,
+    "height": 318,
+    "title": "Returns by Reason",
+    "fields": {
+      "Values": [
+        "dim_return_reason.reason",
+        "_Measures.Returned Units",
+        "_Measures.Return Value (USD)",
+        "_Measures.Restock Rate %"
+      ]
+    }
+  }
+]

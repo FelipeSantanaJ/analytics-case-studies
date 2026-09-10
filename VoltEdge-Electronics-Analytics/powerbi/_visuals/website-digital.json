@@ -1,0 +1,237 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Sessions",
+    "fields": {
+      "Values": [
+        "_Measures.Sessions"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Conversion Rate %",
+    "fields": {
+      "Values": [
+        "_Measures.Conversion Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Bounce Rate %",
+    "fields": {
+      "Values": [
+        "_Measures.Bounce Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Add-to-Cart %",
+    "fields": {
+      "Values": [
+        "_Measures.Add-to-Cart Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Cart Abandon %",
+    "fields": {
+      "Values": [
+        "_Measures.Cart Abandonment Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Rev / Session",
+    "fields": {
+      "Values": [
+        "_Measures.Revenue per Session (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "web_trend",
+    "x": 24,
+    "y": 314,
+    "width": 816,
+    "height": 318,
+    "title": "Sessions (bars) and Conversion Rate (line) by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Sessions"
+      ],
+      "Y2": [
+        "_Measures.Conversion Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "donutChart",
+    "name": "web_device",
+    "x": 856,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "Sessions by Device",
+    "fields": {
+      "Category": "dim_device.device",
+      "Y": "_Measures.Sessions"
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "web_channel",
+    "x": 24,
+    "y": 656,
+    "width": 608,
+    "height": 318,
+    "title": "Revenue / Session (bars) and Conversion Rate (line) by Channel",
+    "fields": {
+      "Category": "dim_channel.channel_name",
+      "Y": [
+        "_Measures.Revenue per Session (USD)"
+      ],
+      "Y2": [
+        "_Measures.Conversion Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineClusteredColumnComboChart",
+    "name": "web_market",
+    "x": 648,
+    "y": 656,
+    "width": 608,
+    "height": 318,
+    "title": "Sessions (bars) and Conversion Rate (line) by Market",
+    "fields": {
+      "Category": "dim_market.market_name",
+      "Y": [
+        "_Measures.Sessions"
+      ],
+      "Y2": [
+        "_Measures.Conversion Rate %"
+      ]
+    }
+  }
+]

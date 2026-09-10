@@ -1,0 +1,272 @@
+[
+  {
+    "visual_type": "slicer",
+    "name": "slcDate",
+    "x": 24,
+    "y": 72,
+    "width": 552,
+    "height": 76,
+    "title": "Analysis Period",
+    "fields": {
+      "Values": "dim_date.date"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcCurrency",
+    "x": 592,
+    "y": 72,
+    "width": 300,
+    "height": 76,
+    "title": "Currency",
+    "fields": {
+      "Values": "Reporting Currency.Currency"
+    }
+  },
+  {
+    "visual_type": "slicer",
+    "name": "slcMarket",
+    "x": 908,
+    "y": 72,
+    "width": 348,
+    "height": 76,
+    "title": "Market",
+    "fields": {
+      "Values": "dim_market.market_name"
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_0_bg",
+    "x": 24,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0",
+    "x": 24,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Net Revenue",
+    "fields": {
+      "Values": [
+        "_Measures.Net Revenue (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_0_d",
+    "x": 24,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Net Revenue vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_1_bg",
+    "x": 232,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1",
+    "x": 232,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Orders",
+    "fields": {
+      "Values": [
+        "_Measures.Orders"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_1_d",
+    "x": 232,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Orders vs Target %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_2_bg",
+    "x": 440,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_2",
+    "x": 440,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Avg Order Value",
+    "fields": {
+      "Values": [
+        "_Measures.Average Order Value"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_3_bg",
+    "x": 648,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3",
+    "x": 648,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Gross Margin %",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Margin %"
+      ]
+    }
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_3_d",
+    "x": 648,
+    "y": 242,
+    "width": 192,
+    "height": 56,
+    "title": "vs Target",
+    "fields": {
+      "Values": [
+        "_Measures.Gross Margin % vs Target (pp)"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_4_bg",
+    "x": 856,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_4",
+    "x": 856,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Discount Rate %",
+    "fields": {
+      "Values": [
+        "_Measures.Discount Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "shape",
+    "name": "kpi_5_bg",
+    "x": 1064,
+    "y": 152,
+    "width": 192,
+    "height": 148
+  },
+  {
+    "visual_type": "card",
+    "name": "kpi_5",
+    "x": 1064,
+    "y": 156,
+    "width": 192,
+    "height": 88,
+    "title": "Units / Order",
+    "fields": {
+      "Values": [
+        "_Measures.Units per Order"
+      ]
+    }
+  },
+  {
+    "visual_type": "lineStackedColumnComboChart",
+    "name": "sal_trend",
+    "x": 24,
+    "y": 314,
+    "width": 816,
+    "height": 318,
+    "title": "Net Revenue (bars) and Discount Rate (line) by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Net Revenue (USD)"
+      ],
+      "Y2": [
+        "_Measures.Discount Rate %"
+      ]
+    }
+  },
+  {
+    "visual_type": "barChart",
+    "name": "sal_cat",
+    "x": 856,
+    "y": 314,
+    "width": 400,
+    "height": 318,
+    "title": "Net Revenue by Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Net Revenue (USD)"
+    }
+  },
+  {
+    "visual_type": "clusteredColumnChart",
+    "name": "sal_cash",
+    "x": 24,
+    "y": 656,
+    "width": 816,
+    "height": 318,
+    "title": "Revenue Booked vs Cash Received by Month",
+    "fields": {
+      "Category": "dim_date.month_year",
+      "Y": [
+        "_Measures.Revenue Booked (USD)",
+        "_Measures.Cash Received (USD)"
+      ]
+    }
+  },
+  {
+    "visual_type": "waterfallChart",
+    "name": "sal_pvm",
+    "x": 856,
+    "y": 656,
+    "width": 400,
+    "height": 318,
+    "title": "YoY Revenue Change by Category",
+    "fields": {
+      "Category": "dim_product.category",
+      "Y": "_Measures.Net Revenue YoY (USD)"
+    }
+  }
+]

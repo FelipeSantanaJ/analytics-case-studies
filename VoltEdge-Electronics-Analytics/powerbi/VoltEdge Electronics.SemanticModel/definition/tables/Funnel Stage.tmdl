@@ -1,0 +1,37 @@
+table 'Funnel Stage'
+	lineageTag: df5c344d-e7d2-5b98-b672-4f29f9baa131
+
+	column Stage
+		dataType: string
+		lineageTag: c88f9e40-8a0c-5bb4-bf75-d3f4142420be
+		summarizeBy: none
+		sourceColumn: Stage
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: 9cf0ec3a-6dbf-5d4f-82ea-c5f9d9a2932a
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Funnel Stage' = m
+		mode: import
+		queryGroup: parameters
+		source =
+				let
+				    Source = #table(type table [Stage = Text.Type, Sort = Int64.Type], {
+						{"Sessions", 1},
+						{"Add-to-Cart", 2},
+						{"Cart", 3},
+						{"Orders", 4}
+				    })
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

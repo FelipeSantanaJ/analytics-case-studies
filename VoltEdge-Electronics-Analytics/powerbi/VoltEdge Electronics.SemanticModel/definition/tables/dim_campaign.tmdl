@@ -1,0 +1,55 @@
+table dim_campaign
+	lineageTag: bb8281a3-8112-54a9-8d71-e8a1a8d9ca7f
+
+	column campaign_key
+		dataType: int64
+		isHidden
+		lineageTag: 179d9dcc-46f7-5068-88a9-4881a25de24b
+		summarizeBy: none
+		sourceColumn: campaign_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign
+		dataType: string
+		lineageTag: 2737f08f-c7ac-5eb8-a716-6acfdc91b5e9
+		summarizeBy: none
+		sourceColumn: campaign
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 6adb3ea9-33ef-5d0a-9e0e-65f7d5acbf59
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 8bb16f5f-2ec1-58b6-bce9-13d778a49c8f
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column campaign_theme
+		dataType: string
+		lineageTag: 6138c34a-e5f8-533f-be73-e2ca97e2acc2
+		summarizeBy: none
+		sourceColumn: campaign_theme
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_campaign = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_campaign.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

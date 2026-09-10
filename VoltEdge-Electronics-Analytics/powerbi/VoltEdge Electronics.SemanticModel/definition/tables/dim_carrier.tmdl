@@ -1,0 +1,55 @@
+table dim_carrier
+	lineageTag: 763a6959-89af-51cb-98e2-7c923a9ae74e
+
+	column carrier_key
+		dataType: int64
+		isHidden
+		lineageTag: 790a3def-9b7d-57d9-9b70-904eb362512d
+		summarizeBy: none
+		sourceColumn: carrier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column carrier_name
+		dataType: string
+		lineageTag: f9cb4bf2-c816-5036-88a9-75695ed459b1
+		summarizeBy: none
+		sourceColumn: carrier_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_id
+		dataType: string
+		lineageTag: 0979b053-e439-5a2f-bd79-6732481d2744
+		summarizeBy: none
+		sourceColumn: market_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column baseline_transit_days
+		dataType: double
+		lineageTag: 8f5a3ba8-fad3-504c-b998-de9e27a64bfa
+		summarizeBy: none
+		sourceColumn: baseline_transit_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column baseline_on_time_rate
+		dataType: double
+		lineageTag: 13f5f69b-b11c-58f8-9349-637f8728fed4
+		summarizeBy: none
+		sourceColumn: baseline_on_time_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_carrier = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_carrier.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

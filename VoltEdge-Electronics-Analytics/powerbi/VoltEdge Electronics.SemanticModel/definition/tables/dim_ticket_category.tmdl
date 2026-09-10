@@ -1,0 +1,31 @@
+table dim_ticket_category
+	lineageTag: c583f983-d832-5c92-8366-9f385f4f3278
+
+	column ticket_category_key
+		dataType: int64
+		isHidden
+		lineageTag: 7b93d202-5a59-5b41-9bde-af76c1dbc300
+		summarizeBy: none
+		sourceColumn: ticket_category_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 9125da66-d7a2-57f2-8a1f-7f6b3803f5f8
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_ticket_category = m
+		mode: import
+		queryGroup: dimensions
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\dim_ticket_category.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

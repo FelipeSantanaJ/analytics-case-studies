@@ -1,0 +1,151 @@
+table fact_purchase_orders
+	lineageTag: 8702aa3c-a34f-50d5-a143-8ad243ca0f1d
+
+	column po_number
+		dataType: string
+		lineageTag: a9da4ca7-a637-55cc-aa49-7bc852a461e2
+		summarizeBy: none
+		sourceColumn: po_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_key
+		dataType: int64
+		isHidden
+		lineageTag: ac4de790-9f65-50c7-a4e6-13552af2466b
+		summarizeBy: none
+		sourceColumn: supplier_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: int64
+		isHidden
+		lineageTag: d2db8b67-d73a-52c8-8bef-26737d96050f
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column warehouse_key
+		dataType: int64
+		isHidden
+		lineageTag: 10bc17ae-db24-5ac5-8747-0e0edf21d22d
+		summarizeBy: none
+		sourceColumn: warehouse_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column market_key
+		dataType: int64
+		isHidden
+		lineageTag: 31cd4f66-c5da-5772-a37f-d18e792f0d9d
+		summarizeBy: none
+		sourceColumn: market_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 72b64b8f-29f4-500e-89a7-6a39db1eddae
+		summarizeBy: none
+		sourceColumn: order_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column expected_receipt_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 1869ae1c-d243-5d80-8955-f80eb8fcf7b4
+		summarizeBy: none
+		sourceColumn: expected_receipt_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_receipt_date_key
+		dataType: int64
+		isHidden
+		lineageTag: e585e91c-4dcd-52ee-baea-eb2b745754aa
+		summarizeBy: none
+		sourceColumn: actual_receipt_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_due_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 465f0a1a-dc75-50e9-85dd-4770693e1650
+		summarizeBy: none
+		sourceColumn: payment_due_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_paid_date_key
+		dataType: int64
+		isHidden
+		lineageTag: e71dbeba-9fa2-55da-9ad8-fd0643e57646
+		summarizeBy: none
+		sourceColumn: supplier_paid_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column qty_ordered
+		dataType: int64
+		lineageTag: 74a4a351-87be-51c8-a47b-803b41fe392c
+		summarizeBy: sum
+		sourceColumn: qty_ordered
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost_usd
+		dataType: double
+		lineageTag: 4eec5dc2-1490-5435-adfc-b58f72bfd1d7
+		summarizeBy: sum
+		sourceColumn: unit_cost_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column po_value_usd
+		dataType: double
+		lineageTag: b9a9c227-f6e7-5081-852f-3cd0ed2e5897
+		summarizeBy: sum
+		sourceColumn: po_value_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_terms_days
+		dataType: int64
+		lineageTag: 6f1d84cb-afb2-5abb-814f-e9700a591b33
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_receipt_days
+		dataType: int64
+		lineageTag: d50ddc7e-d57c-5edd-803e-76a381923104
+		summarizeBy: none
+		sourceColumn: late_receipt_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_to_pay
+		dataType: int64
+		lineageTag: 1aa728e4-bb61-5924-84ce-d9e2b6863e12
+		summarizeBy: none
+		sourceColumn: days_to_pay
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_purchase_orders = m
+		mode: import
+		queryGroup: facts
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "\fact_purchase_orders.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

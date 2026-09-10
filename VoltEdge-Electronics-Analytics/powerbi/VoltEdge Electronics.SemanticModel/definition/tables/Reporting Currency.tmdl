@@ -1,0 +1,37 @@
+table 'Reporting Currency'
+	lineageTag: 508b4d90-c3fa-5b99-8d69-43d9781dede1
+
+	column Currency
+		dataType: string
+		lineageTag: fa44cc35-5dd3-502c-afa1-22a5f9e56d75
+		summarizeBy: none
+		sourceColumn: Currency
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: 72136406-59dc-52af-8377-bda91902f390
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Reporting Currency' = m
+		mode: import
+		queryGroup: parameters
+		source =
+				let
+				    Source = #table(type table [Currency = Text.Type, Sort = Int64.Type], {
+						{"USD", 0},
+						{"EUR", 1},
+						{"GBP", 2},
+						{"BRL", 3}
+				    })
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
