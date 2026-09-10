@@ -1,0 +1,11 @@
+# Normalise line endings
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.parquet binary
+*.xlsx binary
+
+# Keep generated Power BI project files out of GitHub language stats / diffs
+*/powerbi/**/definition/** linguist-generated=true
+*/powerbi/**/*.tmdl linguist-language=TMDL
+*/docs/*.md linguist-documentation=true

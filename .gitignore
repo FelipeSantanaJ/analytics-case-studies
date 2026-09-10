@@ -1,0 +1,47 @@
+# ─────────────────────────────────────────────────────────────
+#  Data & BI Portfolio — repository ignore rules
+#  Every project's data is SYNTHETIC and fully reproducible from a
+#  single seed:  cd <project>/etl && python run_pipeline.py
+#  So the generated data layers are not version-controlled.
+# ─────────────────────────────────────────────────────────────
+
+# --- Generated data layers (raw / staging / curated) ---------
+*/data/raw/
+*/data/staging/
+*/data/curated/
+*/data/interim/
+*/data/quality/dq_fragments/
+*/data/quality/_fragments/
+# keep the human-readable DQ report and any schema samples:
+!*/data/quality/dq_report.md
+!*/data/quality/*.md
+
+# --- Power BI local caches / machine-specific settings -------
+**/.pbi/
+*.pbix
+*.pbix.tmp
+*.abf
+
+# --- Local media, not version-controlled ---------------------
+*.mp4
+*.mov
+
+# --- Python -------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Editors / OS ------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
