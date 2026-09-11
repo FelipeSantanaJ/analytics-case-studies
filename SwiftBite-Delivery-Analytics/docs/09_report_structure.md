@@ -24,7 +24,7 @@ whole chain. `pbir validate --all` passes.
 - **KPI frame:** a white rounded shape holding **6 value cards**.
 - **Two content rows** on the 3-30-300 gradient (4 visuals).
 
-All numbers come from the 69 explicit DAX measures in `_Measures`
+All numbers come from the 71 explicit DAX measures in `_Measures`
 (`discourageImplicitMeasures` is on); see `06_dax_measures.md`.
 
 ---

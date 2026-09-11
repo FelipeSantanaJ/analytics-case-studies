@@ -12,6 +12,8 @@ report, and a dual-track (SQL + Python) root-cause investigation.
 > All data is synthetic and generated from a single random seed. Any resemblance to real
 > companies or people is coincidental.
 
+📄 [Visual case study (PDF)](portfolio/Voxa+-case-study.pdf) — 7-page carousel summary.
+
 ## Scope (locked in Phase 0)
 
 | | |
@@ -85,5 +87,5 @@ python docs/build_docs_pdf.py              # the documentation PDFs
 
 ## Status
 
-Phases 0–13 complete — pipeline, semantic model, report, dual-track diagnosis and
+Phases 0–12 complete — pipeline, semantic model, report, dual-track diagnosis and
 deliverables all build clean. Build log in [`docs/walkthrough.md`](docs/walkthrough.md).

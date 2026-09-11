@@ -306,10 +306,11 @@ charts; the compact KPI value/delta cards (`VISUAL_UNDERSIZED` is by design).
 
 ## Phase 11 — Portfolio assets
 
-- `portfolio/gallery/` — **4 of the 5 gallery images** authored as self-contained HTML
-  (Voxa+ identity, no external assets) and rendered to 3200×1640 PNG with headless Chrome:
-  medallion pipeline, semantic-model bus matrix, DAX library, report-structure map.
-  Image 1 (the Executive Summary page screenshot) is the remaining manual capture.
+- `portfolio/gallery/` — **5 gallery images**, rendered to 3200×1640 PNG with headless
+  Chrome. Four are self-contained HTML (Voxa+ identity, no external assets): medallion
+  pipeline, semantic-model bus matrix, DAX library, report-structure map. Image 1 frames
+  a live Executive Summary screenshot (`powerbi/_shots/round2/`) inside the same HTML
+  template.
 
 ## Phase 12 — Docs bundle & delivery
 
@@ -328,9 +329,9 @@ charts; the compact KPI value/delta cards (`VISUAL_UNDERSIZED` is by design).
 
 ---
 
-**Project complete** (Phases 0–12). Known follow-ups: a final Power BI report polish round
-via the `pbir desktop` loop (theme apply · Home > Refresh to clear the stale visual cache ·
-KPI frame white fill) and gallery image 1 (the Executive Summary screenshot).
+**Project complete** (Phases 0–12). Known follow-up: a final Power BI report polish round
+via the `pbir desktop` loop — **Home > Refresh** to clear the stale visual cache the current
+gallery image 1 and `_shots/` captures still show (a couple of ghosted KPI-card labels).
 
 ### Phase 8 — Desktop iteration (round 2, file-level)
 
@@ -348,5 +349,5 @@ Applied without Desktop (the bridge was unavailable):
 - `pbir validate --all` passes (178 warnings, all the by-design KPI overlap / undersized).
 
 Still needs a Desktop pass by the user: **Home > Refresh** (the open instance still holds a
-stale visual cache from before the measure fixes), collapse the Filters pane + Fit-to-page,
-then capture gallery image 1.
+stale visual cache from before the measure fixes), then re-capture the Executive Summary
+screenshot gallery image 1 frames.

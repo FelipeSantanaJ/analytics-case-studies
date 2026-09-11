@@ -273,7 +273,8 @@ likewise set in Phase 3 and recovered by the investigation, not read off.
 LumaBank-Activation-Experiment/
   docs/            00 scope · 01 business context & KPIs (+ SRM runbook) · 02 architecture ·
                    03 data dict · 04 ETL · 05 model · 06 DAX · 07 visual identity ·
-                   08 data quality · 09 report structure · walkthrough.md · PDF bundle
+                   09 report structure (DQ lives in data/quality/dq_report.md, not a
+                   separate doc) · walkthrough.md · PDF bundle
   etl/             config (one SEED, true effect + bug magnitudes) · 01 generate raw ·
                    02 clean/stage · 03 build curated · dq_checks (incl. SRM check) ·
                    doc + DAX generators · run_pipeline · vocab/

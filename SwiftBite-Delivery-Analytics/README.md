@@ -8,6 +8,8 @@ real risk of cannibalising supply from neighbouring zones.
 > Fictional company and synthetic data. Fully reproducible from a single random seed.
 > Every deliverable also explains each step in Portuguese.
 
+📄 [Visual case study (PDF)](portfolio/SwiftBite-Delivery-case-study.pdf) — 7-page carousel summary.
+
 ## Priority
 
 1. **Data analysis + the zone-hour incentive experiment** (`data_analysis/`) — the primary deliverable.
@@ -74,7 +76,7 @@ committed data artifact; everything under `data/` else is reproducible from the 
 - [x] Phase 4 — Data documentation  (03 auto-generated dictionary · 04 ETL · 05 model · 08 data quality)
 - [x] Phase 5 — Visual identity  (forest green + tangerine + stone; `assets/brand.py`, logo/backgrounds, `theme.json`, docs/07)
 - [x] Phase 6 — Semantic model as code  (`powerbi/gen_semantic_model.py` → TMDL: 15 tables + _Measures, 28 relationships)
-- [x] Phase 7 — DAX measures  (`etl/pbi_measures.py` → 69 measures in 6 folders; `docs/06` auto-generated)
+- [x] Phase 7 — DAX measures  (`etl/pbi_measures.py` → 71 measures in 6 folders; `docs/06` auto-generated)
 - [x] Phase 8 — Report build  (`powerbi/gen_report_visuals.py` + `_drive_pbir.py` → 4-page PBIR, 56 visuals, `pbir validate --all` passes)
 - [x] Phase 9 — Build log  (`docs/walkthrough.md`)
 - [x] Phase 10 — Data analysis  ← PRIMARY  (`data_analysis/` dual-track; 8 analyses, parity all pass; board summary + deep dive)

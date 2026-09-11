@@ -10,11 +10,9 @@
 */data/staging/
 */data/curated/
 */data/interim/
-*/data/quality/dq_fragments/
-*/data/quality/_fragments/
-# keep the human-readable DQ report and any schema samples:
+*/data/quality/*
+# keep only the human-readable DQ report:
 !*/data/quality/dq_report.md
-!*/data/quality/*.md
 
 # --- Power BI local caches / machine-specific settings -------
 **/.pbi/

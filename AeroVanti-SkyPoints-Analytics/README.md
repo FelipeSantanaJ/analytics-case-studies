@@ -1,10 +1,12 @@
 # AeroVanti SkyPoints — Redemption & Retention Analysis
 
 A data / BI portfolio project: diagnose why SkyPoints (AeroVanti's airline loyalty
-program) members hoard miles instead of redeeming them, and deliver a rigorous
-read-out of the **Flash Redemption** A/B test to decide on full rollout.
+program) members hoard miles instead of redeeming them, and read out the
+**Flash Redemption** A/B test to decide on full rollout.
 
 > Fictional company and synthetic data. Fully reproducible from a single random seed.
+
+📄 [Visual case study (PDF)](portfolio/AeroVanti-SkyPoints-case-study.pdf) — 7-page carousel summary.
 
 ## Priority
 

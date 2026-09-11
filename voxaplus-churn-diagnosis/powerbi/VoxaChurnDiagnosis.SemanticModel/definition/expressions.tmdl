@@ -1,4 +1,4 @@
-expression pDataFolder = "C:/Users/jfdsdsantana/OneDrive - rd.com.br/PBI Pessoal/voxaplus-churn-diagnosis/data/curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression pDataFolder = "C:/PATH/TO/REPO/voxaplus-churn-diagnosis/data/curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: e39f0556-0119-5f4d-a8be-60642dedd11d
 
 	annotation PBI_ResultType = Text

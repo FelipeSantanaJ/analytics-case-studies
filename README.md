@@ -36,7 +36,7 @@ reproduction steps. This document is the map — read it
 | Skill area | Where to see it |
 |---|---|
 | **Data engineering** | Seeded, deterministic Python pipelines (`*/etl/`): messy multi-source raw → typed staging → conformed curated star, with hard data-quality gates. Medallion architecture in every project. |
-| **Data modelling** | Power BI semantic models built **as code** (TMDL): 15 / 18 / 21 / 28 / ~20 tables, star schemas with role-playing dates and disconnected helper tables. DAX libraries of **46 / 62 / 69 / 113 / 167** measures (time intelligence, comparable-base, multi-currency re-denomination, budget-vs-plan, dynamic narrative measures). |
+| **Data modelling** | Power BI semantic models built **as code** (TMDL): 15 / 18 / 21 / 24 / 28 tables, star schemas with role-playing dates and disconnected helper tables. DAX libraries of **46 / 62 / 71 / 113 / 167** measures (time intelligence, comparable-base, multi-currency re-denomination, budget-vs-plan, dynamic narrative measures). |
 | **Dashboard design** | Reports assembled through the `pbir` CLI / PBIR project format — theme, layout, and every visual version-controlled. Committed visual identity per project. |
 | **Analysis & statistics** | Dual-track **DuckDB SQL + pandas**, every result parity-checked. Experiment read-out with SRM / balance checks, post-stratification, guardrails, novelty-effect and heterogeneity tests. Root-cause diagnosis with cohort/retention decomposition and interaction tests. |
 | **Communication** | Two audience-specific deliverables per project — a decision-first **board summary** and an exhaustive **deep dive** — plus full `docs/` sets and bundled PDFs. |
@@ -61,6 +61,7 @@ over 12 weeks.
 - **Deliverables:** [board summary](AeroVanti-SkyPoints-Analytics/data_analysis/deliverables/board_summary.pdf) · [deep dive](AeroVanti-SkyPoints-Analytics/data_analysis/deliverables/deep_dive.pdf) (A: A/B test read-out, B: program health).
 - **Secondary deliverable — Power BI** ([`powerbi/`](AeroVanti-SkyPoints-Analytics/powerbi/)): 4 pages — Executive · Tiers · Experiment · Redemption Funnel. 21-table TMDL model, 62 DAX measures.
 - **Docs:** [`docs/`](AeroVanti-SkyPoints-Analytics/docs/) 00–09 (scope → context → architecture → dictionary → ETL → model → DAX → visual identity → DQ → report structure) + [PDF bundle](AeroVanti-SkyPoints-Analytics/docs/AeroVanti-SkyPoints-Documentation.pdf).
+- **Visual case study:** [7-page PDF carousel](AeroVanti-SkyPoints-Analytics/portfolio/AeroVanti-SkyPoints-case-study.pdf).
 
 **Result.** Flash Redemption lifts the 12-week redemption rate **+2.7 pp pooled / +3.2 pp
 re-weighted** (p ≈ 2×10⁻⁶), concentrated in **Blue + Silver** (arm×tier interaction
@@ -88,7 +89,8 @@ margin leaking?
 - **Power BI** ([`powerbi/`](VoltEdge-Electronics-Analytics/powerbi/)): 7 pages — Executive Summary · Sales Performance · Marketing & Acquisition · Website & Digital · Logistics & Fulfillment · CRM & Customer · Product & Inventory. **28-table** TMDL model (16 dims + 12 facts, ~65 relationships), **167-measure** DAX library with reporting-currency re-denomination (USD/EUR/GBP/BRL from one slicer), comparable-base, targets-vs-plan, price-volume-mix, and a dynamic *Exec Insight* narrative measure.
 - **Analysis** ([`data_analysis/`](VoltEdge-Electronics-Analytics/data_analysis/)): 10 parity-verified [findings](VoltEdge-Electronics-Analytics/data_analysis/findings/) — anchor, growth decomposition, contribution margin, price-volume-mix, promo depth, working capital, CAC sensitivity, retention, returns leak, fulfilment.
 - **Deliverables:** [board summary](VoltEdge-Electronics-Analytics/data_analysis/deliverables/board_summary.pdf) · [deep dive](VoltEdge-Electronics-Analytics/data_analysis/deliverables/deep_dive.pdf).
-- **Docs:** [`docs/`](VoltEdge-Electronics-Analytics/docs/) 01–08 + [walkthrough](VoltEdge-Electronics-Analytics/docs/walkthrough.md) + [PDF bundle](VoltEdge-Electronics-Analytics/docs/VoltEdge-Electronics-Documentation.pdf).
+- **Docs:** [`docs/`](VoltEdge-Electronics-Analytics/docs/) 01–09 + [walkthrough](VoltEdge-Electronics-Analytics/docs/walkthrough.md) + [PDF bundle](VoltEdge-Electronics-Analytics/docs/VoltEdge-Electronics-Documentation.pdf).
+- **Visual case study:** [7-page PDF carousel](VoltEdge-Electronics-Analytics/portfolio/VoltEdge-Electronics-case-study.pdf).
 
 **Result.** Net Revenue **$31.35M** over 24 months. Growth is **+137% total but only
 +40% US like-for-like** — mostly expansion, and US is −2% vs plan. Contribution margin just
@@ -117,6 +119,7 @@ or the market?
 - **Deliverables:** [board summary](voxaplus-churn-diagnosis/data_analysis/deliverables/board_summary.html) · [deep-dive index](voxaplus-churn-diagnosis/data_analysis/deliverables/deep_dive_00_index.md).
 - **Power BI** ([`powerbi/`](voxaplus-churn-diagnosis/powerbi/)): 7 pages — Executive Summary · Retention & Cohorts · Content & Engagement · Pricing & Plans · Acquisition Quality · CX, Billing & App Quality · Market Context. Code-generated TMDL model, 113 DAX measures.
 - **Docs:** [`docs/`](voxaplus-churn-diagnosis/docs/) 01–09 + [walkthrough](voxaplus-churn-diagnosis/docs/walkthrough.md) + [PDF bundle](voxaplus-churn-diagnosis/docs/Voxa+_Documentation.pdf).
+- **Visual case study:** [7-page PDF carousel](voxaplus-churn-diagnosis/portfolio/Voxa+-case-study.pdf).
 
 **Result.** The near-doubling is **three overlapping factors, none sufficient alone**:
 1. an **app "v3" connected-TV playback regression** — the acute trigger (CTV-heavy churn
@@ -150,8 +153,9 @@ pulled from adjacent zones?
 **What's in it.**
 - **Primary deliverable — the read-out** ([`data_analysis/`](SwiftBite-Delivery-Analytics/data_analysis/)): anchor → randomisation & balance → primary effect → guardrails → novelty → heterogeneity by supply-stress tier → neighbour-zone cannibalisation → synthesis. Eight parity-verified analyses, dual-track pandas + DuckDB. The zone-day design is analysed three ways — **cluster-robust (by zone) SEs, randomization inference, and a wild-cluster bootstrap** — with every number reported on all three.
 - **Deliverables:** [board summary](SwiftBite-Delivery-Analytics/data_analysis/deliverables/board_summary.pdf) · [deep dive](SwiftBite-Delivery-Analytics/data_analysis/deliverables/deep_dive.pdf).
-- **Secondary deliverable — Power BI** ([`powerbi/`](SwiftBite-Delivery-Analytics/powerbi/)): 4 pages — Executive Overview · Marketplace Health · Pricing & Incentive Experiment · Courier Economics. 15-table TMDL model (28 relationships, `fact_order` role-playing `dim_zone` ×3, an adjacency bridge), 69 DAX measures.
+- **Secondary deliverable — Power BI** ([`powerbi/`](SwiftBite-Delivery-Analytics/powerbi/)): 4 pages — Executive Overview · Marketplace Health · Pricing & Incentive Experiment · Courier Economics. 15-table TMDL model (28 relationships, `fact_order` role-playing `dim_zone` ×3, an adjacency bridge), 71 DAX measures.
 - **Docs:** [`docs/`](SwiftBite-Delivery-Analytics/docs/) 00–09 + [walkthrough](SwiftBite-Delivery-Analytics/docs/walkthrough.md) + [PDF bundle](SwiftBite-Delivery-Analytics/docs/SwiftBite-Delivery-Documentation.pdf).
+- **Visual case study:** [7-page PDF carousel](SwiftBite-Delivery-Analytics/portfolio/SwiftBite-Delivery-case-study.pdf).
 
 **Result.** The incentive **improves marketplace liquidity** — fulfillment **+1.87 pp**
 (cluster CI [+1.27, +2.46]; randomization-inference p = 3×10⁻⁴; wild-cluster bootstrap
@@ -185,7 +189,8 @@ salvage a defensible answer without either burning the timeline or accepting bia
 - **Primary deliverable — the incident read-out** ([`data_analysis/`](LumaBank-Activation-Experiment/data_analysis/)): pre-registration & baseline power → **continuous SRM monitoring** (re-derived independently from the raw assignment log) → root-cause diagnosis of the two-part failure → a documented three-option decision (truncate / exclude-contaminated / restart) with MDE and residual-bias trade-offs → re-planned power → clean re-run readout with guardrails and channel heterogeneity. Five parity-verified analyses, dual-track pandas + DuckDB.
 - **Deliverables:** [board summary](LumaBank-Activation-Experiment/data_analysis/deliverables/board_summary.pdf) · [deep dive](LumaBank-Activation-Experiment/data_analysis/deliverables/deep_dive.pdf) (includes a day-by-day incident timeline).
 - **Secondary deliverable — Power BI** ([`powerbi/`](LumaBank-Activation-Experiment/powerbi/)): 4 pages — Executive Overview · Onboarding & Activation Funnel · Experiment Integrity Monitor · Experiment Readout. 18-table TMDL model, 46 DAX measures.
-- **Docs:** [`docs/`](LumaBank-Activation-Experiment/docs/) 00–07 (scope → context & SRM runbook → architecture → dictionary → ETL → model → DAX → visual identity) + [walkthrough](LumaBank-Activation-Experiment/docs/walkthrough.md) + [PDF bundle](LumaBank-Activation-Experiment/docs/LumaBank-Activation-Documentation.pdf).
+- **Docs:** [`docs/`](LumaBank-Activation-Experiment/docs/) 00–07, 09 (scope → context & SRM runbook → architecture → dictionary → ETL → model → DAX → visual identity → report structure) + [walkthrough](LumaBank-Activation-Experiment/docs/walkthrough.md) + [PDF bundle](LumaBank-Activation-Experiment/docs/LumaBank-Activation-Documentation.pdf).
+- **Visual case study:** [7-page PDF carousel](LumaBank-Activation-Experiment/portfolio/LumaBank-Activation-case-study.pdf).
 
 **Result.** The daily SRM check fires **2 days after the deploy** (trailing-7d p crosses
 0.001; the cumulative test never does, diluted by ten clean pre-deploy days). Root cause:
@@ -215,8 +220,8 @@ over the curated Parquet via a `pDataFolder` parameter.
 | AeroVanti SkyPoints | 4 — Executive · Tiers · Experiment · Funnel | 21 tables | 62 | [`powerbi/`](AeroVanti-SkyPoints-Analytics/powerbi/) · [report structure](AeroVanti-SkyPoints-Analytics/docs/09_report_structure.md) |
 | VoltEdge Electronics | 7 — Exec · Sales · Marketing · Web · Logistics · CRM · Product | 28 tables (~65 rels) | 167 | [`powerbi/`](VoltEdge-Electronics-Analytics/powerbi/) · [report guide](VoltEdge-Electronics-Analytics/docs/07_report_guide.md) |
 | Voxa+ | 7 — Exec · Retention · Content · Pricing · Acquisition · CX/Billing/App · Market | code-generated TMDL | 113 | [`powerbi/`](voxaplus-churn-diagnosis/powerbi/) · [report structure](voxaplus-churn-diagnosis/docs/09_report_structure.md) |
-| SwiftBite Delivery | 4 — Executive Overview · Marketplace Health · Pricing & Incentive Experiment · Courier Economics | 15 tables (28 rels) | 69 | [`powerbi/`](SwiftBite-Delivery-Analytics/powerbi/) · [report structure](SwiftBite-Delivery-Analytics/docs/09_report_structure.md) |
-| LumaBank Activation | 4 — Executive Overview · Onboarding & Activation Funnel · Experiment Integrity Monitor · Experiment Readout | code-generated TMDL, 18 tables (22 rels) | 46 | [`powerbi/`](LumaBank-Activation-Experiment/powerbi/) · [visual identity](LumaBank-Activation-Experiment/docs/07_visual_identity.md) |
+| SwiftBite Delivery | 4 — Executive Overview · Marketplace Health · Pricing & Incentive Experiment · Courier Economics | 15 tables (28 rels) | 71 | [`powerbi/`](SwiftBite-Delivery-Analytics/powerbi/) · [report structure](SwiftBite-Delivery-Analytics/docs/09_report_structure.md) |
+| LumaBank Activation | 4 — Executive Overview · Onboarding & Activation Funnel · Experiment Integrity Monitor · Experiment Readout | code-generated TMDL, 18 tables (22 rels) | 46 | [`powerbi/`](LumaBank-Activation-Experiment/powerbi/) · [report structure](LumaBank-Activation-Experiment/docs/09_report_structure.md) |
 
 Gallery images and diagram sources: `*/portfolio/` and `voxaplus-churn-diagnosis/portfolio/gallery/`.
 
@@ -258,7 +263,7 @@ must pass).
 | AeroVanti SkyPoints | 21-table star + experiment tables (TMDL) | 62 measures | [05_data_model](AeroVanti-SkyPoints-Analytics/docs/05_data_model.md) · [06_dax_measures](AeroVanti-SkyPoints-Analytics/docs/06_dax_measures.md) |
 | VoltEdge Electronics | 28 tables, ~65 relationships, role-playing dates, helper tables | 167 measures in 14 folders | [05_data_model](VoltEdge-Electronics-Analytics/docs/05_data_model.md) · [06_dax_measures](VoltEdge-Electronics-Analytics/docs/06_dax_measures.md) |
 | Voxa+ | code-generated TMDL star | 113 measures | [05_data_model](voxaplus-churn-diagnosis/docs/05_data_model.md) · [06_dax_measures](voxaplus-churn-diagnosis/docs/06_dax_measures.md) |
-| SwiftBite Delivery | 15-table star, 28 relationships, `fact_order` role-playing `dim_zone` ×3, zone-adjacency bridge | 69 measures in 6 folders | [05_data_model](SwiftBite-Delivery-Analytics/docs/05_data_model.md) · [06_dax_measures](SwiftBite-Delivery-Analytics/docs/06_dax_measures.md) |
+| SwiftBite Delivery | 15-table star, 28 relationships, `fact_order` role-playing `dim_zone` ×3, zone-adjacency bridge | 71 measures in 6 folders | [05_data_model](SwiftBite-Delivery-Analytics/docs/05_data_model.md) · [06_dax_measures](SwiftBite-Delivery-Analytics/docs/06_dax_measures.md) |
 | LumaBank Activation | code-generated TMDL star, 18 tables, 22 relationships | 46 measures in 9 folders | [05_data_model](LumaBank-Activation-Experiment/docs/05_data_model.md) · [06_dax_measures](LumaBank-Activation-Experiment/docs/06_dax_measures.md) |
 
 The DAX is generated from Python (`etl/pbi_measures.py` in each project) so the measure list,
@@ -268,8 +273,15 @@ the docs, and the model stay in sync.
 
 Each project carries a numbered `docs/` set (business context → architecture → data
 dictionary → data model → DAX → visual identity, most with data quality → report structure
-too), a `walkthrough.md` build log, and bundled PDFs (`*-Documentation.pdf` full +
-`*-Summary.pdf` condensed).
+too), a `walkthrough.md` build log, and bundled PDFs.
+
+| Project | docs/ set | Walkthrough | PDF bundle |
+|---|---|---|---|
+| AeroVanti SkyPoints | 00–09 | [walkthrough](AeroVanti-SkyPoints-Analytics/docs/walkthrough.md) | [Documentation](AeroVanti-SkyPoints-Analytics/docs/AeroVanti-SkyPoints-Documentation.pdf) · [Summary](AeroVanti-SkyPoints-Analytics/docs/AeroVanti-SkyPoints-Summary.pdf) |
+| VoltEdge Electronics | 01–09 | [walkthrough](VoltEdge-Electronics-Analytics/docs/walkthrough.md) | [Documentation](VoltEdge-Electronics-Analytics/docs/VoltEdge-Electronics-Documentation.pdf) · [Summary](VoltEdge-Electronics-Analytics/docs/VoltEdge-Electronics-Documentation-Summary.pdf) |
+| Voxa+ | 01–09 | [walkthrough](voxaplus-churn-diagnosis/docs/walkthrough.md) | [Documentation](voxaplus-churn-diagnosis/docs/Voxa+_Documentation.pdf) · [Summary](voxaplus-churn-diagnosis/docs/Voxa+_Summary.pdf) |
+| SwiftBite Delivery | 00–09 | [walkthrough](SwiftBite-Delivery-Analytics/docs/walkthrough.md) | [Documentation](SwiftBite-Delivery-Analytics/docs/SwiftBite-Delivery-Documentation.pdf) · [Summary](SwiftBite-Delivery-Analytics/docs/SwiftBite-Delivery-Summary.pdf) |
+| LumaBank Activation | 00–07, 09 | [walkthrough](LumaBank-Activation-Experiment/docs/walkthrough.md) | [Documentation](LumaBank-Activation-Experiment/docs/LumaBank-Activation-Documentation.pdf) · [Summary](LumaBank-Activation-Experiment/docs/LumaBank-Activation-Summary.pdf) |
 
 ---
 

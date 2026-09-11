@@ -14,6 +14,8 @@ The project demonstrates four skill sets in one coherent piece of work:
 | **Dashboard design** | A 7-page executive report — theme, layout and every visual — built and version-controlled through the `pbir` project format, with a committed visual identity. |
 | **Data analysis** | A dual-track analysis (**DuckDB SQL + pandas**, every result parity-checked) that produces **10 findings** and two audience-specific deliverables: a board summary and an extensive deep dive. |
 
+📄 [Visual case study (PDF)](portfolio/VoltEdge-Electronics-case-study.pdf) — 7-page carousel summary.
+
 ## The scenario
 
 **VoltEdge Electronics** is a fictional pure-play online retailer of consumer electronics
@@ -54,6 +56,7 @@ VoltEdge-Electronics-Analytics/
 │   ├── 06_dax_measures.md             Every DAX measure: formula + description
 │   ├── 07_report_guide.md             Page-by-page design rationale
 │   ├── 08_data_quality.md             DQ rules and the latest DQ report
+│   ├── 09_report_structure.md         Page-by-page table (compact index of 07)
 │   ├── walkthrough.md                 Master narrative: what was built, step by step
 │   └── VoltEdge-Electronics-Documentation(-Summary).pdf   All docs bundled (+ condensed)
 ├── etl/                          Seeded Python pipeline (raw → staging → curated)

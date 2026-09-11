@@ -8,6 +8,8 @@ choosing between three imperfect fixes under deadline, re-planning the statistic
 re-running clean.
 
 > Fictional company and synthetic data, fully reproducible from a single random seed.
+
+📄 [Visual case study (PDF)](portfolio/LumaBank-Activation-case-study.pdf) — 7-page carousel summary.
 > Every deliverable also explains each step in Portuguese.
 
 ## Priority
@@ -47,7 +49,8 @@ diagnose → decide (truncate / drop contaminated / restart) → re-plan power �
 
 ```
 docs/            business context & KPIs (+ SRM runbook) → architecture → data dictionary →
-                 ETL → model → DAX → visual identity → walkthrough → docs bundle (PDF)
+                 ETL → model → DAX → visual identity → report structure → walkthrough →
+                 docs bundle (PDF)
 etl/             config (seed, true effect, bug magnitudes) + pipeline (raw → staging →
                  curated) + hard dq_checks (incl. an SRM data-quality check)
 data/            raw / staging / curated (CSV + Parquet) / quality
