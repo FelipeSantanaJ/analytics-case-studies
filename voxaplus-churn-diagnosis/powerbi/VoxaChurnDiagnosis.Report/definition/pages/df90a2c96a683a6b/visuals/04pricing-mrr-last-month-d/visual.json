@@ -45,7 +45,15 @@
     "objects": {
       "labels": [
         {
-          "properties": {}
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
         },
         {
           "properties": {
