@@ -116,7 +116,7 @@ or the market?
 
 **What's in it.**
 - **Diagnosis** ([`data_analysis/`](voxaplus-churn-diagnosis/data_analysis/)): 10 findings F01–F10 — spike size & persistence → market decomposition → segment breadth → engagement-precedes-churn → CTV app regression → Brazil price interaction → Mexico cohort quality → payments ruled out → financial impact → synthesis. Dual-track SQL + pandas, parity-checked.
-- **Deliverables:** [board summary](voxaplus-churn-diagnosis/data_analysis/deliverables/board_summary.html) · [deep-dive index](voxaplus-churn-diagnosis/data_analysis/deliverables/deep_dive_00_index.md).
+- **Deliverables:** [board summary](voxaplus-churn-diagnosis/data_analysis/deliverables/board_summary.pdf) · [deep dive](voxaplus-churn-diagnosis/data_analysis/deliverables/deep_dive.pdf).
 - **Power BI** ([`powerbi/`](voxaplus-churn-diagnosis/powerbi/)): 7 pages — Executive Summary · Retention & Cohorts · Content & Engagement · Pricing & Plans · Acquisition Quality · CX, Billing & App Quality · Market Context. Code-generated TMDL model, 113 DAX measures.
 - **Docs:** [`docs/`](voxaplus-churn-diagnosis/docs/) 01–09 + [walkthrough](voxaplus-churn-diagnosis/docs/walkthrough.md) + [PDF bundle](voxaplus-churn-diagnosis/docs/Voxa+_Documentation.pdf).
 - **Visual case study:** [7-page PDF carousel](voxaplus-churn-diagnosis/portfolio/Voxa+-case-study.pdf).
@@ -230,7 +230,7 @@ Gallery images and diagram sources: `*/portfolio/` and `voxaplus-churn-diagnosis
 | Project | Deliverable | What it does |
 |---|---|---|
 | **VoltEdge Electronics** | [10 findings](VoltEdge-Electronics-Analytics/data_analysis/findings/) + [board summary](VoltEdge-Electronics-Analytics/data_analysis/deliverables/board_summary.pdf) / [deep dive](VoltEdge-Electronics-Analytics/data_analysis/deliverables/deep_dive.pdf) | Decomposes growth, margin, working capital, returns and CAC for an exec audience; every result computed in SQL and pandas and asserted equal. |
-| **Voxa+** | [10 findings F01–F10](voxaplus-churn-diagnosis/data_analysis/findings/) + [board summary](voxaplus-churn-diagnosis/data_analysis/deliverables/board_summary.html) | Root-cause investigation of a churn spike: market decomposition, engagement-before-cancellation, cohort-quality retention curves, an interaction test on price, and an explicit "ruled out" section for payments. |
+| **Voxa+** | [10 findings F01–F10](voxaplus-churn-diagnosis/data_analysis/findings/) + [board summary](voxaplus-churn-diagnosis/data_analysis/deliverables/board_summary.pdf) | Root-cause investigation of a churn spike: market decomposition, engagement-before-cancellation, cohort-quality retention curves, an interaction test on price, and an explicit "ruled out" section for payments. |
 | **AeroVanti SkyPoints** | [Deep dive B — program health](AeroVanti-SkyPoints-Analytics/data_analysis/deliverables/deep_dive_B_program_health.md) | Point hoarding, breakage sensitivity, redemption funnel, redeemer-vs-non-redeemer retention. |
 
 ### 🧪 Experiments (A/B tests)

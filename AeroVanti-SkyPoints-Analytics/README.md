@@ -6,7 +6,12 @@ program) members hoard miles instead of redeeming them, and read out the
 
 > Fictional company and synthetic data. Fully reproducible from a single random seed.
 
-📄 [Visual case study (PDF)](portfolio/AeroVanti-SkyPoints-case-study.pdf) — 7-page carousel summary.
+📄 **Primary deliverable:** [board summary](data_analysis/deliverables/board_summary.pdf) ·
+[deep dive](data_analysis/deliverables/deep_dive.pdf) — the A/B test read-out + program-health
+analysis (`.html` versions in the same folder if you want the live styling).
+
+📄 [Visual case study (PDF)](portfolio/AeroVanti-SkyPoints-case-study.pdf) — 7-page carousel
+summary, secondary.
 
 ## Priority
 

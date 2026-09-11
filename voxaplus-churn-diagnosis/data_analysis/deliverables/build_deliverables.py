@@ -67,7 +67,14 @@ code{background:var(--violet-tint);border-radius:4px;padding:1px 5px;font-size:1
 img{max-width:100%;border:1px solid var(--line);border-radius:8px;margin:10px 0}
 hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 .foot{color:var(--muted);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:10px}
+.crumbs{font-size:13px;margin:0 0 14px}
+.crumbs a{color:var(--violet);text-decoration:none} .crumbs a:hover{text-decoration:underline}
+.toc{background:var(--lightfill);border:1px solid var(--line);border-radius:8px;padding:14px 20px;margin:16px 0 28px}
+.toc strong{color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.toc ol{columns:2;column-gap:28px;margin:8px 0 0 18px}
+.toc a{color:var(--violet);text-decoration:none;font-size:13.5px} .toc a:hover{text-decoration:underline}
 @media print{
+  .toc,.crumbs{display:none}
   body{background:#fff}
   .page{max-width:none}
   .body,.band{padding-left:14mm;padding-right:14mm}
@@ -83,12 +90,36 @@ def b64(name: str) -> str:
     return "data:image/png;base64," + base64.b64encode(p.read_bytes()).decode() if p.exists() else ""
 
 
-def shell(band_label: str, title: str, sub: str, inner: str) -> str:
+def _slugify(text: str) -> str:
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"[^\w\s-]", "", text.lower())
+    return re.sub(r"\s+", "-", text.strip())
+
+
+def _add_anchors(html: str) -> tuple[str, str]:
+    """Give every <h2> an id and return (html_with_ids, a linked contents nav)."""
+    items: list[tuple[str, str]] = []
+
+    def repl(m: "re.Match[str]") -> str:
+        inner = m.group(1)
+        slug = _slugify(inner)
+        items.append((slug, re.sub(r"<[^>]+>", "", inner)))
+        return f'<h2 id="{slug}">{inner}</h2>'
+
+    html = re.sub(r"<h2>(.*?)</h2>", repl, html)
+    toc = ('<nav class="toc"><strong>Contents</strong><ol>'
+           + "".join(f'<li><a href="#{slug}">{label}</a></li>' for slug, label in items)
+           + "</ol></nav>")
+    return html, toc
+
+
+def shell(band_label: str, title: str, sub: str, inner: str, crumbs: str = "") -> str:
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title><style>{CSS}</style></head><body><div class="page">
 <div class="band"><span class="wm">Voxa<b>+</b></span><span class="lab">{band_label}</span></div>
 <div class="body"><h1>{title}</h1><p class="sub">{sub}</p>
+{crumbs}
 {inner}
 <p class="foot">Synthetic, seed-generated data (a portfolio project). Every figure is
 computed on two tracks — DuckDB SQL and pandas — with a parity assertion on each result
@@ -191,19 +222,26 @@ def build_deep_dive() -> str:
             md.reset()
             parts.append("<hr/>\n" + md.convert(text))
 
+    body, toc = _add_anchors("\n".join(parts))
+    crumbs = ('<p class="crumbs"><a href="../../README.md">&larr; Back to project README</a>'
+              ' &middot; <a href="board_summary.html">Board summary</a></p>')
     return shell(
         "Subscriber churn diagnosis — deep dive",
         "Voxa+ — Subscriber Churn: Root-Cause Diagnosis",
         "The exhaustive record behind the board summary · dual-track (DuckDB SQL + pandas)",
-        "\n".join(parts))
+        toc + body,
+        crumbs=crumbs)
 
 
 def main() -> None:
+    board_crumbs = ('<p class="crumbs"><a href="../../README.md">&larr; Back to project README</a>'
+                     ' &middot; <a href="deep_dive.html">Full deep dive &rarr;</a></p>')
     board = shell(
         "Subscriber churn diagnosis — board summary",
         "Why churn nearly doubled — and what to do",
         "Board readout · analysis window Sep 2023 – Aug 2026 · figures dual-computed (SQL + Python), 15/15 parity checks pass",
-        BOARD)
+        BOARD,
+        crumbs=board_crumbs)
     (HERE / "board_summary.html").write_text(board, encoding="utf-8")
 
     (HERE / "deep_dive.html").write_text(build_deep_dive(), encoding="utf-8")

@@ -43,7 +43,14 @@ code{background:var(--violet-tint);border-radius:4px;padding:1px 5px;font-size:1
 img{max-width:100%;border:1px solid var(--line);border-radius:8px;margin:10px 0}
 hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 .foot{color:var(--muted);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:10px}
+.crumbs{font-size:13px;margin:0 0 14px}
+.crumbs a{color:var(--violet);text-decoration:none} .crumbs a:hover{text-decoration:underline}
+.toc{background:var(--lightfill);border:1px solid var(--line);border-radius:8px;padding:14px 20px;margin:16px 0 28px}
+.toc strong{color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.toc ol{columns:2;column-gap:28px;margin:8px 0 0 18px}
+.toc a{color:var(--violet);text-decoration:none;font-size:13.5px} .toc a:hover{text-decoration:underline}
 @media print{
+  .toc,.crumbs{display:none}
   body{background:#fff}
   .page{max-width:none}
   .body,.band{padding-left:14mm;padding-right:14mm}
@@ -54,6 +61,7 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 </style></head><body><div class="page">
 <div class="band"><span class="wm">Voxa<b>+</b></span><span class="lab">Subscriber churn diagnosis — board summary</span></div>
 <div class="body"><h1>Why churn nearly doubled — and what to do</h1><p class="sub">Board readout · analysis window Sep 2023 – Aug 2026 · figures dual-computed (SQL + Python), 15/15 parity checks pass</p>
+<p class="crumbs"><a href="../../README.md">&larr; Back to project README</a> &middot; <a href="deep_dive.html">Full deep dive &rarr;</a></p>
 
 <p class="lead">Gross monthly churn stepped from a stable <strong>4.1%</strong> to
 <strong>6.8%</strong> at window-month 34 and has stayed there (6.9% &rarr; 6.6% &rarr; 7.0%).

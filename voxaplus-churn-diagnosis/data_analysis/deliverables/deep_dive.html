@@ -43,7 +43,14 @@ code{background:var(--violet-tint);border-radius:4px;padding:1px 5px;font-size:1
 img{max-width:100%;border:1px solid var(--line);border-radius:8px;margin:10px 0}
 hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 .foot{color:var(--muted);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:10px}
+.crumbs{font-size:13px;margin:0 0 14px}
+.crumbs a{color:var(--violet);text-decoration:none} .crumbs a:hover{text-decoration:underline}
+.toc{background:var(--lightfill);border:1px solid var(--line);border-radius:8px;padding:14px 20px;margin:16px 0 28px}
+.toc strong{color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.toc ol{columns:2;column-gap:28px;margin:8px 0 0 18px}
+.toc a{color:var(--violet);text-decoration:none;font-size:13.5px} .toc a:hover{text-decoration:underline}
 @media print{
+  .toc,.crumbs{display:none}
   body{background:#fff}
   .page{max-width:none}
   .body,.band{padding-left:14mm;padding-right:14mm}
@@ -54,12 +61,13 @@ hr{border:0;border-top:1px solid var(--line);margin:26px 0}
 </style></head><body><div class="page">
 <div class="band"><span class="wm">Voxa<b>+</b></span><span class="lab">Subscriber churn diagnosis — deep dive</span></div>
 <div class="body"><h1>Voxa+ — Subscriber Churn: Root-Cause Diagnosis</h1><p class="sub">The exhaustive record behind the board summary · dual-track (DuckDB SQL + pandas)</p>
-<h1>Voxa+ — Subscriber Churn: Root-Cause Diagnosis</h1>
+<p class="crumbs"><a href="../../README.md">&larr; Back to project README</a> &middot; <a href="board_summary.html">Board summary</a></p>
+<nav class="toc"><strong>Contents</strong><ol><li><a href="#0-the-question-and-the-answer">0. The question and the answer</a></li><li><a href="#1-the-spike-size-persistence-shape-findings-f01-f02">1. The spike — size, persistence, shape  (findings F01, F02)</a></li><li><a href="#2-who-is-leaving-and-why-now-findings-f03-f04">2. Who is leaving, and why now  (findings F03, F04)</a></li><li><a href="#3-factor-1-the-connected-tv-app-regression-finding-f05">3. Factor 1 — the connected-TV app regression  (finding F05)</a></li><li><a href="#4-factor-2-the-brazil-price-increase-and-why-it-bit-finding-f06">4. Factor 2 — the Brazil price increase, and why it bit  (finding F06)</a></li><li><a href="#5-factor-3-mexicos-pre-existing-cohort-quality-drag-finding-f07">5. Factor 3 — Mexico's pre-existing cohort-quality drag  (finding F07)</a></li><li><a href="#6-what-it-is-not-payments-finding-f08">6. What it is not — payments  (finding F08)</a></li><li><a href="#7-impact-and-the-decomposition-findings-f09-f10">7. Impact, and the decomposition  (findings F09, F10)</a></li><li><a href="#8-recommendations-priority-order">8. Recommendations (priority order)</a></li><li><a href="#appendix-the-ten-findings-in-full">Appendix — the ten findings in full</a></li></ol></nav><h1>Voxa+ — Subscriber Churn: Root-Cause Diagnosis</h1>
 <p><em>Analyst deep-dive · prepared for the leadership team · all figures dual-computed in
 DuckDB SQL and pandas with a parity check on every result
 (<code>../parity/parity_report.md</code> — 14/14 pass).</em></p>
 <hr />
-<h2>0. The question and the answer</h2>
+<h2 id="0-the-question-and-the-answer">0. The question and the answer</h2>
 <p><strong>Question.</strong> Gross monthly subscriber churn nearly doubled starting at window-month 34
 (Jun 2026) and has stayed elevated. What caused it?</p>
 <p><strong>Answer.</strong> Three factors that overlapped in time. None explains the spike on its own.</p>
@@ -95,7 +103,7 @@ DuckDB SQL and pandas with a parity check on every result
 </table>
 <p>Payments and involuntary churn were tested and are <strong>not</strong> involved (<code>§6</code>).</p>
 <hr />
-<h2>1. The spike — size, persistence, shape  <em>(findings F01, F02)</em></h2>
+<h2 id="1-the-spike-size-persistence-shape-findings-f01-f02">1. The spike — size, persistence, shape  <em>(findings F01, F02)</em></h2>
 <p>Gross monthly churn stepped from a <strong>4.1 %</strong> pre-shift baseline (window-months 25–33) to
 <strong>6.8 %</strong> across the three elevated months — a <strong>1.66×</strong> increase, and <strong>90 % of it is
 voluntary</strong>. It has not receded: the three months read 6.85 %, 6.58 %, 7.02 %.</p>
@@ -133,7 +141,7 @@ voluntary</strong>. It has not receded: the three months read 6.85 %, 6.58 %, 7.
 <p>A US that barely moves already rules out any explanation that would hit every market
 equally.</p>
 <hr />
-<h2>2. Who is leaving, and why now  <em>(findings F03, F04)</em></h2>
+<h2 id="2-who-is-leaving-and-why-now-findings-f03-f04">2. Who is leaving, and why now  <em>(findings F03, F04)</em></h2>
 <p><strong>The lift is broad, not narrow.</strong> Peak-vs-baseline churn is up by a strikingly even
 ~+2.7 pp across almost every tenure band, plan tier and acquisition channel. Two exceptions
 carry information:</p>
@@ -151,7 +159,7 @@ month before — whereas pre-shift churners left from a flat ~43 h. Value erodes
 cancellation follows. That points at what suppressed viewing just before the spike (§3),
 and it explains why a price change bites harder now (§4): people were already getting less.</p>
 <hr />
-<h2>3. Factor 1 — the connected-TV app regression  <em>(finding F05)</em></h2>
+<h2 id="3-factor-1-the-connected-tv-app-regression-finding-f05">3. Factor 1 — the connected-TV app regression  <em>(finding F05)</em></h2>
 <p>The Voxa+ "v3" app shipped device-family by device-family, reaching connected-TV last.
 Connected-TV streaming quality is flat through window-month 31, then:</p>
 <table>
@@ -208,7 +216,7 @@ value → decision delay of roughly one billing cycle. This is the <strong>acute
 largest single contributor</strong>, and — because it touches every market — it is why the
 company-wide number looks global.</p>
 <hr />
-<h2>4. Factor 2 — the Brazil price increase, and why it bit  <em>(finding F06)</em></h2>
+<h2 id="4-factor-2-the-brazil-price-increase-and-why-it-bit-finding-f06">4. Factor 2 — the Brazil price increase, and why it bit  <em>(finding F06)</em></h2>
 <p>Brazil raised Standard and Premium list prices at window-month 32, migrating existing
 members on their next renewal. Split Brazil Std/Prem subscribers by whether they were
 engaged or disengaged (below the healthy-engagement line) in the month:</p>
@@ -242,7 +250,7 @@ subscribers into the disengaged bucket in window-months 32–33, the migration t
 on a larger disengaged pool than it otherwise would have. Price alone did not move the
 base; <strong>price × prior disengagement produced the Brazil step</strong>. Brazil-only.</p>
 <hr />
-<h2>5. Factor 3 — Mexico's pre-existing cohort-quality drag  <em>(finding F07)</em></h2>
+<h2 id="5-factor-3-mexicos-pre-existing-cohort-quality-drag-finding-f07">5. Factor 3 — Mexico's pre-existing cohort-quality drag  <em>(finding F07)</em></h2>
 <p>Month-3 retention by market and cohort era:</p>
 <table>
 <thead>
@@ -277,7 +285,7 @@ is not "the channel mix kept degrading" — it is <strong>Mexican conditions for
 subscribers deteriorating across the board</strong> from ~window-month 24. This drag was already
 lifting Mexican churn ~0.6 pp before the visible spike and is still underneath it.</p>
 <hr />
-<h2>6. What it is <em>not</em> — payments  <em>(finding F08)</em></h2>
+<h2 id="6-what-it-is-not-payments-finding-f08">6. What it is <em>not</em> — payments  <em>(finding F08)</em></h2>
 <table>
 <thead>
 <tr>
@@ -312,7 +320,7 @@ lifting Mexican churn ~0.6 pp before the visible spike and is still underneath i
 driver of the spike. Mexico's payment economics are structurally poor but that is a
 standing cost, not a new one.</p>
 <hr />
-<h2>7. Impact, and the decomposition  <em>(findings F09, F10)</em></h2>
+<h2 id="7-impact-and-the-decomposition-findings-f09-f10">7. Impact, and the decomposition  <em>(findings F09, F10)</em></h2>
 <p><strong>Impact.</strong> The churn step cuts the implied average subscriber lifetime from <strong>~24 months
 to ~15</strong> — a <strong>~40 % reduction in lifetime value</strong>. In the three elevated months, <strong>~5,400
 subscribers left over and above the pre-shift rate</strong>; at ~$7.5 ARPU that is on the order of
@@ -362,7 +370,7 @@ carries Factor 1 or Factor 3. The US "39 % none" is just its unchanged ~4 % base
 the control. The flags overlap, so these are <em>coverage</em>, not an independent split; the
 causal weight sits in the <strong>rate</strong> comparisons (§3–§5), which are clean.</p>
 <hr />
-<h2>8. Recommendations (priority order)</h2>
+<h2 id="8-recommendations-priority-order">8. Recommendations (priority order)</h2>
 <ol>
 <li><strong>Fix the connected-TV player (Sev-1).</strong> Roll back / hotfix v3 on smart-TV and
    streaming-stick; verify video-start-failure returns to ~1 %. Save-campaign CTV-heavy
@@ -382,7 +390,7 @@ curated Parquet and pandas over the same files — and asserts the two agree wit
 before any number is used. SQL is saved under <code>data_analysis/sql/</code>, agreed results under
 <code>data_analysis/results/</code>, and the parity log at <code>data_analysis/parity/parity_report.md</code>.
 Per-problem method, evidence and limitations are in <code>data_analysis/findings/F01</code>–<code>F10</code>.</p>
-<h2>Appendix — the ten findings in full</h2>
+<h2 id="appendix-the-ten-findings-in-full">Appendix — the ten findings in full</h2>
 <p>Each numbered problem, with its hypothesis, both-tracks method, evidence table, conclusion, limitations and recommendation — exactly as recorded during the analysis.</p>
 <hr/>
 <h3>F01 — The spike: size, split, and whether it is still going</h3>

@@ -48,16 +48,20 @@ DIO/DSO/DPO and the cash conversion cycle).
 VoltEdge-Electronics-Analytics/
 ├── README.md                     ← you are here
 ├── docs/
+│   │  Essential — read in this order:
 │   ├── 01_business_context_kpis.md    Business model, stakeholders, KPI definitions
 │   ├── 02_data_architecture.md        Medallion architecture, source systems, pipeline
+│   ├── 05_data_model.md               Star schema, grain, relationships
+│   ├── 07_report_guide.md             Page-by-page design rationale
+│   │  Reference — auto-generated, consult as needed:
 │   ├── 03_data_dictionary.md          Every table & column (raw + staging + curated)
 │   ├── 04_etl_pipeline.md             Step-by-step of the ETL scripts
-│   ├── 05_data_model.md               Star schema, grain, relationships
 │   ├── 06_dax_measures.md             Every DAX measure: formula + description
-│   ├── 07_report_guide.md             Page-by-page design rationale
 │   ├── 08_data_quality.md             DQ rules and the latest DQ report
-│   ├── 09_report_structure.md         Page-by-page table (compact index of 07)
-│   ├── walkthrough.md                 Master narrative: what was built, step by step
+│   ├── 09_report_structure.md         Compact table-only index of 07 (optional — skip if
+│   │                                  you've already read 07)
+│   │  Build log:
+│   ├── walkthrough.md                 Chronological record of what was built, step by step
 │   └── VoltEdge-Electronics-Documentation(-Summary).pdf   All docs bundled (+ condensed)
 ├── etl/                          Seeded Python pipeline (raw → staging → curated)
 ├── data/

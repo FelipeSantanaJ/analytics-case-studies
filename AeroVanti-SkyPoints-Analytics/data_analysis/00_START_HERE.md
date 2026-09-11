@@ -1,6 +1,9 @@
-# Data Analysis — Start Here
+# Data Analysis — Method & Analysis Surface
 
-Orientation for the **AeroVanti SkyPoints** analysis (Phase 10 — the primary deliverable).
+Detailed orientation for the **AeroVanti SkyPoints** analysis (Phase 10 — the primary
+deliverable). Landed here from outside `data_analysis/`? Start at
+[`README.md`](README.md) instead — it has the run command and the deliverable links; this
+file is the deep-dive method reference it points to.
 
 Two standing rules:
 - **Every number that lands in a finding is computed twice — once in pandas, once in
