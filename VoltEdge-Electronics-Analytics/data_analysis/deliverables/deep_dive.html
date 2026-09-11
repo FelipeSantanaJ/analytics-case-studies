@@ -94,8 +94,7 @@ over <code>fact_order_lines</code> (grain: order line), <code>order_status &lt;&
 <h4>Reconciliation &amp; caveats</h4>
 <ul>
 <li>The DAX formula is reproduced exactly on both tracks; Net Revenue is <strong>$31.35M</strong>
-($31,347,077), the figure of record. The video walkthrough previously narrated a rounded
-"≈$31.7M" that predated the current curated build and has been updated to match.</li>
+($31,347,077), the figure of record.</li>
 <li><strong>Header vs line grain:</strong> <code>fact_orders</code> has 167,396 non-cancelled
 orders; count orders there, not on <code>fact_order_lines</code> (167,214). DAX-consistent AOV
 (Net Revenue ÷ Orders) = $187, not the $208 in <code>docs/01 §12</code> (which is pre-returns).</li>
