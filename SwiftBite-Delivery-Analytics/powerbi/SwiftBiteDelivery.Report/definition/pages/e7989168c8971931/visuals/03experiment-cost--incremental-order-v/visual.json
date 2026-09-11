@@ -42,7 +42,21 @@
         "isDefaultSort": true
       }
     },
-    "objects": {},
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
