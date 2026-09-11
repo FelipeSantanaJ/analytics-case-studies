@@ -1127,7 +1127,7 @@
         ],
         "categoryLabels": [
           {
-            "show": true,
+            "show": false,
             "color": {
               "solid": {
                 "color": "#868e96"

@@ -68,7 +68,9 @@ FONT_LIGHT = "Segoe UI Light"
 
 # ---- layout constants (px, 1280-wide canvas) ----------------------
 CANVAS_W = 1280
-PAGE_H_STANDARD = 720
+PAGE_H_STANDARD = 780  # was 720; bumped to fit the KPI row below the header
+                       # divider (y=144) without cards/sliders overlapping it
+                       # or each other — see gen_report_visuals.py kpi_frame
 PAGE_H_EXEC = 860
 BAND_H = 58          # header band height
 HAIRLINE_H = 3       # tangerine rule under the band

@@ -42,21 +42,7 @@
         "isDefaultSort": true
       }
     },
-    "objects": {
-      "categoryLabels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
+    "objects": {},
     "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
@@ -96,7 +82,7 @@
   },
   "position": {
     "x": 1061,
-    "y": 132,
+    "y": 200,
     "width": 195,
     "height": 70,
     "z": 0,
