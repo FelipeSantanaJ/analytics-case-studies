@@ -113,7 +113,7 @@ Ten parity-verified findings (`data_analysis/findings/`):
 | # | Finding | Headline |
 |---|---|---|
 | 00 | Anchor — Net Revenue | $31.35M over 24 months; reproduces the DAX exactly on both tracks |
-| 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US is −2% vs plan |
+| 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US −2% vs plan doesn't survive a monthly noise check (p=0.90) |
 | 03 | Contribution margin | Reached break-even (+$0.3M CY vs −$0.4M PY); UK the only negative market |
 | 04 | US growth is all volume | +110% volume, +8% price, −17% mix (into thin-margin smartphones) |
 | 05 | Promo depth erases gross profit | Promo days ≈ −$0.3M/yr of gross profit vs a normal day [95% CI: −$0.38M, −$0.24M], p < 0.001 |
@@ -142,7 +142,7 @@ bash build_report.sh                        # pbir validate --all at the end
 
 # 3. the analysis
 cd ../data_analysis
-pip install duckdb matplotlib seaborn pandas pyarrow
+pip install duckdb matplotlib seaborn pandas pyarrow scipy statsmodels
 for f in parity/*.py; do python "$f"; done  # all must print ALL PARITY CHECKS PASSED
 python deliverables/build_deliverables.py    # rebuild the two HTML deliverables
 ```

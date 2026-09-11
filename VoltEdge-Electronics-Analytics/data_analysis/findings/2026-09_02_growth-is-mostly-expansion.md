@@ -21,7 +21,10 @@ raw YoY overstates organic momentum.
 - **Expansion** = Total − Comparable Base = UK + DE + BR.
 - Plan from `fact_target` where `metric = 'Net Revenue'`, CY months.
 - SQL track: DuckDB `FILTER (WHERE …)` aggregates over the same parquet. Python: pandas pivot.
-  Parity to <1e-6 relative on every market × period cell and every subtotal.
+  Parity to <1e-6 relative on every market × period cell and every subtotal, and on the
+  12-month US actual-vs-plan panel used for the significance check below.
+- Significance: one-sample t-test on the 12 monthly US attainment ratios (`actual/plan − 1`)
+  against a null of 0%, plus a 10,000-resample bootstrap CI.
 
 ## Evidence
 
@@ -45,10 +48,37 @@ raw YoY overstates organic momentum.
 | Brazil | $4.59M | $4.61M | −0.4% |
 | **Total** | **$22.05M** | **$21.65M** | **+1.8%** |
 
+### Is the US −2.4% a real miss, or noise around zero?
+
+The annual −2.4% is a real, exact number (two 12-month totals divided). What's uncertain is
+whether it reflects the US *consistently* running a bit light, or is just where the dice
+landed summing 12 wildly uneven months. Broken out monthly, US-vs-plan swings from
+**+45% to −41%** — five months under plan, seven over:
+
+| | Value |
+|---|---:|
+| Mean monthly attainment | **+0.9%** (positive, not negative) |
+| One-sample t-test (H₀: mean = 0) | t = 0.13, **p = 0.90** |
+| 95% CI (bootstrap, 10,000 resamples) | **[−12.6%, +14.2%]** |
+
+**This does not hold up as a signal.** The monthly mean is actually slightly *positive*, the
+CI is enormous relative to the −2.4% annual figure, and p = 0.90 is about as "not
+distinguishable from zero" as a test result gets. The −2.4% annual number is arithmetically
+correct but is being driven by which 12 months landed in the window, not by a
+persistent US shortfall — month-to-month plan-attainment volatility this size (±40%+) simply
+swamps a −2.4% annual gap. **Original framing below ("press on the US −2%... single most
+important growth signal") does not survive this check and is corrected in the
+recommendation.**
+
+Method: `parity/02_growth_decomposition.py` — the monthly US actual/plan panel is
+parity-checked SQL vs. pandas before the test runs on it.
+
 ## What the data says
 1. The core (US) business grew **+40% like-for-like** — genuinely healthy for a growth-stage
-   DTC retailer — but landed **2% under its own plan**. The proven market is the only one
-   missing plan.
+   DTC retailer — and landed 2.4% under its annual plan, but that annual gap is not
+   statistically distinguishable from the ordinary month-to-month noise in US plan
+   attainment (see above). The +40% like-for-like growth rate is the reliable read; the
+   −2.4% vs plan is not, on its own, evidence of a developing problem.
 2. The eye-catching **+137%** is a one-time step from geography. It will not recur at that
    rate; next year's comparable base includes UK+DE (and eventually BR), so the reported
    number will step *down* toward the underlying ~30–40% range even if performance holds.
@@ -68,7 +98,12 @@ raw YoY overstates organic momentum.
 - **Report growth two ways on every board slide** (already the report's design intent): lead
   with **+40% like-for-like**, show +137% total as "incl. expansion". Do not let $22M / +137%
   anchor next-year targets.
-- **CFO:** press on the **US −2% vs plan** — it is the single most important growth signal in
-  the pack and is hidden by the blended beat (+1.8%).
+- **CFO:** do **not** present the US −2.4% vs plan as a standalone red flag — the significance
+  check above says it isn't distinguishable from normal month-to-month noise, and the
+  monthly mean is actually slightly positive. What *is* worth flagging is the **volatility
+  itself**: US monthly plan attainment swings ±40%+, which either means monthly planning
+  granularity needs work, or something operational is genuinely uneven month to month and
+  merits a look — separate from "the US is underperforming."
 - Set FY27 US plan off the +40% trajectory with a deceleration assumption; treat European
-  outperformance as upside, not run-rate.
+  outperformance as upside, not run-rate. Build monthly (not just annual) plan bands wide
+  enough to reflect the volatility actually observed this year.

@@ -15,7 +15,9 @@ from __future__ import annotations
 import sys
 import pathlib
 
+import numpy as np
 import pandas as pd
+from scipy import stats
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from utils import assert_close, duck, load_sql, t  # noqa: E402
@@ -68,6 +70,22 @@ vs_plan["attain_pct"] = vs_plan["actual_cy"] / vs_plan["plan_cy"] - 1
 py_summary["plan_cy_total"] = plan_by_mkt.sum()
 py_summary["attain_total_pct"] = actual_cy_by_mkt.sum() / plan_by_mkt.sum() - 1
 
+# US actual vs plan, by CY month -- is the -2.4% annual gap a consistent monthly
+# shortfall, or a couple of bad months dragging an otherwise-on-plan year?
+dd_m = t("dim_date")[["date_key", "month_year"]]
+us_key = mkt.loc[mkt["market_id"] == "US", "market_key"].iloc[0]
+
+us_ol = ol[(ol["market_key"] == us_key) & (ol["period"] == "CY")]
+us_actual_m = us_ol.merge(dd_m, left_on="order_date_key", right_on="date_key") \
+    .groupby("month_year")["nr"].sum().rename("actual")
+
+tgt_us = tgt[(tgt["market_key"] == us_key) & (tgt["month_date_key"].between(CY_START, CY_END))]
+us_plan_m = tgt_us.merge(dd_m, left_on="month_date_key", right_on="date_key") \
+    .groupby("month_year")["target_value"].sum().rename("plan")
+
+us_monthly = pd.concat([us_actual_m, us_plan_m], axis=1).sort_index()
+us_monthly["attain_pct"] = us_monthly["actual"] / us_monthly["plan"] - 1
+
 # --------------------------------------------------------------------------- #
 # SQL track (DuckDB)
 # --------------------------------------------------------------------------- #
@@ -76,6 +94,7 @@ Q = load_sql("02_growth_decomposition")
 sql_piv = con.execute(Q["piv"]).df().set_index("market_name").fillna(0.0)
 sql_comp = con.execute(Q["comp"]).df().iloc[0]
 sql_plan_total = con.execute(Q["plan_total"]).fetchone()[0]
+sql_us_monthly = con.execute(Q["us_monthly"]).df().set_index("month_year").sort_index()
 
 # --------------------------------------------------------------------------- #
 # Parity
@@ -89,6 +108,10 @@ assert_close(comp_py, float(sql_comp["comp_py"]), label="Comparable-base PY")
 assert_close(total_cy, float(sql_comp["total_cy"]), label="Total CY")
 assert_close(total_py, float(sql_comp["total_py"]), label="Total PY")
 assert_close(py_summary["plan_cy_total"], float(sql_plan_total), label="Plan CY total")
+assert len(us_monthly) == 12 and len(sql_us_monthly) == 12, "expected 12 US CY months"
+for m in us_monthly.index:
+    assert_close(us_monthly.loc[m, "actual"], float(sql_us_monthly.loc[m, "actual"]), label=f"US actual {m}")
+    assert_close(us_monthly.loc[m, "plan"], float(sql_us_monthly.loc[m, "plan"]), label=f"US plan {m}")
 
 # --------------------------------------------------------------------------- #
 # Report
@@ -108,9 +131,28 @@ print(vs_plan)
 print(f"\nTotal CY actual {actual_cy_by_mkt.sum():,.0f}  vs plan {plan_by_mkt.sum():,.0f}"
       f"  ({py_summary['attain_total_pct']:+.1%})")
 
+# ---------- is the US -2.4% vs plan a consistent shortfall, or a couple of bad months? ----------
+print("\n--- US vs plan, by month ---")
+print(us_monthly)
+t_stat, p_value = stats.ttest_1samp(us_monthly["attain_pct"], popmean=0.0)
+rng = np.random.default_rng(42)
+N_BOOT = 10_000
+boot_mean = np.array([rng.choice(us_monthly["attain_pct"], size=12, replace=True).mean()
+                       for _ in range(N_BOOT)])
+attain_ci_lo, attain_ci_hi = np.percentile(boot_mean, [2.5, 97.5])
+months_under = int((us_monthly["attain_pct"] < 0).sum())
+print(f"\nMean monthly attainment: {us_monthly['attain_pct'].mean():+.1%}   "
+      f"one-sample t = {t_stat:.2f}  p = {p_value:.3f}")
+print(f"95% CI (bootstrap, {N_BOOT:,} resamples, seed=42): "
+      f"[{attain_ci_lo:+.1%}, {attain_ci_hi:+.1%}]")
+print(f"Months under plan: {months_under}/12")
+print("  -> the annual -2.4% gap is a real, computed number either way; this asks whether "
+      "the monthly pattern behind it reads as a consistent miss or noisy scatter around zero.")
+
 # save backing tables
 out = pathlib.Path(__file__).resolve().parents[1] / "outputs" / "tables"
 piv.to_csv(out / "02_net_revenue_market_py_cy.csv")
 vs_plan.to_csv(out / "02_net_revenue_vs_plan_cy.csv")
+us_monthly.to_csv(out / "02_us_vs_plan_monthly.csv")
 print(f"\nBacking tables -> {out}")
 print("\nALL PARITY CHECKS PASSED")

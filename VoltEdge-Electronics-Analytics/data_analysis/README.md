@@ -29,7 +29,7 @@ python deliverables/build_deliverables.py            # rebuild the two HTML deli
 | # | Title | Headline |
 |---|---|---|
 | 00 | Anchor — Net Revenue | $31.35M (24m); reproduces the DAX exactly on both tracks |
-| 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US −2% vs plan |
+| 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US −2% vs plan (not distinguishable from month-to-month noise, p=0.90) |
 | 03 | Contribution margin | Break-even (+$325k CY vs −$365k PY); UK the only negative market |
 | 04 | US growth is all volume | +110% volume, +8% price, −17% mix (into thin-margin Smartphones) |
 | 05 | Promo depth | Promo days earn $372 gross profit vs $5,680 → ≈ −$308k/yr [95% CI: −$379k, −$242k] |

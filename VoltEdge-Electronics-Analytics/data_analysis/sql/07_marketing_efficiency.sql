@@ -40,3 +40,36 @@ JOIN first_order f USING (customer_key)
 WHERE ol.order_status <> 'cancelled'
   AND ol.order_date_key BETWEEN $lo AND $hi
   AND f.first_key       BETWEEN $lo AND $hi;
+
+-- name: monthly_panel
+-- One row per month in the 24-month extract window ($py_lo..$py_hi = PY, ($py_hi+1)..$cy_hi
+-- = CY): spend and new-customer count (customer attributed to the calendar month of their
+-- first-ever order). dim_date.yoy_period is not used here -- it is flagged for a calendar
+-- that extends past the extract window, which would double-count calendar months when
+-- paired below. Feeds the paired PY-vs-CY CAC test and the spend -> new-customer elasticity.
+WITH months AS (
+  SELECT DISTINCT month_year, month,
+         CASE WHEN date_key <= $py_hi THEN 'PY' ELSE 'CY' END AS yoy_period
+  FROM dim_date
+  WHERE date_key BETWEEN $py_lo AND $cy_hi
+),
+spend_m AS (
+  SELECT d.month_year, SUM(ms.cost_usd) AS spend
+  FROM fact_marketing_spend ms
+  JOIN dim_date d ON d.date_key = ms.date_key
+  WHERE d.date_key BETWEEN $py_lo AND $cy_hi
+  GROUP BY 1
+),
+newc_m AS (
+  SELECT d.month_year, COUNT(DISTINCT f.customer_key) AS new_customers
+  FROM first_order f
+  JOIN dim_date d ON d.date_key = f.first_key
+  WHERE d.date_key BETWEEN $py_lo AND $cy_hi
+  GROUP BY 1
+)
+SELECT m.month_year, m.month, m.yoy_period,
+       COALESCE(s.spend, 0) AS spend, COALESCE(n.new_customers, 0) AS new_customers
+FROM months m
+LEFT JOIN spend_m s ON s.month_year = m.month_year
+LEFT JOIN newc_m n ON n.month_year = m.month_year
+ORDER BY m.month_year;

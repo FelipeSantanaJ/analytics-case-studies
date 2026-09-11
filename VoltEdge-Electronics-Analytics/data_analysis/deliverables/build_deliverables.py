@@ -288,7 +288,9 @@ like-for-like rate.</p>
 <code>dim_market.is_comparable_base</code> = US only (live the whole CY+PY span), matching DAX
 <code>Net Revenue (Comparable Base)</code>. <strong>Expansion</strong> = Total − Comparable.
 Plan from <code>fact_target</code> (<code>metric='Net Revenue'</code>). SQL: DuckDB
-<code>FILTER (WHERE …)</code>; Python: pandas pivot. Parity &lt;1e-6 on every market×period cell.</p>
+<code>FILTER (WHERE …)</code>; Python: pandas pivot. Parity &lt;1e-6 on every market×period cell,
+including the 12-month US actual-vs-plan panel used for the significance check below.
+Significance: one-sample t-test + bootstrap CI on monthly US attainment.</p>
 {figure("2026-09_02_yoy_growth_waterfall.png", "PY total → +US like-for-like → +expansion → CY total.")}
 <table>
 <tr><th>Cut</th><th class="n">PY</th><th class="n">CY</th><th class="n">YoY</th></tr>
@@ -298,6 +300,11 @@ Plan from <code>fact_target</code> (<code>metric='Net Revenue'</code>). SQL: Duc
 </table>
 <p>Expansion is 53% of CY Net Revenue and <strong>77% of the $12.7M YoY gain</strong>. Actual CY
 vs plan: US <span class="bad">−2.4%</span>, UK +12.9%, DE +7.3%, BR −0.4%, total +1.8%.</p>
+<p><strong>Is the US miss real?</strong> Broken into its 12 months, US-vs-plan swings from
++45% to −41% (5 months under, 7 over). Mean monthly attainment is <strong>+0.9%</strong>
+(positive), one-sample t = 0.13, <strong>p = 0.90</strong>, 95% CI [−12.6%, +14.2%]. The
+−2.4% annual figure is exact, but it is not distinguishable from ordinary month-to-month
+noise — it does <em>not</em> hold up as a standalone signal.</p>
 <h4>Limitations</h4>
 <ul>
 <li>Comparable Base = US only (static DAX definition). A Core-3 (US+UK+DE from 2025-01) cut would
@@ -307,8 +314,10 @@ are used in the decomposition.</li>
 <li>US +40% not yet decomposed into price/volume/mix — see §4.</li>
 </ul>
 <div class="rec"><strong>Recommendation.</strong> Report growth two ways on every board slide;
-anchor FY27 targets on the +40% trajectory with deceleration. CFO: press on the US −2% plan miss —
-it is the most important growth signal and is masked by the blended beat.</div>
+anchor FY27 targets on the +40% trajectory with deceleration. Do <strong>not</strong> present the
+US −2.4% vs plan as a standalone red flag — it doesn't survive the noise check. The volatility
+itself (±40%+ monthly) is the more useful flag: build monthly plan bands wide enough to reflect
+it, or investigate why attainment swings that much month to month.</div>
 ''')}
 
 {section("3", "Contribution margin: at break-even, UK the drag", "CFO / CEO", f'''
@@ -444,7 +453,9 @@ immediately. Do not extend DPO further. Put CCC and Inventory Value trend on the
 <p><code>docs/06 §08</code>: <code>New Customers</code> = customers whose first-ever non-cancelled
 order (<code>MIN(order_date_key)</code>) is in the period; <code>Blended CAC = Spend ÷ New
 Customers</code>; <code>MER = Net Revenue ÷ Spend</code>. Sliced full/CY/PY, by channel group, vs
-<code>fact_target</code>. SQL: DuckDB view on first order; Python: pandas. Parity exact.</p>
+<code>fact_target</code>. SQL: DuckDB view on first order; Python: pandas. Parity exact, including a
+24-row monthly spend/new-customer panel. Significance: paired t-test (calendar month PY vs CY) +
+bootstrap CI; log-log OLS for the spend→new-customers association.</p>
 {figure("2026-09_07_marketing_efficiency.png", "Marketing intensity & CAC PY vs CY; CY contribution-margin sensitivity to CAC.")}
 <table>
 <tr><th></th><th class="n">PY</th><th class="n">CY</th></tr>
@@ -456,6 +467,12 @@ Customers</code>; <code>MER = Net Revenue ÷ Spend</code>. Sliced full/CY/PY, by
 shift — 96.7% of spend is paid both years; what changed is efficiency (41% of CY new customers now
 arrive via non-paid channels; paid-only CAC is $44.26). <strong>CY contribution margin: +$325k at
 actual CAC; +$111k at PY CAC; −$51k at plan CAC.</strong></p>
+<p><strong>Is the CAC improvement itself real?</strong> Paired by calendar month (12 pairs), the
+mean CAC change is <strong>−$1.18, p = 0.56, 95% CI [−$4.64, +$2.61]</strong> — spans zero. The
+annual figures are exact; whether the gap is a durable efficiency gain or a few unusually cheap
+months is not established, which makes the case for treating CM as fragile <em>stronger</em>, not
+weaker. Separately, a spend↔new-customer elasticity of <strong>1.01 [0.53, 1.49]</strong>
+(observational) shows no sign yet of diminishing returns on paid spend.</p>
 <h4>Limitations</h4>
 <ul>
 <li>Left-censoring: dataset starts 2024-07, so PY/full new-customer revenue reads as 100%; only the
@@ -463,10 +480,14 @@ CY split (84% new / 16% returning by the DAX definition) is meaningful — recon
 order-month figure in §8.</li>
 <li>ROAS/attribution is last-touch at channel level, not an MMM.</li>
 <li>CM-sensitivity flexes only CAC, holding new-customer count fixed — a cushion estimate, not a forecast.</li>
+<li>The elasticity is observational (spend and organic demand share a seasonal calendar), not a
+causal "spend +1%" estimate.</li>
 </ul>
 <div class="rec"><strong>Recommendation.</strong> Reframe the board message to "positive at current
-CAC". Track marginal CAC monthly; stress-test at $33 and $45. Given MER 12.8×, test scaling paid
-spend to a marginal-CAC ceiling (~$45) — there is likely profitable volume above budget.</div>
+CAC — and the improvement funding it isn't yet shown to be durable". Track marginal CAC monthly
+against the paired-month baseline; stress-test at $33 and $45. Given MER 12.8× and an elasticity
+near 1, test scaling paid spend to a marginal-CAC ceiling (~$45) — there is likely profitable
+volume above budget.</div>
 ''')}
 
 {section("8", "Retention: healthy, not yet the engine", "VP Customer / CEO", f'''

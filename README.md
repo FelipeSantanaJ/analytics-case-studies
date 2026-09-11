@@ -93,8 +93,7 @@ margin leaking?
 - **Visual case study:** [7-page PDF carousel](VoltEdge-Electronics-Analytics/portfolio/VoltEdge-Electronics-case-study.pdf).
 
 **Result.** Net Revenue **$31.35M** over 24 months. Growth is **+137% total but only
-+40% US like-for-like** — mostly expansion, and US is −2% vs plan. Contribution margin just
-reached break-even. The real problem is **working capital**: a ~134-day cash-conversion
++40% US like-for-like** — mostly expansion. Contribution margin just reached break-even. The real problem is **working capital**: a ~134-day cash-conversion
 cycle, all in inventory, with **~$4.4M freeable**. Returns are a **$1.65M net-margin drag**
 (~63% controllable); promo days cost ≈ $0.3M/yr of gross profit.
 

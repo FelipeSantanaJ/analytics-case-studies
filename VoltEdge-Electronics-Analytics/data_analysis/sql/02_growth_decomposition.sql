@@ -49,3 +49,29 @@ SELECT SUM(target_value)
 FROM fact_target
 WHERE metric = 'Net Revenue'
   AND month_date_key BETWEEN 20250701 AND 20260630;
+
+-- name: us_monthly
+-- US actual vs plan Net Revenue, one row per CY month. Feeds the test of whether the
+-- -2.4% annual US-vs-plan gap is a consistent monthly shortfall or a couple of bad months.
+WITH actual_m AS (
+    SELECT d.month_year, SUM(ol.net_amount_usd - ol.refund_amount_usd) AS actual
+    FROM fact_order_lines ol
+    JOIN dim_market m ON m.market_key = ol.market_key
+    JOIN dim_date d   ON d.date_key   = ol.order_date_key
+    WHERE ol.order_status <> 'cancelled' AND m.market_id = 'US'
+      AND ol.order_date_key BETWEEN 20250701 AND 20260630
+    GROUP BY 1
+),
+plan_m AS (
+    SELECT d.month_year, SUM(t.target_value) AS plan
+    FROM fact_target t
+    JOIN dim_market m ON m.market_key = t.market_key
+    JOIN dim_date d   ON d.date_key   = t.month_date_key
+    WHERE t.metric = 'Net Revenue' AND m.market_id = 'US'
+      AND t.month_date_key BETWEEN 20250701 AND 20260630
+    GROUP BY 1
+)
+SELECT a.month_year, a.actual, p.plan, a.actual / p.plan - 1 AS attain_pct
+FROM actual_m a
+JOIN plan_m p USING (month_year)
+ORDER BY a.month_year;
