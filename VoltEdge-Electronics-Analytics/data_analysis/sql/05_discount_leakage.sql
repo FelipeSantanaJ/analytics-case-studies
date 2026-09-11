@@ -49,3 +49,16 @@ SELECT category,
 FROM b
 GROUP BY 1
 ORDER BY rate DESC;
+
+-- name: daily_gp
+-- One row per calendar day: gross profit (net of refunds and COGS), promo flag,
+-- and calendar month (1-12, pooling both fiscal years) for the seasonality control.
+-- Feeds the promo-day P&L significance test and the month-adjusted regression.
+SELECT ol.order_date_key AS day,
+       d.is_promo_period,
+       d.month,
+       SUM(ol.net_amount_usd - ol.refund_amount_usd - ol.cogs_usd) AS gp
+FROM fact_order_lines ol
+JOIN dim_date d ON d.date_key = ol.order_date_key
+WHERE ol.order_status <> 'cancelled'
+GROUP BY 1, 2, 3;

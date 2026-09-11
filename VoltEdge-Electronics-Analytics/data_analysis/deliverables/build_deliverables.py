@@ -191,8 +191,10 @@ larger than every P&amp;L lever combined. Put CCC and Inventory Value on the Exe
 <h2>5 · Two self-inflicted margin leaks worth ~$0.9M/yr</h2>
 <p><strong>Promo depth.</strong> Blended discounting is a healthy 4.6%, but on the 58 promo days a
 day earns <strong>$372 of gross profit vs $5,680</strong> on a normal day — the 15.7% average
-discount consumes the entire product margin. Cost ≈ <strong>−$308k/yr</strong> vs treating those as
-normal days (Black Friday at 17–19% off is the worst).</p>
+discount consumes the entire product margin. Cost ≈ <strong>−$308k/yr</strong>
+[95% CI: −$379k, −$242k] vs treating those as normal days (p = 1.2×10⁻¹², Welch's t-test;
+holds after controlling for calendar-month seasonality). Black Friday at 17–19% off is the
+worst.</p>
 <p><strong>Shipping-fee recovery.</strong> VoltEdge recovers only <strong>28%</strong> of shipping
 cost in fees (Brazil: 5%) — a ~<strong>$0.6M/yr</strong> structural subsidy. Service levels are
 otherwise on-benchmark; carriers are not the issue.</p>
@@ -374,14 +376,17 @@ do not assume operating leverage from volume alone.</div>
 <p><code>Discount Rate % = SUM(discount_amount_usd) ÷ SUM(gross_amount_usd)</code>. Promo days from
 <code>dim_date.is_promo_period</code>. Promo-day P&amp;L uses line-level
 <code>gp = (net − refund) − cogs_usd</code> aggregated to a per-day average. Discount-rate parity
-exact to 1e-9.</p>
+exact to 1e-9; per-day gross profit parity (sum/mean/variance per group) before any significance
+test runs on it. Significance: Welch's t-test. Uncertainty: percentile bootstrap (10,000
+resamples, seed 42). Seasonality check: OLS with calendar-month fixed effects, robust SE.</p>
 {figure("2026-09_05_discount_leakage.png", "Discount rate by promo event; average daily gross profit promo vs non-promo.")}
 <ul>
 <li>Blended discount rate <strong>4.6%</strong> — low end of the 4–10% benchmark; mild drift PY
 4.3% → CY 4.7%. Non-promo days 2.7%; <strong>promo days 15.7%</strong>.</li>
-<li>Promo day: ~2× the volume of a normal day but <strong>$372 of gross profit vs $5,680</strong>.
-Naive annual impact ≈ <span class="bad">−$308k</span> across 58 promo days — roughly the size of
-the entire CY contribution margin.</li>
+<li>Promo day: ~2× the volume of a normal day but <strong>$372 of gross profit vs $5,680</strong>
+(Welch t = −8.80, p = 1.2×10⁻¹²). Annual impact ≈ <span class="bad">−$308k</span>
+[95% CI: −$379k, −$242k] across 58 promo days — roughly the size of the entire CY
+contribution margin.</li>
 <li>Black Friday is the deepest (17–19% off); discount rate is flat across categories, so this is a
 calendar/depth decision, not a merchandising one.</li>
 </ul>
@@ -390,8 +395,10 @@ calendar/depth decision, not a merchandising one.</li>
 <li>Pull-forward not modelled (would make promos look <em>worse</em>).</li>
 <li>New-customer acquisition &amp; inventory-clearance value not credited (could justify part of
 the cost — needs §8 and an aged-inventory view).</li>
-<li>Baseline-day GP is a blended average; promo days cluster in Q4 when baseline demand is higher,
-so the true counterfactual is likely above $5,680.</li>
+<li>Baseline-day GP is a blended average, and promo days concentrate in specific calendar
+months. Tested directly (month-fixed-effects regression): the seasonality-adjusted gap is
+−$5,710/day, essentially unchanged from the naive −$5,308 — <strong>not</strong> a
+seasonality artifact.</li>
 </ul>
 <div class="rec"><strong>Recommendation.</strong> Cap Black Friday at 12–14% and test shorter
 windows; re-scope other events toward margin-carrying categories. If BF is kept, fund it from the

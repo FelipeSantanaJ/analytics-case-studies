@@ -32,7 +32,7 @@ python deliverables/build_deliverables.py            # rebuild the two HTML deli
 | 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US −2% vs plan |
 | 03 | Contribution margin | Break-even (+$325k CY vs −$365k PY); UK the only negative market |
 | 04 | US growth is all volume | +110% volume, +8% price, −17% mix (into thin-margin Smartphones) |
-| 05 | Promo depth | Promo days earn $372 gross profit vs $5,680 → ≈ −$308k/yr |
+| 05 | Promo depth | Promo days earn $372 gross profit vs $5,680 → ≈ −$308k/yr [95% CI: −$379k, −$242k] |
 | 06 | Working capital | CCC ≈ 134d, all inventory; **~$4.4M cash freeable**; BR DSO 37d |
 | 07 | CM depends on cheap CAC | +$325k at $26.91 CAC; **−$51k at the $32.80 plan CAC** |
 | 08 | Retention | Repeat rate 37.6% (above bm) but decays fast; 16% vs 44% reconciliation |

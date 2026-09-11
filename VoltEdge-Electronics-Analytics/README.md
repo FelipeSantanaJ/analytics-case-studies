@@ -116,7 +116,7 @@ Ten parity-verified findings (`data_analysis/findings/`):
 | 02 | Growth is mostly expansion | +137% total vs **+40% US like-for-like**; US is −2% vs plan |
 | 03 | Contribution margin | Reached break-even (+$0.3M CY vs −$0.4M PY); UK the only negative market |
 | 04 | US growth is all volume | +110% volume, +8% price, −17% mix (into thin-margin smartphones) |
-| 05 | Promo depth erases gross profit | Promo days ≈ −$0.3M/yr of gross profit vs a normal day |
+| 05 | Promo depth erases gross profit | Promo days ≈ −$0.3M/yr of gross profit vs a normal day [95% CI: −$0.38M, −$0.24M], p < 0.001 |
 | 06 | Working capital is the real problem | CCC ≈ 134 days, all inventory; **~$4.4M cash freeable** |
 | 07 | CM depends on cheap CAC | +$0.3M at $26.91 CAC, but **−$0.05M at the $32.80 plan CAC** |
 | 08 | Retention healthy, not yet the engine | Repeat rate 37.6% (above benchmark) but decays fast |

@@ -1,0 +1,2 @@
+naive_gap_per_day,welch_t,welch_p,bootstrap_ci_lo,bootstrap_ci_hi,annualized_impact,annualized_ci_lo,annualized_ci_hi,month_adjusted_gap_per_day,month_adjusted_ci_lo,month_adjusted_ci_hi,month_adjusted_p
+-5308.121896207862,-8.801839326808066,1.175671791319125e-12,-6529.275461496049,-4172.69087737903,-307871.06998005597,-378697.9767667708,-242016.07088798375,-5710.0269700443,-7075.541418370125,-4344.512521718474,2.4898667139323223e-16

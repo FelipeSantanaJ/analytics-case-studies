@@ -14,7 +14,10 @@ concentrated in the sale events?
 `order_status <> 'cancelled'`. Sliced full/CY/PY, promo vs non-promo days, by event, by
 category, and monthly. Promo-day P&L uses actual line-level `gp = (net_amount_usd −
 refund_amount_usd) − cogs_usd`, aggregated to a per-day average, promo vs non-promo.
-SQL = DuckDB view + grouped aggregates; Python = pandas. Discount-rate parity exact to 1e-9.
+SQL = DuckDB view + grouped aggregates; Python = pandas. Discount-rate parity exact to 1e-9;
+per-day gross profit parity (sum/mean/variance per group) before any test runs on it.
+Significance: Welch's t-test (unequal variance). Uncertainty: percentile bootstrap, 10,000
+resamples, seed 42. Seasonality check: OLS with calendar-month fixed effects, HC3 robust SE.
 
 ## Evidence
 - **Blended discount rate 4.6%** ($1.67M on $36.5M gross) — the **low end** of the 4–10%
@@ -43,10 +46,33 @@ SQL = DuckDB view + grouped aggregates; Python = pandas. Discount-rate parity ex
 | **Avg gross profit** | **$5,680** | **$372** |
 
 A promo day does ~2× the volume of a normal day but returns **$372 of gross profit vs
-$5,680** — the ~15.7% discount more than consumes the ~18% product margin. Naive annual
-impact: **≈ −$308k gross profit** across the 58 promo days versus if they had traded as
-normal days. For scale, CY contribution margin (Finding 03) is +$325k — **the promo
-calendar is roughly the size of the company's entire operating contribution.**
+$5,680** — the ~15.7% discount more than consumes the ~18% product margin.
+
+### Is this a real gap, or could 58 promo days just be noisy?
+
+It's real. Comparing daily gross profit on the 58 promo days vs the 672 non-promo days
+(Welch's t-test, unequal variance): **t = −8.80, p = 1.2×10⁻¹²** — not distinguishable from
+zero is not on the table.
+
+| | Estimate | 95% CI |
+|---|---:|---:|
+| Gap per promo day (naive) | **−$5,308** | [−$6,529, −$4,173] (bootstrap, 10,000 resamples) |
+| Annualized (× 58 promo days) | **−$307,871** | [−$378,698, −$242,016] |
+| Gap per promo day, **seasonality-adjusted** | −$5,710 | [−$7,076, −$4,345] (p = 2.5×10⁻¹⁶) |
+
+The seasonality-adjusted row controls for calendar month (promo days only fall in
+Mar/Jul/Nov/Dec, which could have different baseline demand than the rest of the year on
+their own) via a fixed-effects regression (`gp ~ is_promo + month`, robust SE). The
+adjusted gap is essentially the same as the naive one — **the promo P&L hole is not a
+seasonality artifact.** Even the conservative end of the annualized CI (−$242k) is a
+sizeable chunk of CY contribution margin (Finding 03, +$325k): **the promo calendar is
+comparable in size to the company's entire operating contribution**, with real
+uncertainty only in exactly how comparable (79%–117% of it, at the CI bounds).
+
+Method for all three: `parity/05_discount_leakage.py` — daily gross profit is
+parity-checked SQL vs. pandas (sum, mean, variance per promo/non-promo group) before any
+test runs on it; the t-test, bootstrap and regression are then computed once from those
+agreed-upon numbers.
 
 ## What the data says
 1. There is **no discount-creep problem** to solve — 2.7% on normal days is healthy.
@@ -62,9 +88,11 @@ calendar is roughly the size of the company's entire operating contribution.**
    *new* customers with strong repeat value, or clear aged stock that would otherwise be
    written down, the −$308k is an overstatement. Needs the cohort view (Finding 08) and the
    aged-inventory view (Finding 06) to net out.
-- "Baseline day" GP is a blended average; promo days cluster in Q4 when baseline demand is
-   already higher, so the true counterfactual GP per promo day is likely **above** $5,680 —
-   again making promos look worse, not better.
+- "Baseline day" GP is a blended average, and promo days concentrate in specific calendar
+   months (Mar/Jul/Nov/Dec) that could have different baseline demand on their own. Tested
+   this directly with the month-fixed-effects regression above: adjusting for it moves the
+   gap from −$5,308 to −$5,710/day — **the true counterfactual is if anything worse**, not
+   better, so this isn't inflating the finding.
 - Gross profit here is line-level (incl. moving-avg COGS); excludes marketing pulled forward
    to support the event.
 
