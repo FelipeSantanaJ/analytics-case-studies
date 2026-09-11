@@ -1,0 +1,4 @@
+experiment_cohort,contaminated_flag,n,day7_rate
+post_deploy,False,1675,0.471044776119403
+pre_deploy,False,2457,0.47822547822547823
+pre_deploy,True,191,0.4869109947643979

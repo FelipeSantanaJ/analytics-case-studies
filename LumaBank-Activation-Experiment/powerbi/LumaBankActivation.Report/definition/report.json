@@ -1,0 +1,60 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "LumaBank.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "RegisteredResources"
+    },
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "LumaBank.json",
+          "path": "LumaBank.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "bg_01_executive_17890937601785702.png",
+          "path": "bg_01_executive_17890937601785702.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_02_funnel_17890937615518652.png",
+          "path": "bg_02_funnel_17890937615518652.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_03_integrity_17890937628809662.png",
+          "path": "bg_03_integrity_17890937628809662.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_04_readout_17890937642705450.png",
+          "path": "bg_04_readout_17890937642705450.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ]
+}

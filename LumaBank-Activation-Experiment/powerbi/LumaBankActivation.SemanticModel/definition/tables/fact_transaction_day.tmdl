@@ -1,0 +1,94 @@
+table fact_transaction_day
+	lineageTag: ca8a4b50-fce1-5716-a006-f2aa4910dca5
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		isHidden
+		dataType: int64
+		lineageTag: 87009721-2e45-51eb-8dbb-73bc31265687
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_count
+		dataType: int64
+		lineageTag: bd3de7e2-d024-54ae-be71-1b443105bd26
+		summarizeBy: sum
+		sourceColumn: txn_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_amount_brl
+		dataType: double
+		lineageTag: d1bcaf82-a883-5519-8d1e-176decbc291c
+		summarizeBy: sum
+		sourceColumn: txn_amount_brl
+
+		annotation SummarizationSetBy = Automatic
+
+	column pix_count
+		dataType: int64
+		lineageTag: cd985bc1-76da-570b-8d15-d96ebe156147
+		summarizeBy: sum
+		sourceColumn: pix_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_count
+		dataType: int64
+		lineageTag: 5fa01d69-de3e-5cdb-b6a7-3610af628785
+		summarizeBy: sum
+		sourceColumn: card_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column boleto_count
+		dataType: int64
+		lineageTag: 14b3b0f9-4d7d-5a44-afdb-7c7af029914f
+		summarizeBy: sum
+		sourceColumn: boleto_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column transfer_count
+		dataType: int64
+		lineageTag: fc21144e-1093-5313-bbec-7394b4cc0776
+		summarizeBy: sum
+		sourceColumn: transfer_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_first_txn_day
+		dataType: boolean
+		lineageTag: cde2f726-ca41-51e7-af88-867dfebb66e8
+		summarizeBy: none
+		sourceColumn: is_first_txn_day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_transaction_day = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_transaction_day.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "LumaBankActivation"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "40a20364-32dc-4d38-a46d-a3e79967e594"
+  }
+}

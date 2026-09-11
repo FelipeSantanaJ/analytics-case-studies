@@ -1,0 +1,14 @@
+[
+  {"visual_type": "card", "name": "kpi-kycsubmit", "title": "KYC-Submit Rate", "x": 30, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.KYC-Submit Rate %"}},
+  {"visual_type": "card", "name": "kpi-acctrate", "title": "Account-Creation Rate", "x": 330, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.Account-Creation Rate %"}},
+  {"visual_type": "card", "name": "kpi-day7-p2", "title": "Day-7 Activation", "x": 630, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.Day-7 Activation Rate %"}},
+  {"visual_type": "card", "name": "kpi-medmin", "title": "Median Minutes to Account", "x": 930, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.Median Minutes Signup to Account"}},
+  {"visual_type": "funnel", "name": "funnel-onboarding", "title": "Onboarding Funnel", "x": 30, "y": 270, "width": 590, "height": 430,
+   "fields": {"Category": "dim_onboarding_step.step_name", "Y": "_Measures.Funnel Reach"}},
+  {"visual_type": "clusteredColumnChart", "name": "kycrej-by-channel", "title": "KYC Rejection Rate by Channel", "x": 640, "y": 270, "width": 610, "height": 430,
+   "fields": {"Category": "dim_acquisition_channel.channel_name", "Y": "_Measures.KYC Rejection Rate %"}}
+]

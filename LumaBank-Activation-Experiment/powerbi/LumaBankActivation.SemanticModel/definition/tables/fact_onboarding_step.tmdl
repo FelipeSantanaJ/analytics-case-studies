@@ -1,0 +1,80 @@
+table fact_onboarding_step
+	lineageTag: 290bb42f-9222-5757-9c18-3df04b738d85
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column step_key
+		isHidden
+		dataType: int64
+		lineageTag: 1e295fd1-dfe3-53a6-824b-cf7ebd59b1b8
+		summarizeBy: none
+		sourceColumn: step_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column step_name
+		dataType: string
+		lineageTag: d6c7d61c-17ff-5d0a-8da2-8a3ec5c6555e
+		summarizeBy: none
+		sourceColumn: step_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column occurred_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 394aa991-a0cb-53fb-83a0-74294bcc9268
+		summarizeBy: none
+		sourceColumn: occurred_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column occurred_date_key
+		isHidden
+		dataType: int64
+		lineageTag: ccc20b1a-a2d7-5965-b19c-b81866789a34
+		summarizeBy: none
+		sourceColumn: occurred_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column seconds_since_signup
+		dataType: double
+		lineageTag: 2a86682d-be30-5eb7-b685-d184480513d5
+		summarizeBy: sum
+		sourceColumn: seconds_since_signup
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_reached
+		dataType: boolean
+		lineageTag: 819c647a-feb8-5c5e-8bea-213be3ccb76f
+		summarizeBy: none
+		sourceColumn: is_reached
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_onboarding_step = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_onboarding_step.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

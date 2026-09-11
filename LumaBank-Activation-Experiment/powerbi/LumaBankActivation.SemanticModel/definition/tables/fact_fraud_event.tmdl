@@ -1,0 +1,79 @@
+table fact_fraud_event
+	lineageTag: b638cbe1-ed4e-54e7-9a15-a68a65c8000a
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column flagged_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: d62437a6-9d72-53c1-85b3-0be993e638fc
+		summarizeBy: none
+		sourceColumn: flagged_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column flagged_date_key
+		isHidden
+		dataType: int64
+		lineageTag: debaea79-b4e3-50fb-982a-c6627efeefe9
+		summarizeBy: none
+		sourceColumn: flagged_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column signal_type
+		dataType: string
+		lineageTag: 3e7b9278-f3e4-58ec-90fa-1c53d6b6ef7c
+		summarizeBy: none
+		sourceColumn: signal_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column score
+		dataType: double
+		lineageTag: 4e3837ba-d248-57d5-99f5-fa392aed3f34
+		summarizeBy: sum
+		sourceColumn: score
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_confirmed
+		dataType: boolean
+		lineageTag: e3169869-67bf-5ff5-9db3-21c5dbd1daca
+		summarizeBy: none
+		sourceColumn: is_confirmed
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_since_activation
+		dataType: double
+		lineageTag: 4c25d9fb-c9f9-554a-a3d5-5795d96d37db
+		summarizeBy: sum
+		sourceColumn: days_since_activation
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_fraud_event = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_fraud_event.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

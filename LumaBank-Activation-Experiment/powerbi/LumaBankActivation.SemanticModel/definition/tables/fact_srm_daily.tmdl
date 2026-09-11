@@ -1,0 +1,125 @@
+table fact_srm_daily
+	lineageTag: 6d12ba5a-6c93-50c2-95d1-206c1270c52c
+
+	column experiment_phase
+		dataType: string
+		lineageTag: fdddea26-bf5d-52b5-8d31-b087d1d2bdae
+		summarizeBy: none
+		sourceColumn: experiment_phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column assign_date
+		dataType: string
+		lineageTag: f23748ac-47e3-5407-aa2e-49952928a5a1
+		summarizeBy: none
+		sourceColumn: assign_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column assign_date_key
+		isHidden
+		dataType: int64
+		lineageTag: 60bb1940-32dd-5f9e-836f-df3f783d1769
+		summarizeBy: none
+		sourceColumn: assign_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_control
+		dataType: int64
+		lineageTag: ed860a20-ecbe-59a9-a022-ccab0847e06d
+		summarizeBy: sum
+		sourceColumn: n_control
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_treatment
+		dataType: int64
+		lineageTag: 7bbc443f-8226-59de-b9c6-8660e6968344
+		summarizeBy: sum
+		sourceColumn: n_treatment
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_fallback
+		dataType: int64
+		lineageTag: 9c2f1d17-1556-50b9-8cd9-2d7838913596
+		summarizeBy: sum
+		sourceColumn: n_fallback
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_primary
+		dataType: int64
+		lineageTag: 566d1f34-852f-562d-b050-d3ad4311a87c
+		summarizeBy: sum
+		sourceColumn: n_primary
+
+		annotation SummarizationSetBy = Automatic
+
+	column srm_chisq_cumulative
+		dataType: double
+		lineageTag: 275dff18-a8ec-5548-8a6f-8e63877d6621
+		summarizeBy: sum
+		sourceColumn: srm_chisq_cumulative
+
+		annotation SummarizationSetBy = Automatic
+
+	column srm_p_cumulative
+		dataType: double
+		lineageTag: b02aff74-8c1a-568f-82de-f772a5a8d546
+		summarizeBy: sum
+		sourceColumn: srm_p_cumulative
+
+		annotation SummarizationSetBy = Automatic
+
+	column srm_chisq_trailing7
+		dataType: double
+		lineageTag: ff572d46-9bc3-523b-864e-0a52c321916f
+		summarizeBy: sum
+		sourceColumn: srm_chisq_trailing7
+
+		annotation SummarizationSetBy = Automatic
+
+	column srm_p_trailing7
+		dataType: double
+		lineageTag: 2c697fc3-8039-50ae-8cf7-5a849f3a4b2f
+		summarizeBy: sum
+		sourceColumn: srm_p_trailing7
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshot_log_mismatch_n
+		dataType: int64
+		lineageTag: d5ead75f-8182-5ae1-801d-42498f9a09ea
+		summarizeBy: sum
+		sourceColumn: snapshot_log_mismatch_n
+
+		annotation SummarizationSetBy = Automatic
+
+	column multi_assignment_n
+		dataType: int64
+		lineageTag: e221fc93-a2e4-54d4-816e-1bcd5f4e6b41
+		summarizeBy: sum
+		sourceColumn: multi_assignment_n
+
+		annotation SummarizationSetBy = Automatic
+
+	column alert_state
+		dataType: string
+		lineageTag: 6dac4850-6d8c-5425-9c4b-a23f5c94c48e
+		summarizeBy: none
+		sourceColumn: alert_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_srm_daily = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_srm_daily.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

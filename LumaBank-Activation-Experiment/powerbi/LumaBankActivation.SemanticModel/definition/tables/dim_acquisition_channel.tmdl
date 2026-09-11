@@ -1,0 +1,45 @@
+table dim_acquisition_channel
+	lineageTag: 88ef184b-ea61-5128-b9eb-98b247d0a865
+
+	column channel_key
+		isHidden
+		dataType: int64
+		lineageTag: a8881a1a-8ea7-5e81-8e7c-04ace0a5adf5
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_name
+		dataType: string
+		lineageTag: e909f157-addb-53e8-88b6-dd94ee9e72e6
+		summarizeBy: none
+		sourceColumn: channel_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_group
+		dataType: string
+		lineageTag: f87fefce-fee9-520d-b14f-5c5d49ec6a89
+		summarizeBy: none
+		sourceColumn: channel_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_paid
+		dataType: boolean
+		lineageTag: e19c00f3-8943-5e26-8e25-8e4de02100cd
+		summarizeBy: none
+		sourceColumn: is_paid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_acquisition_channel = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_acquisition_channel.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

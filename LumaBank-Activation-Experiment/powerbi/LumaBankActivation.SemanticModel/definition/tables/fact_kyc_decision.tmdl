@@ -1,0 +1,96 @@
+table fact_kyc_decision
+	lineageTag: cdc0b38b-32a4-5923-a0a3-97a8b4633bdf
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_outcome_key
+		isHidden
+		dataType: int64
+		lineageTag: 74ce9c79-cae4-5d5e-b994-f9e5cc0f5c2f
+		summarizeBy: none
+		sourceColumn: kyc_outcome_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 8fb4d44f-710d-5650-923e-4ed7626a328f
+		summarizeBy: none
+		sourceColumn: submitted_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column decided_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: d3e5ed51-4038-5874-a147-b12c51ddaab0
+		summarizeBy: none
+		sourceColumn: decided_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column decision_latency_hours
+		dataType: double
+		lineageTag: 630bf275-f48a-5266-b80d-22d707bc4740
+		summarizeBy: sum
+		sourceColumn: decision_latency_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rejection
+		dataType: boolean
+		lineageTag: 2af1e7a9-af58-59b0-bdc1-f5a21b24c348
+		summarizeBy: none
+		sourceColumn: is_rejection
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_manual_review
+		dataType: boolean
+		lineageTag: eeaa1cd9-15d3-5498-8c55-8d8680c8468b
+		summarizeBy: none
+		sourceColumn: is_manual_review
+
+		annotation SummarizationSetBy = Automatic
+
+	column doc_type
+		dataType: string
+		lineageTag: 9a442358-54f0-5388-a8c8-f09555a4b963
+		summarizeBy: none
+		sourceColumn: doc_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column submitted_after_account
+		dataType: string
+		lineageTag: 4bd3baf8-a20f-53ba-b0fb-70b4be3a754c
+		summarizeBy: none
+		sourceColumn: submitted_after_account
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_kyc_decision = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_kyc_decision.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

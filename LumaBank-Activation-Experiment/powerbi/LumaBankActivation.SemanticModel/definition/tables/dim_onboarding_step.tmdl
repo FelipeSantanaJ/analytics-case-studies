@@ -1,0 +1,46 @@
+table dim_onboarding_step
+	lineageTag: dc195b58-3cc7-5533-86bb-dfbd84fd919e
+
+	column step_key
+		isHidden
+		dataType: int64
+		lineageTag: 1e295fd1-dfe3-53a6-824b-cf7ebd59b1b8
+		summarizeBy: none
+		sourceColumn: step_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column step_name
+		dataType: string
+		sortByColumn: step_order
+		lineageTag: d6c7d61c-17ff-5d0a-8da2-8a3ec5c6555e
+		summarizeBy: none
+		sourceColumn: step_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column step_order
+		dataType: int64
+		lineageTag: f341dd3f-e602-5cba-989e-601df8ac30c0
+		summarizeBy: none
+		sourceColumn: step_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column funnel_stage
+		dataType: string
+		lineageTag: 98c1831a-ad59-5b85-ac8b-7105eba86eae
+		summarizeBy: none
+		sourceColumn: funnel_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_onboarding_step = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_onboarding_step.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

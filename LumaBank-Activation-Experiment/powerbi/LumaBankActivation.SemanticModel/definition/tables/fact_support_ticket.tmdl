@@ -1,0 +1,79 @@
+table fact_support_ticket
+	lineageTag: 364992ff-c0ef-5b16-bb36-3c1d91c62f1a
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column opened_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: c591a3f3-2711-5191-832b-23acd3d9489e
+		summarizeBy: none
+		sourceColumn: opened_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column opened_date_key
+		isHidden
+		dataType: int64
+		lineageTag: 493157cc-596c-53d6-8285-206ffffd033a
+		summarizeBy: none
+		sourceColumn: opened_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 6ed5eb51-c404-540d-a958-06a114336033
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 17c20197-593b-5c7d-90de-5f75ad14c232
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column cidade
+		dataType: string
+		lineageTag: 9b4c707d-1edb-5105-8abe-e07439937946
+		summarizeBy: none
+		sourceColumn: cidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_onboarding
+		dataType: boolean
+		lineageTag: eedbcadf-5bcc-5996-bff4-69296d463f5c
+		summarizeBy: none
+		sourceColumn: is_onboarding
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_support_ticket = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_support_ticket.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

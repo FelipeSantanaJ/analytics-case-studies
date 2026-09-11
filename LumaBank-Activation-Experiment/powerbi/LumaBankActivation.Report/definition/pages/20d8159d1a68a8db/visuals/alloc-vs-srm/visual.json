@@ -1,0 +1,128 @@
+{
+  "name": "alloc-vs-srm",
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "queryRef": "fact_srm_daily.assign_date",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_srm_daily"
+                    }
+                  },
+                  "Property": "assign_date"
+                }
+              },
+              "nativeQueryRef": "assign_date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "queryRef": "_Measures.Allocation Ratio (Treatment Share)",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Allocation Ratio (Treatment Share)"
+                }
+              },
+              "nativeQueryRef": "Allocation Ratio (Treatment Share)"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "queryRef": "_Measures.SRM P-Value (Trailing 7d)",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SRM P-Value (Trailing 7d)"
+                }
+              },
+              "nativeQueryRef": "SRM P-Value (Trailing 7d)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_srm_daily"
+                  }
+                },
+                "Property": "assign_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Daily Allocation & SRM Trailing-7d p-value'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 30,
+    "y": 260,
+    "width": 1220,
+    "height": 220,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

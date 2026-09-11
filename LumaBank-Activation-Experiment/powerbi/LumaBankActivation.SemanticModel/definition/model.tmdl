@@ -1,0 +1,11 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+
+	annotation PBI_QueryOrder = ["dim_acquisition_channel", "dim_app_release", "dim_date", "dim_experiment_arm", "dim_kyc_outcome", "dim_onboarding_step", "dim_region", "dim_user", "fact_activation", "fact_fraud_event", "fact_kyc_decision", "fact_onboarding_step", "fact_srm_daily", "fact_support_ticket", "fact_targets_month", "fact_transaction_day", "fact_variant_assignment", "dim_month", "_Measures", "pDataFolder"]
+
+	annotation __PBI_TimeIntelligenceEnabled = 0
+
+	annotation PBI_ProTooling = ["DevMode"]

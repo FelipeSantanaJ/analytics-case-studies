@@ -1,0 +1,49 @@
+{
+  "name": "LumaBank",
+  "dataColors": [
+    "#0E4A52",
+    "#93A29C",
+    "#E2624B",
+    "#C99A3E",
+    "#7A5C7E",
+    "#5B6B72",
+    "#C77C6E",
+    "#3B5B73"
+  ],
+  "foreground": "#3A4441",
+  "foregroundNeutralSecondary": "#6E7A76",
+  "foregroundNeutralTertiary": "#9FADA8",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F3F1EC",
+  "backgroundNeutral": "#E7E3DA",
+  "tableAccent": "#0E4A52",
+  "good": "#3C8073",
+  "neutral": "#8A8F8A",
+  "bad": "#C0453B",
+  "maximum": "#3C8073",
+  "center": "#EDE3CF",
+  "minimum": "#C0453B",
+  "hyperlink": "#0E4A52",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 15,
+      "color": "#17211F"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#17211F"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 9,
+      "color": "#3A4441"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 30,
+      "color": "#17211F"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+uf,uf_name,macro_region,timezone,utc_offset_hours,is_amazon_tz,pop_weight
+SP,São Paulo,SE,America/Sao_Paulo,-3,0,0.215
+RJ,Rio de Janeiro,SE,America/Sao_Paulo,-3,0,0.085
+MG,Minas Gerais,SE,America/Sao_Paulo,-3,0,0.098
+ES,Espírito Santo,SE,America/Sao_Paulo,-3,0,0.020
+PR,Paraná,S,America/Sao_Paulo,-3,0,0.056
+RS,Rio Grande do Sul,S,America/Sao_Paulo,-3,0,0.054
+SC,Santa Catarina,S,America/Sao_Paulo,-3,0,0.038
+BA,Bahia,NE,America/Sao_Paulo,-3,0,0.070
+PE,Pernambuco,NE,America/Sao_Paulo,-3,0,0.045
+CE,Ceará,NE,America/Sao_Paulo,-3,0,0.043
+MA,Maranhão,NE,America/Sao_Paulo,-3,0,0.033
+PB,Paraíba,NE,America/Sao_Paulo,-3,0,0.019
+RN,Rio Grande do Norte,NE,America/Sao_Paulo,-3,0,0.017
+AL,Alagoas,NE,America/Sao_Paulo,-3,0,0.016
+PI,Piauí,NE,America/Sao_Paulo,-3,0,0.016
+SE,Sergipe,NE,America/Sao_Paulo,-3,0,0.011
+GO,Goiás,CO,America/Sao_Paulo,-3,0,0.034
+DF,Distrito Federal,CO,America/Sao_Paulo,-3,0,0.015
+MS,Mato Grosso do Sul,CO,America/Campo_Grande,-4,1,0.013
+MT,Mato Grosso,CO,America/Cuiaba,-4,1,0.018
+PA,Pará,N,America/Belem,-3,0,0.041
+AM,Amazonas,N,America/Manaus,-4,1,0.021
+TO,Tocantins,N,America/Araguaina,-3,0,0.008
+RO,Rondônia,N,America/Porto_Velho,-4,1,0.009
+AP,Amapá,N,America/Belem,-3,0,0.004
+AC,Acre,N,America/Rio_Branco,-5,1,0.004
+RR,Roraima,N,America/Boa_Vista,-4,1,0.003

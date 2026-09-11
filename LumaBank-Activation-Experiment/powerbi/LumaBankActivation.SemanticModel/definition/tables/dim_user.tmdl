@@ -1,0 +1,160 @@
+table dim_user
+	lineageTag: 8d368be5-465a-58a4-ac5c-92f08e713a99
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date_key
+		isHidden
+		dataType: int64
+		lineageTag: f3022030-836d-51ad-a569-b9ebe610e79b
+		summarizeBy: none
+		sourceColumn: signup_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_cohort_week
+		dataType: string
+		lineageTag: d363e1c5-7189-5bb3-89e4-8187cb9bd736
+		summarizeBy: none
+		sourceColumn: signup_cohort_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		isHidden
+		dataType: int64
+		lineageTag: a8881a1a-8ea7-5e81-8e7c-04ace0a5adf5
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: e4ee3255-f5ef-552c-9303-441be668a357
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_key
+		isHidden
+		dataType: int64
+		lineageTag: c39eedca-33b5-5aa0-828a-1f023faad997
+		summarizeBy: none
+		sourceColumn: region_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_os
+		dataType: string
+		lineageTag: 4be56673-5242-5a2a-bf29-8cc424cf5275
+		summarizeBy: none
+		sourceColumn: device_os
+
+		annotation SummarizationSetBy = Automatic
+
+	column app_version_at_signup
+		dataType: string
+		lineageTag: b339a09f-c621-5f5b-ac76-3bb0c0ef31a9
+		summarizeBy: none
+		sourceColumn: app_version_at_signup
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_band
+		dataType: string
+		lineageTag: 8c584cfe-6966-504c-ac29-b72f189c9acb
+		summarizeBy: none
+		sourceColumn: age_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_year_valid
+		dataType: boolean
+		lineageTag: db73ce33-e704-5eea-9b02-1646ec5030b1
+		summarizeBy: none
+		sourceColumn: birth_year_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_test_account
+		dataType: boolean
+		lineageTag: ab9fc6f4-0a94-5034-98ee-e84da16e5eec
+		summarizeBy: none
+		sourceColumn: is_test_account
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_arm
+		dataType: string
+		lineageTag: 824abe52-2b25-5daa-b8c8-5026a2d696a1
+		summarizeBy: none
+		sourceColumn: experiment_arm
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_cohort
+		dataType: string
+		lineageTag: 1a3b00bd-a1bc-5fb5-8f6f-b1b2563080d1
+		summarizeBy: none
+		sourceColumn: experiment_cohort
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_experiment_subject
+		dataType: boolean
+		lineageTag: 1e515df2-728d-5fe3-bdad-d9416d0185a7
+		summarizeBy: none
+		sourceColumn: is_experiment_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column contaminated_flag
+		dataType: boolean
+		lineageTag: ca277ff9-ac8c-5dbe-813f-2833291294e0
+		summarizeBy: none
+		sourceColumn: contaminated_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_switch_flag
+		dataType: boolean
+		lineageTag: 94537a4f-67f4-5ff7-9910-dfa80df8080a
+		summarizeBy: none
+		sourceColumn: assignment_switch_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_analysis_flag
+		dataType: boolean
+		lineageTag: c0bd50c3-3b2b-573b-8019-5679d582d0c7
+		summarizeBy: none
+		sourceColumn: in_analysis_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_user = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_user.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

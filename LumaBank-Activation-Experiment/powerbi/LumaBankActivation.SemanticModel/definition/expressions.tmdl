@@ -1,0 +1,6 @@
+expression pDataFolder = "C:/PATH/TO/REPO/LumaBank-Activation-Experiment/data/curated" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 19053b5f-ddcd-5a4b-8a2c-a730357db900
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation

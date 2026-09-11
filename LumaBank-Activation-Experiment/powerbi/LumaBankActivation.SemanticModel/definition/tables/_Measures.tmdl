@@ -1,0 +1,390 @@
+table _Measures
+	lineageTag: e157eedd-3712-5dcd-ad8e-74acc9c77906
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 243e6f8f-1479-585b-bb85-e80887455e85
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	/// One row per signup (platform-wide) — trends by dim_date via assigned_date_key.
+	measure 'Signups' =
+			COUNTROWS ( fact_activation )
+		formatString: #,0
+		displayFolder: 01 Platform Health
+		lineageTag: 7122ea3f-fd92-58b5-a1bd-5fb6adf79642
+
+	/// Users with >= 1 transaction in the trailing 30 days ending at the latest date in context.
+	measure 'Active Users' =
+			VAR maxd = MAX ( dim_date[date] )
+			VAR lo   = maxd - 29
+			RETURN
+			CALCULATE (
+			    DISTINCTCOUNT ( fact_transaction_day[user_key] ),
+			    dim_date[date] >= lo, dim_date[date] <= maxd,
+			    REMOVEFILTERS ( fact_activation )
+			)
+		formatString: #,0
+		displayFolder: 01 Platform Health
+		lineageTag: a73614c4-9ef6-5a67-8c8e-59e74cba1923
+
+	measure 'Active Rate %' =
+			DIVIDE ( [Active Users], [Signups] )
+		formatString: 0.0%
+		displayFolder: 01 Platform Health
+		lineageTag: 7d054f3c-1677-5591-b97e-b16b927671eb
+
+	/// Signups that ever reach an account, any state.
+	measure 'Account-Creation Rate %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[account_opened_flag] = TRUE () ),
+			    [Signups]
+			)
+		formatString: 0.0%
+		displayFolder: 01 Platform Health
+		lineageTag: 18761ebb-7fd2-5a37-804d-be3d925b5b59
+
+	/// Users reaching the step selected by the Onboarding Step slicer.
+	measure 'Funnel Reach' =
+			DISTINCTCOUNT ( fact_onboarding_step[user_key] )
+		formatString: #,0
+		displayFolder: 02 Onboarding Funnel
+		lineageTag: 1d1a22f5-14a2-517d-9991-9c4822f611ec
+
+	/// Funnel Reach as a share of all signups — plot by dim_onboarding_step[step_order].
+	measure 'Funnel Step Conversion %' =
+			DIVIDE ( [Funnel Reach], [Signups] )
+		formatString: 0.0%
+		displayFolder: 02 Onboarding Funnel
+		lineageTag: 1c24828b-0870-5782-8fbe-019422e4ab40
+
+	measure 'KYC-Submit Rate %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[kyc_submitted_flag] = TRUE () ),
+			    [Signups]
+			)
+		formatString: 0.0%
+		displayFolder: 02 Onboarding Funnel
+		lineageTag: d919a34b-6c10-5eb5-89e3-9e2f9801bc5f
+
+	measure 'Median Minutes Signup to Account' =
+			MEDIANX (
+			    FILTER ( fact_activation, fact_activation[account_opened_flag] = TRUE () ),
+			    DATEDIFF ( fact_activation[signup_ts], fact_activation[account_opened_ts], MINUTE )
+			)
+		formatString: #,0
+		displayFolder: 02 Onboarding Funnel
+		lineageTag: 8c6710c3-b24a-536d-86f9-64df8ce75afd
+
+	/// Treatment subjects (clean re-run) with an account who never submitted KYC.
+	measure 'Limited Never-Verified % (Re-run Treatment)' =
+			VAR base =
+			    CALCULATE ( COUNTROWS ( fact_activation ),
+			        fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "treatment" )
+			VAR nv =
+			    CALCULATE ( COUNTROWS ( fact_activation ),
+			        fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "treatment",
+			        fact_activation[account_opened_flag] = TRUE (), fact_activation[kyc_submitted_flag] = FALSE () )
+			RETURN DIVIDE ( nv, base )
+		formatString: 0.0%
+		displayFolder: 02 Onboarding Funnel
+		lineageTag: 56a59e8c-d4e8-5bc7-8da9-8c89a756f54a
+
+	/// PRIMARY METRIC. Account created and first transaction within 7 days of signup.
+	measure 'Day-7 Activation Rate %' =
+			DIVIDE ( SUM ( fact_activation[day7_activated] ), COUNTROWS ( fact_activation ) )
+		formatString: 0.0%
+		displayFolder: 03 Activation
+		lineageTag: 27a61875-4556-5b72-a51f-f9632d2d4630
+
+	measure 'Day-1 Activation Rate %' =
+			DIVIDE ( SUM ( fact_activation[day1_activated] ), COUNTROWS ( fact_activation ) )
+		formatString: 0.0%
+		displayFolder: 03 Activation
+		lineageTag: 755d7ae4-61fe-5c6f-beac-ca7f7c0a9ed5
+
+	measure 'Day-30 Activation Rate %' =
+			DIVIDE ( SUM ( fact_activation[day30_activated] ), COUNTROWS ( fact_activation ) )
+		formatString: 0.0%
+		displayFolder: 03 Activation
+		lineageTag: 0c80a6f5-44f0-574b-9872-bb6b9845e908
+
+	measure 'Median Hours to First Transaction' =
+			MEDIANX (
+			    FILTER ( fact_activation, NOT ISBLANK ( fact_activation[first_txn_ts] ) ),
+			    fact_activation[hours_to_first_txn]
+			)
+		formatString: #,0
+		displayFolder: 03 Activation
+		lineageTag: 73cfb34a-d59c-5813-add8-2e2ddcd7c545
+
+	measure 'P90 Hours to First Transaction' =
+			PERCENTILEX.INC (
+			    FILTER ( fact_activation, NOT ISBLANK ( fact_activation[first_txn_ts] ) ),
+			    fact_activation[hours_to_first_txn], 0.9
+			)
+		formatString: #,0
+		displayFolder: 03 Activation
+		lineageTag: 1106130c-2760-5fd7-97b8-adc8a0eb94d0
+
+	/// Rejected / KYC submissions. Non-negotiable guardrail.
+	measure 'KYC Rejection Rate %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[kyc_rejected_flag] = TRUE () ),
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[kyc_submitted_flag] = TRUE () )
+			)
+		formatString: 0.0%
+		displayFolder: 04 Risk & Guardrails
+		lineageTag: 3c7b77f2-b8e6-5ead-83ea-fc574d4c62b7
+
+	measure 'KYC Manual-Review Rate %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_kyc_decision ), fact_kyc_decision[is_manual_review] = TRUE () ),
+			    COUNTROWS ( fact_kyc_decision )
+			)
+		formatString: 0.0%
+		displayFolder: 04 Risk & Guardrails
+		lineageTag: b6ae9c60-f9a2-5ddc-b83e-b01530115cff
+
+	/// Confirmed fraud signals within 30 days / Day-7-activated accounts. Non-negotiable guardrail.
+	measure 'Flagged-Fraud Rate % (30d)' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[fraud_flag_30d] = TRUE () ),
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[day7_activated] = 1 )
+			)
+		formatString: 0.00%
+		displayFolder: 04 Risk & Guardrails
+		lineageTag: f5fc3ba5-7cc3-54d0-8da2-4b530688085b
+
+	measure 'Onboarding Tickets' =
+			SUM ( fact_activation[onboarding_tickets_n] )
+		formatString: #,0
+		displayFolder: 05 Support & Cost
+		lineageTag: c8e1ac47-3bed-57c6-958f-189be5f0872f
+
+	measure 'Onboarding Tickets per 1k Signups' =
+			DIVIDE ( [Onboarding Tickets], [Signups] ) * 1000
+		formatString: #,0.0
+		displayFolder: 05 Support & Cost
+		lineageTag: 76f63f62-42e2-50e5-836c-9321ac38e3f7
+
+	measure 'Onboarding Contact Rate %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[onboarding_tickets_n] > 0 ),
+			    [Signups]
+			)
+		formatString: 0.0%
+		displayFolder: 05 Support & Cost
+		lineageTag: a38a70a6-75eb-5168-ab1d-1e85a3bd38f1
+
+	/// Pearson chi-square goodness-of-fit vs 50/50, cumulative to the day in context.
+	measure 'SRM P-Value (Cumulative)' =
+			AVERAGE ( fact_srm_daily[srm_p_cumulative] )
+		formatString: 0.0000
+		displayFolder: 06 Experiment Integrity
+		lineageTag: 27d85fb3-4b2b-56f3-b2f0-e4f40987c997
+
+	/// The test that actually catches a mid-flight break — see docs/01 section 9.
+	measure 'SRM P-Value (Trailing 7d)' =
+			AVERAGE ( fact_srm_daily[srm_p_trailing7] )
+		formatString: 0.0000
+		displayFolder: 06 Experiment Integrity
+		lineageTag: 52f6883f-d1a1-5943-888a-616e48253b44
+
+	/// Expect 50%. The daily line that shows the break.
+	measure 'Allocation Ratio (Treatment Share)' =
+			DIVIDE (
+			    SUM ( fact_srm_daily[n_treatment] ),
+			    SUM ( fact_srm_daily[n_treatment] ) + SUM ( fact_srm_daily[n_control] )
+			)
+		formatString: 0.0%
+		displayFolder: 06 Experiment Integrity
+		lineageTag: b9752e91-ab1a-5a7f-8d47-d20b38a2ab5f
+
+	measure 'Fallback Share %' =
+			DIVIDE (
+			    SUM ( fact_srm_daily[n_fallback] ),
+			    SUM ( fact_srm_daily[n_fallback] ) + SUM ( fact_srm_daily[n_primary] )
+			)
+		formatString: 0.0%
+		displayFolder: 06 Experiment Integrity
+		lineageTag: 8ae15e71-89c6-5a71-a4d9-585d7ed64a6d
+
+	/// Worst alert_state reached anywhere in the current filter — colour this with ALERT_COLORS.
+	measure 'SRM Worst State (Period)' =
+			VAR hasAlert = CALCULATE ( COUNTROWS ( fact_srm_daily ), fact_srm_daily[alert_state] = "alert" ) > 0
+			VAR hasWarn  = CALCULATE ( COUNTROWS ( fact_srm_daily ), fact_srm_daily[alert_state] = "warn" ) > 0
+			RETURN IF ( hasAlert, "ALERT", IF ( hasWarn, "WARN", "OK" ) )
+		displayFolder: 06 Experiment Integrity
+		lineageTag: a5bbc884-4bb0-5e3c-a5f6-77d98681ee5d
+
+	measure 'Contaminated Users' =
+			CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[contaminated_flag] = TRUE () )
+		formatString: #,0
+		displayFolder: 06 Experiment Integrity
+		lineageTag: 5a898724-7661-580d-85bb-2eb347c50326
+
+	measure 'Snapshot-Log Mismatch (Cumulative)' =
+			MAX ( fact_srm_daily[snapshot_log_mismatch_n] )
+		formatString: #,0
+		displayFolder: 06 Experiment Integrity
+		lineageTag: 9affd6a2-a712-5f3e-93f0-cb32c88bcf17
+
+	measure 'Multi-Assignment Users (Cumulative)' =
+			MAX ( fact_srm_daily[multi_assignment_n] )
+		formatString: #,0
+		displayFolder: 06 Experiment Integrity
+		lineageTag: f898c418-3bc0-5a45-86b5-c98aeb120929
+
+	/// The clean re-run population only.
+	measure 'Exp Subjects' =
+			CALCULATE ( COUNTROWS ( fact_activation ), fact_activation[in_analysis_flag] = TRUE () )
+		formatString: #,0
+		displayFolder: 07 Experiment Readout
+		lineageTag: f255f2b8-aa6f-5ef9-a554-8697141cbc30
+
+	measure 'Exp Activation Rate' =
+			DIVIDE (
+			    CALCULATE ( SUM ( fact_activation[day7_activated] ), fact_activation[in_analysis_flag] = TRUE () ),
+			    [Exp Subjects]
+			)
+		formatString: 0.0%
+		displayFolder: 07 Experiment Readout
+		lineageTag: 89075aab-45c8-5def-af16-6a0e22d5ef5b
+
+	measure 'Exp Control Rate' =
+			CALCULATE ( [Exp Activation Rate], fact_activation[arm_key] = "control" )
+		formatString: 0.0%
+		displayFolder: 07 Experiment Readout
+		lineageTag: 534cb9e6-2f2f-5b1e-b421-70799d4e7371
+
+	measure 'Exp Treatment Rate' =
+			CALCULATE ( [Exp Activation Rate], fact_activation[arm_key] = "treatment" )
+		formatString: 0.0%
+		displayFolder: 07 Experiment Readout
+		lineageTag: ef75ca7f-c9f0-54ad-8720-ae39036fb79f
+
+	/// Absolute treatment - control difference in Day-7 Activation, in percentage points.
+	measure 'Exp Lift pp' =
+			( [Exp Treatment Rate] - [Exp Control Rate] ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: f1005e99-dd42-56c2-9abf-26b572a3a563
+
+	measure 'Exp Lift CI Low pp' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "treatment" )
+			VAR se = SQRT ( DIVIDE ( p1 * ( 1 - p1 ), n1 ) + DIVIDE ( p2 * ( 1 - p2 ), n2 ) )
+			RETURN ( ( p2 - p1 ) - 1.959964 * se ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: cb390b64-1951-53de-87ba-fa9a4a761be5
+
+	measure 'Exp Lift CI High pp' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "treatment" )
+			VAR se = SQRT ( DIVIDE ( p1 * ( 1 - p1 ), n1 ) + DIVIDE ( p2 * ( 1 - p2 ), n2 ) )
+			RETURN ( ( p2 - p1 ) + 1.959964 * se ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: cf0d6916-81a2-5e7c-9771-2334a82f94bb
+
+	/// Two-proportion pooled z-statistic.
+	measure 'Exp Z Stat' =
+			VAR p1 = [Exp Control Rate]   VAR p2 = [Exp Treatment Rate]
+			VAR n1 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "control" )
+			VAR n2 = CALCULATE ( [Exp Subjects], fact_activation[arm_key] = "treatment" )
+			VAR pp = DIVIDE ( p1 * n1 + p2 * n2, n1 + n2 )
+			VAR se = SQRT ( pp * ( 1 - pp ) * ( DIVIDE ( 1, n1 ) + DIVIDE ( 1, n2 ) ) )
+			RETURN DIVIDE ( p2 - p1, se )
+		formatString: 0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: d11669dc-5290-5fa3-9e07-e6a7e7a62953
+
+	measure 'Exp Significant 95%' =
+			IF ( ABS ( [Exp Z Stat] ) > 1.959964, "Significant", "Not significant" )
+		displayFolder: 07 Experiment Readout
+		lineageTag: 3deab40b-e1b7-598c-8644-a47ee9ae0925
+
+	/// Guardrail: non-inferiority margin is +1.5 pp (doc 01 section 8.3).
+	measure 'Exp KYC Rejection Delta pp' =
+			VAR r1 = CALCULATE ( [KYC Rejection Rate %], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "control" )
+			VAR r2 = CALCULATE ( [KYC Rejection Rate %], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "treatment" )
+			RETURN ( r2 - r1 ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: 7db594e4-2fc9-5db9-94bb-125769fb644c
+
+	/// Guardrail: non-inferiority margin is +0.5 pp (doc 01 section 8.3).
+	measure 'Exp Fraud Delta pp' =
+			VAR r1 = CALCULATE ( [Flagged-Fraud Rate % (30d)], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "control" )
+			VAR r2 = CALCULATE ( [Flagged-Fraud Rate % (30d)], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "treatment" )
+			RETURN ( r2 - r1 ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: 1b3c24d6-f5f1-5a78-b6f2-fd6c4384013d
+
+	/// Guardrail (secondary, directional).
+	measure 'Exp Tickets per 1k Delta' =
+			VAR t1 = CALCULATE ( [Onboarding Tickets per 1k Signups], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "control" )
+			VAR t2 = CALCULATE ( [Onboarding Tickets per 1k Signups], fact_activation[in_analysis_flag] = TRUE (), fact_activation[arm_key] = "treatment" )
+			RETURN t2 - t1
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 07 Experiment Readout
+		lineageTag: 5456e118-75ae-5b4a-a2d7-6b5040e74ad1
+
+	/// Same as Exp Lift pp; place on a bar by Acquisition Channel for the heterogeneity cut.
+	measure 'Exp Effect by Channel pp' =
+			[Exp Lift pp]
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 07 Experiment Readout
+		lineageTag: da376216-d1aa-5e84-951c-af6f9e3db06e
+
+	measure 'Day-7 Activation Target %' =
+			CALCULATE ( SUM ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "day7_activation_rate" )
+		formatString: 0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: 9e137633-97d0-5c87-b67e-8a2848361942
+
+	measure 'Day-7 Activation vs Target pp' =
+			( [Day-7 Activation Rate %] - [Day-7 Activation Target %] ) * 100
+		formatString: +0.00;-0.00;0.00
+		displayFolder: 08 Time & Targets
+		lineageTag: a2163172-4550-5880-894b-a21e65e6aecc
+
+	measure 'Active Users Target' =
+			CALCULATE ( SUM ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "active_users" )
+		formatString: #,0
+		displayFolder: 08 Time & Targets
+		lineageTag: 7411d3de-0d20-5ff3-8ec5-0ee33d8a2368
+
+	/// A ceiling, not a target to beat — lower is not automatically better (doc 01 section 15).
+	measure 'KYC Rejection Target %' =
+			CALCULATE ( SUM ( fact_targets_month[target_value] ), fact_targets_month[kpi] = "kyc_rejection_rate" )
+		formatString: 0.0%
+		displayFolder: 08 Time & Targets
+		lineageTag: a3afd7fb-5c25-558e-a695-382da9708cac
+
+	/// A dynamic one-line summary for the Executive Overview page.
+	measure 'Exec Insight' =
+			VAR d7    = [Day-7 Activation Rate %]
+			VAR kyc   = [KYC Rejection Rate %]
+			VAR fraud = [Flagged-Fraud Rate % (30d)]
+			VAR srm   = [SRM Worst State (Period)]
+			RETURN
+			    "Day-7 Activation is " & FORMAT ( d7, "0.0%" ) &
+			    ". KYC rejection " & FORMAT ( kyc, "0.0%" ) & ", flagged fraud " & FORMAT ( fraud, "0.00%" ) &
+			    ". Experiment integrity: " & srm & "."
+		displayFolder: 09 Narrative
+		lineageTag: 4e21dddd-7df3-597f-ac0c-0154e611772e
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_ResultType = Table

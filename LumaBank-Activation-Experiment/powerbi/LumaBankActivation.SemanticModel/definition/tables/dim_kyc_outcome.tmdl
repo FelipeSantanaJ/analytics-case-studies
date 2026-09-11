@@ -1,0 +1,53 @@
+table dim_kyc_outcome
+	lineageTag: eedd809b-b5d4-50d7-bafc-430aa6302ef6
+
+	column kyc_outcome_key
+		isHidden
+		dataType: int64
+		lineageTag: 74ce9c79-cae4-5d5e-b994-f9e5cc0f5c2f
+		summarizeBy: none
+		sourceColumn: kyc_outcome_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column outcome
+		dataType: string
+		lineageTag: 7e90f05d-6bcb-57a9-8b36-d16002ab7f97
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_code
+		dataType: string
+		lineageTag: 01deede4-fb1f-5c06-b031-19b32c678be9
+		summarizeBy: none
+		sourceColumn: reason_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason_group
+		dataType: string
+		lineageTag: 1a2d68a7-7e2b-5122-990d-b03c1263753a
+		summarizeBy: none
+		sourceColumn: reason_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_rejection
+		dataType: boolean
+		lineageTag: 2af1e7a9-af58-59b0-bdc1-f5a21b24c348
+		summarizeBy: none
+		sourceColumn: is_rejection
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_kyc_outcome = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_kyc_outcome.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

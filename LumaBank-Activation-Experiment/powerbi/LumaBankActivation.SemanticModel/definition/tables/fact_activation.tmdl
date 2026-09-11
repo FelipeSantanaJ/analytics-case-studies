@@ -1,0 +1,212 @@
+table fact_activation
+	lineageTag: 2e1f32fa-d63a-50b9-8b65-cb6379864eb5
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm_key
+		isHidden
+		dataType: string
+		lineageTag: 0d10b09b-0163-59c4-8f0c-5227d20d468e
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_date_key
+		isHidden
+		dataType: int64
+		lineageTag: 2029d7bd-2b94-549b-99a7-bccc56c12d5d
+		summarizeBy: none
+		sourceColumn: assigned_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 2c1322c3-3b18-57ff-b76f-f4426ac061ec
+		summarizeBy: none
+		sourceColumn: assigned_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column experiment_cohort
+		dataType: string
+		lineageTag: 1a3b00bd-a1bc-5fb5-8f6f-b1b2563080d1
+		summarizeBy: none
+		sourceColumn: experiment_cohort
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel_key
+		isHidden
+		dataType: int64
+		lineageTag: a8881a1a-8ea7-5e81-8e7c-04ace0a5adf5
+		summarizeBy: none
+		sourceColumn: channel_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_key
+		isHidden
+		dataType: int64
+		lineageTag: c39eedca-33b5-5aa0-828a-1f023faad997
+		summarizeBy: none
+		sourceColumn: region_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column app_version_at_signup
+		dataType: string
+		lineageTag: b339a09f-c621-5f5b-ac76-3bb0c0ef31a9
+		summarizeBy: none
+		sourceColumn: app_version_at_signup
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_opened_flag
+		dataType: boolean
+		lineageTag: 13df6fc0-7a5e-5144-9cc4-5d72c0ab45ab
+		summarizeBy: none
+		sourceColumn: account_opened_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_opened_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: fc636b01-7549-57b7-9124-1e0ec0e36743
+		summarizeBy: none
+		sourceColumn: account_opened_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_txn_ts
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 17b23e10-b78d-5071-ae1f-481408b2ece4
+		summarizeBy: none
+		sourceColumn: first_txn_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column hours_to_first_txn
+		dataType: double
+		lineageTag: 80b4fea5-77db-5fd0-9fb1-964ac6eb1fc9
+		summarizeBy: sum
+		sourceColumn: hours_to_first_txn
+
+		annotation SummarizationSetBy = Automatic
+
+	column day7_activated
+		dataType: int64
+		lineageTag: 862db73d-7327-5533-9494-2ea8c7f53a11
+		summarizeBy: sum
+		sourceColumn: day7_activated
+
+		annotation SummarizationSetBy = Automatic
+
+	column day1_activated
+		dataType: int64
+		lineageTag: 301dce89-18dc-543a-9266-48463ac3c9f2
+		summarizeBy: sum
+		sourceColumn: day1_activated
+
+		annotation SummarizationSetBy = Automatic
+
+	column day30_activated
+		dataType: int64
+		lineageTag: 1542bec4-4167-56a4-a0f1-3bbfeb65ef53
+		summarizeBy: sum
+		sourceColumn: day30_activated
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_submitted_flag
+		dataType: boolean
+		lineageTag: 3d114e82-b111-58d2-b38b-c0bae1f82eec
+		summarizeBy: none
+		sourceColumn: kyc_submitted_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column kyc_rejected_flag
+		dataType: boolean
+		lineageTag: 7cd80961-1a3c-589f-a38a-8b4c8825418e
+		summarizeBy: none
+		sourceColumn: kyc_rejected_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column fraud_flag_30d
+		dataType: boolean
+		lineageTag: a173a76a-82f2-592d-8437-9575b1fb7a8b
+		summarizeBy: none
+		sourceColumn: fraud_flag_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column onboarding_tickets_n
+		dataType: int64
+		lineageTag: d049e698-59e0-5e6c-961a-7a9d5aa4bbd2
+		summarizeBy: sum
+		sourceColumn: onboarding_tickets_n
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_experiment_subject
+		dataType: boolean
+		lineageTag: 1e515df2-728d-5fe3-bdad-d9416d0185a7
+		summarizeBy: none
+		sourceColumn: is_experiment_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column contaminated_flag
+		dataType: boolean
+		lineageTag: ca277ff9-ac8c-5dbe-813f-2833291294e0
+		summarizeBy: none
+		sourceColumn: contaminated_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_switch_flag
+		dataType: boolean
+		lineageTag: 94537a4f-67f4-5ff7-9910-dfa80df8080a
+		summarizeBy: none
+		sourceColumn: assignment_switch_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_analysis_flag
+		dataType: boolean
+		lineageTag: c0bd50c3-3b2b-573b-8019-5679d582d0c7
+		summarizeBy: none
+		sourceColumn: in_analysis_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_activation = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_activation.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,77 @@
+table dim_region
+	lineageTag: eccbdc9a-fa16-5afd-a801-4e08f1ed19da
+
+	column region_key
+		isHidden
+		dataType: int64
+		lineageTag: c39eedca-33b5-5aa0-828a-1f023faad997
+		summarizeBy: none
+		sourceColumn: region_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf
+		dataType: string
+		lineageTag: 82b4885c-b12a-54e9-a223-075d681e3a4f
+		summarizeBy: none
+		sourceColumn: uf
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf_name
+		dataType: string
+		lineageTag: e56c59ea-0ab3-5112-98e3-f2ebd79b1389
+		summarizeBy: none
+		sourceColumn: uf_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column macro_region
+		dataType: string
+		lineageTag: 185645cc-2e90-59e5-a3bb-b91eee3e2788
+		summarizeBy: none
+		sourceColumn: macro_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone
+		dataType: string
+		lineageTag: 92557dd6-f666-5294-872c-f5b8455a0788
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column utc_offset_hours
+		dataType: int64
+		lineageTag: a7b9721f-1eb0-5fc5-8385-13eba112bc43
+		summarizeBy: none
+		sourceColumn: utc_offset_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_amazon_tz
+		dataType: boolean
+		lineageTag: c9dcd133-aabe-5c10-b8db-bdcdd7fc9aae
+		summarizeBy: none
+		sourceColumn: is_amazon_tz
+
+		annotation SummarizationSetBy = Automatic
+
+	column pop_weight
+		dataType: double
+		lineageTag: 563c554c-8614-5cc3-b8e1-28c8017b12df
+		summarizeBy: sum
+		sourceColumn: pop_weight
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_region = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_region.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

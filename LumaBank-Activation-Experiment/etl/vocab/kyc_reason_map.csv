@@ -1,0 +1,26 @@
+raw_value,canonical,reason_group
+DOC_ILLEGIBLE,doc_illegible,doc_quality
+doc_illegible,doc_illegible,doc_quality
+documento ilegivel,doc_illegible,doc_quality
+DOC_EXPIRED,doc_expired,doc_quality
+doc_expired,doc_expired,doc_quality
+FACE_MISMATCH,face_mismatch,identity_mismatch
+face_mismatch,face_mismatch,identity_mismatch
+selfie_mismatch,face_mismatch,identity_mismatch
+DATA_MISMATCH,data_mismatch,identity_mismatch
+data_mismatch,data_mismatch,identity_mismatch
+cpf_name_mismatch,data_mismatch,identity_mismatch
+SANCTIONS_HIT,sanctions_hit,sanctions_pep
+sanctions_hit,sanctions_hit,sanctions_pep
+pep_hit,pep_hit,sanctions_pep
+PEP_HIT,pep_hit,sanctions_pep
+SUSPECTED_FORGERY,suspected_forgery,suspected_fraud
+suspected_forgery,suspected_forgery,suspected_fraud
+liveness_fail_fraud,liveness_fraud,suspected_fraud
+DEVICE_RISK,device_risk,suspected_fraud
+ABANDONED,abandoned,abandoned
+abandoned,abandoned,abandoned
+timeout,abandoned,abandoned
+NONE,none,n/a
+none,none,n/a
+approved,none,n/a

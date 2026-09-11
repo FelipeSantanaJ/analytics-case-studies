@@ -1,0 +1,16 @@
+[
+  {"visual_type": "card", "name": "kpi-alloc", "title": "Allocation Ratio (Treatment)", "x": 30, "y": 110, "width": 280, "height": 130,
+   "fields": {"Values": "_Measures.Allocation Ratio (Treatment Share)"}},
+  {"visual_type": "card", "name": "kpi-srmp7", "title": "SRM P-Value (Trailing 7d)", "x": 330, "y": 110, "width": 280, "height": 130,
+   "fields": {"Values": "_Measures.SRM P-Value (Trailing 7d)"}},
+  {"visual_type": "card", "name": "kpi-srmstate", "title": "Worst Alert State", "x": 630, "y": 110, "width": 280, "height": 130,
+   "fields": {"Values": "_Measures.SRM Worst State (Period)"}},
+  {"visual_type": "card", "name": "kpi-contaminated", "title": "Contaminated Users", "x": 930, "y": 110, "width": 280, "height": 130,
+   "fields": {"Values": "_Measures.Contaminated Users"}},
+  {"visual_type": "lineChart", "name": "alloc-vs-srm", "title": "Daily Allocation & SRM Trailing-7d p-value", "x": 30, "y": 260, "width": 1220, "height": 220,
+   "fields": {"Category": "fact_srm_daily.assign_date", "Y": "_Measures.Allocation Ratio (Treatment Share)", "Y2": "_Measures.SRM P-Value (Trailing 7d)"}},
+  {"visual_type": "lineChart", "name": "fallback-trend", "title": "Fallback Share Over Time", "x": 30, "y": 500, "width": 590, "height": 200,
+   "fields": {"Category": "fact_srm_daily.assign_date", "Y": "_Measures.Fallback Share %"}},
+  {"visual_type": "lineChart", "name": "mismatch-trend", "title": "Snapshot-Log Mismatch (Cumulative)", "x": 640, "y": 500, "width": 610, "height": 200,
+   "fields": {"Category": "fact_srm_daily.assign_date", "Y": "_Measures.Snapshot-Log Mismatch (Cumulative)"}}
+]

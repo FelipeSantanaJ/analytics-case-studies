@@ -1,0 +1,12 @@
+[
+  {"visual_type": "card", "name": "kpi-day7", "title": "Day-7 Activation", "x": 630, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.Day-7 Activation Rate %"}},
+  {"visual_type": "card", "name": "kpi-explift", "title": "Experiment Lift (Re-run)", "x": 930, "y": 110, "width": 280, "height": 140,
+   "fields": {"Values": "_Measures.Exp Lift pp"}},
+  {"visual_type": "lineChart", "name": "trend-day7", "title": "Day-7 Activation Trend", "x": 30, "y": 270, "width": 1220, "height": 280,
+   "fields": {"Category": "dim_date.month_name", "Y": "_Measures.Day-7 Activation Rate %"}},
+  {"visual_type": "clusteredColumnChart", "name": "day7-by-channel", "title": "Day-7 Activation by Channel", "x": 30, "y": 570, "width": 710, "height": 260,
+   "fields": {"Category": "dim_acquisition_channel.channel_name", "Y": "_Measures.Day-7 Activation Rate %"}},
+  {"visual_type": "card", "name": "exec-insight", "title": "Exec Insight", "x": 760, "y": 570, "width": 490, "height": 260,
+   "fields": {"Values": "_Measures.Exec Insight"}}
+]

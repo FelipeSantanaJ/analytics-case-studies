@@ -1,0 +1,87 @@
+relationship 4266a0b3-36e4-5aaf-9e64-e862f35a7377
+	fromColumn: fact_variant_assignment.assigned_date_key
+	toColumn: dim_date.date_key
+
+relationship cbbf7a58-1180-5774-9fc2-d85a0e042665
+	fromColumn: fact_onboarding_step.occurred_date_key
+	toColumn: dim_date.date_key
+
+relationship d8bd3115-e001-5665-aa70-2ac094b36d6c
+	fromColumn: fact_activation.assigned_date_key
+	toColumn: dim_date.date_key
+
+relationship 79f7a816-431e-5736-a243-b9d2f7aa697a
+	fromColumn: fact_transaction_day.date_key
+	toColumn: dim_date.date_key
+
+relationship b36c151a-b495-5f7b-ae51-a83142febfce
+	fromColumn: fact_fraud_event.flagged_date_key
+	toColumn: dim_date.date_key
+
+relationship 90bcee82-16de-5461-887c-12e32747bfdd
+	fromColumn: fact_support_ticket.opened_date_key
+	toColumn: dim_date.date_key
+
+relationship aa24a517-3b85-5a46-98ac-a398c46bc937
+	fromColumn: fact_srm_daily.assign_date_key
+	toColumn: dim_date.date_key
+
+relationship 580c20fd-aabe-5a65-97dd-3668e563bf55
+	fromColumn: fact_targets_month.month_key
+	toColumn: dim_month.month_key
+
+relationship af6040f8-7250-583c-9f08-3000299a1016
+	fromColumn: fact_variant_assignment.user_key
+	toColumn: dim_user.user_key
+
+relationship 54c2b5cd-c747-5790-b721-0f8057012a28
+	fromColumn: fact_onboarding_step.user_key
+	toColumn: dim_user.user_key
+
+relationship cbe90248-748a-5f60-8740-0f64c4046f37
+	fromColumn: fact_kyc_decision.user_key
+	toColumn: dim_user.user_key
+
+relationship 7239c4f2-7b3d-5925-bff4-231bf701a656
+	fromColumn: fact_activation.user_key
+	toColumn: dim_user.user_key
+
+relationship 28f6d509-0c77-5804-9d71-6a9384ec11b9
+	fromColumn: fact_transaction_day.user_key
+	toColumn: dim_user.user_key
+
+relationship df1d4425-c28f-5b5a-8aa3-15219c63036c
+	fromColumn: fact_fraud_event.user_key
+	toColumn: dim_user.user_key
+
+relationship 0e0821a4-938f-5c15-9d97-59af7a9ff5cc
+	fromColumn: fact_support_ticket.user_key
+	toColumn: dim_user.user_key
+
+relationship ab76ba20-f0b6-5171-9391-113c1b71b712
+	fromColumn: fact_variant_assignment.app_release_key
+	toColumn: dim_app_release.app_release_key
+
+relationship 1706fe91-61bf-5b87-bd67-79c9c100264a
+	fromColumn: fact_onboarding_step.step_key
+	toColumn: dim_onboarding_step.step_key
+
+relationship 843c8449-1a18-5054-9db6-8ecc49f0a797
+	fromColumn: fact_kyc_decision.kyc_outcome_key
+	toColumn: dim_kyc_outcome.kyc_outcome_key
+
+relationship 17b2d368-784f-51ed-9c93-4781a3cb73a9
+	fromColumn: fact_activation.channel_key
+	toColumn: dim_acquisition_channel.channel_key
+
+relationship 83962501-fa79-5faf-a1d7-fbd66faff2a8
+	fromColumn: fact_activation.region_key
+	toColumn: dim_region.region_key
+
+relationship c77765fd-74b7-5d7c-8a71-92839d34df39
+	fromColumn: fact_variant_assignment.arm_key
+	toColumn: dim_experiment_arm.arm_key
+
+relationship 1a6fd9b7-3c00-5e3f-aae1-ef4bc4ea860b
+	fromColumn: fact_activation.arm_key
+	toColumn: dim_experiment_arm.arm_key

@@ -1,0 +1,105 @@
+table fact_variant_assignment
+	lineageTag: b4c00654-3ee0-5e81-b3ff-3651a8a2b4b2
+
+	column user_key
+		isHidden
+		dataType: int64
+		lineageTag: 11382a4a-60cf-5ccf-9b77-594acbe444d6
+		summarizeBy: none
+		sourceColumn: user_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: string
+		lineageTag: 1f4dbbfe-1cd0-5f3b-b357-09ce09771dff
+		summarizeBy: none
+		sourceColumn: user_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column arm_key
+		isHidden
+		dataType: string
+		lineageTag: 0d10b09b-0163-59c4-8f0c-5227d20d468e
+		summarizeBy: none
+		sourceColumn: arm_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_ts_brt
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a6a0fef0-79f2-5618-a1ea-2c72654ccfda
+		summarizeBy: none
+		sourceColumn: assigned_ts_brt
+
+		annotation SummarizationSetBy = Automatic
+
+	column assigned_date_key
+		isHidden
+		dataType: int64
+		lineageTag: 2029d7bd-2b94-549b-99a7-bccc56c12d5d
+		summarizeBy: none
+		sourceColumn: assigned_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_seq
+		dataType: int64
+		lineageTag: 7be55320-87bd-5d04-aae7-ece87d67f428
+		summarizeBy: none
+		sourceColumn: assignment_seq
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignment_source
+		dataType: string
+		lineageTag: 25015b46-259c-5a63-bc59-b43f2db1ab10
+		summarizeBy: none
+		sourceColumn: assignment_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column cache_reset_flag
+		dataType: boolean
+		lineageTag: 7e7cfe11-8eb8-5625-82c9-00c15c7c64fe
+		summarizeBy: none
+		sourceColumn: cache_reset_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column app_release_key
+		isHidden
+		dataType: int64
+		lineageTag: d269f923-be4c-5a60-8c75-2c37614021be
+		summarizeBy: none
+		sourceColumn: app_release_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_first_assignment
+		dataType: boolean
+		lineageTag: 5c662fa1-9070-5082-aa0c-0599fea4fc99
+		summarizeBy: none
+		sourceColumn: is_first_assignment
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_effective_assignment
+		dataType: boolean
+		lineageTag: 3406e3bf-fa89-518c-bddb-1f021f39a9a8
+		summarizeBy: none
+		sourceColumn: is_effective_assignment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_variant_assignment = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/fact_variant_assignment.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

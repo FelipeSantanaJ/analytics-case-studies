@@ -1,0 +1,87 @@
+table dim_app_release
+	lineageTag: 59ceffc1-b403-5cbc-b935-6a45e9747e53
+
+	column app_release_key
+		isHidden
+		dataType: int64
+		lineageTag: d269f923-be4c-5a60-8c75-2c37614021be
+		summarizeBy: none
+		sourceColumn: app_release_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column version
+		dataType: string
+		lineageTag: dbf2d975-54fa-5fae-9427-adc91a395097
+		summarizeBy: none
+		sourceColumn: version
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		lineageTag: 3690a92c-6fe6-5a12-8bab-80964f87fe9a
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column released_at
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 74442954-4f78-5ccd-9b4f-6272bd93c9e3
+		summarizeBy: none
+		sourceColumn: released_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column released_date_key
+		isHidden
+		dataType: double
+		lineageTag: 5fc0b03d-4377-5682-ba69-8010da975f69
+		summarizeBy: none
+		sourceColumn: released_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column rollout_pct
+		dataType: double
+		lineageTag: 62e1e37b-cb25-5935-947a-0954ddde535c
+		summarizeBy: none
+		sourceColumn: rollout_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column release_type
+		dataType: string
+		lineageTag: d2f927ca-d0e4-58ac-8d4f-7c8251779c88
+		summarizeBy: none
+		sourceColumn: release_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column notes
+		dataType: string
+		lineageTag: 7dd83481-6832-5dfb-8ef1-ba1699db65cb
+		summarizeBy: none
+		sourceColumn: notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_cache_reset_release
+		dataType: boolean
+		lineageTag: 76267dca-8f6a-5729-886b-4d3b0287bfdd
+		summarizeBy: none
+		sourceColumn: is_cache_reset_release
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_app_release = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(pDataFolder & "/dim_app_release.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

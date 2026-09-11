@@ -1,0 +1,4 @@
+option,n_per_arm,mde_pp,bias,timeline
+1. Truncate,1324.0,5.439825373830705,"low in principle, but the last ~2-3 days are still contaminated by the reset window; unusable at the actual decision point without further cuts",immediate
+2. Exclude contaminated,1725.0,4.765278387469894,residual -- cannot prove every contaminated user was caught; observed residual region-mix gap 1.7 pp,a few days (no new data collection)
+3. Restart,,,"none -- clean randomisation, fixed bug","worst -- but capped at 4 weeks by the business, not another 6"
