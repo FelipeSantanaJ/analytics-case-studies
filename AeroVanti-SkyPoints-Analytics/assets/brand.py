@@ -62,8 +62,10 @@ FONT_LIGHT = "Segoe UI Light"
 
 # ---- layout constants (px, 1280-wide canvas) ------------------------
 CANVAS_W = 1280
-PAGE_H_STANDARD = 720
-PAGE_H_EXEC = 860
+PAGE_H_STANDARD = 786  # was 720; the KPI row (frame/slicer/cards, see
+                       # gen_report_visuals.py) moved down to clear the header
+                       # divider, pushing content rows down with it
+PAGE_H_EXEC = 860      # unchanged -- already has enough slack (70px margin)
 BAND_H = 58
 HAIRLINE_H = 3
 

@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-sl-arm",
-  "position": {
-    "x": 874,
-    "y": 126,
-    "z": 0,
-    "height": 34,
-    "width": 200,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "slicer",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "dim_experiment_arm.arm_key",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,14 +18,14 @@
                   "Property": "arm_key"
                 }
               },
-              "queryRef": "dim_experiment_arm.arm_key",
-              "nativeQueryRef": "arm_key",
-              "active": true
+              "nativeQueryRef": "arm_key"
             }
           ]
         }
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -68,7 +60,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 874,
+    "y": 152,
+    "width": 200,
+    "height": 34,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-sl-stratum",
-  "position": {
-    "x": 1086,
-    "y": 126,
-    "z": 0,
-    "height": 34,
-    "width": 170,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "slicer",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "dim_experiment_stratum.stratum",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,14 +18,14 @@
                   "Property": "stratum"
                 }
               },
-              "queryRef": "dim_experiment_stratum.stratum",
-              "nativeQueryRef": "stratum",
-              "active": true
+              "nativeQueryRef": "stratum"
             }
           ]
         }
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -68,7 +60,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 1086,
+    "y": 152,
+    "width": 170,
+    "height": 34,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

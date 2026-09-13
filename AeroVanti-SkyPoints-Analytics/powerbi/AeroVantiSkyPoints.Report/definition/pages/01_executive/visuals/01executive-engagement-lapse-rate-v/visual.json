@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-engagement-lapse-rate-v",
-  "position": {
-    "x": 1061,
-    "y": 132,
-    "z": 0,
-    "height": 70,
-    "width": 195,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "_Measures.Engagement Lapse Rate %",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -26,7 +18,6 @@
                   "Property": "Engagement Lapse Rate %"
                 }
               },
-              "queryRef": "_Measures.Engagement Lapse Rate %",
               "nativeQueryRef": "Engagement Lapse Rate %"
             }
           ]
@@ -51,6 +42,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -85,7 +78,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 1061,
+    "y": 190,
+    "width": 195,
+    "height": 70,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "earn_burn_trend",
-  "position": {
-    "x": 24,
-    "y": 232,
-    "z": 0,
-    "height": 244,
-    "width": 714,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "lineChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_month.month_name",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "month_name"
                 }
               },
-              "queryRef": "dim_month.month_name",
-              "nativeQueryRef": "month_name",
-              "active": true
+              "nativeQueryRef": "month_name"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.SkyPoints Issued",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,10 +36,10 @@
                   "Property": "SkyPoints Issued"
                 }
               },
-              "queryRef": "_Measures.SkyPoints Issued",
               "nativeQueryRef": "SkyPoints Issued"
             },
             {
+              "queryRef": "_Measures.SkyPoints Redeemed",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -59,7 +50,6 @@
                   "Property": "SkyPoints Redeemed"
                 }
               },
-              "queryRef": "_Measures.SkyPoints Redeemed",
               "nativeQueryRef": "SkyPoints Redeemed"
             }
           ]
@@ -84,6 +74,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -118,7 +110,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 24,
+    "y": 300,
+    "width": 714,
+    "height": 244,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

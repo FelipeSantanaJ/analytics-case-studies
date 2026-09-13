@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-sl-period",
-  "position": {
-    "x": 24,
-    "y": 126,
-    "z": 0,
-    "height": 34,
-    "width": 300,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "slicer",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "dim_month.month_name",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,14 +18,14 @@
                   "Property": "month_name"
                 }
               },
-              "queryRef": "dim_month.month_name",
-              "nativeQueryRef": "month_name",
-              "active": true
+              "nativeQueryRef": "month_name"
             }
           ]
         }
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -68,7 +60,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 24,
+    "y": 152,
+    "width": 300,
+    "height": 34,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

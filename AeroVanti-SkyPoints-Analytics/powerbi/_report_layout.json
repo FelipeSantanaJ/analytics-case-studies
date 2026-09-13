@@ -3,9 +3,9 @@
   "canvas_width": 1280,
   "kpi_frame": {
     "x": 16,
-    "y": 120,
+    "y": 148,
     "w": 1248,
-    "h": 116,
+    "h": 146,
     "radius": 18
   },
   "slicers": [
@@ -13,7 +13,7 @@
       "name": "sl-period",
       "field": "dim_month.month_name",
       "x": 24,
-      "y": 126,
+      "y": 152,
       "w": 300,
       "h": 34,
       "title": "Analysis period"
@@ -22,7 +22,7 @@
       "name": "sl-arm",
       "field": "dim_experiment_arm.arm_key",
       "x": 874,
-      "y": 126,
+      "y": 152,
       "w": 200,
       "h": 34,
       "title": "Experiment arm"
@@ -31,7 +31,7 @@
       "name": "sl-stratum",
       "field": "dim_experiment_stratum.stratum",
       "x": 1086,
-      "y": 126,
+      "y": 152,
       "w": 170,
       "h": 34,
       "title": "Tier stratum"
@@ -50,9 +50,9 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -61,9 +61,9 @@
           "delta": "_Measures.Quarterly Redemption Rate vs Target",
           "good": "high",
           "x": 231,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -72,9 +72,9 @@
           "delta": null,
           "good": "high",
           "x": 439,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -83,9 +83,9 @@
           "delta": null,
           "good": "low",
           "x": 646,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -94,9 +94,9 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -105,9 +105,9 @@
           "delta": null,
           "good": "low",
           "x": 1061,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         }
       ],
@@ -116,7 +116,7 @@
           "name": "earn_burn_trend",
           "type": "lineChart",
           "x": 24,
-          "y": 232,
+          "y": 300,
           "w": 714,
           "h": 244,
           "roles": {
@@ -136,7 +136,7 @@
           "name": "exec_insight",
           "type": "card",
           "x": 750,
-          "y": 232,
+          "y": 300,
           "w": 506,
           "h": 244,
           "roles": {
@@ -150,7 +150,7 @@
           "name": "effect_by_tier_exec",
           "type": "clusteredBarChart",
           "x": 24,
-          "y": 496,
+          "y": 558,
           "w": 506,
           "h": 236,
           "roles": {
@@ -165,7 +165,7 @@
           "name": "liability_trend",
           "type": "lineChart",
           "x": 542,
-          "y": 496,
+          "y": 558,
           "w": 714,
           "h": 236,
           "roles": {
@@ -187,7 +187,7 @@
       "key": "02_tiers",
       "name": "02_tiers",
       "display": "Member Tiers & Value",
-      "height": 720,
+      "height": 786,
       "kpis": [
         {
           "title": "Members",
@@ -195,9 +195,9 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -206,9 +206,9 @@
           "delta": null,
           "good": "high",
           "x": 231,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -217,9 +217,9 @@
           "delta": null,
           "good": "high",
           "x": 439,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -228,9 +228,9 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -239,9 +239,9 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -250,9 +250,9 @@
           "delta": null,
           "good": "low",
           "x": 1061,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         }
       ],
@@ -261,7 +261,7 @@
           "name": "members_by_tier",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 236,
+          "y": 300,
           "w": 403,
           "h": 230,
           "roles": {
@@ -280,7 +280,7 @@
           "name": "rev_by_tier",
           "type": "clusteredBarChart",
           "x": 439,
-          "y": 236,
+          "y": 300,
           "w": 403,
           "h": 230,
           "roles": {
@@ -299,7 +299,7 @@
           "name": "issued_by_source",
           "type": "clusteredColumnChart",
           "x": 853,
-          "y": 236,
+          "y": 300,
           "w": 403,
           "h": 230,
           "roles": {
@@ -314,7 +314,7 @@
           "name": "tier_movement",
           "type": "lineChart",
           "x": 24,
-          "y": 480,
+          "y": 544,
           "w": 610,
           "h": 224,
           "roles": {
@@ -334,7 +334,7 @@
           "name": "liability_tiers",
           "type": "lineChart",
           "x": 646,
-          "y": 480,
+          "y": 544,
           "w": 610,
           "h": 224,
           "roles": {
@@ -356,7 +356,7 @@
       "key": "03_experiment",
       "name": "03_experiment",
       "display": "A/B Test Results",
-      "height": 720,
+      "height": 786,
       "kpis": [
         {
           "title": "Subjects",
@@ -364,9 +364,9 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -375,9 +375,9 @@
           "delta": null,
           "good": "high",
           "x": 231,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -386,9 +386,9 @@
           "delta": null,
           "good": "high",
           "x": 439,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -397,9 +397,9 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -408,9 +408,9 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -419,9 +419,9 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         }
       ],
@@ -430,7 +430,7 @@
           "name": "rate_by_arm_tier",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 236,
+          "y": 300,
           "w": 610,
           "h": 232,
           "roles": {
@@ -450,7 +450,7 @@
           "name": "effect_by_tier",
           "type": "clusteredBarChart",
           "x": 646,
-          "y": 236,
+          "y": 300,
           "w": 610,
           "h": 232,
           "roles": {
@@ -469,7 +469,7 @@
           "name": "novelty_curve",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 482,
+          "y": 546,
           "w": 714,
           "h": 224,
           "roles": {
@@ -489,7 +489,7 @@
           "name": "guardrails",
           "type": "tableEx",
           "x": 750,
-          "y": 482,
+          "y": 546,
           "w": 506,
           "h": 224,
           "roles": {
@@ -509,7 +509,7 @@
       "key": "04_funnel",
       "name": "04_funnel",
       "display": "Redemption & Engagement Funnel",
-      "height": 720,
+      "height": 786,
       "kpis": [
         {
           "title": "Ever-Redeemed Share",
@@ -517,9 +517,9 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -528,9 +528,9 @@
           "delta": "_Measures.Quarterly Redemption Rate vs Target",
           "good": "high",
           "x": 231,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -539,9 +539,9 @@
           "delta": null,
           "good": "high",
           "x": 439,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -550,9 +550,9 @@
           "delta": null,
           "good": "low",
           "x": 646,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -561,9 +561,9 @@
           "delta": null,
           "good": "low",
           "x": 853,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         },
         {
@@ -572,9 +572,9 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 132,
+          "y": 190,
           "w": 195,
-          "delta_y": 208,
+          "delta_y": 266,
           "delta_h": 22
         }
       ],
@@ -583,7 +583,7 @@
           "name": "redeem_funnel",
           "type": "funnel",
           "x": 24,
-          "y": 236,
+          "y": 300,
           "w": 506,
           "h": 232,
           "roles": {
@@ -598,7 +598,7 @@
           "name": "redeemed_by_category",
           "type": "clusteredColumnChart",
           "x": 542,
-          "y": 236,
+          "y": 300,
           "w": 714,
           "h": 232,
           "roles": {
@@ -613,7 +613,7 @@
           "name": "redemption_vs_target",
           "type": "lineChart",
           "x": 24,
-          "y": 480,
+          "y": 546,
           "w": 610,
           "h": 224,
           "roles": {
@@ -633,7 +633,7 @@
           "name": "eng_lapse_by_tier",
           "type": "clusteredBarChart",
           "x": 646,
-          "y": 480,
+          "y": 546,
           "w": 610,
           "h": 224,
           "roles": {

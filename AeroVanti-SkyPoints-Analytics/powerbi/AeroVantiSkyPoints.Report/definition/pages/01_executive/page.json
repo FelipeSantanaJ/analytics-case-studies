@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "112cc932046ab13d",
+  "name": "7cff348c468eefb7",
   "displayName": "Executive Summary",
   "displayOption": "FitToPage",
   "height": 860,
@@ -23,7 +23,7 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "bg_01_executive_17883747585116992.png"
+                    "ItemName": "bg_01_executive_17893128459296778.png"
                   }
                 }
               },

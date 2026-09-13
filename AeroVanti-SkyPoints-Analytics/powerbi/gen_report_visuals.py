@@ -21,9 +21,20 @@ GOOD_HIGH, GOOD_LOW = "high", "low"
 W = B.CANVAS_W
 MARGIN = 24
 GUT = 12
-KPI_Y = 132
+# Was KPI_Y=132 with slicers at KPI_Y-6=126 and the frame at KPI_Y-12=120 --
+# both sat on top of the header wallpaper's own subtitle/divider (divider at
+# y=144, see assets/gen_logo.py _page_bg: ty=bh+20=78, divider at ty+66=144),
+# and the slicer row (34px tall) overlapped the top of the KPI cards below it
+# (only a 6px gap). Redesigned as three independent rows: frame -> slicer ->
+# cards, each clearing the one above it.
+FRAME_Y, FRAME_H = 148, 146   # -> frame bottom = 294
+SLICER_Y = 152                # clears the header divider (144) by 8px
+KPI_Y = 190                   # clears the slicer row (152-186) by 4px
 KPI_H = 74
 KPI_DELTA_H = 22
+CONTENT_R1 = 300               # was 232/236 (inconsistent, and 232 overlapped
+                                # the old frame by 4px on the exec page) --
+                                # clears the new frame bottom (294) by 6px
 R2 = 250
 R3 = 500
 MONTH = "dim_month.month_name"
@@ -96,12 +107,12 @@ PAGES = [
          kpi("Engagement Lapse Rate", "Engagement Lapse Rate %", None, GOOD_LOW),
      ]),
      "visuals": [
-         line("earn_burn_trend", 0, 7, 232, 244,
+         line("earn_burn_trend", 0, 7, CONTENT_R1, 244,
               ["SkyPoints Issued", "SkyPoints Redeemed"], "SkyPoints issued vs redeemed by month"),
-         V("exec_insight", "card", 7, 5, 232, 244, {"Values": [M + "Exec Insight"]}, "Read this"),
-         bars("effect_by_tier_exec", 0, 5, 496, 236, STRAT, "Exp Effect by Tier pp",
+         V("exec_insight", "card", 7, 5, CONTENT_R1, 244, {"Values": [M + "Exec Insight"]}, "Read this"),
+         bars("effect_by_tier_exec", 0, 5, 558, 236, STRAT, "Exp Effect by Tier pp",
               "Flash Redemption effect by member tier (pp)"),
-         line("liability_trend", 5, 7, 496, 236,
+         line("liability_trend", 5, 7, 558, 236,
               ["Point Liability BRL", "Point Liability BRL (breakage-adj)"],
               "Point-liability trajectory (BRL)"),
      ]},
@@ -118,15 +129,15 @@ PAGES = [
          kpi("Avg Points Balance", "Avg Points Balance", None, GOOD_LOW),
      ]),
      "visuals": [
-         cols_("members_by_tier", 0, 4, 236, 230, ["Members in Tier"], "Active members by tier",
+         cols_("members_by_tier", 0, 4, CONTENT_R1, 230, ["Members in Tier"], "Active members by tier",
                category=TIER, sort={"by": TIER, "dir": "asc"}),
-         bars("rev_by_tier", 4, 4, 236, 230, TIER, "Revenue per Active Member",
+         bars("rev_by_tier", 4, 4, CONTENT_R1, 230, TIER, "Revenue per Active Member",
               "Flight revenue per member by tier", sort={"by": TIER, "dir": "asc"}),
-         cols_("issued_by_source", 8, 4, 236, 230, ["SkyPoints Issued"],
+         cols_("issued_by_source", 8, 4, CONTENT_R1, 230, ["SkyPoints Issued"],
                "SkyPoints issued by source", category="dim_earn_source.source_name", sort=None),
-         line("tier_movement", 0, 6, 480, 224, ["Tier Upgrades", "Tier Downgrades"],
+         line("tier_movement", 0, 6, 544, 224, ["Tier Upgrades", "Tier Downgrades"],
               "Tier upgrades vs downgrades by month"),
-         line("liability_tiers", 6, 6, 480, 224,
+         line("liability_tiers", 6, 6, 544, 224,
               ["Point Liability BRL", "Point Liability BRL (breakage-adj)"],
               "Point liability, gross vs breakage-adjusted"),
      ]},
@@ -143,15 +154,15 @@ PAGES = [
          kpi("SRM (treat. share)", "Exp SRM Ratio"),
      ]),
      "visuals": [
-         cols_("rate_by_arm_tier", 0, 6, 236, 232, ["Exp Control Rate", "Exp Treatment Rate"],
+         cols_("rate_by_arm_tier", 0, 6, CONTENT_R1, 232, ["Exp Control Rate", "Exp Treatment Rate"],
                "Redemption rate by arm and tier", category=STRAT, sort={"by": STRAT, "dir": "asc"}),
-         bars("effect_by_tier", 6, 6, 236, 232, STRAT, "Exp Effect by Tier pp",
+         bars("effect_by_tier", 6, 6, CONTENT_R1, 232, STRAT, "Exp Effect by Tier pp",
               "Treatment effect by tier (pp) - heterogeneity cut", sort={"by": STRAT, "dir": "asc"}),
-         line("novelty_curve", 0, 7, 482, 224, ["Exp Weekly Redeemers %"],
+         line("novelty_curve", 0, 7, 546, 224, ["Exp Weekly Redeemers %"],
               "Weekly redeemers by arm - novelty-effect check",
               category="fact_experiment_member_week.week", series=ARM,
               sort={"by": "fact_experiment_member_week.week", "dir": "asc"}),
-         V("guardrails", "tableEx", 7, 5, 482, 224,
+         V("guardrails", "tableEx", 7, 5, 546, 224,
            {"Values": ["dim_experiment_arm.arm_key", M + "Exp Revenue per Member",
                        M + "Exp Net Liability Cost per Member", M + "Exp Disengaged 90d %",
                        M + "Exp Redemption Value per Redeemer"]},
@@ -171,16 +182,16 @@ PAGES = [
          kpi("Reactivations", "Reactivations"),
      ]),
      "visuals": [
-         V("redeem_funnel", "funnel", 0, 5, 236, 232,
+         V("redeem_funnel", "funnel", 0, 5, CONTENT_R1, 232,
            {"Category": "Funnel Stage.stage", "Y": [M + "Funnel Value"]},
            "Redemption funnel (members)"),
-         cols_("redeemed_by_category", 5, 7, 236, 232, ["SkyPoints Redeemed"],
+         cols_("redeemed_by_category", 5, 7, CONTENT_R1, 232, ["SkyPoints Redeemed"],
                "SkyPoints redeemed by reward category",
                category="dim_reward_type.reward_category", sort=None),
-         line("redemption_vs_target", 0, 6, 480, 224,
+         line("redemption_vs_target", 0, 6, 546, 224,
               ["Quarterly Redemption Rate %", "Redemption Rate Target"],
               "Quarterly redemption rate vs plan"),
-         bars("eng_lapse_by_tier", 6, 6, 480, 224, TIER, "Engagement Lapse Rate %",
+         bars("eng_lapse_by_tier", 6, 6, 546, 224, TIER, "Engagement Lapse Rate %",
               "Engagement lapse rate by tier", sort={"by": TIER, "dir": "asc"}),
      ]},
 ]
@@ -189,17 +200,17 @@ PAGES = [
 def build():
     slicers = [
         {"name": "sl-period", "field": "dim_month.month_name",
-         "x": MARGIN, "y": KPI_Y - 6, "w": 300, "h": 34, "title": "Analysis period"},
+         "x": MARGIN, "y": SLICER_Y, "w": 300, "h": 34, "title": "Analysis period"},
         {"name": "sl-arm", "field": ARM,
-         "x": W - MARGIN - 170 - GUT - 200, "y": KPI_Y - 6, "w": 200, "h": 34, "title": "Experiment arm"},
+         "x": W - MARGIN - 170 - GUT - 200, "y": SLICER_Y, "w": 200, "h": 34, "title": "Experiment arm"},
         {"name": "sl-stratum", "field": STRAT,
-         "x": W - MARGIN - 170, "y": KPI_Y - 6, "w": 170, "h": 34, "title": "Tier stratum"},
+         "x": W - MARGIN - 170, "y": SLICER_Y, "w": 170, "h": 34, "title": "Tier stratum"},
     ]
     manifest = {
         "report_name": "AeroVantiSkyPoints",
         "canvas_width": W,
-        "kpi_frame": {"x": MARGIN - 8, "y": KPI_Y - 12,
-                      "w": W - 2 * (MARGIN - 8), "h": KPI_H + KPI_DELTA_H + 20, "radius": 18},
+        "kpi_frame": {"x": MARGIN - 8, "y": FRAME_Y,
+                      "w": W - 2 * (MARGIN - 8), "h": FRAME_H, "radius": 18},
         "slicers": slicers,
         "pages": PAGES,
     }

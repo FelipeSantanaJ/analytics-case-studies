@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "effect_by_tier_exec",
-  "position": {
-    "x": 24,
-    "y": 496,
-    "z": 0,
-    "height": 236,
-    "width": 506,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "clusteredBarChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_experiment_stratum.stratum",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "stratum"
                 }
               },
-              "queryRef": "dim_experiment_stratum.stratum",
-              "nativeQueryRef": "stratum",
-              "active": true
+              "nativeQueryRef": "stratum"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Exp Effect by Tier pp",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,7 +36,6 @@
                   "Property": "Exp Effect by Tier pp"
                 }
               },
-              "queryRef": "_Measures.Exp Effect by Tier pp",
               "nativeQueryRef": "Exp Effect by Tier pp"
             }
           ]
@@ -70,6 +60,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -104,7 +96,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 24,
+    "y": 558,
+    "width": 506,
+    "height": 236,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

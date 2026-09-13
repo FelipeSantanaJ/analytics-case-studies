@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-burn--earn-ratio-v",
-  "position": {
-    "x": 439,
-    "y": 132,
-    "z": 0,
-    "height": 70,
-    "width": 195,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "_Measures.Burn Earn Ratio",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -26,7 +18,6 @@
                   "Property": "Burn Earn Ratio"
                 }
               },
-              "queryRef": "_Measures.Burn Earn Ratio",
               "nativeQueryRef": "Burn Earn Ratio"
             }
           ]
@@ -51,6 +42,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -85,7 +78,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 439,
+    "y": 190,
+    "width": 195,
+    "height": 70,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

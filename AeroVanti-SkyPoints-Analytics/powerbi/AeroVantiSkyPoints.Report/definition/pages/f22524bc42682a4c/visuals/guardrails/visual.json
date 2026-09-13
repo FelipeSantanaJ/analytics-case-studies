@@ -1,0 +1,148 @@
+{
+  "name": "guardrails",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "dim_experiment_arm.arm_key",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_experiment_arm"
+                    }
+                  },
+                  "Property": "arm_key"
+                }
+              },
+              "nativeQueryRef": "arm_key"
+            },
+            {
+              "queryRef": "_Measures.Exp Revenue per Member",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Exp Revenue per Member"
+                }
+              },
+              "nativeQueryRef": "Exp Revenue per Member"
+            },
+            {
+              "queryRef": "_Measures.Exp Net Liability Cost per Member",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Exp Net Liability Cost per Member"
+                }
+              },
+              "nativeQueryRef": "Exp Net Liability Cost per Member"
+            },
+            {
+              "queryRef": "_Measures.Exp Disengaged 90d %",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Exp Disengaged 90d %"
+                }
+              },
+              "nativeQueryRef": "Exp Disengaged 90d %"
+            },
+            {
+              "queryRef": "_Measures.Exp Redemption Value per Redeemer",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Exp Redemption Value per Redeemer"
+                }
+              },
+              "nativeQueryRef": "Exp Redemption Value per Redeemer"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Exp Revenue per Member"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Guardrail metrics by arm'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 750,
+    "y": 546,
+    "width": 506,
+    "height": 224,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

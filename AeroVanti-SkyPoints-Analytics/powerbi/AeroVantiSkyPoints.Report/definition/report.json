@@ -2,14 +2,18 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
   "themeCollection": {
     "customTheme": {
-      "name": "AeroVanti_SkyPoints5182934101008911.json",
+      "name": "sqlbi.json",
       "reportVersionAtImport": {
-        "visual": "2.10.0",
-        "report": "3.4.0",
-        "page": "2.3.1"
+        "visual": "1.8.95",
+        "report": "2.0.95",
+        "page": "1.3.95"
       },
       "type": "RegisteredResources"
     }
+  },
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true
   },
   "resourcePackages": [
     {
@@ -17,36 +21,31 @@
       "type": "RegisteredResources",
       "items": [
         {
-          "name": "AeroVanti_SkyPoints5182934101008911.json",
-          "path": "AeroVanti_SkyPoints5182934101008911.json",
+          "name": "sqlbi.json",
+          "path": "sqlbi.json",
           "type": "CustomTheme"
         },
         {
-          "name": "bg_01_executive_17883747585116992.png",
-          "path": "bg_01_executive_17883747585116992.png",
+          "name": "bg_01_executive_17893128459296778.png",
+          "path": "bg_01_executive_17893128459296778.png",
           "type": "Image"
         },
         {
-          "name": "bg_02_tiers_17883747616193704.png",
-          "path": "bg_02_tiers_17883747616193704.png",
+          "name": "bg_02_tiers_17893128480850262.png",
+          "path": "bg_02_tiers_17893128480850262.png",
           "type": "Image"
         },
         {
-          "name": "bg_03_experiment_17883747644161754.png",
-          "path": "bg_03_experiment_17883747644161754.png",
+          "name": "bg_03_experiment_17893128505397864.png",
+          "path": "bg_03_experiment_17893128505397864.png",
           "type": "Image"
         },
         {
-          "name": "bg_04_funnel_17883747676812134.png",
-          "path": "bg_04_funnel_17883747676812134.png",
+          "name": "bg_04_funnel_17893128529162850.png",
+          "path": "bg_04_funnel_17893128529162850.png",
           "type": "Image"
         }
       ]
     }
-  ],
-  "settings": {
-    "useStylableVisualContainerHeader": true,
-    "defaultDrillFilterOtherVisuals": true,
-    "useEnhancedTooltips": false
-  }
+  ]
 }

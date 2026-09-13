@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "liability_trend",
-  "position": {
-    "x": 542,
-    "y": 496,
-    "z": 0,
-    "height": 236,
-    "width": 714,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "lineChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_month.month_name",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "month_name"
                 }
               },
-              "queryRef": "dim_month.month_name",
-              "nativeQueryRef": "month_name",
-              "active": true
+              "nativeQueryRef": "month_name"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Point Liability BRL",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,10 +36,10 @@
                   "Property": "Point Liability BRL"
                 }
               },
-              "queryRef": "_Measures.Point Liability BRL",
               "nativeQueryRef": "Point Liability BRL"
             },
             {
+              "queryRef": "_Measures.Point Liability BRL (breakage-adj)",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -59,7 +50,6 @@
                   "Property": "Point Liability BRL (breakage-adj)"
                 }
               },
-              "queryRef": "_Measures.Point Liability BRL (breakage-adj)",
               "nativeQueryRef": "Point Liability BRL (breakage-adj)"
             }
           ]
@@ -84,6 +74,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -118,53 +110,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "33f9a250a14fba482811",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_month"
-              }
-            },
-            "Property": "month_name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "242f4eed26e3ab461f99",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Point Liability BRL"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "421e818b2d033c5f1c8b",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Point Liability BRL (breakage-adj)"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
-  }
+  "position": {
+    "x": 542,
+    "y": 558,
+    "width": 714,
+    "height": 236,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }
