@@ -24,7 +24,10 @@ GOOD_HIGH, GOOD_LOW = "high", "low"
 W = B.CANVAS_W
 MARGIN = 24
 GUT = 12
-KPI_Y = 138            # top of the KPI value cards
+KPI_Y = 172            # top of the KPI value cards
+                       # (was 138 -> FRAME_Y=128 sat on top of the header wallpaper's
+                       # own subtitle/divider, which ends at y=152; see assets/gen_logo.py
+                       # _page_bg: ty=band_h+22=82, divider at ty+70=152)
 KPI_H = 58             # value-card height
 KPI_DELTA_H = 22       # delta-card height, sits just under the value card
 KPI_GAP = 2            # value -> delta gap
@@ -32,7 +35,8 @@ FRAME_Y = KPI_Y - 10
 FRAME_H = 10 + KPI_H + KPI_GAP + KPI_DELTA_H + 12    # -> frame bottom = FRAME_Y + FRAME_H
 SLICER_Y = FRAME_Y + FRAME_H + 6                     # slicer row lives *below* the KPI frame
 SLICER_H = 28
-CONTENT_Y = 276
+CONTENT_Y = 310        # was 276; shifted +34 to match KPI_Y, keeping the same
+                       # gap to the (now lower) slicer row
 R2 = CONTENT_Y
 R3 = CONTENT_Y + 250 + 16
 
@@ -289,7 +293,8 @@ def build():
     for pg in manifest["pages"]:
         if pg["height"] >= 860:
             continue
-        r2_new, r3_new, rh = CONTENT_Y, 496, 204
+        r2_new, r3_new, rh = CONTENT_Y, 530, 204  # r3_new was 496; +34 to keep the same
+                                                   # 16px gap under the (now lower) r2 row
         for v in pg["visuals"]:
             if v["y"] >= R3:
                 v["y"] = r3_new + (v["y"] - R3)

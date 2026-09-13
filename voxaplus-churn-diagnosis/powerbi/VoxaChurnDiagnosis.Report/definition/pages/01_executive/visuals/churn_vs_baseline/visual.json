@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "churn_vs_baseline",
-  "position": {
-    "x": 24,
-    "y": 276,
-    "z": 0,
-    "height": 250,
-    "width": 714,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "lineChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_date.year_month",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "year_month"
                 }
               },
-              "queryRef": "dim_date.year_month",
-              "nativeQueryRef": "year_month",
-              "active": true
+              "nativeQueryRef": "year_month"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Gross Monthly Churn %",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,10 +36,10 @@
                   "Property": "Gross Monthly Churn %"
                 }
               },
-              "queryRef": "_Measures.Gross Monthly Churn %",
               "nativeQueryRef": "Gross Monthly Churn %"
             },
             {
+              "queryRef": "_Measures.Pre-Shift Baseline Churn %",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -59,7 +50,6 @@
                   "Property": "Pre-Shift Baseline Churn %"
                 }
               },
-              "queryRef": "_Measures.Pre-Shift Baseline Churn %",
               "nativeQueryRef": "Pre-Shift Baseline Churn %"
             }
           ]
@@ -84,6 +74,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -118,13 +110,21 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
+  "position": {
+    "x": 24,
+    "y": 310,
+    "width": 714,
+    "height": 250,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "filterConfig": {
     "filters": [
       {
-        "name": "1f9782139a06d36d3862",
+        "name": "208357a1d1d5cff8d053",
         "field": {
           "Column": {
             "Expression": {
@@ -136,6 +136,7 @@
           }
         },
         "type": "Advanced",
+        "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
@@ -169,57 +170,7 @@
               }
             }
           ]
-        },
-        "howCreated": "User"
-      },
-      {
-        "name": "0a164325135bc52a1b5f",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_date"
-              }
-            },
-            "Property": "year_month"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 2,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "year_month"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "'2025-03'"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
+        }
       }
     ]
   }

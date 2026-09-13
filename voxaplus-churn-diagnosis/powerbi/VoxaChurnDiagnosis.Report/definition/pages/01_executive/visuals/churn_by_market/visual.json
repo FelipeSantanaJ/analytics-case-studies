@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "churn_by_market",
-  "position": {
-    "x": 24,
-    "y": 542,
-    "z": 0,
-    "height": 250,
-    "width": 610,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "clusteredColumnChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_date.year_month",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,33 +18,14 @@
                   "Property": "year_month"
                 }
               },
-              "queryRef": "dim_date.year_month",
-              "nativeQueryRef": "year_month",
-              "active": true
-            }
-          ]
-        },
-        "Series": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "dim_subscriber"
-                    }
-                  },
-                  "Property": "market"
-                }
-              },
-              "queryRef": "dim_subscriber.market",
-              "nativeQueryRef": "market"
+              "nativeQueryRef": "year_month"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Gross Monthly Churn %",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -63,8 +36,25 @@
                   "Property": "Gross Monthly Churn %"
                 }
               },
-              "queryRef": "_Measures.Gross Monthly Churn %",
               "nativeQueryRef": "Gross Monthly Churn %"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "queryRef": "dim_subscriber.market",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_subscriber"
+                    }
+                  },
+                  "Property": "market"
+                }
+              },
+              "nativeQueryRef": "market"
             }
           ]
         }
@@ -88,6 +78,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -122,13 +114,21 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
+  "position": {
+    "x": 24,
+    "y": 576,
+    "width": 610,
+    "height": 250,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "filterConfig": {
     "filters": [
       {
-        "name": "d4c32ca3091ec8ddd24a",
+        "name": "c6bed654eae5a634d3e2",
         "field": {
           "Column": {
             "Expression": {
@@ -140,6 +140,7 @@
           }
         },
         "type": "Advanced",
+        "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
@@ -173,57 +174,7 @@
               }
             }
           ]
-        },
-        "howCreated": "User"
-      },
-      {
-        "name": "eaec80cf3335c567bf64",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_date"
-              }
-            },
-            "Property": "year_month"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 2,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "year_month"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "'2025-03'"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
+        }
       }
     ]
   }

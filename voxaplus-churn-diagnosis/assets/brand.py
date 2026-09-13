@@ -61,8 +61,9 @@ FONT_LIGHT = "Segoe UI Light"
 
 # ---- layout constants (px, 1280-wide canvas) ------------------------
 CANVAS_W = 1280
-PAGE_H_STANDARD = 720
-PAGE_H_EXEC = 900
+PAGE_H_STANDARD = 754  # was 720; +34 so the content rows (shifted down to clear the
+                       # header divider, see gen_report_visuals.py KPI_Y) still fit
+PAGE_H_EXEC = 934      # was 900; same +34 shift
 BAND_H = 60          # header band height
 HAIRLINE_H = 3       # amber rule under the band
 

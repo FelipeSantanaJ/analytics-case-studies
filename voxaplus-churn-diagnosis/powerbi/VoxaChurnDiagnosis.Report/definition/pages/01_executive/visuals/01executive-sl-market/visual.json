@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-sl-market",
-  "position": {
-    "x": 864,
-    "y": 238,
-    "z": 0,
-    "height": 28,
-    "width": 230,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "slicer",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "dim_subscriber.market",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,14 +18,14 @@
                   "Property": "market"
                 }
               },
-              "queryRef": "dim_subscriber.market",
-              "nativeQueryRef": "market",
-              "active": true
+              "nativeQueryRef": "market"
             }
           ]
         }
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -68,7 +60,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
-  }
+    }
+  },
+  "position": {
+    "x": 864,
+    "y": 272,
+    "width": 230,
+    "height": 28,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

@@ -1,0 +1,102 @@
+{
+  "name": "price_history",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "dim_price_history.tier",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "tier"
+                }
+              },
+              "nativeQueryRef": "tier"
+            },
+            {
+              "queryRef": "dim_price_history.market_id",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "market_id"
+                }
+              },
+              "nativeQueryRef": "market_id"
+            },
+            {
+              "queryRef": "dim_price_history.list_price_local",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_price_history"
+                    }
+                  },
+                  "Property": "list_price_local"
+                }
+              },
+              "nativeQueryRef": "list_price_local"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Plan list-price history'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 750,
+    "y": 310,
+    "width": 506,
+    "height": 204,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

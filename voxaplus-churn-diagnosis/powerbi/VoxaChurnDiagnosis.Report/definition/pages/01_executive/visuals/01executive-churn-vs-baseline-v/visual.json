@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "01executive-churn-vs-baseline-v",
-  "position": {
-    "x": 439,
-    "y": 138,
-    "z": 0,
-    "height": 58,
-    "width": 195,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "card",
     "query": {
@@ -16,6 +7,7 @@
         "Values": {
           "projections": [
             {
+              "queryRef": "_Measures.Churn vs Baseline (x) (Latest)",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -26,7 +18,6 @@
                   "Property": "Churn vs Baseline (x) (Latest)"
                 }
               },
-              "queryRef": "_Measures.Churn vs Baseline (x) (Latest)",
               "nativeQueryRef": "Churn vs Baseline (x) (Latest)"
             }
           ]
@@ -51,6 +42,22 @@
         "isDefaultSort": true
       }
     },
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -85,22 +92,15 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true,
-    "objects": {
-      "categoryLabels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ]
     }
-  }
+  },
+  "position": {
+    "x": 439,
+    "y": 172,
+    "width": 195,
+    "height": 58,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
 }

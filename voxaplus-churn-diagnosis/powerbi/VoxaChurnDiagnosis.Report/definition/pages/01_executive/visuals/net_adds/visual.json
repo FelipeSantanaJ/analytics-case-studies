@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "net_adds",
-  "position": {
-    "x": 24,
-    "y": 798,
-    "z": 0,
-    "height": 92,
-    "width": 1232,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "clusteredColumnChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_date.year_month",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "year_month"
                 }
               },
-              "queryRef": "dim_date.year_month",
-              "nativeQueryRef": "year_month",
-              "active": true
+              "nativeQueryRef": "year_month"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Net Adds",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,7 +36,6 @@
                   "Property": "Net Adds"
                 }
               },
-              "queryRef": "_Measures.Net Adds",
               "nativeQueryRef": "Net Adds"
             }
           ]
@@ -70,6 +60,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -104,13 +96,21 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
+  "position": {
+    "x": 24,
+    "y": 832,
+    "width": 1232,
+    "height": 92,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "filterConfig": {
     "filters": [
       {
-        "name": "74020f590088a5bb0a08",
+        "name": "fc10153e86414b827650",
         "field": {
           "Column": {
             "Expression": {
@@ -122,6 +122,7 @@
           }
         },
         "type": "Advanced",
+        "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
@@ -155,57 +156,7 @@
               }
             }
           ]
-        },
-        "howCreated": "User"
-      },
-      {
-        "name": "f08422ec26883e83fd41",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_date"
-              }
-            },
-            "Property": "year_month"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 2,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "year_month"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "'2025-03'"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
+        }
       }
     ]
   }

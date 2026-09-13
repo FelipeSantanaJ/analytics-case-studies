@@ -1,14 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "vol_invol",
-  "position": {
-    "x": 646,
-    "y": 542,
-    "z": 0,
-    "height": 250,
-    "width": 610,
-    "tabOrder": 0
-  },
   "visual": {
     "visualType": "clusteredColumnChart",
     "query": {
@@ -16,6 +7,7 @@
         "Category": {
           "projections": [
             {
+              "queryRef": "dim_date.year_month",
               "field": {
                 "Column": {
                   "Expression": {
@@ -26,15 +18,14 @@
                   "Property": "year_month"
                 }
               },
-              "queryRef": "dim_date.year_month",
-              "nativeQueryRef": "year_month",
-              "active": true
+              "nativeQueryRef": "year_month"
             }
           ]
         },
         "Y": {
           "projections": [
             {
+              "queryRef": "_Measures.Voluntary Churned Subscribers",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -45,10 +36,10 @@
                   "Property": "Voluntary Churned Subscribers"
                 }
               },
-              "queryRef": "_Measures.Voluntary Churned Subscribers",
               "nativeQueryRef": "Voluntary Churned Subscribers"
             },
             {
+              "queryRef": "_Measures.Involuntary Churned Subscribers",
               "field": {
                 "Measure": {
                   "Expression": {
@@ -59,7 +50,6 @@
                   "Property": "Involuntary Churned Subscribers"
                 }
               },
-              "queryRef": "_Measures.Involuntary Churned Subscribers",
               "nativeQueryRef": "Involuntary Churned Subscribers"
             }
           ]
@@ -84,6 +74,8 @@
         "isDefaultSort": true
       }
     },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -118,13 +110,21 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   },
+  "position": {
+    "x": 646,
+    "y": 576,
+    "width": 610,
+    "height": 250,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "filterConfig": {
     "filters": [
       {
-        "name": "d3a1802e40dea2315dd2",
+        "name": "1d1061247c687905b815",
         "field": {
           "Column": {
             "Expression": {
@@ -136,6 +136,7 @@
           }
         },
         "type": "Advanced",
+        "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
@@ -169,57 +170,7 @@
               }
             }
           ]
-        },
-        "howCreated": "User"
-      },
-      {
-        "name": "c2797d0b614ad27cccde",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_date"
-              }
-            },
-            "Property": "year_month"
-          }
-        },
-        "type": "Advanced",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "d",
-              "Entity": "dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "Comparison": {
-                  "ComparisonKind": 2,
-                  "Left": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Source": "d"
-                        }
-                      },
-                      "Property": "year_month"
-                    }
-                  },
-                  "Right": {
-                    "Literal": {
-                      "Value": "'2025-03'"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        "howCreated": "User"
+        }
       }
     ]
   }

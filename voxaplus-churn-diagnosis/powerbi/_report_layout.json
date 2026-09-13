@@ -3,7 +3,7 @@
   "canvas_width": 1280,
   "kpi_frame": {
     "x": 16,
-    "y": 128,
+    "y": 162,
     "w": 1248,
     "h": 104,
     "radius": 20
@@ -13,7 +13,7 @@
       "name": "sl-currency",
       "field": "Reporting Currency.Currency",
       "x": 1106,
-      "y": 238,
+      "y": 272,
       "w": 150,
       "h": 28,
       "title": "Currency"
@@ -22,7 +22,7 @@
       "name": "sl-market",
       "field": "dim_subscriber.market",
       "x": 864,
-      "y": 238,
+      "y": 272,
       "w": 230,
       "h": 28,
       "title": "Market"
@@ -31,7 +31,7 @@
       "name": "sl-period",
       "field": "dim_date.year_month",
       "x": 24,
-      "y": 238,
+      "y": 272,
       "w": 380,
       "h": 28,
       "title": "Analysis period"
@@ -41,7 +41,7 @@
     {
       "key": "01_executive",
       "name": "01_executive",
-      "height": 900,
+      "height": 934,
       "kpis": [
         {
           "title": "Paid Subscribers (EoP)",
@@ -49,10 +49,10 @@
           "delta": "_Measures.Paid Active Subscribers vs Target %",
           "good": "high",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -61,10 +61,10 @@
           "delta": "_Measures.Gross Churn vs Target (pp)",
           "good": "low",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -73,10 +73,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -85,10 +85,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -97,10 +97,10 @@
           "delta": "_Measures.MRR vs Target %",
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -109,10 +109,10 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -121,7 +121,7 @@
           "name": "churn_vs_baseline",
           "type": "lineChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 714,
           "h": 250,
           "roles": {
@@ -141,7 +141,7 @@
           "name": "exec_insight",
           "type": "card",
           "x": 750,
-          "y": 276,
+          "y": 310,
           "w": 506,
           "h": 250,
           "roles": {
@@ -155,7 +155,7 @@
           "name": "churn_by_market",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 542,
+          "y": 576,
           "w": 610,
           "h": 250,
           "roles": {
@@ -175,7 +175,7 @@
           "name": "vol_invol",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 542,
+          "y": 576,
           "w": 610,
           "h": 250,
           "roles": {
@@ -195,7 +195,7 @@
           "name": "net_adds",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 798,
+          "y": 832,
           "w": 1232,
           "h": 92,
           "roles": {
@@ -216,7 +216,7 @@
     {
       "key": "02_retention",
       "name": "02_retention",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "Gross Monthly Churn",
@@ -224,10 +224,10 @@
           "delta": "_Measures.Gross Churn vs Target (pp)",
           "good": "low",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -236,10 +236,10 @@
           "delta": null,
           "good": "low",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -248,10 +248,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -260,10 +260,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -272,10 +272,10 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -284,10 +284,10 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -296,7 +296,7 @@
           "name": "cohort_triangle",
           "type": "pivotTable",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 714,
           "h": 204,
           "roles": {
@@ -312,7 +312,7 @@
           "name": "churn_by_tier",
           "type": "clusteredBarChart",
           "x": 750,
-          "y": 276,
+          "y": 310,
           "w": 506,
           "h": 204,
           "roles": {
@@ -327,7 +327,7 @@
           "name": "churn_by_tenure",
           "type": "lineChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -346,7 +346,7 @@
           "name": "churn_by_channel",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -363,7 +363,7 @@
     {
       "key": "03_engagement",
       "name": "03_engagement",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "Monthly Active Rate",
@@ -371,10 +371,10 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -383,10 +383,10 @@
           "delta": null,
           "good": "high",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -395,10 +395,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -407,10 +407,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -419,10 +419,10 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -431,10 +431,10 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -443,7 +443,7 @@
           "name": "hours_trend",
           "type": "lineChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -462,7 +462,7 @@
           "name": "vsf_by_device",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -482,7 +482,7 @@
           "name": "below_healthy_trend",
           "type": "lineChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -501,7 +501,7 @@
           "name": "hours_by_device",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -518,7 +518,7 @@
     {
       "key": "04_pricing",
       "name": "04_pricing",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "ARPU",
@@ -526,10 +526,10 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -538,10 +538,10 @@
           "delta": null,
           "good": "high",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -550,10 +550,10 @@
           "delta": "_Measures.Gross Churn vs Target (pp)",
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -562,10 +562,10 @@
           "delta": null,
           "good": "low",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -574,10 +574,10 @@
           "delta": "_Measures.MRR vs Target %",
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -586,10 +586,10 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -598,7 +598,7 @@
           "name": "churn_by_tier_time",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 714,
           "h": 204,
           "roles": {
@@ -618,7 +618,7 @@
           "name": "price_history",
           "type": "tableEx",
           "x": 750,
-          "y": 276,
+          "y": 310,
           "w": 506,
           "h": 204,
           "roles": {
@@ -634,7 +634,7 @@
           "name": "arpu_by_market",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -654,7 +654,7 @@
           "name": "churned_by_tier_month",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -676,7 +676,7 @@
     {
       "key": "05_acquisition",
       "name": "05_acquisition",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "New Subscribers",
@@ -684,10 +684,10 @@
           "delta": null,
           "good": "high",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -696,10 +696,10 @@
           "delta": null,
           "good": "low",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -708,10 +708,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -720,10 +720,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -732,10 +732,10 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -744,10 +744,10 @@
           "delta": "_Measures.Blended CAC vs Target %",
           "good": "low",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -756,7 +756,7 @@
           "name": "new_by_channel",
           "type": "stackedColumnChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 714,
           "h": 204,
           "roles": {
@@ -776,7 +776,7 @@
           "name": "m3_by_channel",
           "type": "clusteredBarChart",
           "x": 750,
-          "y": 276,
+          "y": 310,
           "w": 506,
           "h": 204,
           "roles": {
@@ -791,7 +791,7 @@
           "name": "lowq_trend",
           "type": "lineChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -810,7 +810,7 @@
           "name": "lowq_by_market",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -832,7 +832,7 @@
     {
       "key": "06_experience",
       "name": "06_experience",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "Payment Failure Rate",
@@ -840,10 +840,10 @@
           "delta": null,
           "good": "low",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -852,10 +852,10 @@
           "delta": null,
           "good": "high",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -864,10 +864,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -876,10 +876,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -888,10 +888,10 @@
           "delta": null,
           "good": "low",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -900,10 +900,10 @@
           "delta": null,
           "good": "high",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -912,7 +912,7 @@
           "name": "crashfree_by_device",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -932,7 +932,7 @@
           "name": "pay_fail_recovery",
           "type": "lineChart",
           "x": 646,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -952,7 +952,7 @@
           "name": "auth_by_method",
           "type": "clusteredBarChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -967,7 +967,7 @@
           "name": "tickets_by_reason",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 496,
+          "y": 530,
           "w": 610,
           "h": 204,
           "roles": {
@@ -989,7 +989,7 @@
     {
       "key": "07_market",
       "name": "07_market",
-      "height": 720,
+      "height": 754,
       "kpis": [
         {
           "title": "Gross Churn (Total)",
@@ -997,10 +997,10 @@
           "delta": null,
           "good": "low",
           "x": 24,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -1009,10 +1009,10 @@
           "delta": null,
           "good": "low",
           "x": 231,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -1021,10 +1021,10 @@
           "delta": null,
           "good": "low",
           "x": 439,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -1033,10 +1033,10 @@
           "delta": null,
           "good": "high",
           "x": 646,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -1045,10 +1045,10 @@
           "delta": null,
           "good": "high",
           "x": 853,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         },
         {
@@ -1057,10 +1057,10 @@
           "delta": null,
           "good": "low",
           "x": 1061,
-          "y": 138,
+          "y": 172,
           "w": 195,
           "val_h": 58,
-          "delta_y": 198,
+          "delta_y": 232,
           "delta_h": 22
         }
       ],
@@ -1069,7 +1069,7 @@
           "name": "churn_by_market_7",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -1089,7 +1089,7 @@
           "name": "netadds_by_market",
           "type": "clusteredColumnChart",
           "x": 646,
-          "y": 276,
+          "y": 310,
           "w": 610,
           "h": 204,
           "roles": {
@@ -1109,7 +1109,7 @@
           "name": "cb_vs_exp",
           "type": "clusteredColumnChart",
           "x": 24,
-          "y": 496,
+          "y": 530,
           "w": 714,
           "h": 204,
           "roles": {
@@ -1129,7 +1129,7 @@
           "name": "insight_7",
           "type": "card",
           "x": 750,
-          "y": 496,
+          "y": 530,
           "w": 506,
           "h": 204,
           "roles": {

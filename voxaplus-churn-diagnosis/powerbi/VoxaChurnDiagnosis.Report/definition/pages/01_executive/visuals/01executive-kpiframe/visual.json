@@ -17,6 +17,37 @@
               }
             }
           }
+        },
+        {
+          "properties": {
+            "fillColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "shape": [
+        {
+          "properties": {
+            "roundEdge": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -39,7 +70,7 @@
   },
   "position": {
     "x": 16,
-    "y": 128,
+    "y": 162,
     "width": 1248,
     "height": 104,
     "z": 0,

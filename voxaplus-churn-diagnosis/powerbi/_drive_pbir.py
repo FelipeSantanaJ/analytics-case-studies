@@ -178,8 +178,14 @@ def post_pass():
     for pg in LAYOUT["pages"]:
         fr = vpath(pg["name"], f"{_slug(pg['key'])}-kpiframe")
         run("set", f"{fr}.fill.show", "--value", "true", check=False)
-        run("set", f"{fr}.fill.fillColor.color", "--value", "#FFFFFF", check=False)
-        run("set", f"{fr}.roundEdge", "--value", "18", check=False)
+        # fillColor is a direct color property, not an object with a nested
+        # .color -- the old path silently failed every run() (check=False),
+        # leaving the frame with no explicit fill and defaulting to the
+        # theme's first data color (#4B2E83, a violet) instead of white.
+        run("set", f"{fr}.fill.fillColor", "--value", "#FFFFFF", check=False)
+        # roundEdge lives under the shape-specific "shape" object, not at
+        # the visual root -- same silent-failure bug as fillColor above.
+        run("set", f"{fr}.shape.roundEdge", "--value", "18", check=False)
         run("set", f"{fr}.dropShadow.show", "--value", "false", check=False)
     # narrative cards -> wrap the text
     for nm in ("exec_insight", "insight_7"):
