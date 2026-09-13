@@ -34,7 +34,8 @@ SLICER_Y, SLICER_H = 72, 76
 # metric value, then a small green/red "vs Target %" -- so they read as one object.
 ROW_KPI, KPI_TILE_H = 152, 148
 KPI_VAL_DY, KPI_VAL_H = 4, 88
-KPI_DELTA_DY, KPI_DELTA_H = 90, 56
+KPI_DELTA_DY, KPI_DELTA_H = 92, 54  # was 90/56: value card bottom is 4+88=92,
+                                    # so a delta starting at 90 overlapped it by 2px
 # default two-row layout (pages without the insight card) -- standard bodies
 ROW_A, ROW_B, BODY_H = 314, 656, 318
 # executive layout: taller insight band, a wide CM trend, then a 4-up bridge row

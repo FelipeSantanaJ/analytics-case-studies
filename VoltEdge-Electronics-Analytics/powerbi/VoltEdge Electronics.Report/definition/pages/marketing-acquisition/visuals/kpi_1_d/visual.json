@@ -3,10 +3,10 @@
   "name": "kpi_1_d",
   "position": {
     "x": 232,
-    "y": 242,
-    "z": 8000,
-    "height": 56,
+    "y": 244,
     "width": 192,
+    "height": 54,
+    "z": 8000,
     "tabOrder": 4000
   },
   "visual": {
